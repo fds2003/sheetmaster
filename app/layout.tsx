@@ -55,7 +55,7 @@ export default function RootLayout({
                 <Link href="/terms" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
                   Terms of Service
                 </Link>
-                <a href="mailto:support@sheetmaster.top" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+                <a href="mailto:support@getsheetmaster.com" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
                   Contact
                 </a>
               </div>

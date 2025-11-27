@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { FORMULAS } from '@/lib/formulas';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://sheetmaster.top';
+    const baseUrl = 'https://www.getsheetmaster.com';
 
     // Static routes
     const routes = [

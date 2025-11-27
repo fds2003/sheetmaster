@@ -29,7 +29,7 @@ export default function FeedbackWidget() {
                     </div>
 
                     <form
-                        action="https://formsubmit.co/support@sheetmaster.top"
+                        action="https://formsubmit.co/support@getsheetmaster.com"
                         method="POST"
                         className="space-y-3"
                     >

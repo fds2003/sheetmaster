@@ -24,12 +24,10 @@ export default function Home() {
             href={`/formulas/${formula.slug}`}
             className="relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow cursor-pointer group"
           >
-            {/* Category Badge - Top Right */}
-            <div className="absolute top-4 right-4">
-              <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                {formula.category}
-              </span>
-            </div>
+            {/* Category Badge */}
+            <span className="text-xs font-medium px-2 py-1 bg-gray-100 rounded-full w-fit mb-2 inline-block">
+              {formula.category}
+            </span>
 
             {/* Title */}
             <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-2 pr-16">

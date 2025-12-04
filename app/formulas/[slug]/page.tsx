@@ -36,6 +36,9 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
     return (
         <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-8">
             <FormulaBuilder formulaSlug={formula.slug} />
+            {formula.richContent && (
+                <div dangerouslySetInnerHTML={{ __html: formula.richContent }} />
+            )}
             <AffiliateBanner
                 title="Want to become an Excel Pro?"
                 description="Stop searching for formulas. Master Excel in 30 days with this top-rated course."

@@ -19,6 +19,7 @@ export interface FormulaConfig {
     inputs: FormulaInput[];
     // 核心生成逻辑函数
     generate: (params: Record<string, string>) => string;
+    richContent?: string; // HTML content for SEO
 }
 
 export const FORMULAS: FormulaConfig[] = [
@@ -384,5 +385,74 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'logical2', label: 'Condition 2', type: 'text', placeholder: 'e.g., B1<10' },
         ],
         generate: (p) => `=OR(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`
+    },
+
+    // 21. Extract Email
+    {
+        slug: 'extract-email',
+        title: 'Extract Email Address from Text',
+        metaDescription: 'Extract email addresses from text cells using REGEXEXTRACT.',
+        excelFunction: 'REGEXEXTRACT',
+        category: 'Text',
+        description: 'Extracts an email address from a text string.',
+        inputs: [
+            { id: 'target_cell', label: 'Target Cell', type: 'text', placeholder: 'e.g., A2' },
+        ],
+        generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")`,
+        richContent: `<div class='prose mt-10'>
+  <p>Cleaning data in Google Sheets can be messy. If you have a list of raw text strings containing email addresses, you don't need to copy-paste them manually. This tool uses a custom Regular Expression (Regex) to instantly pull emails out of any text.</p>
+  
+  <h3>How this Formula Works</h3>
+  <p>The formula <code>=REGEXEXTRACT(A2, "[...]")</code> scans cell A2 looking for the pattern <code>text</code> + <code>@</code> + <code>domain</code> + <code>.</code> + <code>extension</code>.</p>
+
+  <h3>Alternative Method: Smart Fill</h3>
+  <p>If you don't like formulas, you can try Google Sheets 'Smart Fill'. Type the email manually in the adjacent column for the first two rows, and Google might suggest the rest. However, the Formula method used here is more robust for large datasets.</p>
+
+  <h3>FAQ</h3>
+  <p><strong>Does this work in Excel?</strong><br>No, Excel does not support REGEXEXTRACT natively. For Excel, you need complex combination of LEFT/RIGHT/FIND functions.</p>
+</div>`
+    },
+
+    // 22. Extract Domain
+    {
+        slug: 'extract-domain',
+        title: 'Extract Domain from URL',
+        metaDescription: 'Extract the domain name from a URL.',
+        excelFunction: 'REGEXEXTRACT',
+        category: 'Text',
+        description: 'Extracts the domain part from a URL.',
+        inputs: [
+            { id: 'target_cell', label: 'URL Cell', type: 'text', placeholder: 'e.g., A2' },
+        ],
+        generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "^(?:https?:\\/\\/)?(?:www\\.)?([^\\/]+)")`
+    },
+
+    // 23. Get First Word
+    {
+        slug: 'get-first-word',
+        title: 'Get First Word from Text',
+        metaDescription: 'Extract the first word from a text string.',
+        excelFunction: 'LEFT & FIND',
+        category: 'Text',
+        description: 'Returns the first word in a text string.',
+        inputs: [
+            { id: 'target_cell', label: 'Target Cell', type: 'text', placeholder: 'e.g., A2' },
+        ],
+        generate: (p) => `=LEFT(${p.target_cell || 'A2'}, FIND(" ", ${p.target_cell || 'A2'}) - 1)`
+    },
+
+    // 24. Remove First 3 Characters
+    {
+        slug: 'remove-first-3-chars',
+        title: 'Remove First N Characters',
+        metaDescription: 'Remove the first N characters from a text string.',
+        excelFunction: 'RIGHT & LEN',
+        category: 'Text',
+        description: 'Removes the specified number of characters from the beginning of a text string.',
+        inputs: [
+            { id: 'target_cell', label: 'Target Cell', type: 'text', placeholder: 'e.g., A2' },
+            { id: 'num_chars', label: 'Number of chars to remove', type: 'number', placeholder: 'e.g., 3' },
+        ],
+        generate: (p) => `=RIGHT(${p.target_cell || 'A2'}, LEN(${p.target_cell || 'A2'}) - ${p.num_chars || '3'})`
     },
 ];

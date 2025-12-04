@@ -42,7 +42,7 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
             <AffiliateBanner
                 title="Want to become an Excel Pro?"
                 description="Stop searching for formulas. Master Excel in 30 days with this top-rated course."
-                link="#"
+                link="https://www.udemy.com/topic/excel/"
             />
         </div>
     );

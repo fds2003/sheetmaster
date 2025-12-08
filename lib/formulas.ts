@@ -399,17 +399,22 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'target_cell', label: 'Target Cell', type: 'text', placeholder: 'e.g., A2' },
         ],
         generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")`,
-        richContent: `<div class='prose mt-10'>
-  <p>Cleaning data in Google Sheets can be messy. If you have a list of raw text strings containing email addresses, you don't need to copy-paste them manually. This tool uses a custom Regular Expression (Regex) to instantly pull emails out of any text.</p>
+        richContent: `<div class="prose max-w-none mt-8">
+  <h3>How to Extract Email Addresses in Google Sheets</h3>
+  <p>Cleaning data lists is one of the most common tasks in Google Sheets. If you have a messy column of text containing contact information (like "Contact John at john@example.com for details"), you don't need to manually copy-paste the email addresses.</p>
+  <p>This tool uses the <strong>REGEXEXTRACT</strong> function, which is designed to look for specific patterns within text.</p>
   
-  <h3>How this Formula Works</h3>
-  <p>The formula <code>=REGEXEXTRACT(A2, "[...]")</code> scans cell A2 looking for the pattern <code>text</code> + <code>@</code> + <code>domain</code> + <code>.</code> + <code>extension</code>.</p>
+  <h4>The Formula Explained</h4>
+  <p>The formula <code>=REGEXEXTRACT(A2, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")</code> might look scary, but here is the breakdown:</p>
+  <ul>
+    <li>It scans cell <strong>A2</strong>.</li>
+    <li>It looks for a sequence of characters allowed in an email username.</li>
+    <li>It finds the mandatory <strong>@</strong> symbol.</li>
+    <li>It captures the domain name and the extension (like .com or .org).</li>
+  </ul>
 
-  <h3>Alternative Method: Smart Fill</h3>
-  <p>If you don't like formulas, you can try Google Sheets 'Smart Fill'. Type the email manually in the adjacent column for the first two rows, and Google might suggest the rest. However, the Formula method used here is more robust for large datasets.</p>
-
-  <h3>FAQ</h3>
-  <p><strong>Does this work in Excel?</strong><br>No, Excel does not support REGEXEXTRACT natively. For Excel, you need complex combination of LEFT/RIGHT/FIND functions.</p>
+  <h4>Common Errors (#N/A)</h4>
+  <p>If you see an <strong>#N/A</strong> error, it simply means the cell does not contain a valid email address. You can wrap the formula in IFERROR like this: <code>=IFERROR(REGEXEXTRACT(...), "")</code> to leave it blank instead.</p>
 </div>`
     },
 
@@ -424,7 +429,18 @@ export const FORMULAS: FormulaConfig[] = [
         inputs: [
             { id: 'target_cell', label: 'URL Cell', type: 'text', placeholder: 'e.g., A2' },
         ],
-        generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "^(?:https?:\\/\\/)?(?:www\\.)?([^\\/]+)")`
+        generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "^(?:https?:\\/\\/)?(?:www\\.)?([^\\/]+)")`,
+        richContent: `<div class="prose max-w-none mt-8">
+  <h3>How to Extract Domain from URL</h3>
+  <p>For SEO specialists and marketers, extracting the root domain (e.g., "google.com") from a full URL (e.g., "[https://www.google.com/search?q=](https://www.google.com/search?q=)...") is a daily task.</p>
+  
+  <h4>Why not use LEFT/RIGHT?</h4>
+  <p>Using standard text functions is difficult because URLs vary in length. Some start with HTTP, some with HTTPS, and some have "www".</p>
+  <p>This tool uses a <strong>Regular Expression</strong> to ignore the protocol (http://) and the "www" prefix, capturing only the core domain name immediately following them.</p>
+  
+  <h4>Pro Tip</h4>
+  <p>If you need to extract the full path or specific parameters, consider using the <code>SPLIT</code> function with "/" as the delimiter.</p>
+</div>`
     },
 
     // 23. Get First Word
@@ -438,7 +454,21 @@ export const FORMULAS: FormulaConfig[] = [
         inputs: [
             { id: 'target_cell', label: 'Target Cell', type: 'text', placeholder: 'e.g., A2' },
         ],
-        generate: (p) => `=LEFT(${p.target_cell || 'A2'}, FIND(" ", ${p.target_cell || 'A2'}) - 1)`
+        generate: (p) => `=LEFT(${p.target_cell || 'A2'}, FIND(" ", ${p.target_cell || 'A2'}) - 1)`,
+        richContent: `<div class="prose max-w-none mt-8">
+  <h3>How to Get the First Word from a String</h3>
+  <p>Extracting the first word is often used to get a person's <strong>First Name</strong> from a full name column.</p>
+  
+  <h4>The Logic</h4>
+  <p>We use a combination of <code>LEFT</code> and <code>FIND</code> functions:</p>
+  <ol>
+    <li><strong>FIND(" ", A2)</strong>: This tells us the position number of the first space character.</li>
+    <li><strong>LEFT(A2, Position - 1)</strong>: This extracts everything from the left up to (but not including) that space.</li>
+  </ol>
+  
+  <h4>Edge Case: Single Words</h4>
+  <p>Note: If the cell contains only one word (no spaces), this formula might return an error. You can wrap it in <code>IFERROR</code> to handle single-word cells gracefully.</p>
+</div>`
     },
 
     // 24. Remove First 3 Characters

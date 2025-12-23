@@ -1,6 +1,7 @@
 import { FORMULAS } from '../../../lib/formulas';
 import FormulaBuilder from '../../../components/FormulaBuilder';
 import AffiliateBanner from '../../../components/AffiliateBanner';
+import JsonLd from '../../../components/JsonLd';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
@@ -20,9 +21,17 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         };
     }
 
+    const title = `Free ${formula.title} Generator for Excel & Google Sheets | SheetMaster`;
+    const description = `Quickly generate complex ${formula.title} formulas. Save time on data cleaning and analysis with SheetMaster's AI-ready tools.`;
+
     return {
-        title: `Free ${formula.title} for Excel & Google Sheets | SheetMaster`,
-        description: `Instantly generate ${formula.excelFunction} formulas. ${formula.description}`,
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            type: 'website',
+        },
     };
 }
 
@@ -35,9 +44,10 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
 
     return (
         <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-8">
+            <JsonLd name={formula.title} />
             <FormulaBuilder formulaSlug={formula.slug} />
             {formula.richContent && (
-                <div dangerouslySetInnerHTML={{ __html: formula.richContent }} />
+                <div className="prose prose-slate max-w-none mt-12 pt-12 border-t border-gray-100" dangerouslySetInnerHTML={{ __html: formula.richContent }} />
             )}
             <AffiliateBanner
                 title="Want to become an Excel Pro?"

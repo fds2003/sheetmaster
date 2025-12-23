@@ -14,7 +14,7 @@ export interface FormulaConfig {
     title: string;       // 页面 H1 标题
     metaDescription: string; // SEO Description
     excelFunction: string;   // 核心函数名，如 'VLOOKUP'
-    category: 'Lookup' | 'Math' | 'Text' | 'Logic' | 'Date';
+    category: string;
     description: string; // 简短介绍
     inputs: FormulaInput[];
     // 核心生成逻辑函数
@@ -61,7 +61,37 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'value_if_true', label: 'If True', type: 'text', placeholder: 'e.g., "Pass"' },
             { id: 'value_if_false', label: 'If False', type: 'text', placeholder: 'e.g., "Fail"' },
         ],
-        generate: (p) => `=IF(${p.logical_test || 'condition'}, ${p.value_if_true || 'value_if_true'}, ${p.value_if_false || 'value_if_false'})`
+        generate: (p) => `=IF(${p.logical_test || 'condition'}, ${p.value_if_true || 'value_if_true'}, ${p.value_if_false || 'value_if_false'})`,
+        richContent: `
+<div class="prose max-w-none mt-8">
+  <h2>How to Use the IF Function in Excel and Google Sheets</h2>
+  <p>The <strong>IF function</strong> is one of the most powerful and widely used tools in spreadsheet applications. It allows you to create logical comparisons between a value and what you expect. In its simplest form, the IF function says: "IF something is true, do something; otherwise, do something else."</p>
+  
+  <h3>Basic Syntax of IF</h3>
+  <p>The syntax for the IF function is: <code>=IF(logical_test, value_if_true, [value_if_false])</code>.</p>
+  <ul>
+    <li><strong>logical_test</strong>: The condition you want to check (e.g., A1 > 10).</li>
+    <li><strong>value_if_true</strong>: The value that is returned if the condition is met.</li>
+    <li><strong>value_if_false</strong>: The value returned if the condition is not met.</li>
+  </ul>
+
+  <h3>Common Errors to Watch Out For</h3>
+  <p>When working with the IF function, you might encounter some common pitfalls:</p>
+  <ol>
+    <li><strong>Missing Quotes</strong>: If you want to return text, it must be enclosed in double quotes (e.g., "Pass").</li>
+    <li><strong>Incorrect Logical Operators</strong>: Ensure you are using the right symbols: <code>&gt;</code>, <code>&lt;</code>, <code>=</code>, <code>&gt;=</code>, <code>&lt;=</code>, or <code>&lt;&gt;</code> (not equal).</li>
+    <li><strong>#NAME? Error</strong>: This often happens if you've misspelled the function name or forgotten quotes around a text string.</li>
+  </ol>
+
+  <h3>Mastering Nested IF Examples</h3>
+  <p>Sometimes you need to test more than one condition. This is where <strong>Nested IFs</strong> come in. You can place one IF function inside another to handle multiple outcomes.</p>
+  <p>For example, to grade a score in cell A1:</p>
+  <pre><code>=IF(A1>=90, "A", IF(A1>=80, "B", IF(A1>=70, "C", "F")))</code></pre>
+  <p>In this example, the formula checks for 90 first, then 80, then 70, before defaulting to "F". While powerful, try to keep nested IFs simple to avoid confusion, or consider using the <code>IFS</code> function in newer versions of Excel and Google Sheets.</p>
+  
+  <h3>Why Use SheetMaster's IF Generator?</h3>
+  <p>Building complex logical statements manually can be prone to syntax errors, especially with parentheses. Our generator handles the formatting for you, ensuring your formula works perfectly the first time you paste it into your sheet. Save time and reduce frustration by letting our AI-ready tools handle the heavy lifting of data analysis.</p>
+</div>`
     },
 
     // 3. SUMIF
@@ -399,7 +429,7 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'target_cell', label: 'Target Cell', type: 'text', placeholder: 'e.g., A2' },
         ],
         generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")`,
-        richContent: `<div class="prose max-w-none mt-8">
+        richContent: `
   <h3>How to Extract Email Addresses in Google Sheets</h3>
   <p>Cleaning data lists is one of the most common tasks in Google Sheets. If you have a messy column of text containing contact information (like "Contact John at john@example.com for details"), you don't need to manually copy-paste the email addresses.</p>
   <p>This tool uses the <strong>REGEXEXTRACT</strong> function, which is designed to look for specific patterns within text.</p>
@@ -415,7 +445,7 @@ export const FORMULAS: FormulaConfig[] = [
 
   <h4>Common Errors (#N/A)</h4>
   <p>If you see an <strong>#N/A</strong> error, it simply means the cell does not contain a valid email address. You can wrap the formula in IFERROR like this: <code>=IFERROR(REGEXEXTRACT(...), "")</code> to leave it blank instead.</p>
-</div>`
+`
     },
 
     // 22. Extract Domain
@@ -430,7 +460,7 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'target_cell', label: 'URL Cell', type: 'text', placeholder: 'e.g., A2' },
         ],
         generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "^(?:https?:\\/\\/)?(?:www\\.)?([^\\/]+)")`,
-        richContent: `<div class="prose max-w-none mt-8">
+        richContent: `
   <h3>How to Extract Domain from URL</h3>
   <p>For SEO specialists and marketers, extracting the root domain (e.g., "google.com") from a full URL (e.g., "[https://www.google.com/search?q=](https://www.google.com/search?q=)...") is a daily task.</p>
   
@@ -440,7 +470,7 @@ export const FORMULAS: FormulaConfig[] = [
   
   <h4>Pro Tip</h4>
   <p>If you need to extract the full path or specific parameters, consider using the <code>SPLIT</code> function with "/" as the delimiter.</p>
-</div>`
+`
     },
 
     // 23. Get First Word
@@ -455,7 +485,7 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'target_cell', label: 'Target Cell', type: 'text', placeholder: 'e.g., A2' },
         ],
         generate: (p) => `=LEFT(${p.target_cell || 'A2'}, FIND(" ", ${p.target_cell || 'A2'}) - 1)`,
-        richContent: `<div class="prose max-w-none mt-8">
+        richContent: `
   <h3>How to Get the First Word from a String</h3>
   <p>Extracting the first word is often used to get a person's <strong>First Name</strong> from a full name column.</p>
   
@@ -468,7 +498,7 @@ export const FORMULAS: FormulaConfig[] = [
   
   <h4>Edge Case: Single Words</h4>
   <p>Note: If the cell contains only one word (no spaces), this formula might return an error. You can wrap it in <code>IFERROR</code> to handle single-word cells gracefully.</p>
-</div>`
+`
     },
 
     // 24. Remove First 3 Characters

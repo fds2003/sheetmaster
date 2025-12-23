@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -9,9 +9,17 @@ import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "SheetMaster - Excel & Google Sheets Formula Generators",
   description: "Free tools to generate complex Excel and Google Sheets formulas instantly.",
+  alternates: {
+    canonical: "https://getsheetmaster.com",
+  },
 };
 
 export default function RootLayout({

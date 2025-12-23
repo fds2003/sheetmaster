@@ -25,7 +25,7 @@ export interface FormulaConfig {
 export const FORMULAS: FormulaConfig[] = [
     // 1. VLOOKUP
     {
-        slug: 'vlookup-generator',
+        slug: 'vlookup',
         title: 'Free VLOOKUP Formula Generator',
         metaDescription: 'Instantly generate VLOOKUP formulas for Excel and Google Sheets without memorizing syntax.',
         excelFunction: 'VLOOKUP',
@@ -67,7 +67,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 2. IF
     {
-        slug: 'if-generator',
+        slug: 'if',
         title: 'Free IF Formula Generator',
         metaDescription: 'Create complex IF statements for Excel and Google Sheets easily.',
         excelFunction: 'IF',
@@ -113,7 +113,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 3. SUMIF
     {
-        slug: 'sumif-generator',
+        slug: 'sumif',
         title: 'Free SUMIF Formula Generator',
         metaDescription: 'Generate SUMIF formulas to sum cells based on specific criteria.',
         excelFunction: 'SUMIF',
@@ -134,7 +134,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 4. COUNTIF
     {
-        slug: 'countif-generator',
+        slug: 'countif',
         title: 'Free COUNTIF Formula Generator',
         metaDescription: 'Count cells that meet a specific criterion with this free tool.',
         excelFunction: 'COUNTIF',
@@ -149,7 +149,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 5. CONCATENATE
     {
-        slug: 'concatenate-generator',
+        slug: 'concatenate',
         title: 'Free CONCATENATE Formula Generator',
         metaDescription: 'Join multiple text strings into one text string.',
         excelFunction: 'CONCATENATE',
@@ -178,7 +178,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 6. INDEX/MATCH
     {
-        slug: 'index-match-generator',
+        slug: 'index-match',
         title: 'Free INDEX & MATCH Generator',
         metaDescription: 'Generate the powerful INDEX MATCH formula combination for advanced lookups.',
         excelFunction: 'INDEX/MATCH',
@@ -210,7 +210,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 7. XLOOKUP
     {
-        slug: 'xlookup-generator',
+        slug: 'xlookup',
         title: 'Free XLOOKUP Formula Generator',
         metaDescription: 'Generate XLOOKUP formulas, the modern replacement for VLOOKUP.',
         excelFunction: 'XLOOKUP',
@@ -251,7 +251,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 8. TRIM
     {
-        slug: 'trim-generator',
+        slug: 'trim',
         title: 'Free TRIM Formula Generator',
         metaDescription: 'Remove extra spaces from text with the TRIM function.',
         excelFunction: 'TRIM',
@@ -265,7 +265,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 9. UPPER
     {
-        slug: 'upper-generator',
+        slug: 'upper',
         title: 'Free UPPER Formula Generator',
         metaDescription: 'Convert text to uppercase.',
         excelFunction: 'UPPER',
@@ -279,7 +279,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 10. LOWER
     {
-        slug: 'lower-generator',
+        slug: 'lower',
         title: 'Free LOWER Formula Generator',
         metaDescription: 'Convert text to lowercase.',
         excelFunction: 'LOWER',
@@ -293,7 +293,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 11. PROPER
     {
-        slug: 'proper-generator',
+        slug: 'proper',
         title: 'Free PROPER Formula Generator',
         metaDescription: 'Capitalize the first letter of each word.',
         excelFunction: 'PROPER',
@@ -307,7 +307,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 12. LEFT
     {
-        slug: 'left-generator',
+        slug: 'left',
         title: 'Free LEFT Formula Generator',
         metaDescription: 'Extract characters from the left side of a text string.',
         excelFunction: 'LEFT',
@@ -322,7 +322,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 13. RIGHT
     {
-        slug: 'right-generator',
+        slug: 'right',
         title: 'Free RIGHT Formula Generator',
         metaDescription: 'Extract characters from the right side of a text string.',
         excelFunction: 'RIGHT',
@@ -337,7 +337,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 14. DATEDIF
     {
-        slug: 'datedif-generator',
+        slug: 'datedif',
         title: 'Free DATEDIF Formula Generator',
         metaDescription: 'Calculate the difference between two dates.',
         excelFunction: 'DATEDIF',
@@ -362,7 +362,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 15. NOW
     {
-        slug: 'now-generator',
+        slug: 'now',
         title: 'Free NOW Formula Generator',
         metaDescription: 'Get the current date and time.',
         excelFunction: 'NOW',
@@ -374,7 +374,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 16. TODAY
     {
-        slug: 'today-generator',
+        slug: 'today',
         title: 'Free TODAY Formula Generator',
         metaDescription: 'Get the current date.',
         excelFunction: 'TODAY',
@@ -386,7 +386,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 17. NETWORKDAYS
     {
-        slug: 'networkdays-generator',
+        slug: 'networkdays',
         title: 'Free NETWORKDAYS Formula Generator',
         metaDescription: 'Calculate the number of working days between two dates.',
         excelFunction: 'NETWORKDAYS',
@@ -406,7 +406,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 18. PMT
     {
-        slug: 'pmt-generator',
+        slug: 'pmt',
         title: 'Free PMT Formula Generator',
         metaDescription: 'Calculate loan payments with the PMT function.',
         excelFunction: 'PMT',
@@ -422,7 +422,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 19. AND
     {
-        slug: 'and-generator',
+        slug: 'and',
         title: 'Free AND Formula Generator',
         metaDescription: 'Check if all arguments are TRUE.',
         excelFunction: 'AND',
@@ -437,7 +437,7 @@ export const FORMULAS: FormulaConfig[] = [
 
     // 20. OR
     {
-        slug: 'or-generator',
+        slug: 'or',
         title: 'Free OR Formula Generator',
         metaDescription: 'Check if any argument is TRUE.',
         excelFunction: 'OR',

@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         };
     }
 
-    const title = `Free ${formula.title} Generator for Excel & Google Sheets | SheetMaster`;
-    const description = `Quickly generate complex ${formula.title} formulas. Save time on data cleaning and analysis with SheetMaster's AI-ready tools.`;
+    const title = `Free ${formula.title} Formula Generator | AI Excel & Google Sheets Tool`;
+    const description = `Transform your data with our ${formula.excelFunction} generator. Quickly build complex formulas for Excel and Google Sheets. AI-powered and built for productivity.`;
 
     return {
         title,

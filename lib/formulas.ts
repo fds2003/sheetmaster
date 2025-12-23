@@ -430,22 +430,19 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")`,
         richContent: `
-  <h3>How to Extract Email Addresses in Google Sheets</h3>
-  <p>Cleaning data lists is one of the most common tasks in Google Sheets. If you have a messy column of text containing contact information (like "Contact John at john@example.com for details"), you don't need to manually copy-paste the email addresses.</p>
-  <p>This tool uses the <strong>REGEXEXTRACT</strong> function, which is designed to look for specific patterns within text.</p>
-  
-  <h4>The Formula Explained</h4>
-  <p>The formula <code>=REGEXEXTRACT(A2, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")</code> might look scary, but here is the breakdown:</p>
-  <ul>
-    <li>It scans cell <strong>A2</strong>.</li>
-    <li>It looks for a sequence of characters allowed in an email username.</li>
-    <li>It finds the mandatory <strong>@</strong> symbol.</li>
-    <li>It captures the domain name and the extension (like .com or .org).</li>
-  </ul>
-
-  <h4>Common Errors (#N/A)</h4>
-  <p>If you see an <strong>#N/A</strong> error, it simply means the cell does not contain a valid email address. You can wrap the formula in IFERROR like this: <code>=IFERROR(REGEXEXTRACT(...), "")</code> to leave it blank instead.</p>
-`
+       <h2 class="text-2xl font-bold mb-4">How to Extract Email from Text in Google Sheets</h2>
+       <p class="mb-4">Cleaning messy data is one of the most time-consuming tasks in spreadsheet management. If you have a column of raw text, such as CRM exports or scraped web data, our <strong>AI-powered Email Extractor</strong> generates the exact REGEXEXTRACT formula you need to automate this process.</p>
+       
+       <h3 class="text-xl font-semibold mb-2">Understanding the Formula Logic</h3>
+       <p class="mb-4">The core of this tool relies on <strong>Regular Expressions (Regex)</strong>. The standard formula follows this pattern: <br/><code class="bg-gray-100 p-1 rounded font-mono text-sm">=REGEXEXTRACT(A2, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")</code></p>
+       
+       <h3 class="text-xl font-semibold mb-2">Alternative: Excel vs Google Sheets</h3>
+       <p class="mb-4">While Google Sheets natively supports REGEX, Excel traditionally requires complex combinations of LEFT, MID, and FIND. This generator ensures you get the most compatible string for your platform.</p>
+       
+       <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
+         <p class="text-sm text-blue-800 italic"><strong>Pro Tip:</strong> To extract multiple emails from a single cell, you might need a custom Apps Script or a combination of TEXTJOIN and REGEXREPLACE.</p>
+       </div>
+     `
     },
 
     // 22. Extract Domain

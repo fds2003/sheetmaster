@@ -1,3 +1,11 @@
+# SheetMaster
+
+**Product Hunt Preparation**
+- **Headline:** Build Complex Excel Formulas in Seconds
+- **Description:** Transform plain English into perfect Excel & Google Sheets formulas. AI-powered, 100% free, and built for ultimate productivity.
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

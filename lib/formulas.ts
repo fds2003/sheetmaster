@@ -45,7 +45,24 @@ export const FORMULAS: FormulaConfig[] = [
                 ]
             },
         ],
-        generate: (p) => `=VLOOKUP(${p.lookup_value || 'lookup_value'}, ${p.table_array || 'table_array'}, ${p.col_index || 'col_index'}, ${p.range_lookup || 'FALSE'})`
+        generate: (p) => `=VLOOKUP(${p.lookup_value || 'lookup_value'}, ${p.table_array || 'table_array'}, ${p.col_index || 'col_index'}, ${p.range_lookup || 'FALSE'})`,
+        richContent: `
+   <div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
+     <h2 class="text-2xl font-bold mb-4">Mastering VLOOKUP: The Ultimate Guide</h2>
+     <p class="mb-4">The <strong>VLOOKUP</strong> (Vertical Lookup) function is the backbone of data merging in Excel and Google Sheets. Whether you are reconciling invoices or searching for employee IDs, understanding how to structure this formula is essential.</p>
+     
+     <h3 class="text-xl font-semibold mb-2">Common Pitfalls to Avoid</h3>
+     <ul class="list-disc pl-5 mb-4">
+       <li><strong>The Left-to-Right Rule:</strong> Remember that VLOOKUP can only look for a value in the leftmost column of your range.</li>
+       <li><strong>Approximate vs. Exact Match:</strong> Always use <code>FALSE</code> or <code>0</code> as the last argument if you need an exact match, otherwise, you might get incorrect data.</li>
+       <li><strong>Static Column Index:</strong> If you insert a new column in your data range, VLOOKUP might break because the column index number doesn't update automatically.</li>
+     </ul>
+     
+     <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 mt-6">
+       <p class="text-sm text-yellow-800"><strong>Pro Tip:</strong> If your lookup value is not in the first column, consider using <strong>INDEX & MATCH</strong> or the newer <strong>XLOOKUP</strong> function.</p>
+     </div>
+   </div>
+   `
     },
 
     // 2. IF
@@ -213,7 +230,23 @@ export const FORMULAS: FormulaConfig[] = [
             ];
             if (p.if_not_found) args.push(p.if_not_found);
             return `=XLOOKUP(${args.join(', ')})`;
-        }
+        },
+        richContent: `
+   <div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
+     <h2 class="text-2xl font-bold mb-4">Why XLOOKUP is the Modern Replacement for VLOOKUP</h2>
+     <p class="mb-4">Introduced to solve the limitations of older functions, <strong>XLOOKUP</strong> is more powerful, flexible, and easier to use. It works in any direction (left, right, up, down) and defaults to an exact match.</p>
+     
+     <h3 class="text-xl font-semibold mb-2">Key Advantages of XLOOKUP</h3>
+     <ul class="list-disc pl-5 mb-4">
+       <li><strong>No More Column Counting:</strong> You select the lookup array and the return array separately.</li>
+       <li><strong>Horizontal Lookups:</strong> XLOOKUP replaces both VLOOKUP and HLOOKUP.</li>
+       <li><strong>Built-in Error Handling:</strong> You can define what to display (e.g., "Not Found") directly within the formula if a match isn't found.</li>
+     </ul>
+     
+     <h3 class="text-xl font-semibold mb-2">Formula Syntax Example</h3>
+     <p class="mb-4"><code class="bg-gray-100 p-1 rounded font-mono text-sm">=XLOOKUP(search_value, lookup_array, return_array, [if_not_found])</code></p>
+   </div>
+   `
     },
 
     // 8. TRIM

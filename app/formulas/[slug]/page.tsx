@@ -2,6 +2,7 @@ import { FORMULAS } from '../../../lib/formulas';
 import FormulaBuilder from '../../../components/FormulaBuilder';
 import AffiliateBanner from '../../../components/AffiliateBanner';
 import JsonLd from '../../../components/JsonLd';
+import Breadcrumbs, { BreadcrumbJsonLd } from '../../../components/Breadcrumbs';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
@@ -21,16 +22,37 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         };
     }
 
-    const title = `Free ${formula.title} Formula Generator | AI Excel & Google Sheets Tool`;
-    const description = `Transform your data with our ${formula.excelFunction} generator. Quickly build complex formulas for Excel and Google Sheets. AI-powered and built for productivity.`;
+    const title = `Free ${formula.excelFunction} Formula Generator | Excel & Google Sheets`;
+    const description = `Generate ${formula.excelFunction} formulas instantly for Excel and Google Sheets. ${formula.description.slice(0, 100)}`;
+    const url = `https://getsheetmaster.com/formulas/${params.slug}`;
+    const ogImageUrl = `/api/og?title=${encodeURIComponent(formula.excelFunction + ' Formula Generator')}&description=${encodeURIComponent('Generate ' + formula.excelFunction + ' formulas for Excel & Google Sheets')}`;
 
     return {
         title,
         description,
+        alternates: {
+            canonical: url,
+        },
         openGraph: {
             title,
             description,
+            url,
             type: 'website',
+            siteName: 'SheetMaster',
+            images: [
+                {
+                    url: ogImageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: `${formula.excelFunction} Formula Generator - SheetMaster`,
+                },
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${formula.excelFunction} Formula Generator`,
+            description: `Generate ${formula.excelFunction} formulas for Excel & Google Sheets instantly.`,
+            images: [ogImageUrl],
         },
     };
 }
@@ -42,9 +64,16 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
         notFound();
     }
 
+    const breadcrumbItems = [
+        { name: 'Formulas', href: '/' },
+        { name: formula.excelFunction },
+    ];
+
     return (
         <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-8">
             <JsonLd name={formula.title} />
+            <BreadcrumbJsonLd items={breadcrumbItems} />
+            <Breadcrumbs items={breadcrumbItems} />
             <FormulaBuilder formulaSlug={formula.slug} />
             {formula.richContent && (
                 <div className="prose prose-slate max-w-none mt-12 pt-12 border-t border-gray-100" dangerouslySetInnerHTML={{ __html: formula.richContent }} />

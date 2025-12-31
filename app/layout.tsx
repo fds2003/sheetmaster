@@ -15,10 +15,52 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "SheetMaster - Excel & Google Sheets Formula Generators",
-  description: "Free tools to generate complex Excel and Google Sheets formulas instantly.",
+  metadataBase: new URL("https://getsheetmaster.com"),
+  title: {
+    default: "SheetMaster - Free Excel & Google Sheets Formula Generators",
+    template: "%s | SheetMaster",
+  },
+  description: "Free tools to generate complex Excel and Google Sheets formulas instantly. Master VLOOKUP, IF, SUMIF, and more with our AI-powered generators.",
+  keywords: [
+    "Excel formula generator",
+    "Google Sheets formulas",
+    "VLOOKUP generator",
+    "IF statement generator",
+    "SUMIF formula",
+    "spreadsheet formulas",
+    "Excel functions",
+    "Google Sheets functions",
+  ],
+  authors: [{ name: "SheetMaster" }],
+  creator: "SheetMaster",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://getsheetmaster.com",
+    siteName: "SheetMaster",
+    title: "SheetMaster - Free Excel & Google Sheets Formula Generators",
+    description: "Generate complex Excel and Google Sheets formulas instantly. AI-powered tools for VLOOKUP, IF, SUMIF, and more.",
+    images: [
+      {
+        url: "/api/og?title=SheetMaster&description=Free%20Excel%20%26%20Google%20Sheets%20Formula%20Generators",
+        width: 1200,
+        height: 630,
+        alt: "SheetMaster - Excel & Google Sheets Formula Generators",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SheetMaster - Free Excel & Google Sheets Formula Generators",
+    description: "Generate complex Excel and Google Sheets formulas instantly. AI-powered tools for productivity.",
+    images: ["/api/og?title=SheetMaster&description=Free%20Excel%20%26%20Google%20Sheets%20Formula%20Generators"],
+  },
   alternates: {
     canonical: "https://getsheetmaster.com",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

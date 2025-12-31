@@ -2,6 +2,50 @@ import Link from 'next/link';
 import { FORMULAS } from '../lib/formulas';
 import { ArrowRight } from 'lucide-react';
 import AdUnit from '../components/AdUnit';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
+  description: 'Generate Excel and Google Sheets formulas instantly. Master VLOOKUP, IF statements, SUMIF, INDEX MATCH, and 20+ more formulas with our free AI-powered generator tools.',
+  keywords: [
+    'Excel formula generator',
+    'Google Sheets formulas',
+    'VLOOKUP generator',
+    'IF statement generator',
+    'SUMIF formula builder',
+    'INDEX MATCH generator',
+    'spreadsheet formulas',
+    'Excel functions',
+    'Google Sheets functions',
+    'free Excel tools',
+    'formula helper',
+    'Excel tutorial',
+  ],
+  openGraph: {
+    title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
+    description: 'Generate complex Excel and Google Sheets formulas instantly. Master VLOOKUP, IF, SUMIF, and 20+ more formulas.',
+    url: 'https://getsheetmaster.com',
+    type: 'website',
+    siteName: 'SheetMaster',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'SheetMaster - Excel & Google Sheets Formula Generators',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
+    description: 'Generate Excel and Google Sheets formulas instantly. Free AI-powered tools.',
+    images: ['/og-image.png'],
+  },
+  alternates: {
+    canonical: 'https://getsheetmaster.com',
+  },
+};
 
 export default function Home() {
   return (

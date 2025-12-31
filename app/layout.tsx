@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Link from "next/link";
-import { Github } from "lucide-react";
 import FeedbackWidget from "@/components/FeedbackWidget";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -77,16 +76,6 @@ export default function RootLayout({
             <Link href="/" className="text-xl font-bold text-gray-900 hover:text-green-600 transition-colors">
               SheetMaster
             </Link>
-            <div className="flex items-center gap-4">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-gray-900 transition-colors"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-            </div>
           </div>
         </nav>
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pt-24">

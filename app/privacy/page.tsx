@@ -1,3 +1,20 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Privacy Policy',
+    description: 'Privacy Policy for SheetMaster - Learn how we collect, use, and protect your personal information.',
+    alternates: {
+        canonical: 'https://getsheetmaster.com/privacy',
+    },
+    openGraph: {
+        title: 'Privacy Policy | SheetMaster',
+        description: 'Privacy Policy for SheetMaster - Learn how we collect, use, and protect your personal information.',
+        url: 'https://getsheetmaster.com/privacy',
+        type: 'website',
+        siteName: 'SheetMaster',
+    },
+};
+
 export default function PrivacyPage() {
     return (
         <div className="max-w-4xl mx-auto">

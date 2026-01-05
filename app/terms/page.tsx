@@ -1,3 +1,20 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Terms of Service',
+    description: 'Terms of Service for SheetMaster - Free Excel and Google Sheets formula generators.',
+    alternates: {
+        canonical: 'https://getsheetmaster.com/terms',
+    },
+    openGraph: {
+        title: 'Terms of Service | SheetMaster',
+        description: 'Terms of Service for SheetMaster - Free Excel and Google Sheets formula generators.',
+        url: 'https://getsheetmaster.com/terms',
+        type: 'website',
+        siteName: 'SheetMaster',
+    },
+};
+
 export default function TermsPage() {
     return (
         <div className="max-w-4xl mx-auto">

@@ -4,12 +4,12 @@ export const metadata: Metadata = {
     title: 'Terms of Service',
     description: 'Terms of Service for SheetMaster - Free Excel and Google Sheets formula generators.',
     alternates: {
-        canonical: 'https://getsheetmaster.com/terms',
+        canonical: 'https://www.getsheetmaster.com/terms',
     },
     openGraph: {
         title: 'Terms of Service | SheetMaster',
         description: 'Terms of Service for SheetMaster - Free Excel and Google Sheets formula generators.',
-        url: 'https://getsheetmaster.com/terms',
+        url: 'https://www.getsheetmaster.com/terms',
         type: 'website',
         siteName: 'SheetMaster',
     },

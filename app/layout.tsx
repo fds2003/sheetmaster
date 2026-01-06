@@ -14,7 +14,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://getsheetmaster.com"),
+  metadataBase: new URL("https://www.getsheetmaster.com"),
   title: {
     default: "SheetMaster - Free Excel & Google Sheets Formula Generators",
     template: "%s | SheetMaster",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://getsheetmaster.com",
+    url: "https://www.getsheetmaster.com",
     siteName: "SheetMaster",
     title: "SheetMaster - Free Excel & Google Sheets Formula Generators",
     description: "Generate complex Excel and Google Sheets formulas instantly. AI-powered tools for VLOOKUP, IF, SUMIF, and more.",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     images: ["/api/og?title=SheetMaster&description=Free%20Excel%20%26%20Google%20Sheets%20Formula%20Generators"],
   },
   alternates: {
-    canonical: "https://getsheetmaster.com",
+    canonical: "https://www.getsheetmaster.com",
   },
   robots: {
     index: true,

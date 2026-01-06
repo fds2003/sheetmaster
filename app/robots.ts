@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: '*',
             allow: '/',
         },
-        sitemap: 'https://getsheetmaster.com/sitemap.xml',
+        sitemap: 'https://www.getsheetmaster.com/sitemap.xml',
     };
 }

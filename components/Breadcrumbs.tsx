@@ -52,7 +52,7 @@ interface BreadcrumbJsonLdProps {
 }
 
 export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
-  const baseUrl = 'https://getsheetmaster.com';
+  const baseUrl = 'https://www.getsheetmaster.com';
   
   const itemListElement = [
     {
@@ -82,4 +82,5 @@ export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
     />
   );
 }
+
 

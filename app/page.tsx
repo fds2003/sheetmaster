@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
     description: 'Generate complex Excel and Google Sheets formulas instantly. Master VLOOKUP, IF, SUMIF, and 20+ more formulas.',
-    url: 'https://getsheetmaster.com',
+    url: 'https://www.getsheetmaster.com',
     type: 'website',
     siteName: 'SheetMaster',
     images: [
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
   },
   alternates: {
-    canonical: 'https://getsheetmaster.com',
+    canonical: 'https://www.getsheetmaster.com',
   },
 };
 

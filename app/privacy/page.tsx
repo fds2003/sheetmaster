@@ -4,12 +4,12 @@ export const metadata: Metadata = {
     title: 'Privacy Policy',
     description: 'Privacy Policy for SheetMaster - Learn how we collect, use, and protect your personal information.',
     alternates: {
-        canonical: 'https://getsheetmaster.com/privacy',
+        canonical: 'https://www.getsheetmaster.com/privacy',
     },
     openGraph: {
         title: 'Privacy Policy | SheetMaster',
         description: 'Privacy Policy for SheetMaster - Learn how we collect, use, and protect your personal information.',
-        url: 'https://getsheetmaster.com/privacy',
+        url: 'https://www.getsheetmaster.com/privacy',
         type: 'website',
         siteName: 'SheetMaster',
     },

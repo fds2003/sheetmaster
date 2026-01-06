@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     const title = `Free ${formula.excelFunction} Formula Generator | Excel & Google Sheets`;
     const description = `Generate ${formula.excelFunction} formulas instantly for Excel and Google Sheets. ${formula.description.slice(0, 100)}`;
-    const url = `https://getsheetmaster.com/formulas/${params.slug}`;
+    const url = `https://www.getsheetmaster.com/formulas/${params.slug}`;
     const ogImageUrl = `/api/og?title=${encodeURIComponent(formula.excelFunction + ' Formula Generator')}&description=${encodeURIComponent('Generate ' + formula.excelFunction + ' formulas for Excel & Google Sheets')}`;
 
     return {

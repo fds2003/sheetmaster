@@ -545,4 +545,446 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=RIGHT(${p.target_cell || 'A2'}, LEN(${p.target_cell || 'A2'}) - ${p.num_chars || '3'})`
     },
+
+    // 25. SUMIFS - Multiple Criteria Sum
+    {
+        slug: 'sumifs',
+        title: 'Free SUMIFS Formula Generator',
+        metaDescription: 'Generate SUMIFS formulas to sum cells based on multiple criteria in Excel and Google Sheets.',
+        excelFunction: 'SUMIFS',
+        category: 'Math',
+        description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
+        inputs: [
+            { id: 'sum_range', label: 'Sum Range', type: 'range', placeholder: 'e.g., C1:C100' },
+            { id: 'criteria_range1', label: 'Criteria Range 1', type: 'range', placeholder: 'e.g., A1:A100' },
+            { id: 'criteria1', label: 'Criteria 1', type: 'text', placeholder: 'e.g., "Sales"' },
+            { id: 'criteria_range2', label: 'Criteria Range 2', type: 'range', placeholder: 'e.g., B1:B100' },
+            { id: 'criteria2', label: 'Criteria 2', type: 'text', placeholder: 'e.g., ">1000"' },
+        ],
+        generate: (p) => `=SUMIFS(${p.sum_range || 'sum_range'}, ${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`,
+        richContent: `
+<div class="prose max-w-none mt-8">
+  <h2>Master SUMIFS: Sum with Multiple Conditions</h2>
+  <p>The <strong>SUMIFS function</strong> is an enhanced version of SUMIF that allows you to apply multiple criteria. It's essential for financial analysis, sales reports, and data aggregation.</p>
+  
+  <h3>SUMIFS vs SUMIF</h3>
+  <table class="min-w-full border-collapse border border-gray-300 my-4">
+    <tr class="bg-gray-100"><th class="border border-gray-300 p-2">Feature</th><th class="border border-gray-300 p-2">SUMIF</th><th class="border border-gray-300 p-2">SUMIFS</th></tr>
+    <tr><td class="border border-gray-300 p-2">Criteria</td><td class="border border-gray-300 p-2">Single</td><td class="border border-gray-300 p-2">Multiple</td></tr>
+    <tr><td class="border border-gray-300 p-2">Syntax Order</td><td class="border border-gray-300 p-2">Range, Criteria, Sum Range</td><td class="border border-gray-300 p-2">Sum Range first, then Criteria pairs</td></tr>
+  </table>
+
+  <h3>Common Use Cases</h3>
+  <ul>
+    <li>Sum sales by region AND product category</li>
+    <li>Calculate total expenses by date range AND department</li>
+    <li>Aggregate data with multiple filters</li>
+  </ul>
+</div>`
+    },
+
+    // 26. COUNTIFS - Multiple Criteria Count
+    {
+        slug: 'countifs',
+        title: 'Free COUNTIFS Formula Generator',
+        metaDescription: 'Generate COUNTIFS formulas to count cells based on multiple criteria.',
+        excelFunction: 'COUNTIFS',
+        category: 'Math',
+        description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
+        inputs: [
+            { id: 'criteria_range1', label: 'Criteria Range 1', type: 'range', placeholder: 'e.g., A1:A100' },
+            { id: 'criteria1', label: 'Criteria 1', type: 'text', placeholder: 'e.g., "Completed"' },
+            { id: 'criteria_range2', label: 'Criteria Range 2', type: 'range', placeholder: 'e.g., B1:B100' },
+            { id: 'criteria2', label: 'Criteria 2', type: 'text', placeholder: 'e.g., ">500"' },
+        ],
+        generate: (p) => `=COUNTIFS(${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`
+    },
+
+    // 27. AVERAGEIF - Conditional Average
+    {
+        slug: 'averageif',
+        title: 'Free AVERAGEIF Formula Generator',
+        metaDescription: 'Calculate the average of cells that meet a specific criterion.',
+        excelFunction: 'AVERAGEIF',
+        category: 'Math',
+        description: 'Returns the average of all cells in a range that meet a given criteria.',
+        inputs: [
+            { id: 'range', label: 'Range to Check', type: 'range', placeholder: 'e.g., A1:A100' },
+            { id: 'criteria', label: 'Criteria', type: 'text', placeholder: 'e.g., ">0" or "Sales"' },
+            { id: 'average_range', label: 'Average Range (Optional)', type: 'range', placeholder: 'e.g., B1:B100' },
+        ],
+        generate: (p) => {
+            const args = [p.range || 'range', p.criteria || 'criteria'];
+            if (p.average_range) args.push(p.average_range);
+            return `=AVERAGEIF(${args.join(', ')})`;
+        }
+    },
+
+    // 28. IFERROR - Error Handling
+    {
+        slug: 'iferror',
+        title: 'Free IFERROR Formula Generator',
+        metaDescription: 'Handle errors gracefully in Excel and Google Sheets with IFERROR.',
+        excelFunction: 'IFERROR',
+        category: 'Logic',
+        description: 'Returns a value you specify if a formula evaluates to an error; otherwise returns the result of the formula.',
+        inputs: [
+            { id: 'value', label: 'Formula to Check', type: 'text', placeholder: 'e.g., A1/B1' },
+            { id: 'value_if_error', label: 'Value if Error', type: 'text', placeholder: 'e.g., 0 or "N/A"' },
+        ],
+        generate: (p) => `=IFERROR(${p.value || 'value'}, ${p.value_if_error || '""'})`,
+        richContent: `
+<div class="prose max-w-none mt-8">
+  <h2>IFERROR: The Essential Error Handler</h2>
+  <p><strong>IFERROR</strong> is one of the most important functions for creating robust spreadsheets. It catches errors like #DIV/0!, #N/A, #VALUE!, and #REF! and replaces them with a clean value.</p>
+  
+  <h3>Common Use Cases</h3>
+  <ul>
+    <li><strong>VLOOKUP with IFERROR:</strong> <code>=IFERROR(VLOOKUP(A1, B:C, 2, FALSE), "Not Found")</code></li>
+    <li><strong>Division protection:</strong> <code>=IFERROR(A1/B1, 0)</code></li>
+    <li><strong>Clean reports:</strong> Replace ugly error messages with blank cells or custom text</li>
+  </ul>
+  
+  <div class="bg-green-50 p-4 rounded-lg border border-green-100 mt-4">
+    <p class="text-sm text-green-800"><strong>Pro Tip:</strong> Wrap any lookup or division formula in IFERROR to create professional, error-free reports.</p>
+  </div>
+</div>`
+    },
+
+    // 29. IFS - Multiple Conditions
+    {
+        slug: 'ifs',
+        title: 'Free IFS Formula Generator',
+        metaDescription: 'Generate IFS formulas for multiple conditions without nested IFs.',
+        excelFunction: 'IFS',
+        category: 'Logic',
+        description: 'Checks multiple conditions and returns a value corresponding to the first TRUE condition. Cleaner than nested IFs.',
+        inputs: [
+            { id: 'condition1', label: 'Condition 1', type: 'text', placeholder: 'e.g., A1>=90' },
+            { id: 'value1', label: 'Value if True 1', type: 'text', placeholder: 'e.g., "A"' },
+            { id: 'condition2', label: 'Condition 2', type: 'text', placeholder: 'e.g., A1>=80' },
+            { id: 'value2', label: 'Value if True 2', type: 'text', placeholder: 'e.g., "B"' },
+            { id: 'condition3', label: 'Condition 3', type: 'text', placeholder: 'e.g., A1>=70' },
+            { id: 'value3', label: 'Value if True 3', type: 'text', placeholder: 'e.g., "C"' },
+        ],
+        generate: (p) => `=IFS(${p.condition1 || 'condition1'}, ${p.value1 || 'value1'}, ${p.condition2 || 'condition2'}, ${p.value2 || 'value2'}, ${p.condition3 || 'condition3'}, ${p.value3 || 'value3'})`
+    },
+
+    // 30. SUBSTITUTE - Text Replacement
+    {
+        slug: 'substitute',
+        title: 'Free SUBSTITUTE Formula Generator',
+        metaDescription: 'Replace text within a string using the SUBSTITUTE function.',
+        excelFunction: 'SUBSTITUTE',
+        category: 'Text',
+        description: 'Substitutes new text for old text in a text string. Great for data cleaning.',
+        inputs: [
+            { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
+            { id: 'old_text', label: 'Old Text', type: 'text', placeholder: 'e.g., "-"' },
+            { id: 'new_text', label: 'New Text', type: 'text', placeholder: 'e.g., "/"' },
+        ],
+        generate: (p) => `=SUBSTITUTE(${p.text || 'text'}, ${p.old_text || '"old"'}, ${p.new_text || '"new"'})`
+    },
+
+    // 31. MID - Extract Middle Text
+    {
+        slug: 'mid',
+        title: 'Free MID Formula Generator',
+        metaDescription: 'Extract characters from the middle of a text string.',
+        excelFunction: 'MID',
+        category: 'Text',
+        description: 'Returns a specific number of characters from a text string, starting at the position you specify.',
+        inputs: [
+            { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
+            { id: 'start_num', label: 'Start Position', type: 'number', placeholder: 'e.g., 3' },
+            { id: 'num_chars', label: 'Number of Characters', type: 'number', placeholder: 'e.g., 5' },
+        ],
+        generate: (p) => `=MID(${p.text || 'text'}, ${p.start_num || '1'}, ${p.num_chars || '1'})`
+    },
+
+    // 32. LEN - Text Length
+    {
+        slug: 'len',
+        title: 'Free LEN Formula Generator',
+        metaDescription: 'Count the number of characters in a text string.',
+        excelFunction: 'LEN',
+        category: 'Text',
+        description: 'Returns the number of characters in a text string.',
+        inputs: [
+            { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
+        ],
+        generate: (p) => `=LEN(${p.text || 'text'})`
+    },
+
+    // 33. FIND - Find Text Position
+    {
+        slug: 'find',
+        title: 'Free FIND Formula Generator',
+        metaDescription: 'Find the position of a character or text within a string.',
+        excelFunction: 'FIND',
+        category: 'Text',
+        description: 'Returns the starting position of one text string within another (case-sensitive).',
+        inputs: [
+            { id: 'find_text', label: 'Text to Find', type: 'text', placeholder: 'e.g., "@"' },
+            { id: 'within_text', label: 'Within Text', type: 'text', placeholder: 'e.g., A1' },
+        ],
+        generate: (p) => `=FIND(${p.find_text || '"@"'}, ${p.within_text || 'text'})`
+    },
+
+    // 34. SEARCH - Search Text Position
+    {
+        slug: 'search',
+        title: 'Free SEARCH Formula Generator',
+        metaDescription: 'Search for text within a string (case-insensitive).',
+        excelFunction: 'SEARCH',
+        category: 'Text',
+        description: 'Returns the position of a text string within another (case-insensitive). Supports wildcards.',
+        inputs: [
+            { id: 'find_text', label: 'Text to Find', type: 'text', placeholder: 'e.g., "error"' },
+            { id: 'within_text', label: 'Within Text', type: 'text', placeholder: 'e.g., A1' },
+        ],
+        generate: (p) => `=SEARCH(${p.find_text || '"text"'}, ${p.within_text || 'text'})`
+    },
+
+    // 35. TEXT - Format Numbers as Text
+    {
+        slug: 'text',
+        title: 'Free TEXT Formula Generator',
+        metaDescription: 'Format numbers as text with custom number formats.',
+        excelFunction: 'TEXT',
+        category: 'Text',
+        description: 'Converts a value to text in a specific number format.',
+        inputs: [
+            { id: 'value', label: 'Value', type: 'text', placeholder: 'e.g., A1' },
+            {
+                id: 'format',
+                label: 'Format',
+                type: 'select',
+                options: [
+                    { label: 'Number (1,234.56)', value: '"#,##0.00"' },
+                    { label: 'Currency ($1,234)', value: '"$#,##0"' },
+                    { label: 'Percentage (12.5%)', value: '"0.0%"' },
+                    { label: 'Date (YYYY-MM-DD)', value: '"YYYY-MM-DD"' },
+                    { label: 'Date (MM/DD/YYYY)', value: '"MM/DD/YYYY"' },
+                    { label: 'Time (HH:MM:SS)', value: '"HH:MM:SS"' },
+                ]
+            },
+        ],
+        generate: (p) => `=TEXT(${p.value || 'value'}, ${p.format || '"#,##0"'})`
+    },
+
+    // 36. ROUND - Round Numbers
+    {
+        slug: 'round',
+        title: 'Free ROUND Formula Generator',
+        metaDescription: 'Round numbers to a specified number of decimal places.',
+        excelFunction: 'ROUND',
+        category: 'Math',
+        description: 'Rounds a number to a specified number of digits.',
+        inputs: [
+            { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
+            { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 2' },
+        ],
+        generate: (p) => `=ROUND(${p.number || 'number'}, ${p.num_digits || '0'})`
+    },
+
+    // 37. ROUNDUP - Round Up
+    {
+        slug: 'roundup',
+        title: 'Free ROUNDUP Formula Generator',
+        metaDescription: 'Round numbers up, away from zero.',
+        excelFunction: 'ROUNDUP',
+        category: 'Math',
+        description: 'Rounds a number up, away from zero.',
+        inputs: [
+            { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
+            { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 0' },
+        ],
+        generate: (p) => `=ROUNDUP(${p.number || 'number'}, ${p.num_digits || '0'})`
+    },
+
+    // 38. ROUNDDOWN - Round Down
+    {
+        slug: 'rounddown',
+        title: 'Free ROUNDDOWN Formula Generator',
+        metaDescription: 'Round numbers down, toward zero.',
+        excelFunction: 'ROUNDDOWN',
+        category: 'Math',
+        description: 'Rounds a number down, toward zero.',
+        inputs: [
+            { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
+            { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 0' },
+        ],
+        generate: (p) => `=ROUNDDOWN(${p.number || 'number'}, ${p.num_digits || '0'})`
+    },
+
+    // 39. ABS - Absolute Value
+    {
+        slug: 'abs',
+        title: 'Free ABS Formula Generator',
+        metaDescription: 'Get the absolute value of a number.',
+        excelFunction: 'ABS',
+        category: 'Math',
+        description: 'Returns the absolute value of a number (removes the negative sign).',
+        inputs: [
+            { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
+        ],
+        generate: (p) => `=ABS(${p.number || 'number'})`
+    },
+
+    // 40. MAX - Maximum Value
+    {
+        slug: 'max',
+        title: 'Free MAX Formula Generator',
+        metaDescription: 'Find the largest value in a range of cells.',
+        excelFunction: 'MAX',
+        category: 'Math',
+        description: 'Returns the largest value in a set of values.',
+        inputs: [
+            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
+        ],
+        generate: (p) => `=MAX(${p.range || 'range'})`
+    },
+
+    // 41. MIN - Minimum Value
+    {
+        slug: 'min',
+        title: 'Free MIN Formula Generator',
+        metaDescription: 'Find the smallest value in a range of cells.',
+        excelFunction: 'MIN',
+        category: 'Math',
+        description: 'Returns the smallest value in a set of values.',
+        inputs: [
+            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
+        ],
+        generate: (p) => `=MIN(${p.range || 'range'})`
+    },
+
+    // 42. AVERAGE - Average Value
+    {
+        slug: 'average',
+        title: 'Free AVERAGE Formula Generator',
+        metaDescription: 'Calculate the average of a range of numbers.',
+        excelFunction: 'AVERAGE',
+        category: 'Math',
+        description: 'Returns the average (arithmetic mean) of the arguments.',
+        inputs: [
+            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
+        ],
+        generate: (p) => `=AVERAGE(${p.range || 'range'})`
+    },
+
+    // 43. SUM - Sum Values
+    {
+        slug: 'sum',
+        title: 'Free SUM Formula Generator',
+        metaDescription: 'Add up all numbers in a range of cells.',
+        excelFunction: 'SUM',
+        category: 'Math',
+        description: 'Adds all the numbers in a range of cells.',
+        inputs: [
+            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
+        ],
+        generate: (p) => `=SUM(${p.range || 'range'})`
+    },
+
+    // 44. YEAR - Extract Year
+    {
+        slug: 'year',
+        title: 'Free YEAR Formula Generator',
+        metaDescription: 'Extract the year from a date.',
+        excelFunction: 'YEAR',
+        category: 'Date',
+        description: 'Returns the year of a date, an integer in the range 1900-9999.',
+        inputs: [
+            { id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' },
+        ],
+        generate: (p) => `=YEAR(${p.date || 'date'})`
+    },
+
+    // 45. MONTH - Extract Month
+    {
+        slug: 'month',
+        title: 'Free MONTH Formula Generator',
+        metaDescription: 'Extract the month from a date.',
+        excelFunction: 'MONTH',
+        category: 'Date',
+        description: 'Returns the month of a date, a number from 1 (January) to 12 (December).',
+        inputs: [
+            { id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' },
+        ],
+        generate: (p) => `=MONTH(${p.date || 'date'})`
+    },
+
+    // 46. DAY - Extract Day
+    {
+        slug: 'day',
+        title: 'Free DAY Formula Generator',
+        metaDescription: 'Extract the day from a date.',
+        excelFunction: 'DAY',
+        category: 'Date',
+        description: 'Returns the day of a date, a number from 1 to 31.',
+        inputs: [
+            { id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' },
+        ],
+        generate: (p) => `=DAY(${p.date || 'date'})`
+    },
+
+    // 47. EDATE - Add Months to Date
+    {
+        slug: 'edate',
+        title: 'Free EDATE Formula Generator',
+        metaDescription: 'Add or subtract months from a date.',
+        excelFunction: 'EDATE',
+        category: 'Date',
+        description: 'Returns a date that is a specified number of months before or after a given date.',
+        inputs: [
+            { id: 'start_date', label: 'Start Date', type: 'text', placeholder: 'e.g., A1' },
+            { id: 'months', label: 'Months to Add', type: 'number', placeholder: 'e.g., 3 or -6' },
+        ],
+        generate: (p) => `=EDATE(${p.start_date || 'start_date'}, ${p.months || '1'})`
+    },
+
+    // 48. EOMONTH - End of Month
+    {
+        slug: 'eomonth',
+        title: 'Free EOMONTH Formula Generator',
+        metaDescription: 'Get the last day of a month, with optional month offset.',
+        excelFunction: 'EOMONTH',
+        category: 'Date',
+        description: 'Returns the last day of the month a specified number of months before or after a date.',
+        inputs: [
+            { id: 'start_date', label: 'Start Date', type: 'text', placeholder: 'e.g., A1' },
+            { id: 'months', label: 'Month Offset', type: 'number', placeholder: 'e.g., 0 for current month' },
+        ],
+        generate: (p) => `=EOMONTH(${p.start_date || 'start_date'}, ${p.months || '0'})`
+    },
+
+    // 49. COUNTA - Count Non-Empty Cells
+    {
+        slug: 'counta',
+        title: 'Free COUNTA Formula Generator',
+        metaDescription: 'Count the number of non-empty cells in a range.',
+        excelFunction: 'COUNTA',
+        category: 'Math',
+        description: 'Counts the number of cells that are not empty in a range.',
+        inputs: [
+            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
+        ],
+        generate: (p) => `=COUNTA(${p.range || 'range'})`
+    },
+
+    // 50. COUNTBLANK - Count Empty Cells
+    {
+        slug: 'countblank',
+        title: 'Free COUNTBLANK Formula Generator',
+        metaDescription: 'Count the number of empty cells in a range.',
+        excelFunction: 'COUNTBLANK',
+        category: 'Math',
+        description: 'Counts the number of empty cells in a specified range.',
+        inputs: [
+            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
+        ],
+        generate: (p) => `=COUNTBLANK(${p.range || 'range'})`
+    },
 ];

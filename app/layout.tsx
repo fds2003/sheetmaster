@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Link from "next/link";
-import Script from "next/script";
 import FeedbackWidget from "@/components/FeedbackWidget";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -72,10 +71,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script
+        <script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="3o5w9cs2gv8DjY2Et/UkCw"
-          strategy="afterInteractive"
+          async
         />
       </head>
       <body className={`${inter.className} bg-white`}>

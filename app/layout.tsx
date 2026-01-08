@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Link from "next/link";
+import Script from "next/script";
 import FeedbackWidget from "@/components/FeedbackWidget";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -70,6 +71,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="3o5w9cs2gv8DjY2Et/UkCw"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`${inter.className} bg-white`}>
         <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">

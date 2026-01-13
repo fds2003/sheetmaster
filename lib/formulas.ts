@@ -1,25 +1,86 @@
 export type FormulaInputType = 'text' | 'number' | 'range' | 'boolean' | 'select';
 
 export interface FormulaInput {
-    id: string;          // 参数变量名
-    label: string;       // 前端显示的标签 (English)
-    placeholder?: string; // 占位符提示
+    id: string;
+    label: string;
+    placeholder?: string;
     type: FormulaInputType;
-    options?: { label: string; value: string }[]; // 仅当 type 为 select 时使用
-    tooltip?: string;    // 鼠标悬停解释
+    options?: { label: string; value: string }[];
+    tooltip?: string;
 }
 
 export interface FormulaConfig {
-    slug: string;        // URL 路径，如 'vlookup-generator'
-    title: string;       // 页面 H1 标题
-    metaDescription: string; // SEO Description
-    excelFunction: string;   // 核心函数名，如 'VLOOKUP'
+    slug: string;
+    title: string;
+    metaDescription: string;
+    excelFunction: string;
     category: string;
-    description: string; // 简短介绍
+    description: string;
     inputs: FormulaInput[];
-    // 核心生成逻辑函数
     generate: (params: Record<string, string>) => string;
-    richContent?: string; // HTML content for SEO
+    richContent?: string;
+}
+
+function createSimpleFormula(
+    slug: string,
+    excelFunction: string,
+    category: string,
+    description: string,
+    inputs: FormulaInput[],
+    generateFn: (params: Record<string, string>) => string,
+    metaDescription?: string
+): FormulaConfig {
+    return {
+        slug,
+        title: `Free ${excelFunction} Formula Generator`,
+        metaDescription: metaDescription || `Generate ${excelFunction} formulas for Excel and Google Sheets.`,
+        excelFunction,
+        category,
+        description,
+        inputs,
+        generate: generateFn,
+    };
+}
+
+function createSingleParamFormula(
+    slug: string,
+    excelFunction: string,
+    category: string,
+    description: string,
+    paramName: string,
+    paramLabel: string,
+    paramType: FormulaInputType,
+    metaDescription?: string
+): FormulaConfig {
+    const input = { id: paramName, label: paramLabel, type: paramType, placeholder: 'e.g., A1' };
+    return createSimpleFormula(
+        slug,
+        excelFunction,
+        category,
+        description,
+        [input],
+        (p: Record<string, string>) => `=${excelFunction}(${p[paramName] || paramName})`,
+        metaDescription
+    );
+}
+
+function createTwoParamFormula(
+    slug: string,
+    excelFunction: string,
+    category: string,
+    description: string,
+    params: Array<{ id: string; label: string; type: FormulaInputType; placeholder: string }>,
+    metaDescription?: string
+): FormulaConfig {
+    return createSimpleFormula(
+        slug,
+        excelFunction,
+        category,
+        description,
+        params,
+        (p: Record<string, string>) => `=${excelFunction}(${params.map(param => p[param.id] || param.id).join(', ')})`,
+        metaDescription
+    );
 }
 
 export const FORMULAS: FormulaConfig[] = [
@@ -250,90 +311,42 @@ export const FORMULAS: FormulaConfig[] = [
     },
 
     // 8. TRIM
-    {
-        slug: 'trim',
-        title: 'Free TRIM Formula Generator',
-        metaDescription: 'Remove extra spaces from text with the TRIM function.',
-        excelFunction: 'TRIM',
-        category: 'Text',
-        description: 'Removes all spaces from text except for single spaces between words.',
-        inputs: [
-            { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=TRIM(${p.text || 'text'})`
-    },
+    createSingleParamFormula('trim', 'TRIM', 'Text', 'Removes all spaces from text except for single spaces between words.', 'text', 'Text', 'text', 'Remove extra spaces from text with the TRIM function.'),
 
     // 9. UPPER
-    {
-        slug: 'upper',
-        title: 'Free UPPER Formula Generator',
-        metaDescription: 'Convert text to uppercase.',
-        excelFunction: 'UPPER',
-        category: 'Text',
-        description: 'Converts text to uppercase.',
-        inputs: [
-            { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=UPPER(${p.text || 'text'})`
-    },
+    createSingleParamFormula('upper', 'UPPER', 'Text', 'Converts text to uppercase.', 'text', 'Text', 'text', 'Convert text to uppercase.'),
 
     // 10. LOWER
-    {
-        slug: 'lower',
-        title: 'Free LOWER Formula Generator',
-        metaDescription: 'Convert text to lowercase.',
-        excelFunction: 'LOWER',
-        category: 'Text',
-        description: 'Converts all uppercase letters in a text string to lowercase.',
-        inputs: [
-            { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=LOWER(${p.text || 'text'})`
-    },
+    createSingleParamFormula('lower', 'LOWER', 'Text', 'Converts all uppercase letters in a text string to lowercase.', 'text', 'Text', 'text', 'Convert text to lowercase.'),
 
     // 11. PROPER
-    {
-        slug: 'proper',
-        title: 'Free PROPER Formula Generator',
-        metaDescription: 'Capitalize the first letter of each word.',
-        excelFunction: 'PROPER',
-        category: 'Text',
-        description: 'Capitalizes the first letter in each word of a text value.',
-        inputs: [
-            { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=PROPER(${p.text || 'text'})`
-    },
+    createSingleParamFormula('proper', 'PROPER', 'Text', 'Capitalizes the first letter in each word of a text value.', 'text', 'Text', 'text', 'Capitalize the first letter of each word.'),
 
     // 12. LEFT
-    {
-        slug: 'left',
-        title: 'Free LEFT Formula Generator',
-        metaDescription: 'Extract characters from the left side of a text string.',
-        excelFunction: 'LEFT',
-        category: 'Text',
-        description: 'Returns the first character or characters in a text string, based on the number of characters you specify.',
-        inputs: [
+    createSimpleFormula(
+        'left',
+        'LEFT',
+        'Text',
+        'Returns the first character or characters in a text string, based on the number of characters you specify.',
+        [
             { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_chars', label: 'Number of Characters', type: 'number', placeholder: 'e.g., 5' },
         ],
-        generate: (p) => `=LEFT(${p.text || 'text'}, ${p.num_chars || '1'})`
-    },
+        (p) => `=LEFT(${p.text || 'text'}, ${p.num_chars || '1'})`
+    ),
 
     // 13. RIGHT
-    {
-        slug: 'right',
-        title: 'Free RIGHT Formula Generator',
-        metaDescription: 'Extract characters from the right side of a text string.',
-        excelFunction: 'RIGHT',
-        category: 'Text',
-        description: 'Returns the last character or characters in a text string, based on the number of characters you specify.',
-        inputs: [
+    createSimpleFormula(
+        'right',
+        'RIGHT',
+        'Text',
+        'Returns the last character or characters in a text string, based on the number of characters you specify.',
+        [
             { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_chars', label: 'Number of Characters', type: 'number', placeholder: 'e.g., 5' },
         ],
-        generate: (p) => `=RIGHT(${p.text || 'text'}, ${p.num_chars || '1'})`
-    },
+        (p) => `=RIGHT(${p.text || 'text'}, ${p.num_chars || '1'})`
+    ),
 
     // 14. DATEDIF
     {
@@ -361,28 +374,24 @@ export const FORMULAS: FormulaConfig[] = [
     },
 
     // 15. NOW
-    {
-        slug: 'now',
-        title: 'Free NOW Formula Generator',
-        metaDescription: 'Get the current date and time.',
-        excelFunction: 'NOW',
-        category: 'Date',
-        description: 'Returns the serial number of the current date and time.',
-        inputs: [],
-        generate: () => `=NOW()`
-    },
+    createSimpleFormula(
+        'now',
+        'NOW',
+        'Date',
+        'Returns the serial number of the current date and time.',
+        [],
+        () => `=NOW()`
+    ),
 
     // 16. TODAY
-    {
-        slug: 'today',
-        title: 'Free TODAY Formula Generator',
-        metaDescription: 'Get the current date.',
-        excelFunction: 'TODAY',
-        category: 'Date',
-        description: 'Returns the serial number of the current date.',
-        inputs: [],
-        generate: () => `=TODAY()`
-    },
+    createSimpleFormula(
+        'today',
+        'TODAY',
+        'Date',
+        'Returns the serial number of the current date.',
+        [],
+        () => `=TODAY()`
+    ),
 
     // 17. NETWORKDAYS
     {
@@ -421,34 +430,30 @@ export const FORMULAS: FormulaConfig[] = [
     },
 
     // 19. AND
-    {
-        slug: 'and',
-        title: 'Free AND Formula Generator',
-        metaDescription: 'Check if all arguments are TRUE.',
-        excelFunction: 'AND',
-        category: 'Logic',
-        description: 'Returns TRUE if all its arguments are TRUE; returns FALSE if one or more argument is FALSE.',
-        inputs: [
+    createSimpleFormula(
+        'and',
+        'AND',
+        'Logic',
+        'Returns TRUE if all its arguments are TRUE; returns FALSE if one or more argument is FALSE.',
+        [
             { id: 'logical1', label: 'Condition 1', type: 'text', placeholder: 'e.g., A1>0' },
             { id: 'logical2', label: 'Condition 2', type: 'text', placeholder: 'e.g., B1<10' },
         ],
-        generate: (p) => `=AND(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`
-    },
+        (p) => `=AND(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`
+    ),
 
     // 20. OR
-    {
-        slug: 'or',
-        title: 'Free OR Formula Generator',
-        metaDescription: 'Check if any argument is TRUE.',
-        excelFunction: 'OR',
-        category: 'Logic',
-        description: 'Returns TRUE if any argument is TRUE; returns FALSE if all arguments are FALSE.',
-        inputs: [
+    createSimpleFormula(
+        'or',
+        'OR',
+        'Logic',
+        'Returns TRUE if any argument is TRUE; returns FALSE if all arguments are FALSE.',
+        [
             { id: 'logical1', label: 'Condition 1', type: 'text', placeholder: 'e.g., A1>0' },
             { id: 'logical2', label: 'Condition 2', type: 'text', placeholder: 'e.g., B1<10' },
         ],
-        generate: (p) => `=OR(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`
-    },
+        (p) => `=OR(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`
+    ),
 
     // 21. Extract Email
     {
@@ -687,64 +692,45 @@ export const FORMULAS: FormulaConfig[] = [
     },
 
     // 31. MID - Extract Middle Text
-    {
-        slug: 'mid',
-        title: 'Free MID Formula Generator',
-        metaDescription: 'Extract characters from the middle of a text string.',
-        excelFunction: 'MID',
-        category: 'Text',
-        description: 'Returns a specific number of characters from a text string, starting at the position you specify.',
-        inputs: [
+    createSimpleFormula(
+        'mid',
+        'MID',
+        'Text',
+        'Returns a specific number of characters from a text string, starting at the position you specify.',
+        [
             { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
             { id: 'start_num', label: 'Start Position', type: 'number', placeholder: 'e.g., 3' },
             { id: 'num_chars', label: 'Number of Characters', type: 'number', placeholder: 'e.g., 5' },
         ],
-        generate: (p) => `=MID(${p.text || 'text'}, ${p.start_num || '1'}, ${p.num_chars || '1'})`
-    },
+        (p) => `=MID(${p.text || 'text'}, ${p.start_num || '1'}, ${p.num_chars || '1'})`
+    ),
 
     // 32. LEN - Text Length
-    {
-        slug: 'len',
-        title: 'Free LEN Formula Generator',
-        metaDescription: 'Count the number of characters in a text string.',
-        excelFunction: 'LEN',
-        category: 'Text',
-        description: 'Returns the number of characters in a text string.',
-        inputs: [
-            { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=LEN(${p.text || 'text'})`
-    },
+    createSingleParamFormula('len', 'LEN', 'Text', 'Returns the number of characters in a text string.', 'text', 'Text', 'text'),
 
     // 33. FIND - Find Text Position
-    {
-        slug: 'find',
-        title: 'Free FIND Formula Generator',
-        metaDescription: 'Find the position of a character or text within a string.',
-        excelFunction: 'FIND',
-        category: 'Text',
-        description: 'Returns the starting position of one text string within another (case-sensitive).',
-        inputs: [
+    createTwoParamFormula(
+        'find',
+        'FIND',
+        'Text',
+        'Returns the starting position of one text string within another (case-sensitive).',
+        [
             { id: 'find_text', label: 'Text to Find', type: 'text', placeholder: 'e.g., "@"' },
             { id: 'within_text', label: 'Within Text', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=FIND(${p.find_text || '"@"'}, ${p.within_text || 'text'})`
-    },
+        ]
+    ),
 
     // 34. SEARCH - Search Text Position
-    {
-        slug: 'search',
-        title: 'Free SEARCH Formula Generator',
-        metaDescription: 'Search for text within a string (case-insensitive).',
-        excelFunction: 'SEARCH',
-        category: 'Text',
-        description: 'Returns the position of a text string within another (case-insensitive). Supports wildcards.',
-        inputs: [
+    createTwoParamFormula(
+        'search',
+        'SEARCH',
+        'Text',
+        'Returns the position of a text string within another (case-insensitive). Supports wildcards.',
+        [
             { id: 'find_text', label: 'Text to Find', type: 'text', placeholder: 'e.g., "error"' },
             { id: 'within_text', label: 'Within Text', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=SEARCH(${p.find_text || '"text"'}, ${p.within_text || 'text'})`
-    },
+        ]
+    ),
 
     // 35. TEXT - Format Numbers as Text
     {
@@ -819,116 +805,28 @@ export const FORMULAS: FormulaConfig[] = [
     },
 
     // 39. ABS - Absolute Value
-    {
-        slug: 'abs',
-        title: 'Free ABS Formula Generator',
-        metaDescription: 'Get the absolute value of a number.',
-        excelFunction: 'ABS',
-        category: 'Math',
-        description: 'Returns the absolute value of a number (removes the negative sign).',
-        inputs: [
-            { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=ABS(${p.number || 'number'})`
-    },
+    createSingleParamFormula('abs', 'ABS', 'Math', 'Returns the absolute value of a number (removes the negative sign).', 'number', 'Number', 'text', 'Get the absolute value of a number.'),
 
     // 40. MAX - Maximum Value
-    {
-        slug: 'max',
-        title: 'Free MAX Formula Generator',
-        metaDescription: 'Find the largest value in a range of cells.',
-        excelFunction: 'MAX',
-        category: 'Math',
-        description: 'Returns the largest value in a set of values.',
-        inputs: [
-            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
-        ],
-        generate: (p) => `=MAX(${p.range || 'range'})`
-    },
+    createSingleParamFormula('max', 'MAX', 'Math', 'Returns the largest value in a set of values.', 'range', 'Range', 'range', 'Find the largest value in a range of cells.'),
 
     // 41. MIN - Minimum Value
-    {
-        slug: 'min',
-        title: 'Free MIN Formula Generator',
-        metaDescription: 'Find the smallest value in a range of cells.',
-        excelFunction: 'MIN',
-        category: 'Math',
-        description: 'Returns the smallest value in a set of values.',
-        inputs: [
-            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
-        ],
-        generate: (p) => `=MIN(${p.range || 'range'})`
-    },
+    createSingleParamFormula('min', 'MIN', 'Math', 'Returns the smallest value in a set of values.', 'range', 'Range', 'range', 'Find the smallest value in a range of cells.'),
 
     // 42. AVERAGE - Average Value
-    {
-        slug: 'average',
-        title: 'Free AVERAGE Formula Generator',
-        metaDescription: 'Calculate the average of a range of numbers.',
-        excelFunction: 'AVERAGE',
-        category: 'Math',
-        description: 'Returns the average (arithmetic mean) of the arguments.',
-        inputs: [
-            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
-        ],
-        generate: (p) => `=AVERAGE(${p.range || 'range'})`
-    },
+    createSingleParamFormula('average', 'AVERAGE', 'Math', 'Returns the average (arithmetic mean) of the arguments.', 'range', 'Range', 'range', 'Calculate the average of a range of numbers.'),
 
     // 43. SUM - Sum Values
-    {
-        slug: 'sum',
-        title: 'Free SUM Formula Generator',
-        metaDescription: 'Add up all numbers in a range of cells.',
-        excelFunction: 'SUM',
-        category: 'Math',
-        description: 'Adds all the numbers in a range of cells.',
-        inputs: [
-            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
-        ],
-        generate: (p) => `=SUM(${p.range || 'range'})`
-    },
+    createSingleParamFormula('sum', 'SUM', 'Math', 'Adds all the numbers in a range of cells.', 'range', 'Range', 'range', 'Add up all numbers in a range of cells.'),
 
     // 44. YEAR - Extract Year
-    {
-        slug: 'year',
-        title: 'Free YEAR Formula Generator',
-        metaDescription: 'Extract the year from a date.',
-        excelFunction: 'YEAR',
-        category: 'Date',
-        description: 'Returns the year of a date, an integer in the range 1900-9999.',
-        inputs: [
-            { id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=YEAR(${p.date || 'date'})`
-    },
+    createSingleParamFormula('year', 'YEAR', 'Date', 'Returns the year of a date, an integer in the range 1900-9999.', 'date', 'Date', 'text', 'Extract the year from a date.'),
 
     // 45. MONTH - Extract Month
-    {
-        slug: 'month',
-        title: 'Free MONTH Formula Generator',
-        metaDescription: 'Extract the month from a date.',
-        excelFunction: 'MONTH',
-        category: 'Date',
-        description: 'Returns the month of a date, a number from 1 (January) to 12 (December).',
-        inputs: [
-            { id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=MONTH(${p.date || 'date'})`
-    },
+    createSingleParamFormula('month', 'MONTH', 'Date', 'Returns the month of a date, a number from 1 (January) to 12 (December).', 'date', 'Date', 'text', 'Extract the month from a date.'),
 
     // 46. DAY - Extract Day
-    {
-        slug: 'day',
-        title: 'Free DAY Formula Generator',
-        metaDescription: 'Extract the day from a date.',
-        excelFunction: 'DAY',
-        category: 'Date',
-        description: 'Returns the day of a date, a number from 1 to 31.',
-        inputs: [
-            { id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' },
-        ],
-        generate: (p) => `=DAY(${p.date || 'date'})`
-    },
+    createSingleParamFormula('day', 'DAY', 'Date', 'Returns the day of a date, a number from 1 to 31.', 'date', 'Date', 'text', 'Extract the day from a date.'),
 
     // 47. EDATE - Add Months to Date
     {
@@ -961,30 +859,8 @@ export const FORMULAS: FormulaConfig[] = [
     },
 
     // 49. COUNTA - Count Non-Empty Cells
-    {
-        slug: 'counta',
-        title: 'Free COUNTA Formula Generator',
-        metaDescription: 'Count the number of non-empty cells in a range.',
-        excelFunction: 'COUNTA',
-        category: 'Math',
-        description: 'Counts the number of cells that are not empty in a range.',
-        inputs: [
-            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
-        ],
-        generate: (p) => `=COUNTA(${p.range || 'range'})`
-    },
+    createSingleParamFormula('counta', 'COUNTA', 'Math', 'Counts number of cells that are not empty in a range.', 'range', 'Range', 'range', 'Count number of non-empty cells in a range.'),
 
     // 50. COUNTBLANK - Count Empty Cells
-    {
-        slug: 'countblank',
-        title: 'Free COUNTBLANK Formula Generator',
-        metaDescription: 'Count the number of empty cells in a range.',
-        excelFunction: 'COUNTBLANK',
-        category: 'Math',
-        description: 'Counts the number of empty cells in a specified range.',
-        inputs: [
-            { id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' },
-        ],
-        generate: (p) => `=COUNTBLANK(${p.range || 'range'})`
-    },
+    createSingleParamFormula('countblank', 'COUNTBLANK', 'Math', 'Counts the number of empty cells in a specified range.', 'range', 'Range', 'range', 'Count number of empty cells in a range.'),
 ];

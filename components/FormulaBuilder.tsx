@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { FORMULAS } from '../lib/formulas';
-import { Copy, Check, FileSpreadsheet, Table } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 
 interface FormulaBuilderProps {
     formulaSlug: string;
@@ -12,7 +12,6 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
     const formula = FORMULAS.find((f) => f.slug === formulaSlug);
     const [values, setValues] = useState<Record<string, string>>({});
     const [copied, setCopied] = useState(false);
-    const [platform, setPlatform] = useState<'excel' | 'sheets'>('excel');
 
     if (!formula) {
         return <div>Formula not found</div>;
@@ -34,35 +33,9 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
         <div className="w-full max-w-2xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             {/* Header */}
             <div className="p-6 border-b border-gray-100 bg-gray-50/50">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                        <h2 className="text-xl font-bold text-gray-900">{formula.title}</h2>
-                        <p className="text-sm text-gray-500 mt-1">{formula.description}</p>
-                    </div>
-
-                    {/* Platform Toggle */}
-                    <div className="flex bg-gray-200 p-1 rounded-lg shrink-0 self-start md:self-center">
-                        <button
-                            onClick={() => setPlatform('excel')}
-                            className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${platform === 'excel'
-                                ? 'bg-white text-green-700 shadow-sm'
-                                : 'text-gray-600 hover:text-gray-900'
-                                }`}
-                        >
-                            <FileSpreadsheet className="w-4 h-4" />
-                            Excel
-                        </button>
-                        <button
-                            onClick={() => setPlatform('sheets')}
-                            className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${platform === 'sheets'
-                                ? 'bg-white text-green-700 shadow-sm'
-                                : 'text-gray-600 hover:text-gray-900'
-                                }`}
-                        >
-                            <Table className="w-4 h-4" />
-                            Sheets
-                        </button>
-                    </div>
+                <div>
+                    <h2 className="text-xl font-bold text-gray-900">{formula.title}</h2>
+                    <p className="text-sm text-gray-500 mt-1">{formula.description}</p>
                 </div>
             </div>
 

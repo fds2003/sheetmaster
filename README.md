@@ -12,11 +12,12 @@
 ## ✨ Features
 
 - 📊 **50 Formula Generators** - VLOOKUP, SUMIFS, IFERROR, INDEX/MATCH, and more
+- 🔍 **Real-time Search** - Instantly filter formulas by name, description, or category
 - 🎯 **SEO Optimized** - Open Graph, Twitter Cards, Structured Data (JSON-LD)
 - 🖼️ **Dynamic OG Images** - Auto-generated social sharing images
 - 📱 **Responsive Design** - Works on all devices
 - ⚡ **Static Generation** - Zero latency, maximum performance
-- 🔍 **Breadcrumb Navigation** - Improved user experience
+- 🧭 **Breadcrumb Navigation** - Improved user experience
 
 ## 📊 Formula Categories
 
@@ -65,6 +66,8 @@ sheetmaster/
 │   └── robots.ts             # Robots.txt
 ├── components/
 │   ├── FormulaBuilder.tsx    # Formula generator UI
+│   ├── SearchBar.tsx         # Real-time search input
+│   ├── FormulaGrid.tsx       # Filterable formula grid
 │   ├── Breadcrumbs.tsx       # Navigation breadcrumbs
 │   └── JsonLd.tsx            # Structured data
 ├── lib/

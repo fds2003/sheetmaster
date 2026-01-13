@@ -23,17 +23,19 @@ export default function FormulaGrid({ formulas }: FormulaGridProps) {
 
   // Filter formulas based on search query
   const filteredFormulas = useMemo(() => {
-    if (!searchQuery.trim()) {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) {
       return formulas;
     }
 
-    const query = searchQuery.toLowerCase().trim();
     return formulas.filter((formula) => {
-      const nameMatch = formula.excelFunction.toLowerCase().includes(query);
-      const descMatch = formula.description.toLowerCase().includes(query);
-      const categoryMatch = formula.category.toLowerCase().includes(query);
-      const slugMatch = formula.slug.toLowerCase().includes(query);
-      return nameMatch || descMatch || categoryMatch || slugMatch;
+      const { excelFunction, description, category, slug } = formula;
+      return (
+        excelFunction.toLowerCase().includes(query) ||
+        description.toLowerCase().includes(query) ||
+        category.toLowerCase().includes(query) ||
+        slug.toLowerCase().includes(query)
+      );
     });
   }, [formulas, searchQuery]);
 

@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.8,
     }));
 
-    // Dynamic routes from solutions (高优先级专题页面)
+    // Dynamic routes from solutions (high priority industry tools)
     const solutionRoutes = SOLUTIONS.map((solution) => ({
         url: `${baseUrl}/solutions/${solution.slug}`,
         lastModified: new Date(),

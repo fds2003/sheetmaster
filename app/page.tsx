@@ -1,10 +1,12 @@
 import { FORMULAS } from '../lib/formulas';
+import { SOLUTIONS } from '../lib/solutions';
 import FormulaGrid from '../components/FormulaGrid';
+import SolutionCard from '../components/SolutionCard';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
-  description: 'Generate Excel and Google Sheets formulas instantly. Master VLOOKUP, IF statements, SUMIF, INDEX MATCH, and 50+ more formulas with our free generator tools.',
+  description: 'Generate Excel and Google Sheets formulas instantly. Master VLOOKUP, IF, SUMIF, INDEX MATCH, and 50+ formulas. Plus data cleaning, loan calculators, and HR tools.',
   keywords: [
     'Excel formula generator',
     'Google Sheets formulas',
@@ -18,10 +20,15 @@ export const metadata: Metadata = {
     'free Excel tools',
     'formula helper',
     'Excel tutorial',
+    'email extraction',
+    'loan calculator',
+    'working days calculator',
+    'mortgage calculator',
+    'data cleaning',
   ],
   openGraph: {
     title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
-    description: 'Generate complex Excel and Google Sheets formulas instantly. Master VLOOKUP, IF, SUMIF, and 50+ more formulas.',
+    description: 'Generate complex Excel and Google Sheets formulas instantly. Plus data cleaning, loan calculators, and HR time tools.',
     url: 'https://www.getsheetmaster.com',
     type: 'website',
     siteName: 'SheetMaster',
@@ -37,7 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
-    description: 'Generate Excel and Google Sheets formulas instantly. Free AI-powered tools.',
+    description: 'Generate Excel and Google Sheets formulas instantly. Data cleaning, loan calculators, and more.',
     images: ['/og-image.png'],
   },
   alternates: {
@@ -66,8 +73,30 @@ export default function Home() {
         </p>
       </div>
 
+      {/* Solutions Section */}
+      <div className="mb-12">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">🔥 Popular Tools</h2>
+          <span className="text-sm text-gray-500">Solve common problems fast</span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {SOLUTIONS.map((solution) => (
+            <SolutionCard
+              key={solution.slug}
+              slug={solution.slug}
+              title={solution.title}
+              description={solution.description}
+              icon={solution.icon}
+            />
+          ))}
+        </div>
+      </div>
+
       {/* Formula Grid with Search */}
-      <FormulaGrid formulas={formulaCards} />
+      <div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">📋 All Formula Tools</h2>
+        <FormulaGrid formulas={formulaCards} />
+      </div>
     </div>
   );
 }

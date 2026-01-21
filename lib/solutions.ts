@@ -28,7 +28,7 @@ export interface SolutionConfig {
 }
 
 export const SOLUTIONS: SolutionConfig[] = [
-    // 1. Data Cleaning Hub
+    // 1. Data Cleaning Hub (RETAINED)
     {
         slug: 'data-cleaning',
         title: 'Email Extractor & Data Cleanup Tools | Free Online',
@@ -89,12 +89,6 @@ export const SOLUTIONS: SolutionConfig[] = [
                 name: 'LinkedIn Lead List',
                 description: 'Extract emails from LinkedIn Sales Navigator exports',
                 defaultValues: { target_cell: 'B2' }
-            },
-            {
-                id: 'web-scrape',
-                name: 'Web Scraped Data',
-                description: 'Clean data copied from websites or PDFs',
-                defaultValues: { text: 'A2' }
             }
         ],
         richContent: `
@@ -104,18 +98,9 @@ export const SOLUTIONS: SolutionConfig[] = [
   
   <h3 class="text-xl font-semibold mb-2">What You Can Do</h3>
   <ul class="list-disc pl-6 mb-4">
-    <li><strong>Pull emails</strong> from messy text blocks (like company descriptions or LinkedIn bios)</li>
-    <li><strong>Extract domains</strong> from URL lists for competitor analysis or lead research</li>
+    <li><strong>Pull emails</strong> from messy text blocks</li>
+    <li><strong>Extract domains</strong> from URL lists for competitor analysis</li>
     <li><strong>Fix formatting</strong> issues like ALL CAPS names or extra spaces</li>
-  </ul>
-  
-  <h3 class="text-xl font-semibold mb-2">Why Use Formulas?</h3>
-  <p class="mb-4">Sure, you could use ChatGPT or copy-paste into an online tool. But formulas give you:</p>
-  <ul class="list-disc pl-6 mb-4">
-    <li>✅ <strong>Instant results</strong> – no waiting for AI responses</li>
-    <li>✅ <strong>Bulk processing</strong> – drag the formula down 10,000 rows</li>
-    <li>✅ <strong>100% accuracy</strong> – regex doesn't hallucinate</li>
-    <li>✅ <strong>No data privacy concerns</strong> – everything stays in your spreadsheet</li>
   </ul>
   
   <div class="bg-green-50 border border-green-200 rounded-lg p-4 my-4">
@@ -125,125 +110,7 @@ export const SOLUTIONS: SolutionConfig[] = [
 `
     },
 
-    // 2. HR & Project Time Calculator
-    {
-        slug: 'hr-time-calculator',
-        title: 'Business Days Calculator | Workdays Between Dates',
-        metaDescription: 'Calculate working days between dates, excluding weekends and holidays. Perfect for project planning, PTO tracking, and contract management.',
-        icon: 'Calendar',
-        description: 'Count workdays, calculate tenure & track deadlines',
-        tools: [
-            {
-                id: 'networkdays',
-                name: 'Business Days Counter',
-                description: 'Count workdays between two dates (skips weekends)',
-                formulaSlug: 'networkdays',
-                inputs: [
-                    { id: 'start_date', label: 'Start Date', type: 'text', placeholder: 'e.g., A2 or "1/15/2024"' },
-                    { id: 'end_date', label: 'End Date', type: 'text', placeholder: 'e.g., B2 or "3/15/2024"' },
-                    { id: 'holidays', label: 'Holidays (optional)', type: 'text', placeholder: 'e.g., C2:C10' }
-                ],
-                generate: (p) => {
-                    const args = [p.start_date || 'start_date', p.end_date || 'end_date'];
-                    if (p.holidays) args.push(p.holidays);
-                    return `=NETWORKDAYS(${args.join(', ')})`;
-                }
-            },
-            {
-                id: 'datedif',
-                name: 'Time Between Dates',
-                description: 'Calculate years, months, or days between dates',
-                formulaSlug: 'datedif',
-                inputs: [
-                    { id: 'start_date', label: 'Start Date', type: 'text', placeholder: 'e.g., A2 (hire date)' },
-                    { id: 'end_date', label: 'End Date', type: 'text', placeholder: 'e.g., TODAY()' },
-                    { 
-                        id: 'unit', 
-                        label: 'What to Calculate', 
-                        type: 'select',
-                        options: [
-                            { label: 'Years (for tenure)', value: '"Y"' },
-                            { label: 'Months (total)', value: '"M"' },
-                            { label: 'Days (total)', value: '"D"' },
-                            { label: 'Months (after full years)', value: '"YM"' },
-                            { label: 'Days (after full months)', value: '"MD"' }
-                        ]
-                    }
-                ],
-                generate: (p) => `=DATEDIF(${p.start_date || 'start_date'}, ${p.end_date || 'end_date'}, ${p.unit || '"Y"'})`
-            },
-            {
-                id: 'edate',
-                name: 'Future Date Calculator',
-                description: 'Find a date X months from now',
-                formulaSlug: 'edate',
-                inputs: [
-                    { id: 'start_date', label: 'Starting Date', type: 'text', placeholder: 'e.g., A2' },
-                    { id: 'months', label: 'Months to Add', type: 'number', placeholder: 'e.g., 12' }
-                ],
-                generate: (p) => `=EDATE(${p.start_date || 'start_date'}, ${p.months || '12'})`
-            }
-        ],
-        scenarios: [
-            {
-                id: 'project-deadline',
-                name: 'Project Timeline',
-                description: 'How many actual working days do we have?',
-                defaultValues: { start_date: 'A2', end_date: 'B2' }
-            },
-            {
-                id: 'employee-tenure',
-                name: 'Employee Tenure',
-                description: 'Calculate years of service for reviews or PTO',
-                defaultValues: { start_date: 'A2', end_date: 'TODAY()', unit: '"Y"' }
-            },
-            {
-                id: 'contract-renewal',
-                name: 'Contract Renewal Date',
-                description: 'When does this 12-month contract expire?',
-                defaultValues: { start_date: 'A2', months: '12' }
-            }
-        ],
-        richContent: `
-<div class="prose max-w-none">
-  <h2 class="text-2xl font-bold mb-4">Finally, Accurate Date Math</h2>
-  <p class="mb-4">Anyone who's tried to calculate "how many business days until launch?" by counting on a calendar knows it's a nightmare. These formulas handle weekends, holidays, and all the edge cases.</p>
-  
-  <h3 class="text-xl font-semibold mb-2">Common Use Cases</h3>
-  <table class="w-full border-collapse border border-gray-300 mb-4">
-    <tr class="bg-gray-100">
-      <th class="border border-gray-300 p-2 text-left">Task</th>
-      <th class="border border-gray-300 p-2 text-left">Formula</th>
-      <th class="border border-gray-300 p-2 text-left">Example</th>
-    </tr>
-    <tr>
-      <td class="border border-gray-300 p-2">Project planning</td>
-      <td class="border border-gray-300 p-2 font-mono text-sm">NETWORKDAYS</td>
-      <td class="border border-gray-300 p-2">"We have 47 business days"</td>
-    </tr>
-    <tr>
-      <td class="border border-gray-300 p-2">PTO accrual</td>
-      <td class="border border-gray-300 p-2 font-mono text-sm">DATEDIF</td>
-      <td class="border border-gray-300 p-2">"3 years, 4 months tenure"</td>
-    </tr>
-    <tr>
-      <td class="border border-gray-300 p-2">Subscription renewals</td>
-      <td class="border border-gray-300 p-2 font-mono text-sm">EDATE</td>
-      <td class="border border-gray-300 p-2">"Renews on 3/15/2025"</td>
-    </tr>
-  </table>
-  
-  <h3 class="text-xl font-semibold mb-2">Don't Forget Holidays</h3>
-  <p class="mb-4">NETWORKDAYS automatically skips Saturdays and Sundays. To also skip holidays (like July 4th, Thanksgiving, Christmas), just add a range with your holiday dates.</p>
-  
-  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 my-4">
-    <p class="text-sm text-blue-800"><strong>💡 Pro tip:</strong> To show tenure as "3 years, 2 months", combine formulas: <code>=DATEDIF(A2,TODAY(),"Y") & " years, " & DATEDIF(A2,TODAY(),"YM") & " months"</code></p>
-  </div>
-</div>
-`
-    },
-
-    // 3. Loan Payment Calculator
+    // 2. Loan Payment Calculator (RETAINED)
     {
         slug: 'loan-calculator',
         title: 'Loan Payment Calculator | Mortgage, Auto & Personal',
@@ -315,26 +182,12 @@ export const SOLUTIONS: SolutionConfig[] = [
                 name: 'New Car (60 months)',
                 description: 'Standard 5-year auto financing',
                 defaultValues: { annual_rate: '5.49', years: '5', principal: '32000' }
-            },
-            {
-                id: 'debt-consolidation',
-                name: 'Debt Consolidation',
-                description: 'Personal loan to pay off credit cards',
-                defaultValues: { annual_rate: '11.5', months: '36', principal: '15000' }
             }
         ],
         richContent: `
 <div class="prose max-w-none">
   <h2 class="text-2xl font-bold mb-4">Know Your Numbers Before You Sign</h2>
   <p class="mb-4">Whether you're shopping for a house, a car, or comparing personal loan offers, knowing your exact monthly payment helps you budget and negotiate better.</p>
-  
-  <h3 class="text-xl font-semibold mb-2">How the PMT Formula Works</h3>
-  <p class="mb-4 font-mono bg-gray-100 p-3 rounded">=PMT(rate, number_of_payments, loan_amount)</p>
-  <ul class="list-disc pl-6 mb-4">
-    <li><strong>Rate:</strong> Your annual rate divided by 12 (for monthly payments)</li>
-    <li><strong>Number of payments:</strong> Years × 12 for monthly</li>
-    <li><strong>Loan amount:</strong> What you're borrowing (use negative for amount you owe)</li>
-  </ul>
   
   <h3 class="text-xl font-semibold mb-2">Current Rate Ranges (2024)</h3>
   <table class="w-full border-collapse border border-gray-300 mb-4">
@@ -367,113 +220,472 @@ export const SOLUTIONS: SolutionConfig[] = [
 `
     },
 
-    // 4. Multi-Criteria Analysis
+    // 3. SEO Toolkit (NEW)
     {
-        slug: 'multi-criteria-analysis',
-        title: 'SUMIFS & COUNTIFS Generator | Conditional Formulas',
-        metaDescription: 'Build SUMIFS and COUNTIFS formulas to analyze data with multiple conditions. Sum sales by region and product, count leads by status and source.',
-        icon: 'Calculator',
-        description: 'Sum & count data with multiple filters',
+        slug: 'seo-toolkit',
+        title: 'URL Slug Generator & Meta Tag Checker | SEO Tools',
+        metaDescription: 'Generate SEO-friendly URL slugs, check meta tag character limits, and build UTM tracking links. Free tools for content marketers and SEO specialists.',
+        icon: 'Search',
+        description: 'Create clean URLs, check meta lengths & build UTM links',
         tools: [
             {
-                id: 'sumifs',
-                name: 'Sum with Multiple Conditions',
-                description: 'Add up values that match several criteria',
-                formulaSlug: 'sumifs',
+                id: 'slug-generator',
+                name: 'URL Slug Generator',
+                description: 'Convert titles to SEO-friendly URL slugs',
+                formulaSlug: 'substitute',
                 inputs: [
-                    { id: 'sum_range', label: 'Numbers to Sum', type: 'range', placeholder: 'e.g., D:D (revenue column)' },
-                    { id: 'criteria_range1', label: 'Filter Column 1', type: 'range', placeholder: 'e.g., A:A (region)' },
-                    { id: 'criteria1', label: 'Filter Value 1', type: 'text', placeholder: 'e.g., "West"' },
-                    { id: 'criteria_range2', label: 'Filter Column 2', type: 'range', placeholder: 'e.g., B:B (product)' },
-                    { id: 'criteria2', label: 'Filter Value 2', type: 'text', placeholder: 'e.g., "Pro Plan"' }
+                    { id: 'title_cell', label: 'Cell with Title', type: 'text', placeholder: 'e.g., A2' }
                 ],
-                generate: (p) => `=SUMIFS(${p.sum_range || 'sum_range'}, ${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`
+                generate: (p) => `=LOWER(TRIM(SUBSTITUTE(${p.title_cell || 'A2'}, " ", "-")))`
             },
             {
-                id: 'countifs',
-                name: 'Count with Multiple Conditions',
-                description: 'Count rows that match several criteria',
-                formulaSlug: 'countifs',
+                id: 'meta-title-check',
+                name: 'Meta Title Checker',
+                description: 'Check if title exceeds 60 characters',
+                formulaSlug: 'len',
                 inputs: [
-                    { id: 'criteria_range1', label: 'Filter Column 1', type: 'range', placeholder: 'e.g., A:A (status)' },
-                    { id: 'criteria1', label: 'Filter Value 1', type: 'text', placeholder: 'e.g., "Won"' },
-                    { id: 'criteria_range2', label: 'Filter Column 2', type: 'range', placeholder: 'e.g., B:B (source)' },
-                    { id: 'criteria2', label: 'Filter Value 2', type: 'text', placeholder: 'e.g., "Referral"' }
+                    { id: 'title_cell', label: 'Cell with Title', type: 'text', placeholder: 'e.g., A2' },
+                    { id: 'max_length', label: 'Max Characters', type: 'number', placeholder: 'e.g., 60' }
                 ],
-                generate: (p) => `=COUNTIFS(${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`
+                generate: (p) => `=IF(LEN(${p.title_cell || 'A2'})>${p.max_length || '60'}, "Too Long ("&LEN(${p.title_cell || 'A2'})&" chars)", "OK ("&LEN(${p.title_cell || 'A2'})&" chars)")`
             },
             {
-                id: 'iferror',
-                name: 'Handle Errors Gracefully',
-                description: 'Show a custom message instead of ugly errors',
-                formulaSlug: 'iferror',
+                id: 'meta-desc-check',
+                name: 'Meta Description Checker',
+                description: 'Check if description exceeds 160 characters',
+                formulaSlug: 'len',
                 inputs: [
-                    { id: 'formula', label: 'Your Formula', type: 'text', placeholder: 'e.g., A1/B1 or VLOOKUP(...)' },
-                    { id: 'error_value', label: 'Show Instead of Error', type: 'text', placeholder: 'e.g., "N/A" or 0' }
+                    { id: 'desc_cell', label: 'Cell with Description', type: 'text', placeholder: 'e.g., B2' },
+                    { id: 'max_length', label: 'Max Characters', type: 'number', placeholder: 'e.g., 160' }
                 ],
-                generate: (p) => `=IFERROR(${p.formula || 'your_formula'}, ${p.error_value || '""'})`
+                generate: (p) => `=IF(LEN(${p.desc_cell || 'B2'})>${p.max_length || '160'}, "Too Long ("&LEN(${p.desc_cell || 'B2'})&" chars)", "OK ("&LEN(${p.desc_cell || 'B2'})&" chars)")`
+            },
+            {
+                id: 'utm-builder',
+                name: 'UTM Link Builder',
+                description: 'Add UTM tracking parameters to URLs',
+                formulaSlug: 'concatenate',
+                inputs: [
+                    { id: 'base_url', label: 'Base URL Cell', type: 'text', placeholder: 'e.g., A2' },
+                    { id: 'source', label: 'UTM Source', type: 'text', placeholder: 'e.g., "newsletter"' },
+                    { id: 'medium', label: 'UTM Medium', type: 'text', placeholder: 'e.g., "email"' },
+                    { id: 'campaign', label: 'UTM Campaign', type: 'text', placeholder: 'e.g., "spring_sale"' }
+                ],
+                generate: (p) => `=CONCATENATE(${p.base_url || 'A2'}, "?utm_source=", ${p.source || '"source"'}, "&utm_medium=", ${p.medium || '"medium"'}, "&utm_campaign=", ${p.campaign || '"campaign"'})`
             }
         ],
         scenarios: [
             {
-                id: 'sales-by-region',
-                name: 'Sales by Region & Product',
-                description: 'Total revenue for West region, Pro Plan only',
-                defaultValues: { sum_range: 'D:D', criteria_range1: 'A:A', criteria1: '"West"', criteria_range2: 'B:B', criteria2: '"Pro Plan"' }
+                id: 'blog-posts',
+                name: 'Blog Post URLs',
+                description: 'Generate slugs for your blog post titles',
+                defaultValues: { title_cell: 'A2' }
             },
             {
-                id: 'lead-conversion',
-                name: 'Lead Conversion Analysis',
-                description: 'Count won deals from referrals',
-                defaultValues: { criteria_range1: 'C:C', criteria1: '"Won"', criteria_range2: 'D:D', criteria2: '"Referral"' }
+                id: 'email-campaign',
+                name: 'Email Campaign Links',
+                description: 'Build tracked links for email newsletters',
+                defaultValues: { base_url: 'A2', source: '"newsletter"', medium: '"email"', campaign: '"jan_2024"' }
             },
             {
-                id: 'clean-reports',
-                name: 'Clean Up Report Errors',
-                description: 'Replace #N/A with "Not Found"',
-                defaultValues: { formula: 'VLOOKUP(A2, Data!A:B, 2, FALSE)', error_value: '"Not Found"' }
+                id: 'meta-audit',
+                name: 'SEO Audit',
+                description: 'Check meta tags across your site pages',
+                defaultValues: { title_cell: 'A2', max_length: '60' }
             }
         ],
         richContent: `
 <div class="prose max-w-none">
-  <h2 class="text-2xl font-bold mb-4">Answer Complex Questions with One Formula</h2>
-  <p class="mb-4">"What's our total revenue from Enterprise customers in Q4?" "How many deals did we close from LinkedIn ads?" These tools build the formulas that answer questions like these.</p>
+  <h2 class="text-2xl font-bold mb-4">SEO Tasks That Shouldn't Take All Day</h2>
+  <p class="mb-4">Content marketers and SEO specialists spend too much time on repetitive tasks: converting titles to URL slugs, checking character limits, building tracking links. These formulas handle the grunt work.</p>
   
-  <h3 class="text-xl font-semibold mb-2">SUMIFS vs SUMIF: What's the Difference?</h3>
+  <h3 class="text-xl font-semibold mb-2">Google's Character Limits</h3>
   <table class="w-full border-collapse border border-gray-300 mb-4">
     <tr class="bg-gray-100">
-      <th class="border border-gray-300 p-2 text-left">Feature</th>
-      <th class="border border-gray-300 p-2 text-left">SUMIF</th>
-      <th class="border border-gray-300 p-2 text-left">SUMIFS</th>
+      <th class="border border-gray-300 p-2 text-left">Element</th>
+      <th class="border border-gray-300 p-2 text-left">Recommended Max</th>
+      <th class="border border-gray-300 p-2 text-left">What Happens If Too Long</th>
     </tr>
     <tr>
-      <td class="border border-gray-300 p-2">Number of conditions</td>
-      <td class="border border-gray-300 p-2">Just one</td>
-      <td class="border border-gray-300 p-2">As many as you need</td>
+      <td class="border border-gray-300 p-2">Title Tag</td>
+      <td class="border border-gray-300 p-2">60 characters</td>
+      <td class="border border-gray-300 p-2">Gets truncated with "..."</td>
     </tr>
     <tr>
-      <td class="border border-gray-300 p-2">Argument order</td>
-      <td class="border border-gray-300 p-2">Range, criteria, sum</td>
-      <td class="border border-gray-300 p-2">Sum range first</td>
+      <td class="border border-gray-300 p-2">Meta Description</td>
+      <td class="border border-gray-300 p-2">160 characters</td>
+      <td class="border border-gray-300 p-2">Gets cut off in SERPs</td>
     </tr>
     <tr>
-      <td class="border border-gray-300 p-2">When to use</td>
-      <td class="border border-gray-300 p-2">Simple filters</td>
-      <td class="border border-gray-300 p-2">Real-world analysis</td>
+      <td class="border border-gray-300 p-2">URL Slug</td>
+      <td class="border border-gray-300 p-2">50-60 characters</td>
+      <td class="border border-gray-300 p-2">Harder to read/share</td>
     </tr>
   </table>
   
-  <h3 class="text-xl font-semibold mb-2">Criteria Cheat Sheet</h3>
+  <h3 class="text-xl font-semibold mb-2">UTM Parameters Explained</h3>
   <ul class="list-disc pl-6 mb-4">
-    <li><code>"West"</code> – exact match</li>
-    <li><code>">1000"</code> – greater than 1000</li>
-    <li><code>"<>"&A1</code> – not equal to value in A1</li>
-    <li><code>"*LLC*"</code> – contains "LLC" anywhere</li>
-    <li><code>">="&DATE(2024,1,1)</code> – on or after Jan 1, 2024</li>
+    <li><strong>utm_source:</strong> Where traffic comes from (newsletter, google, facebook)</li>
+    <li><strong>utm_medium:</strong> Marketing medium (email, cpc, social)</li>
+    <li><strong>utm_campaign:</strong> Campaign name (spring_sale, product_launch)</li>
   </ul>
   
+  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 my-4">
+    <p class="text-sm text-blue-800"><strong>💡 Pro tip:</strong> Keep URL slugs lowercase with hyphens. Avoid underscores, special characters, and stop words like "the" or "and".</p>
+  </div>
+</div>
+`
+    },
+
+    // 4. Inventory Manager (NEW)
+    {
+        slug: 'inventory-manager',
+        title: 'Inventory Reorder Alert & SKU Lookup | Stock Management',
+        metaDescription: 'Set up automatic reorder alerts, look up prices by SKU, and find missing product data. Free inventory tools for Amazon sellers and retail stores.',
+        icon: 'Package',
+        description: 'Get reorder alerts, match SKUs & find missing data',
+        tools: [
+            {
+                id: 'reorder-alert',
+                name: 'Reorder Alert',
+                description: 'Flag items that need restocking',
+                formulaSlug: 'if',
+                inputs: [
+                    { id: 'stock_cell', label: 'Current Stock Cell', type: 'text', placeholder: 'e.g., C2' },
+                    { id: 'threshold', label: 'Reorder Threshold', type: 'number', placeholder: 'e.g., 10' },
+                    { id: 'status_cell', label: 'Status Cell (optional)', type: 'text', placeholder: 'e.g., D2' }
+                ],
+                generate: (p) => {
+                    if (p.status_cell) {
+                        return `=IF(AND(${p.stock_cell || 'C2'}<${p.threshold || '10'}, ${p.status_cell}="Active"), "⚠️ REORDER", "OK")`;
+                    }
+                    return `=IF(${p.stock_cell || 'C2'}<${p.threshold || '10'}, "⚠️ REORDER", "OK")`;
+                }
+            },
+            {
+                id: 'sku-lookup',
+                name: 'SKU Price Lookup',
+                description: 'Find price by SKU from your price list',
+                formulaSlug: 'xlookup',
+                inputs: [
+                    { id: 'sku_cell', label: 'SKU to Look Up', type: 'text', placeholder: 'e.g., A2' },
+                    { id: 'sku_range', label: 'SKU Column (price list)', type: 'range', placeholder: 'e.g., PriceList!A:A' },
+                    { id: 'price_range', label: 'Price Column', type: 'range', placeholder: 'e.g., PriceList!B:B' }
+                ],
+                generate: (p) => `=XLOOKUP(${p.sku_cell || 'A2'}, ${p.sku_range || 'PriceList!A:A'}, ${p.price_range || 'PriceList!B:B'}, "Not Found")`
+            },
+            {
+                id: 'missing-data',
+                name: 'Find Missing Data',
+                description: 'Count empty cells in a product column',
+                formulaSlug: 'countblank',
+                inputs: [
+                    { id: 'range', label: 'Column to Check', type: 'range', placeholder: 'e.g., E:E (description column)' }
+                ],
+                generate: (p) => `=COUNTBLANK(${p.range || 'E:E'})`
+            },
+            {
+                id: 'low-stock-count',
+                name: 'Low Stock Counter',
+                description: 'Count how many items are below threshold',
+                formulaSlug: 'countif',
+                inputs: [
+                    { id: 'stock_range', label: 'Stock Column', type: 'range', placeholder: 'e.g., C:C' },
+                    { id: 'threshold', label: 'Below This Number', type: 'number', placeholder: 'e.g., 10' }
+                ],
+                generate: (p) => `=COUNTIF(${p.stock_range || 'C:C'}, "<"&${p.threshold || '10'})`
+            }
+        ],
+        scenarios: [
+            {
+                id: 'amazon-fba',
+                name: 'Amazon FBA Inventory',
+                description: 'Track stock levels for FBA products',
+                defaultValues: { stock_cell: 'C2', threshold: '15' }
+            },
+            {
+                id: 'retail-pos',
+                name: 'Retail POS System',
+                description: 'Match SKUs to prices for checkout',
+                defaultValues: { sku_cell: 'A2', sku_range: 'Catalog!A:A', price_range: 'Catalog!C:C' }
+            },
+            {
+                id: 'data-quality',
+                name: 'Product Data Audit',
+                description: 'Find products missing descriptions or images',
+                defaultValues: { range: 'E:E' }
+            }
+        ],
+        richContent: `
+<div class="prose max-w-none">
+  <h2 class="text-2xl font-bold mb-4">Inventory Management Without Expensive Software</h2>
+  <p class="mb-4">You don't need a $500/month inventory system to track stock levels. These formulas turn your spreadsheet into a smart inventory tracker that alerts you before you run out.</p>
+  
+  <h3 class="text-xl font-semibold mb-2">What You Can Track</h3>
+  <ul class="list-disc pl-6 mb-4">
+    <li><strong>Reorder alerts:</strong> Get a warning when stock drops below your threshold</li>
+    <li><strong>SKU lookups:</strong> Automatically pull prices from your master list</li>
+    <li><strong>Data quality:</strong> Find products missing descriptions, prices, or images</li>
+  </ul>
+  
+  <h3 class="text-xl font-semibold mb-2">Why XLOOKUP Beats VLOOKUP for Inventory</h3>
+  <table class="w-full border-collapse border border-gray-300 mb-4">
+    <tr class="bg-gray-100">
+      <th class="border border-gray-300 p-2 text-left">Feature</th>
+      <th class="border border-gray-300 p-2 text-left">VLOOKUP</th>
+      <th class="border border-gray-300 p-2 text-left">XLOOKUP</th>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">Lookup direction</td>
+      <td class="border border-gray-300 p-2">Right only</td>
+      <td class="border border-gray-300 p-2">Any direction</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">Column shifts</td>
+      <td class="border border-gray-300 p-2">Breaks formula</td>
+      <td class="border border-gray-300 p-2">No problem</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">"Not found" handling</td>
+      <td class="border border-gray-300 p-2">Shows #N/A</td>
+      <td class="border border-gray-300 p-2">Custom message</td>
+    </tr>
+  </table>
+  
+  <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 my-4">
+    <p class="text-sm text-orange-800"><strong>🛒 Black Friday tip:</strong> Set your reorder threshold higher before peak seasons. If you normally reorder at 10 units, bump it to 25-30 before the holidays.</p>
+  </div>
+</div>
+`
+    },
+
+    // 5. Subscription Tracker (NEW)
+    {
+        slug: 'subscription-tracker',
+        title: 'Membership Expiry Calculator | Subscription Management',
+        metaDescription: 'Calculate subscription renewal dates, find billing cycle end dates, and track days until expiry. For SaaS, gyms, and rental services.',
+        icon: 'Calendar',
+        description: 'Track renewals, billing cycles & expiry dates',
+        tools: [
+            {
+                id: 'expiry-date',
+                name: 'Renewal Date Calculator',
+                description: 'Find the exact date X months from signup',
+                formulaSlug: 'edate',
+                inputs: [
+                    { id: 'start_date', label: 'Start/Signup Date', type: 'text', placeholder: 'e.g., A2' },
+                    { id: 'months', label: 'Subscription Length (months)', type: 'number', placeholder: 'e.g., 12' }
+                ],
+                generate: (p) => `=EDATE(${p.start_date || 'A2'}, ${p.months || '12'})`
+            },
+            {
+                id: 'billing-cycle',
+                name: 'Billing Cycle End',
+                description: 'Find the last day of the billing month',
+                formulaSlug: 'eomonth',
+                inputs: [
+                    { id: 'date_cell', label: 'Any Date in Period', type: 'text', placeholder: 'e.g., A2' },
+                    { id: 'months_ahead', label: 'Months Ahead (0 = current)', type: 'number', placeholder: 'e.g., 0' }
+                ],
+                generate: (p) => `=EOMONTH(${p.date_cell || 'A2'}, ${p.months_ahead || '0'})`
+            },
+            {
+                id: 'days-remaining',
+                name: 'Days Until Expiry',
+                description: 'Count days between today and expiry',
+                formulaSlug: 'datedif',
+                inputs: [
+                    { id: 'expiry_cell', label: 'Expiry Date Cell', type: 'text', placeholder: 'e.g., B2' }
+                ],
+                generate: (p) => `=DATEDIF(TODAY(), ${p.expiry_cell || 'B2'}, "D")`
+            },
+            {
+                id: 'renewal-status',
+                name: 'Renewal Status',
+                description: 'Flag accounts expiring within X days',
+                formulaSlug: 'if',
+                inputs: [
+                    { id: 'expiry_cell', label: 'Expiry Date Cell', type: 'text', placeholder: 'e.g., B2' },
+                    { id: 'days_warning', label: 'Warning Days Before', type: 'number', placeholder: 'e.g., 30' }
+                ],
+                generate: (p) => `=IF(${p.expiry_cell || 'B2'}-TODAY()<${p.days_warning || '30'}, "⚠️ Expiring Soon", IF(${p.expiry_cell || 'B2'}<TODAY(), "❌ Expired", "✅ Active"))`
+            }
+        ],
+        scenarios: [
+            {
+                id: 'saas-annual',
+                name: 'SaaS Annual Plans',
+                description: 'Track when annual subscriptions renew',
+                defaultValues: { start_date: 'A2', months: '12' }
+            },
+            {
+                id: 'gym-membership',
+                name: 'Gym Memberships',
+                description: 'Monitor member expiry dates',
+                defaultValues: { expiry_cell: 'B2', days_warning: '14' }
+            },
+            {
+                id: 'lease-agreement',
+                name: 'Lease Renewals',
+                description: 'Track apartment or equipment lease dates',
+                defaultValues: { start_date: 'A2', months: '12' }
+            }
+        ],
+        richContent: `
+<div class="prose max-w-none">
+  <h2 class="text-2xl font-bold mb-4">Never Miss a Renewal Again</h2>
+  <p class="mb-4">Whether you're running a SaaS business, managing a gym, or tracking lease agreements, knowing exactly when subscriptions expire is crucial for retention and cash flow.</p>
+  
+  <h3 class="text-xl font-semibold mb-2">Common Subscription Tracking Needs</h3>
+  <table class="w-full border-collapse border border-gray-300 mb-4">
+    <tr class="bg-gray-100">
+      <th class="border border-gray-300 p-2 text-left">Business Type</th>
+      <th class="border border-gray-300 p-2 text-left">Typical Cycle</th>
+      <th class="border border-gray-300 p-2 text-left">Key Formula</th>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">SaaS Software</td>
+      <td class="border border-gray-300 p-2">Monthly / Annual</td>
+      <td class="border border-gray-300 p-2 font-mono text-sm">EDATE</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">Gym / Fitness</td>
+      <td class="border border-gray-300 p-2">Monthly</td>
+      <td class="border border-gray-300 p-2 font-mono text-sm">EOMONTH</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">Property Leases</td>
+      <td class="border border-gray-300 p-2">6-12 months</td>
+      <td class="border border-gray-300 p-2 font-mono text-sm">DATEDIF</td>
+    </tr>
+  </table>
+  
+  <h3 class="text-xl font-semibold mb-2">Why EDATE is Better Than Adding Days</h3>
+  <p class="mb-4">If you add 30 days to January 31st, you get March 2nd. But if a customer signed up on Jan 31st for a "1 month" subscription, they expect Feb 28th (or 29th). EDATE handles this correctly.</p>
+  
+  <div class="bg-green-50 border border-green-200 rounded-lg p-4 my-4">
+    <p class="text-sm text-green-800"><strong>💡 Pro tip:</strong> Set up a "Renewal Status" column that flags accounts 30 days before expiry. This gives your team time to reach out and reduce churn.</p>
+  </div>
+</div>
+`
+    },
+
+    // 6. Grade Calculator (NEW)
+    {
+        slug: 'grade-calculator',
+        title: 'Letter Grade Converter & Grade Calculator | For Teachers',
+        metaDescription: 'Convert scores to letter grades, calculate class averages excluding absent students, and track attendance. Free grading tools for teachers and trainers.',
+        icon: 'GraduationCap',
+        description: 'Convert scores to grades, calculate averages & track attendance',
+        tools: [
+            {
+                id: 'letter-grade',
+                name: 'Letter Grade Converter',
+                description: 'Convert numeric scores to A/B/C/D/F',
+                formulaSlug: 'ifs',
+                inputs: [
+                    { id: 'score_cell', label: 'Score Cell', type: 'text', placeholder: 'e.g., B2' }
+                ],
+                generate: (p) => `=IFS(${p.score_cell || 'B2'}>=90, "A", ${p.score_cell || 'B2'}>=80, "B", ${p.score_cell || 'B2'}>=70, "C", ${p.score_cell || 'B2'}>=60, "D", TRUE, "F")`
+            },
+            {
+                id: 'clean-average',
+                name: 'Average (Exclude Zeros)',
+                description: 'Calculate average ignoring absent/zero scores',
+                formulaSlug: 'averageif',
+                inputs: [
+                    { id: 'score_range', label: 'Score Column', type: 'range', placeholder: 'e.g., B:B' },
+                    { id: 'min_score', label: 'Minimum Valid Score', type: 'number', placeholder: 'e.g., 1' }
+                ],
+                generate: (p) => `=AVERAGEIF(${p.score_range || 'B:B'}, ">="&${p.min_score || '1'})`
+            },
+            {
+                id: 'attendance-count',
+                name: 'Absence Counter',
+                description: 'Count how many times a status appears',
+                formulaSlug: 'countif',
+                inputs: [
+                    { id: 'status_range', label: 'Attendance Column', type: 'range', placeholder: 'e.g., C:C' },
+                    { id: 'status_value', label: 'Status to Count', type: 'text', placeholder: 'e.g., "Absent"' }
+                ],
+                generate: (p) => `=COUNTIF(${p.status_range || 'C:C'}, ${p.status_value || '"Absent"'})`
+            },
+            {
+                id: 'pass-rate',
+                name: 'Pass Rate Calculator',
+                description: 'Calculate percentage of students passing',
+                formulaSlug: 'countif',
+                inputs: [
+                    { id: 'score_range', label: 'Score Column', type: 'range', placeholder: 'e.g., B2:B50' },
+                    { id: 'pass_threshold', label: 'Passing Score', type: 'number', placeholder: 'e.g., 60' }
+                ],
+                generate: (p) => `=COUNTIF(${p.score_range || 'B2:B50'}, ">="&${p.pass_threshold || '60'})/COUNT(${p.score_range || 'B2:B50'})*100 & "%"`
+            }
+        ],
+        scenarios: [
+            {
+                id: 'final-grades',
+                name: 'Final Grade Report',
+                description: 'Convert all scores to letter grades',
+                defaultValues: { score_cell: 'B2' }
+            },
+            {
+                id: 'class-stats',
+                name: 'Class Statistics',
+                description: 'Calculate class average excluding no-shows',
+                defaultValues: { score_range: 'B2:B30', min_score: '1' }
+            },
+            {
+                id: 'attendance-report',
+                name: 'Attendance Summary',
+                description: 'Count absences for the semester',
+                defaultValues: { status_range: 'C:C', status_value: '"Absent"' }
+            }
+        ],
+        richContent: `
+<div class="prose max-w-none">
+  <h2 class="text-2xl font-bold mb-4">Grading Made Simple</h2>
+  <p class="mb-4">Teachers spend way too much time on grade calculations. These formulas handle the repetitive work: converting scores to letters, calculating clean averages, and tracking attendance.</p>
+  
+  <h3 class="text-xl font-semibold mb-2">Standard US Grading Scale</h3>
+  <table class="w-full border-collapse border border-gray-300 mb-4">
+    <tr class="bg-gray-100">
+      <th class="border border-gray-300 p-2 text-left">Score Range</th>
+      <th class="border border-gray-300 p-2 text-left">Letter Grade</th>
+      <th class="border border-gray-300 p-2 text-left">GPA Points</th>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">90-100</td>
+      <td class="border border-gray-300 p-2 font-bold text-green-600">A</td>
+      <td class="border border-gray-300 p-2">4.0</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">80-89</td>
+      <td class="border border-gray-300 p-2 font-bold text-blue-600">B</td>
+      <td class="border border-gray-300 p-2">3.0</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">70-79</td>
+      <td class="border border-gray-300 p-2 font-bold text-yellow-600">C</td>
+      <td class="border border-gray-300 p-2">2.0</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">60-69</td>
+      <td class="border border-gray-300 p-2 font-bold text-orange-600">D</td>
+      <td class="border border-gray-300 p-2">1.0</td>
+    </tr>
+    <tr>
+      <td class="border border-gray-300 p-2">Below 60</td>
+      <td class="border border-gray-300 p-2 font-bold text-red-600">F</td>
+      <td class="border border-gray-300 p-2">0.0</td>
+    </tr>
+  </table>
+  
+  <h3 class="text-xl font-semibold mb-2">Why IFS Beats Nested IFs</h3>
+  <p class="mb-4">The old way of writing grade formulas used nested IFs that were impossible to read. IFS lets you write conditions in order, making it easy to adjust your grading scale.</p>
+  
   <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 my-4">
-    <p class="text-sm text-purple-800"><strong>💡 Pro tip:</strong> For really complex analysis, pivot tables might be easier. But SUMIFS is perfect for dashboards where you need specific calculated values.</p>
+    <p class="text-sm text-purple-800"><strong>💡 Pro tip:</strong> When calculating class averages, always exclude zeros (students who were absent). Otherwise, a few no-shows will tank your class average unfairly.</p>
   </div>
 </div>
 `

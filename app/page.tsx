@@ -15,20 +15,20 @@ export const metadata: Metadata = {
     'SUMIF formula builder',
     'INDEX MATCH generator',
     'spreadsheet formulas',
-    'Excel functions',
-    'Google Sheets functions',
     'free Excel tools',
-    'formula helper',
-    'Excel tutorial',
     'email extraction',
     'loan calculator',
-    'working days calculator',
     'mortgage calculator',
     'data cleaning',
+    'URL slug generator',
+    'inventory management',
+    'subscription tracker',
+    'grade calculator',
+    'SEO tools',
   ],
   openGraph: {
     title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
-    description: 'Generate complex Excel and Google Sheets formulas instantly. Plus data cleaning, loan calculators, and HR time tools.',
+    description: 'Generate Excel and Google Sheets formulas instantly. Plus SEO tools, inventory management, loan calculators, and grading tools.',
     url: 'https://www.getsheetmaster.com',
     type: 'website',
     siteName: 'SheetMaster',
@@ -79,7 +79,7 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-gray-900">🔥 Popular Tools</h2>
           <span className="text-sm text-gray-500">Solve common problems fast</span>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {SOLUTIONS.map((solution) => (
             <SolutionCard
               key={solution.slug}

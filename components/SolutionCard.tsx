@@ -1,11 +1,14 @@
 import Link from 'next/link';
-import { Mail, Calendar, Banknote, Calculator, LucideIcon } from 'lucide-react';
+import { Mail, Calendar, Banknote, Calculator, Search, Package, GraduationCap, LucideIcon } from 'lucide-react';
 
 const iconMap: Record<string, LucideIcon> = {
     Mail,
     Calendar,
     Banknote,
     Calculator,
+    Search,
+    Package,
+    GraduationCap,
 };
 
 interface SolutionCardProps {

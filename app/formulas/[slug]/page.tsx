@@ -1,10 +1,21 @@
+import Link from 'next/link';
 import { FORMULAS } from '../../../lib/formulas';
 import FormulaBuilder from '../../../components/FormulaBuilder';
+import InteractiveFormulaBuilder from '../../../components/InteractiveFormulaBuilder';
 import AffiliateBanner from '../../../components/AffiliateBanner';
 import JsonLd from '../../../components/JsonLd';
 import Breadcrumbs, { BreadcrumbJsonLd } from '../../../components/Breadcrumbs';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+
+const RELATED_BY_SLUG: Record<string, string[]> = {
+  vlookup: ['index-match', 'xlookup', 'iferror', 'sumif', 'countif'],
+  'index-match': ['vlookup', 'xlookup', 'iferror', 'sumif'],
+  xlookup: ['vlookup', 'index-match', 'iferror', 'sumif'],
+  if: ['ifs', 'iferror', 'and', 'or', 'sumif'],
+  sumif: ['sumifs', 'countif', 'countifs', 'averageif', 'vlookup'],
+};
+const RELATED_COUNT = 5;
 
 export async function generateStaticParams() {
     return FORMULAS.map((formula) => ({
@@ -22,8 +33,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         };
     }
 
-    const title = `Free ${formula.excelFunction} Formula Generator | Excel & Google Sheets`;
-    const description = `Generate ${formula.excelFunction} formulas instantly for Excel and Google Sheets. ${formula.description.slice(0, 100)}`;
+    const title = formula.title;
+    const description = formula.metaDescription;
     const url = `https://www.getsheetmaster.com/formulas/${params.slug}`;
     const ogImageUrl = `/api/og?title=${encodeURIComponent(formula.excelFunction + ' Formula Generator')}&description=${encodeURIComponent('Generate ' + formula.excelFunction + ' formulas for Excel & Google Sheets')}`;
 
@@ -69,14 +80,40 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
         { name: formula.excelFunction },
     ];
 
+    // Top formulas that get the enhanced interactive experience
+    const interactiveSlugs = ['vlookup', 'xlookup', 'index-match', 'if', 'extract-email', 'extract-domain'];
+    const isInteractive = interactiveSlugs.includes(formula.slug);
+
+    const relatedSlugs = RELATED_BY_SLUG[formula.slug] ?? FORMULAS.filter((f) => f.slug !== formula.slug && f.category === formula.category).slice(0, RELATED_COUNT).map((f) => f.slug);
+    const relatedFormulas = (Array.isArray(relatedSlugs) ? relatedSlugs : []).map((slug) => FORMULAS.find((f) => f.slug === slug)).filter(Boolean) as typeof FORMULAS;
+    const relatedToShow = relatedFormulas.length ? relatedFormulas : FORMULAS.filter((f) => f.slug !== formula.slug).slice(0, RELATED_COUNT);
+
     return (
         <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-8">
-            <JsonLd name={formula.title} />
+            <JsonLd formula={formula} />
             <BreadcrumbJsonLd items={breadcrumbItems} />
             <Breadcrumbs items={breadcrumbItems} />
-            <FormulaBuilder formulaSlug={formula.slug} />
+
+            {isInteractive ? (
+                <InteractiveFormulaBuilder formulaSlug={formula.slug} />
+            ) : (
+                <FormulaBuilder formulaSlug={formula.slug} />
+            )}
+
             {formula.richContent && (
                 <div className="prose prose-slate max-w-none mt-12 pt-12 border-t border-gray-100" dangerouslySetInnerHTML={{ __html: formula.richContent }} />
+            )}
+            {relatedToShow.length > 0 && (
+                <div className="pt-8 border-t border-gray-100">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-3">Related Formulas</h2>
+                    <div className="flex flex-wrap gap-2">
+                        {relatedToShow.map((f) => (
+                            <Link key={f.slug} href={`/formulas/${f.slug}`} className="inline-flex items-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition-colors">
+                                {f.excelFunction}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
             )}
             <AffiliateBanner
                 title="Want to become an Excel Pro?"

@@ -19,7 +19,8 @@ export async function GET(request: NextRequest) {
           alignItems: 'center',
           justifyContent: 'center',
           background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
-          fontFamily: 'Inter, system-ui, sans-serif',
+          /* Inter (OFL 免费) + 系统免费 fallback */
+          fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
         }}
       >
         {/* Grid Pattern Background */}

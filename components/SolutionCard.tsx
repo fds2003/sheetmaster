@@ -42,8 +42,8 @@ export default function SolutionCard({ slug, title, description, icon }: Solutio
                     </p>
                 </div>
             </div>
-            <div className="absolute bottom-4 right-4 text-green-500 group-hover:translate-x-1 transition-transform">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="absolute bottom-4 right-4 w-5 h-5 shrink-0 flex items-center justify-center text-green-500 group-hover:translate-x-1 transition-transform" aria-hidden="true">
+                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
             </div>

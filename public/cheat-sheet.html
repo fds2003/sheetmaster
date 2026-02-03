@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excel Formula Cheat Sheet | SheetMaster</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #171717;
+      --muted: #525252;
+      --accent: #15803d;
+      --accent-light: #dcfce7;
+      --border: #e5e5e5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 11pt;
+      line-height: 1.4;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* Screen: center content, show pages as cards */
+    @media screen {
+      body {
+        background: #e8e8e8;
+        padding: 20px 0 40px;
+      }
+
+      .page-wrap {
+        max-width: 210mm;
+        margin: 0 auto;
+      }
+
+      .page {
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
+        border-radius: 2px;
+        margin-bottom: 20px;
+      }
+
+      .hint {
+        max-width: 210mm;
+        margin: 0 auto 16px;
+        padding: 0 15mm;
+      }
+    }
+
+    .no-print {
+      display: none !important;
+    }
+
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding: 0;
+        background: #fff;
+      }
+
+      .page {
+        page-break-after: always;
+        box-shadow: none;
+        margin: 0;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+    }
+
+    @page {
+      size: A4;
+      margin: 15mm;
+    }
+
+    .page {
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 12mm 15mm;
+    }
+
+    .page-header {
+      font-size: 9pt;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+
+    .page-header strong {
+      color: var(--accent);
+    }
+
+    .page-footer {
+      font-size: 8pt;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 4px;
+      margin-top: 12px;
+    }
+
+    h1 {
+      font-size: 18pt;
+      margin: 0 0 4px;
+      color: var(--accent);
+    }
+
+    h2 {
+      font-size: 12pt;
+      margin: 10px 0 4px;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 11pt;
+      margin: 10px 0 4px;
+      font-weight: 600;
+    }
+
+    .formula {
+      font-family: "Consolas", "Monaco", monospace;
+      font-size: 10pt;
+      background: #f5f5f5;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin: 2px 0;
+      word-break: break-all;
+    }
+
+    .tip {
+      font-size: 9pt;
+      color: var(--muted);
+      margin: 2px 0 6px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 6px 10px;
+      margin: 4px 0;
+      background: #fafafa;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10pt;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      text-align: left;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    th {
+      background: var(--accent-light);
+      font-weight: 600;
+    }
+
+    .tip code {
+      font-family: "Consolas", "Monaco", monospace;
+      font-size: 9pt;
+      background: #eee;
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media print {
+      .two-col {
+        gap: 8px;
+      }
+    }
+
+    ul {
+      margin: 4px 0;
+      padding-left: 18px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 8pt;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <p class="no-print hint" style="font-size:12px; color:#555;">
+    Open this page and use <strong>Print → Save as PDF</strong> to get your cheat sheet. (Chrome / Edge: Ctrl+P or Cmd+P
+    → Destination: Save as PDF.)
+  </p>
+  <div class="page-wrap">
+    <!-- Page 1: The Big 5 -->
+    <div class="page">
+      <div class="page-header"><strong>SheetMaster</strong> — Precise formulas, not AI guesswork</div>
+      <h1>Excel Formula Cheat Sheet</h1>
+      <p style="margin:0 0 12px; color: var(--muted); font-size: 10pt;">The Big 5 + data cleaning, dates, and
+        troubleshooting. Keep this by your desk.</p>
+
+      <h2>⚡ The Big 5 (Must-Know Formulas)</h2>
+
+      <div class="card">
+        <h3>VLOOKUP — Look up a value and return another column</h3>
+        <div class="formula">=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])</div>
+        <div class="tip"><strong>Lookup_value</strong> = what you’re searching for · <strong>Table_array</strong> =
+          where to search · <strong>Col_index_num</strong> = which column to return (1 = first column). Use
+          <code>FALSE</code> for exact match.
+        </div>
+      </div>
+      <div class="card">
+        <h3>IF — Condition: do one thing or another</h3>
+        <div class="formula">=IF(condition, value_if_true, value_if_false)</div>
+        <div class="tip">Example: <code>=IF(A1&gt;60,"Pass","Fail")</code>. Nest IFs for multiple conditions, or use IFS
+          in newer Excel.</div>
+      </div>
+      <div class="card">
+        <h3>SUMIF — Sum only cells that meet a condition</h3>
+        <div class="formula">=SUMIF(range, criteria, [sum_range])</div>
+        <div class="tip">Example: sum sales where region = "North". <strong>Range</strong> = cells to check ·
+          <strong>Criteria</strong> = condition · <strong>Sum_range</strong> = cells to sum (optional if same as range).
+        </div>
+      </div>
+      <div class="card">
+        <h3>INDEX + MATCH — Flexible lookup (better than VLOOKUP when columns move)</h3>
+        <div class="formula">=INDEX(return_range, MATCH(lookup_value, lookup_range, 0))</div>
+        <div class="tip">MATCH finds the row (or column) number; INDEX returns the value at that position. Use
+          <code>0</code> in MATCH for exact match.
+        </div>
+      </div>
+      <div class="card">
+        <h3>XLOOKUP — Modern replacement for VLOOKUP (Excel 365 / 2021+)</h3>
+        <div class="formula">=XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found])</div>
+        <div class="tip">No column index needed; can search left-to-right. Use <code>if_not_found</code> to avoid #N/A
+          (e.g. <code>"Not found"</code>).</div>
+      </div>
+
+      <div class="page-footer">SheetMaster — Precise formulas, not AI guesswork · getsheetmaster.com</div>
+    </div>
+
+    <!-- Page 2: Data Cleaning + Date/Time -->
+    <div class="page">
+      <div class="page-header"><strong>SheetMaster</strong> — Precise formulas, not AI guesswork</div>
+      <h2>🧹 Data Cleaning Kit</h2>
+      <div class="card">
+        <h3>TRIM — Remove leading/trailing spaces</h3>
+        <div class="formula">=TRIM(text)</div>
+        <div class="tip">Fixes pasted data with extra spaces. Use on the column first, then copy result as values.</div>
+      </div>
+      <div class="card">
+        <h3>Remove duplicates / Unique list</h3>
+        <div class="formula">=UNIQUE(range)</div>
+        <div class="tip">Excel 365: returns unique values. Older Excel: Data → Remove Duplicates, or use advanced filter
+          for unique list.</div>
+      </div>
+      <div class="card">
+        <h3>TEXTSPLIT — Split text by delimiter (Excel 365)</h3>
+        <div class="formula">=TEXTSPLIT(text, delimiter)</div>
+        <div class="tip">Splits "A,B,C" by comma into separate cells. Alternative: Data → Text to Columns.</div>
+      </div>
+      <div class="card">
+        <h3>PROPER / UPPER — Fix capitalization</h3>
+        <div class="formula">=PROPER(text)</div>
+        <div class="formula">=UPPER(text)</div>
+        <div class="tip">PROPER = first letter of each word uppercase. UPPER = all caps. LOWER = all lowercase.</div>
+      </div>
+
+      <h2>📅 Date & Time</h2>
+      <div class="card">
+        <h3>DATEDIF — Days/months/years between two dates</h3>
+        <div class="formula">=DATEDIF(start_date, end_date, "Y")</div>
+        <div class="tip">Unit: "Y" years, "M" months, "D" days. Great for tenure, contract length. (DATEDIF is
+          undocumented but supported.)</div>
+      </div>
+      <div class="card">
+        <h3>NETWORKDAYS — Working days between dates</h3>
+        <div class="formula">=NETWORKDAYS(start_date, end_date, [holidays])</div>
+        <div class="tip">Excludes weekends. Optional: range of holiday dates. Use for project timelines, SLA days.</div>
+      </div>
+      <div class="card">
+        <h3>EOMONTH — Last day of a month</h3>
+        <div class="formula">=EOMONTH(start_date, months)</div>
+        <div class="tip">Months = 0 for same month, 1 for next month. Use for month-end reporting, due dates.</div>
+      </div>
+
+      <div class="page-footer">SheetMaster — Precise formulas, not AI guesswork · getsheetmaster.com</div>
+    </div>
+
+    <!-- Page 3: Troubleshooting + Shortcuts -->
+    <div class="page">
+      <div class="page-header"><strong>SheetMaster</strong> — Precise formulas, not AI guesswork</div>
+      <h2>⚠️ Error Troubleshooting</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Error</th>
+            <th>Common cause</th>
+            <th>Fix in one line</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>#N/A</strong></td>
+            <td>VLOOKUP/MATCH/XLOOKUP didn’t find a match</td>
+            <td>Check lookup value exists, no extra spaces; use IFNA(XLOOKUP(...),"Not found") to hide.</td>
+          </tr>
+          <tr>
+            <td><strong>#VALUE!</strong></td>
+            <td>Wrong type (e.g. text where number expected)</td>
+            <td>Use VALUE() to convert text to number; check for hidden characters or merged cells.</td>
+          </tr>
+          <tr>
+            <td><strong>#REF!</strong></td>
+            <td>Reference to deleted or moved cells</td>
+            <td>Re-point formula to correct range or undo delete.</td>
+          </tr>
+          <tr>
+            <td><strong>#DIV/0!</strong></td>
+            <td>Division by zero</td>
+            <td>Wrap in IF(denominator=0,"",formula) or IFERROR(formula,"").</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>🚀 Top 10 Shortcuts</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>Windows</th>
+            <th>Mac</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Copy</td>
+            <td>Ctrl+C</td>
+            <td>Cmd+C</td>
+          </tr>
+          <tr>
+            <td>Paste</td>
+            <td>Ctrl+V</td>
+            <td>Cmd+V</td>
+          </tr>
+          <tr>
+            <td>Go to first cell</td>
+            <td>Ctrl+Home</td>
+            <td>Ctrl+Fn+Left / Cmd+Home</td>
+          </tr>
+          <tr>
+            <td>Go to last used cell</td>
+            <td>Ctrl+End</td>
+            <td>Ctrl+Fn+Right / Cmd+End</td>
+          </tr>
+          <tr>
+            <td>Edit cell</td>
+            <td>F2</td>
+            <td>F2 or Control+U</td>
+          </tr>
+          <tr>
+            <td>Fill down</td>
+            <td>Ctrl+D</td>
+            <td>Cmd+D</td>
+          </tr>
+          <tr>
+            <td>Fill right</td>
+            <td>Ctrl+R</td>
+            <td>Cmd+R</td>
+          </tr>
+          <tr>
+            <td>New line in cell</td>
+            <td>Alt+Enter</td>
+            <td>Control+Option+Enter</td>
+          </tr>
+          <tr>
+            <td>Absolute reference (toggle $)</td>
+            <td>F4</td>
+            <td>Fn+F4 or Cmd+T</td>
+          </tr>
+          <tr>
+            <td>Insert table</td>
+            <td>Ctrl+T</td>
+            <td>Cmd+T</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 style="margin-top:14px;">Bonus: More on SheetMaster</h2>
+      <p style="font-size:10pt; color: var(--muted); margin:0;">Get ready-to-use formula generators and templates:
+        <strong>getsheetmaster.com</strong> — Finance, HR, and inventory solutions.
+      </p>
+
+      <div class="page-footer">SheetMaster — Precise formulas, not AI guesswork · getsheetmaster.com</div>
+    </div>
+  </div>
+</body>
+
+</html>

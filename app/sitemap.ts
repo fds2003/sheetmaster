@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next';
 import { FORMULAS } from '@/lib/formulas';
 import { SOLUTIONS } from '@/lib/solutions';
+import { POSTS } from '@/lib/posts';
+import { USE_CASES } from '@/lib/use-cases';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.getsheetmaster.com';
@@ -22,7 +24,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: new Date(),
             priority: 0.3,
         },
+        {
+            url: `${baseUrl}/blog`,
+            lastModified: new Date(),
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/resources`,
+            lastModified: new Date(),
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/tools/remove-duplicates`,
+            lastModified: new Date(),
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/tools/split-text`,
+            lastModified: new Date(),
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/compare/vlookup-vs-xlookup`,
+            lastModified: new Date(),
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/use-cases`,
+            lastModified: new Date(),
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/solutions`,
+            lastModified: new Date(),
+            priority: 0.7,
+        },
     ];
+
+    // Use-case (industry) routes
+    const useCaseRoutes = USE_CASES.map((uc) => ({
+        url: `${baseUrl}/use-cases/${uc.slug}`,
+        lastModified: new Date(),
+        priority: 0.7,
+    }));
+
+    // Blog post routes
+    const blogRoutes = POSTS.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: new Date(),
+        priority: 0.7,
+    }));
 
     // Dynamic routes from formulas
     const formulaRoutes = FORMULAS.map((formula) => ({
@@ -38,5 +89,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.9,
     }));
 
-    return [...routes, ...solutionRoutes, ...formulaRoutes];
+    return [...routes, ...blogRoutes, ...useCaseRoutes, ...solutionRoutes, ...formulaRoutes];
 }

@@ -6,7 +6,8 @@ import Link from "next/link";
 import FeedbackWidget from "@/components/FeedbackWidget";
 import { Analytics } from "@vercel/analytics/react";
 
-const inter = Inter({ subsets: ["latin"] });
+/* Inter: SIL OFL 1.1 免费可商用 */
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     default: "SheetMaster - Free Excel & Google Sheets Formula Generators",
     template: "%s | SheetMaster",
   },
-  description: "Free tools to generate complex Excel and Google Sheets formulas instantly. Master VLOOKUP, IF, SUMIF, and more with our AI-powered generators.",
+  description: "Free tools to generate Excel and Google Sheets formulas instantly. No AI, no signup. Master VLOOKUP, IF, SUMIF, and 50+ formulas.",
   keywords: [
     "Excel formula generator",
     "Google Sheets formulas",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     url: "https://www.getsheetmaster.com",
     siteName: "SheetMaster",
     title: "SheetMaster - Free Excel & Google Sheets Formula Generators",
-    description: "Generate complex Excel and Google Sheets formulas instantly. AI-powered tools for VLOOKUP, IF, SUMIF, and more.",
+    description: "Generate Excel and Google Sheets formulas instantly. No AI, no signup. VLOOKUP, IF, SUMIF, and 50+ tools.",
     images: [
       {
         url: "/api/og?title=SheetMaster&description=Free%20Excel%20%26%20Google%20Sheets%20Formula%20Generators",
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "SheetMaster - Free Excel & Google Sheets Formula Generators",
-    description: "Generate complex Excel and Google Sheets formulas instantly. AI-powered tools for productivity.",
+    description: "Generate Excel and Google Sheets formulas instantly. No AI, no signup. Free formula generators.",
     images: ["/api/og?title=SheetMaster&description=Free%20Excel%20%26%20Google%20Sheets%20Formula%20Generators"],
   },
   alternates: {
@@ -77,15 +78,26 @@ export default function RootLayout({
           async
         />
       </head>
-      <body className={`${inter.className} bg-white`}>
+      <body className={`${inter.variable} ${inter.className} bg-white`}>
         <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
             <Link href="/" className="text-xl font-bold text-gray-900 hover:text-green-600 transition-colors">
               SheetMaster
             </Link>
+            <div className="flex items-center gap-6">
+              <Link href="/use-cases" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                Use Cases
+              </Link>
+              <Link href="/blog" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                Blog
+              </Link>
+              <Link href="/resources" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                Resources
+              </Link>
+            </div>
           </div>
         </nav>
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pt-24">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pt-24 bg-white min-h-screen">
           {children}
         </main>
         <footer className="bg-gray-50 border-t border-gray-200 py-8 mt-16">

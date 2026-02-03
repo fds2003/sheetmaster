@@ -73,9 +73,9 @@ export default function FormulaGrid({ formulas }: FormulaGridProps) {
                 {formula.description}
               </p>
 
-              {/* Arrow Icon - Bottom Right */}
-              <div className="absolute bottom-4 right-4">
-                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
+              {/* Arrow Icon - Bottom Right，固定尺寸避免异常放大 */}
+              <div className="absolute bottom-4 right-4 w-5 h-5 shrink-0 flex items-center justify-center">
+                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-green-600 transition-colors" aria-hidden />
               </div>
             </Link>
           ))}

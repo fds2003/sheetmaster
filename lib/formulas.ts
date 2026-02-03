@@ -9,6 +9,18 @@ export interface FormulaInput {
     tooltip?: string;
 }
 
+export interface FormulaStep {
+    name: string;
+    text: string;
+    image?: string;
+    url?: string;
+}
+
+export interface FormulaFAQ {
+    question: string;
+    answer: string;
+}
+
 export interface FormulaConfig {
     slug: string;
     title: string;
@@ -19,6 +31,8 @@ export interface FormulaConfig {
     inputs: FormulaInput[];
     generate: (params: Record<string, string>) => string;
     richContent?: string;
+    howToSteps?: FormulaStep[];
+    faq?: FormulaFAQ[];
 }
 
 function createSimpleFormula(
@@ -87,8 +101,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 1. VLOOKUP
     {
         slug: 'vlookup',
-        title: 'Free VLOOKUP Formula Generator',
-        metaDescription: 'Instantly generate VLOOKUP formulas for Excel and Google Sheets without memorizing syntax.',
+        title: 'Free VLOOKUP Generator - Excel & Google Sheets | No Signup',
+        metaDescription: 'Generate VLOOKUP formulas instantly for Excel and Google Sheets. Free tool with examples, error fixes (#N/A solutions), and step-by-step guide. No signup required.',
         excelFunction: 'VLOOKUP',
         category: 'Lookup',
         description: 'Looks for a value in the leftmost column of a table, and then returns a value in the same row from a column you specify.',
@@ -123,14 +137,30 @@ export const FORMULAS: FormulaConfig[] = [
        <p class="text-sm text-yellow-800"><strong>Pro Tip:</strong> If your lookup value is not in the first column, consider using <strong>INDEX & MATCH</strong> or the more modern <a href="/formulas/xlookup" class="text-blue-600 underline font-semibold">XLOOKUP Generator</a> which removes these limitations entirely.</p>
      </div>
    </div>
-   `
+   `,
+        howToSteps: [
+            { name: "Identify your lookup value", text: "Select the cell that contains the value you want to search for (e.g., an ID or Name in cell A2)." },
+            { name: "Select your data range", text: "Highlight the table where the data exists. Ensure the lookup value is in the FIRST column of this range." },
+            { name: "Count the column number", text: "Count how many columns to the right the result is located. For example, if your table is A:C and you want data from C, the number is 3." },
+            { name: "Choose exact match", text: "Always use FALSE (or 0) for exact matches to avoid incorrect results with unsorted data." }
+        ],
+        faq: [
+            { question: "Why is VLOOKUP returning #N/A?", answer: "This usually means the lookup value does not exist in the first column of your table array, or there is a mismatch in data types (e.g., number vs text stored as number). Check for hidden spaces, leading zeros, or use TRIM and VALUE to normalize data." },
+            { question: "Can VLOOKUP look to the left?", answer: "No, VLOOKUP can only look to the right. Use XLOOKUP or INDEX/MATCH to look to the left or in any column." },
+            { question: "What is the difference between VLOOKUP and XLOOKUP?", answer: "VLOOKUP only looks right and requires a column index number. XLOOKUP looks in any direction, uses separate lookup and return arrays, and supports built-in if-not-found and default values." },
+            { question: "How to use VLOOKUP with multiple criteria?", answer: "Add a helper column that concatenates the criteria columns, then use VLOOKUP on that column. In Excel 365 you can also use XLOOKUP with multiple conditions." },
+            { question: "Why is VLOOKUP not working?", answer: "Common causes: data type mismatch (number vs text), extra spaces (use TRIM), wrong column index, or range_lookup set to TRUE when you need exact match. Use FALSE for exact match." },
+            { question: "Is VLOOKUP case sensitive?", answer: "No, VLOOKUP is not case sensitive. To do a case-sensitive lookup, use INDEX with MATCH and EXACT, or XLOOKUP with EXACT." },
+            { question: "How to fix VLOOKUP #REF error?", answer: "#REF usually means the column index number is greater than the columns in your range, or the range was deleted. Check that col_index_num does not exceed the number of columns in table_array." },
+            { question: "Should I use VLOOKUP or INDEX MATCH?", answer: "Use INDEX MATCH when you need to look left, when columns might be inserted, or for clearer formulas. Use VLOOKUP for simple right-only lookups where the table rarely changes." }
+        ]
     },
 
     // 2. IF
     {
         slug: 'if',
-        title: 'Free IF Formula Generator',
-        metaDescription: 'Create complex IF statements for Excel and Google Sheets easily.',
+        title: 'IF Formula Generator - Create IF-THEN Statements | Free',
+        metaDescription: 'Build IF formulas for Excel and Google Sheets. Handle nested IF, IF-AND, IF-OR conditions. Free generator with examples. No signup required.',
         excelFunction: 'IF',
         category: 'Logic',
         description: 'Checks whether a condition is met, and returns one value if true and another value if false.',
@@ -169,14 +199,26 @@ export const FORMULAS: FormulaConfig[] = [
   
   <h3>Why Use SheetMaster's IF Generator?</h3>
   <p>Building complex logical statements manually can be prone to syntax errors, especially with parentheses. Our generator handles the formatting for you, ensuring your formula works perfectly the first time you paste it into your sheet. Save time and reduce frustration by letting our AI-ready tools handle the heavy lifting of data analysis.</p>
-</div>`
+</div>`,
+        howToSteps: [
+            { name: "Define your condition", text: "Decide what you want to test. For example, is cell A1 greater than 10?" },
+            { name: "Determine the result if true", text: "Decide what happens if the condition is met (e.g., return text 'Pass')." },
+            { name: "Determine the result if false", text: "Decide what happens if the condition is NOT met (e.g., return text 'Fail')." }
+        ],
+        faq: [
+            { question: "Can I use multiple IF statements?", answer: "Yes, you can nest IF statements inside each other to test multiple conditions, or use the IFS function for cleaner syntax." },
+            { question: "How do I check for text?", answer: "Put text inside double quotes, like \"Yes\" or \"No\". Numbers do not need quotes." },
+            { question: "What does the IF function do in Excel?", answer: "IF checks a condition and returns one value when true and another when false. Syntax: =IF(condition, value_if_true, value_if_false)." },
+            { question: "How do I use IF with AND or OR?", answer: "Put AND() or OR() in the logical_test: =IF(AND(A1>0, B1<10), \"Yes\", \"No\") or =IF(OR(A1=1, A1=2), \"OK\", \"No\")." },
+            { question: "Why does IF return #NAME?", answer: "Usually a typo in the function name or unquoted text. Text must be in double quotes; numbers and cell references do not need quotes." }
+        ]
     },
 
     // 3. SUMIF
     {
         slug: 'sumif',
-        title: 'Free SUMIF Formula Generator',
-        metaDescription: 'Generate SUMIF formulas to sum cells based on specific criteria.',
+        title: 'SUMIF Generator - Sum with Conditions | Excel & Sheets',
+        metaDescription: 'Generate SUMIF formulas to sum cells based on criteria. Free tool for Excel and Google Sheets with multiple condition examples. No signup required.',
         excelFunction: 'SUMIF',
         category: 'Math',
         description: 'Adds the cells specified by a given condition or criteria.',
@@ -190,7 +232,14 @@ export const FORMULAS: FormulaConfig[] = [
             const criteria = p.criteria || 'criteria';
             const sumRange = p.sum_range ? `, ${p.sum_range}` : '';
             return `=SUMIF(${range}, ${criteria}${sumRange})`;
-        }
+        },
+        faq: [
+            { question: "What is the difference between SUMIF and SUMIFS?", answer: "SUMIF has one condition; SUMIFS can have multiple conditions. Use SUMIFS when you need to sum only when two or more criteria are met." },
+            { question: "Can SUMIF use wildcards?", answer: "Yes. Use * for any characters and ? for one character. Example: =SUMIF(A:A,\"*apple*\",B:B) sums B where A contains \"apple\"." },
+            { question: "How do I sum with a date criteria?", answer: "Use a cell reference or DATE() in criteria, e.g. =SUMIF(A:A,\">=\"&DATE(2025,1,1),B:B) or =SUMIF(A:A,\">=\"&E1,B:B) where E1 has the date." },
+            { question: "Why does SUMIF return 0?", answer: "Check that criteria match the data type (e.g. number vs text). Use quotes for text: \"=100\" or \">50\". Ensure sum_range aligns with range if you use it." },
+            { question: "When should I use SUMIF vs COUNTIF?", answer: "Use SUMIF to add values that meet a condition. Use COUNTIF to count how many cells meet a condition. Both use the same criteria syntax." }
+        ]
     },
 
     // 4. COUNTIF
@@ -240,8 +289,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 6. INDEX/MATCH
     {
         slug: 'index-match',
-        title: 'Free INDEX & MATCH Generator',
-        metaDescription: 'Generate the powerful INDEX MATCH formula combination for advanced lookups.',
+        title: 'INDEX MATCH Generator - More Powerful Than VLOOKUP',
+        metaDescription: 'Generate INDEX MATCH formulas for Excel and Google Sheets. Look left, avoid column index errors. Free tool, no signup.',
         excelFunction: 'INDEX/MATCH',
         category: 'Lookup',
         description: 'A more flexible alternative to VLOOKUP. Returns the value of an element in a table or an array, selected by the row and column number indexes.',
@@ -266,14 +315,21 @@ export const FORMULAS: FormulaConfig[] = [
             const lookupRange = p.lookup_range || 'lookup_range';
             const matchType = p.match_type || '0';
             return `=INDEX(${returnRange}, MATCH(${lookupValue}, ${lookupRange}, ${matchType}))`;
-        }
+        },
+        faq: [
+            { question: "What does INDEX MATCH do?", answer: "INDEX returns a value from a range by position; MATCH finds the position of a value. Combined, they look up a value and return from another column—and can look to the left, unlike VLOOKUP." },
+            { question: "Why use INDEX MATCH instead of VLOOKUP?", answer: "INDEX MATCH can look left, is not broken when you insert columns, and often performs better on large data. It is more flexible than VLOOKUP." },
+            { question: "How do I use INDEX MATCH with multiple criteria?", answer: "Use MATCH with an array formula or helper column that concatenates criteria. In Excel 365 you can use XLOOKUP with multiple conditions more easily." },
+            { question: "What is the MATCH type (0, -1, 1)?", answer: "0 = exact match. -1 = find smallest value >= lookup (ascending). 1 = find largest value <= lookup (descending). Use 0 for most lookups." },
+            { question: "Why is INDEX MATCH returning #N/A?", answer: "MATCH returns #N/A when the lookup value is not found. Check for data type mismatch (number vs text), extra spaces, or use IFERROR to handle not found." }
+        ]
     },
 
     // 7. XLOOKUP
     {
         slug: 'xlookup',
-        title: 'Free XLOOKUP Formula Generator',
-        metaDescription: 'Generate XLOOKUP formulas, the modern replacement for VLOOKUP.',
+        title: 'XLOOKUP Generator - Modern VLOOKUP Replacement | Free',
+        metaDescription: 'Generate XLOOKUP formulas for Excel and Google Sheets. The modern replacement for VLOOKUP with built-in error handling. Free, no signup.',
         excelFunction: 'XLOOKUP',
         category: 'Lookup',
         description: 'Searches a range or an array, and then returns the item corresponding to the first match it finds. If no match exists, then XLOOKUP can return the closest (approximate) match.',
@@ -307,7 +363,14 @@ export const FORMULAS: FormulaConfig[] = [
      <h3 class="text-xl font-semibold mb-2">Formula Syntax Example</h3>
      <p class="mb-4"><code class="bg-gray-100 p-1 rounded font-mono text-sm">=XLOOKUP(search_value, lookup_array, return_array, [if_not_found])</code></p>
    </div>
-   `
+   `,
+        faq: [
+            { question: "What does XLOOKUP do?", answer: "XLOOKUP looks up a value in a lookup array and returns the corresponding value from a return array. It can look left or right and supports an optional if-not-found value." },
+            { question: "Is XLOOKUP available in Google Sheets?", answer: "Yes. XLOOKUP is available in Excel 365 and Google Sheets. It replaces VLOOKUP and HLOOKUP with a single, more flexible function." },
+            { question: "Why use XLOOKUP instead of VLOOKUP?", answer: "XLOOKUP can look left, does not need a column index number, supports built-in if-not-found, and defaults to exact match. It is the modern replacement for VLOOKUP." },
+            { question: "How do I handle #N/A in XLOOKUP?", answer: "Use the fourth argument (if_not_found) to return a value when no match is found, e.g. =XLOOKUP(A2,B:B,C:C,\"Not Found\")." },
+            { question: "Can XLOOKUP search from bottom?", answer: "Yes. Use the optional search_mode argument. -1 searches last-to-first. 1 (default) searches first-to-last." }
+        ]
     },
 
     // 8. TRIM

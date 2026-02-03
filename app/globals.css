@@ -7,17 +7,19 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* 不随系统暗色模式切换，避免深色背景 + 深色文字导致内容不可见 */
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  /* 全面使用免费字体：Inter (OFL) 由 layout 注入，fallback 为系统免费栈 */
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* 统一焦点样式：绿色细环，避免默认大块蓝色 outline */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid rgb(22 163 74);
+  outline-offset: 2px;
 }
 
 @layer utilities {

@@ -36,7 +36,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     const title = formula.title;
     const description = formula.metaDescription;
     const url = `https://www.getsheetmaster.com/formulas/${params.slug}`;
-    const ogImageUrl = `/api/og?title=${encodeURIComponent(formula.excelFunction + ' Formula Generator')}&description=${encodeURIComponent('Generate ' + formula.excelFunction + ' formulas for Excel & Google Sheets')}`;
+    const ogDescriptionForImage = description.length > 120 ? description.slice(0, 117) + '...' : description;
+    const ogImageUrl = `/api/og?title=${encodeURIComponent(formula.excelFunction + ' Formula Generator')}&description=${encodeURIComponent(ogDescriptionForImage)}`;
 
     return {
         title,
@@ -61,8 +62,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         },
         twitter: {
             card: 'summary_large_image',
-            title: `${formula.excelFunction} Formula Generator`,
-            description: `Generate ${formula.excelFunction} formulas for Excel & Google Sheets instantly.`,
+            title,
+            description,
             images: [ogImageUrl],
         },
     };
@@ -102,6 +103,40 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
 
             {formula.richContent && (
                 <div className="prose prose-slate max-w-none mt-12 pt-12 border-t border-gray-100" dangerouslySetInnerHTML={{ __html: formula.richContent }} />
+            )}
+            {formula.commonErrors && formula.commonErrors.length > 0 && (
+                <div className="mt-12 pt-12 border-t border-gray-100">
+                    <h2 className="text-lg font-semibold text-gray-900 mb-4">Common Errors & Fixes</h2>
+                    <ul className="space-y-6">
+                        {formula.commonErrors.map((err, i) => (
+                            <li key={i} className="rounded-lg border border-gray-200 bg-gray-50/50 p-4">
+                                {err.title && <h3 className="text-base font-medium text-gray-900 mb-2">{err.title}</h3>}
+                                <div className="space-y-2 text-sm">
+                                    {err.causes.length > 0 && (
+                                        <div>
+                                            <span className="font-medium text-gray-700">Causes: </span>
+                                            <ul className="list-disc pl-5 mt-1 text-gray-600">
+                                                {err.causes.map((c, j) => (
+                                                    <li key={j}>{c}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                    {err.fixes.length > 0 && (
+                                        <div>
+                                            <span className="font-medium text-gray-700">Fixes: </span>
+                                            <ul className="list-disc pl-5 mt-1 text-gray-600">
+                                                {err.fixes.map((f, j) => (
+                                                    <li key={j}>{f}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             )}
             {relatedToShow.length > 0 && (
                 <div className="pt-8 border-t border-gray-100">

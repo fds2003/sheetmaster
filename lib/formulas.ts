@@ -21,6 +21,12 @@ export interface FormulaFAQ {
     answer: string;
 }
 
+export interface FormulaCommonError {
+    title?: string;
+    causes: string[];
+    fixes: string[];
+}
+
 export interface FormulaConfig {
     slug: string;
     title: string;
@@ -33,6 +39,7 @@ export interface FormulaConfig {
     richContent?: string;
     howToSteps?: FormulaStep[];
     faq?: FormulaFAQ[];
+    commonErrors?: FormulaCommonError[];
 }
 
 function createSimpleFormula(
@@ -153,7 +160,11 @@ export const FORMULAS: FormulaConfig[] = [
             { question: "Is VLOOKUP case sensitive?", answer: "No, VLOOKUP is not case sensitive. To do a case-sensitive lookup, use INDEX with MATCH and EXACT, or XLOOKUP with EXACT." },
             { question: "How to fix VLOOKUP #REF error?", answer: "#REF usually means the column index number is greater than the columns in your range, or the range was deleted. Check that col_index_num does not exceed the number of columns in table_array." },
             { question: "Should I use VLOOKUP or INDEX MATCH?", answer: "Use INDEX MATCH when you need to look left, when columns might be inserted, or for clearer formulas. Use VLOOKUP for simple right-only lookups where the table rarely changes." }
-        ]
+        ],
+        commonErrors: [
+            { title: 'VLOOKUP returns #N/A', causes: ['Lookup value not in the first column of table_array.', 'Data type mismatch (number vs text, e.g. 123 vs "123").', 'Extra spaces or different formatting in lookup value or table.'], fixes: ['Ensure the column you search is the leftmost in table_array.', 'Use TRIM and VALUE or TEXT to align types; check for leading zeros.', 'Use TRIM on both sides or normalize with VALUE/TEXT.'] },
+            { title: 'Wrong column returned', causes: ['col_index_num is 1-based; counting from 1, not 0.', 'Inserted columns shifted the return column; index not updated.'], fixes: ['Count columns from the first column of table_array (1 = first column).', 'Use INDEX/MATCH or XLOOKUP to avoid column index breakage.'] },
+        ],
     },
 
     // 2. IF
@@ -211,7 +222,10 @@ export const FORMULAS: FormulaConfig[] = [
             { question: "What does the IF function do in Excel?", answer: "IF checks a condition and returns one value when true and another when false. Syntax: =IF(condition, value_if_true, value_if_false)." },
             { question: "How do I use IF with AND or OR?", answer: "Put AND() or OR() in the logical_test: =IF(AND(A1>0, B1<10), \"Yes\", \"No\") or =IF(OR(A1=1, A1=2), \"OK\", \"No\")." },
             { question: "Why does IF return #NAME?", answer: "Usually a typo in the function name or unquoted text. Text must be in double quotes; numbers and cell references do not need quotes." }
-        ]
+        ],
+        commonErrors: [
+            { title: 'IF returns #NAME? or wrong result', causes: ['Text in value_if_true/value_if_false not in double quotes.', 'Misspelled function name (IF not IFF).', 'Too many nested IFs; limit in Excel is 64.'], fixes: ['Put all literal text in quotes: "Pass", "Fail".', 'Check spelling; use IFS for many conditions instead of nesting.' , 'Use IFS or SWITCH for cleaner multi-condition logic.'] },
+        ],
     },
 
     // 3. SUMIF
@@ -239,14 +253,17 @@ export const FORMULAS: FormulaConfig[] = [
             { question: "How do I sum with a date criteria?", answer: "Use a cell reference or DATE() in criteria, e.g. =SUMIF(A:A,\">=\"&DATE(2025,1,1),B:B) or =SUMIF(A:A,\">=\"&E1,B:B) where E1 has the date." },
             { question: "Why does SUMIF return 0?", answer: "Check that criteria match the data type (e.g. number vs text). Use quotes for text: \"=100\" or \">50\". Ensure sum_range aligns with range if you use it." },
             { question: "When should I use SUMIF vs COUNTIF?", answer: "Use SUMIF to add values that meet a condition. Use COUNTIF to count how many cells meet a condition. Both use the same criteria syntax." }
-        ]
+        ],
+        commonErrors: [
+            { title: 'SUMIF returns 0 or wrong sum', causes: ['Criteria not in quotes for text (e.g. "Apple" not Apple).', 'Sum_range and range different sizes; only overlapping rows are summed.', 'Number stored as text in range; criteria does not match.'], fixes: ['Use quotes for text: ">100", "Sales".', 'Make sum_range same size as range, or omit sum_range to sum range.', 'Align data types; use VALUE or TEXT as needed.'] },
+        ],
     },
 
     // 4. COUNTIF
     {
         slug: 'countif',
-        title: 'Free COUNTIF Formula Generator',
-        metaDescription: 'Count cells that meet a specific criterion with this free tool.',
+        title: 'COUNTIF Generator - Count Cells by Criteria | Excel & Sheets',
+        metaDescription: 'Build COUNTIF formulas to count cells that meet a criterion (text, number, date). Free tool for Excel and Google Sheets. No signup.',
         excelFunction: 'COUNTIF',
         category: 'Math',
         description: 'Counts the number of cells within a range that meet the given condition.',
@@ -254,14 +271,24 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'range', label: 'Range to Count', type: 'range', placeholder: 'e.g., A1:A10' },
             { id: 'criteria', label: 'Criteria', type: 'text', placeholder: 'e.g., ">100" or "Completed"' },
         ],
-        generate: (p) => `=COUNTIF(${p.range || 'range'}, ${p.criteria || 'criteria'})`
+        generate: (p) => `=COUNTIF(${p.range || 'range'}, ${p.criteria || 'criteria'})`,
+        faq: [
+            { question: 'Why does COUNTIF return 0 when I expect a count?', answer: 'Check that your criteria match the data type (number vs text). Use quotes for text: "Completed" or "=100". For numbers use ">50" or "=100". Dates may need DATE() or a cell reference.' },
+            { question: 'How do I count blank or non-blank cells?', answer: 'Use criteria "" for blanks: =COUNTIF(A:A,""). For non-blanks use "<>": =COUNTIF(A:A,"<>").' },
+            { question: 'What is the difference between COUNTIF and COUNTIFS?', answer: 'COUNTIF has one condition; COUNTIFS supports multiple criteria ranges. Use COUNTIFS when you need to count only when two or more conditions are met.' },
+            { question: 'Can COUNTIF use wildcards?', answer: 'Yes. Use * for any characters and ? for one character. Example: =COUNTIF(A:A,"*apple*") counts cells containing "apple".' },
+            { question: 'How do I count cells with a date in a range?', answer: 'Use criteria with a date: =COUNTIF(A:A,">="&DATE(2025,1,1)) or =COUNTIF(A:A,">"&B1) where B1 holds the date.' },
+        ],
+        commonErrors: [
+            { title: 'COUNTIF returns 0 or wrong count', causes: ['Criteria not in quotes for text (e.g. "Yes" not Yes).', 'Data type mismatch: numbers stored as text or vice versa.', 'Extra spaces in cells; criteria does not match exactly.'], fixes: ['Wrap text criteria in double quotes: "Completed", ">100".', 'Use TRIM on data or match the stored format.', 'For numbers, use "=100" or ">50" as the criteria string.'] },
+        ],
     },
 
     // 5. CONCATENATE
     {
         slug: 'concatenate',
-        title: 'Free CONCATENATE Formula Generator',
-        metaDescription: 'Join multiple text strings into one text string.',
+        title: 'CONCATENATE Generator - Join Text with Separator | Excel & Sheets',
+        metaDescription: 'Join text strings with a separator (comma, space, dash). Free CONCATENATE and TEXTJOIN-style builder for Excel and Google Sheets. No signup.',
         excelFunction: 'CONCATENATE',
         category: 'Text',
         description: 'Joins several text strings into one text string.',
@@ -283,7 +310,17 @@ export const FORMULAS: FormulaConfig[] = [
                 formulaArgs += `, ", ", ${t3}`;
             }
             return `=CONCATENATE(${formulaArgs})`;
-        }
+        },
+        faq: [
+            { question: 'How do I add a space or separator between concatenated values?', answer: 'Include a string argument for the separator, e.g. ", " or " - " between cell references: =CONCATENATE(A1, " - ", B1).' },
+            { question: 'What is the difference between CONCATENATE and TEXTJOIN?', answer: 'CONCATENATE joins arguments in order; TEXTJOIN lets you specify a delimiter once and can ignore empty cells. In Excel 2016+ and Sheets, TEXTJOIN is often easier for lists.' },
+            { question: 'Why does CONCATENATE show a number without formatting?', answer: 'Concatenation turns numbers to plain text. Use TEXT() to format: =CONCATENATE(TEXT(A1,"0.00"), " ", B1).' },
+            { question: 'How do I concatenate a date with text?', answer: 'Wrap the date in TEXT() so it displays as you want: =CONCATENATE(TEXT(A1,"yyyy-mm-dd"), " ", B1).' },
+            { question: 'Can I use CONCATENATE with more than 3 items?', answer: 'Yes. Add more arguments: =CONCATENATE(A1, " ", B1, " ", C1). In Google Sheets and Excel 2016+, TEXTJOIN is simpler for many values.' },
+        ],
+        commonErrors: [
+            { title: 'No space or wrong separator between values', causes: ['Forgetting to add a separator string between references.', 'Using a number instead of quoted text for the separator.'], fixes: ['Add ", " or " - " (or any separator in quotes) between each pair of values.', 'Always put literal text in double quotes.'] },
+        ],
     },
 
     // 6. INDEX/MATCH
@@ -322,7 +359,10 @@ export const FORMULAS: FormulaConfig[] = [
             { question: "How do I use INDEX MATCH with multiple criteria?", answer: "Use MATCH with an array formula or helper column that concatenates criteria. In Excel 365 you can use XLOOKUP with multiple conditions more easily." },
             { question: "What is the MATCH type (0, -1, 1)?", answer: "0 = exact match. -1 = find smallest value >= lookup (ascending). 1 = find largest value <= lookup (descending). Use 0 for most lookups." },
             { question: "Why is INDEX MATCH returning #N/A?", answer: "MATCH returns #N/A when the lookup value is not found. Check for data type mismatch (number vs text), extra spaces, or use IFERROR to handle not found." }
-        ]
+        ],
+        commonErrors: [
+            { title: 'INDEX MATCH returns #N/A or wrong value', causes: ['Lookup range and return range have different heights (rows).', 'MATCH type wrong: use 0 for exact match; -1/1 for sorted lookup.', 'Data type mismatch between lookup value and lookup range.'], fixes: ['Use same-sized single-column ranges for lookup_range and return_range.', 'Use 0 for exact match in most cases.', 'Normalize types with TRIM, VALUE, or TEXT.'] },
+        ],
     },
 
     // 7. XLOOKUP
@@ -370,7 +410,10 @@ export const FORMULAS: FormulaConfig[] = [
             { question: "Why use XLOOKUP instead of VLOOKUP?", answer: "XLOOKUP can look left, does not need a column index number, supports built-in if-not-found, and defaults to exact match. It is the modern replacement for VLOOKUP." },
             { question: "How do I handle #N/A in XLOOKUP?", answer: "Use the fourth argument (if_not_found) to return a value when no match is found, e.g. =XLOOKUP(A2,B:B,C:C,\"Not Found\")." },
             { question: "Can XLOOKUP search from bottom?", answer: "Yes. Use the optional search_mode argument. -1 searches last-to-first. 1 (default) searches first-to-last." }
-        ]
+        ],
+        commonErrors: [
+            { title: 'XLOOKUP returns #N/A', causes: ['Lookup value not in lookup_array.', 'Lookup and return arrays different lengths.', 'Data type or format mismatch.'], fixes: ['Use fourth argument (if_not_found) to return a default.', 'Ensure lookup_array and return_array have the same number of rows.', 'Use TRIM, VALUE, or TEXT to align formats.'] },
+        ],
     },
 
     // 8. TRIM
@@ -617,8 +660,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'Free SUMIFS Formula Generator',
-        metaDescription: 'Generate SUMIFS formulas to sum cells based on multiple criteria in Excel and Google Sheets.',
+        title: 'SUMIFS Generator - Sum with Multiple Criteria | Excel & Sheets',
+        metaDescription: 'Sum cells that meet two or more conditions. Free SUMIFS builder for Excel and Google Sheets. Sum range first, then criteria pairs. No signup.',
         excelFunction: 'SUMIFS',
         category: 'Math',
         description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
@@ -630,6 +673,16 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'criteria2', label: 'Criteria 2', type: 'text', placeholder: 'e.g., ">1000"' },
         ],
         generate: (p) => `=SUMIFS(${p.sum_range || 'sum_range'}, ${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`,
+        faq: [
+            { question: 'Why is SUMIFS argument order different from SUMIF?', answer: 'SUMIFS puts the sum range first, then each criteria_range and criteria pair. SUMIF uses range, criteria, sum_range. Mixing them up causes wrong results or errors.' },
+            { question: 'Why does SUMIFS return 0?', answer: 'Check that criteria match data types (text in quotes, numbers with operators like ">100"). Ensure all criteria ranges have the same number of rows as the sum range.' },
+            { question: 'Can SUMIFS use wildcards?', answer: 'Yes. Use * for any characters and ? for one: =SUMIFS(C:C, A:A, "*North*", B:B, ">100").' },
+            { question: 'How do I sum between two dates with SUMIFS?', answer: 'Use two criteria on the date column: criteria_range1 date column with ">="&start_date, criteria_range2 same column with "<="&end_date.' },
+            { question: 'When should I use SUMIFS vs SUMIF?', answer: 'Use SUMIF for one condition; SUMIFS when you need two or more conditions (e.g. region and product, or date range).' },
+        ],
+        commonErrors: [
+            { title: 'SUMIFS returns 0 or wrong total', causes: ['Sum range and criteria ranges have different heights or columns.', 'Criteria in wrong order (text without quotes, date not as DATE() or cell ref).', 'Using SUMIF-style argument order (sum range must come first in SUMIFS).'], fixes: ['Use same-sized ranges: e.g. A1:A100, B1:B100, C1:C100.', 'Put text in quotes; use ">="&A1 for dates where A1 is a date.', 'Syntax: =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2).'] },
+        ],
         richContent: `
 <div class="prose max-w-none mt-8">
   <h2>Master SUMIFS: Sum with Multiple Conditions</h2>
@@ -654,8 +707,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 26. COUNTIFS - Multiple Criteria Count
     {
         slug: 'countifs',
-        title: 'Free COUNTIFS Formula Generator',
-        metaDescription: 'Generate COUNTIFS formulas to count cells based on multiple criteria.',
+        title: 'COUNTIFS Generator - Count with Multiple Criteria | Excel & Sheets',
+        metaDescription: 'Count cells that meet two or more conditions. Free COUNTIFS builder for Excel and Google Sheets. No signup.',
         excelFunction: 'COUNTIFS',
         category: 'Math',
         description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
@@ -665,7 +718,17 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'criteria_range2', label: 'Criteria Range 2', type: 'range', placeholder: 'e.g., B1:B100' },
             { id: 'criteria2', label: 'Criteria 2', type: 'text', placeholder: 'e.g., ">500"' },
         ],
-        generate: (p) => `=COUNTIFS(${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`
+        generate: (p) => `=COUNTIFS(${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`,
+        faq: [
+            { question: 'Why does COUNTIFS return 0?', answer: 'All conditions must be met in the same row. Check that criteria ranges are the same size and that criteria match data types (text in quotes, numbers with ">50" etc).' },
+            { question: 'Do COUNTIFS ranges have to be the same size?', answer: 'Yes. Each criteria range must have the same number of rows (and columns). Mismatched range sizes can give wrong counts or errors.' },
+            { question: 'Can COUNTIFS count with OR logic?', answer: 'COUNTIFS is AND logic only. For OR, add multiple COUNTIFS: =COUNTIFS(A:A,"X")+COUNTIFS(A:A,"Y"), or use SUMPRODUCT with (condition1)+(condition2).' },
+            { question: 'How do I count rows where one column is blank and another is not?', answer: 'Use criteria "" for blank and "<>" for non-blank: =COUNTIFS(A:A,"", B:B,"<>").' },
+            { question: 'What is the difference between COUNTIF and COUNTIFS?', answer: 'COUNTIF has one condition; COUNTIFS has multiple criteria_range/criteria pairs. Use COUNTIFS when you need two or more conditions at once.' },
+        ],
+        commonErrors: [
+            { title: 'COUNTIFS returns 0 or unexpected count', causes: ['Criteria ranges have different lengths.', 'Text criteria not in quotes; number criteria wrong format.'], fixes: ['Use identical range sizes: A1:A100, B1:B100.', 'Use "Completed", ">100", "="&A1 for text, number, and cell reference.'] },
+        ],
     },
 
     // 27. AVERAGEIF - Conditional Average
@@ -691,8 +754,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 28. IFERROR - Error Handling
     {
         slug: 'iferror',
-        title: 'Free IFERROR Formula Generator',
-        metaDescription: 'Handle errors gracefully in Excel and Google Sheets with IFERROR.',
+        title: 'IFERROR Generator - Hide Errors, Show Fallback | Excel & Sheets',
+        metaDescription: 'Wrap formulas in IFERROR to show a fallback value instead of #N/A, #DIV/0!, #VALUE!. Free tool for Excel and Google Sheets. No signup.',
         excelFunction: 'IFERROR',
         category: 'Logic',
         description: 'Returns a value you specify if a formula evaluates to an error; otherwise returns the result of the formula.',
@@ -701,6 +764,16 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'value_if_error', label: 'Value if Error', type: 'text', placeholder: 'e.g., 0 or "N/A"' },
         ],
         generate: (p) => `=IFERROR(${p.value || 'value'}, ${p.value_if_error || '""'})`,
+        faq: [
+            { question: 'What errors does IFERROR catch?', answer: 'IFERROR catches #N/A, #VALUE!, #REF!, #DIV/0!, #NAME?, #NUM!, and #NULL!. It returns your fallback value for any of these.' },
+            { question: 'Should I use IFERROR around VLOOKUP?', answer: 'Yes. When the lookup value is not found, VLOOKUP returns #N/A. Wrapping in IFERROR lets you show "Not Found" or 0 instead: =IFERROR(VLOOKUP(...), "Not Found").' },
+            { question: 'What is the difference between IFERROR and IFNA?', answer: 'IFERROR catches all errors; IFNA catches only #N/A. Use IFNA when you want other errors (e.g. #VALUE!) to still show, so you can debug them.' },
+            { question: 'Can IFERROR hide formula errors in Google Sheets?', answer: 'Yes. IFERROR works the same in Excel and Google Sheets. Use it to avoid #DIV/0! from division or #N/A from lookups.' },
+            { question: 'Why is my IFERROR returning the fallback when the result looks correct?', answer: 'The first argument might be returning an error you do not see (e.g. in a hidden column). Check the inner formula alone; ensure the fallback is only what you want for real errors.' },
+        ],
+        commonErrors: [
+            { title: 'IFERROR hides errors I want to see', causes: ['Using IFERROR around a formula that can return #VALUE! or #REF! you need to fix.', 'Nested formulas: inner error is caught so outer logic never runs.'], fixes: ['Use IFNA instead to catch only #N/A, or fix the inner formula first.', 'Test the inner formula without IFERROR to debug, then wrap once correct.'] },
+        ],
         richContent: `
 <div class="prose max-w-none mt-8">
   <h2>IFERROR: The Essential Error Handler</h2>

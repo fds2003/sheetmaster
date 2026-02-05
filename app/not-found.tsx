@@ -33,6 +33,18 @@ export default function NotFound() {
         >
           Resources
         </Link>
+        <Link
+          href="/solutions"
+          className="inline-flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-green-300 transition-colors"
+        >
+          Solutions
+        </Link>
+        <Link
+          href="/compare/vlookup-vs-xlookup"
+          className="inline-flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-green-300 transition-colors"
+        >
+          VLOOKUP vs XLOOKUP
+        </Link>
       </div>
     </div>
   );

@@ -458,7 +458,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'datedif',
         title: 'Free DATEDIF Formula Generator',
-        metaDescription: 'Calculate the difference between two dates.',
+        metaDescription: 'Calculate date differences in Excel and Google Sheets. Free DATEDIF tool for days, months, years. No signup required. Generate formulas instantly.',
         excelFunction: 'DATEDIF',
         category: 'Date',
         description: 'Calculates the number of days, months, or years between two dates.',
@@ -503,7 +503,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'networkdays',
         title: 'Free NETWORKDAYS Formula Generator',
-        metaDescription: 'Calculate the number of working days between two dates.',
+        metaDescription: 'Calculate working days in Excel and Google Sheets. Free NETWORKDAYS tool excludes weekends. No signup required. Add holidays optionally.',
         excelFunction: 'NETWORKDAYS',
         category: 'Date',
         description: 'Returns the number of whole working days between start_date and end_date.',
@@ -523,7 +523,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'pmt',
         title: 'Free PMT Formula Generator',
-        metaDescription: 'Calculate loan payments with the PMT function.',
+        metaDescription: 'Calculate loan payments in Excel and Google Sheets. Free PMT tool for monthly payments. No signup required. Based on rate, periods, and loan amount.',
         excelFunction: 'PMT',
         category: 'Math', // Changed from Financial to Math as per type definition, or need to add Financial type
         description: 'Calculates the payment for a loan based on constant payments and a constant interest rate.',
@@ -565,7 +565,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'extract-email',
         title: 'Extract Email Address from Text',
-        metaDescription: 'Extract email addresses from text cells using REGEXEXTRACT.',
+        metaDescription: 'Extract email addresses in Excel and Google Sheets. Free REGEXEXTRACT tool for email extraction. No signup required. Clean data instantly.',
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts an email address from a text string.',
@@ -593,7 +593,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'extract-domain',
         title: 'Extract Domain from URL',
-        metaDescription: 'Extract the domain name from a URL.',
+        metaDescription: 'Extract domain names from URLs in Excel and Google Sheets. Free REGEXEXTRACT tool for SEO. No signup required. Parse URLs instantly.',
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts the domain part from a URL.',
@@ -618,7 +618,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'get-first-word',
         title: 'Get First Word from Text',
-        metaDescription: 'Extract the first word from a text string.',
+        metaDescription: 'Extract first word from text in Excel and Google Sheets. Free LEFT and FIND tool. No signup required. Get first names or keywords instantly.',
         excelFunction: 'LEFT & FIND',
         category: 'Text',
         description: 'Returns the first word in a text string.',
@@ -646,7 +646,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'remove-first-3-chars',
         title: 'Remove First N Characters',
-        metaDescription: 'Remove the first N characters from a text string.',
+        metaDescription: 'Remove first N characters in Excel and Google Sheets. Free RIGHT and LEN tool. No signup required. Clean text data instantly.',
         excelFunction: 'RIGHT & LEN',
         category: 'Text',
         description: 'Removes the specified number of characters from the beginning of a text string.',
@@ -735,7 +735,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'averageif',
         title: 'Free AVERAGEIF Formula Generator',
-        metaDescription: 'Calculate the average of cells that meet a specific criterion.',
+        metaDescription: 'Calculate conditional average in Excel and Google Sheets. Free AVERAGEIF tool for criteria-based averages. No signup required. Analyze data easily.',
         excelFunction: 'AVERAGEIF',
         category: 'Math',
         description: 'Returns the average of all cells in a range that meet a given criteria.',
@@ -796,7 +796,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'ifs',
         title: 'Free IFS Formula Generator',
-        metaDescription: 'Generate IFS formulas for multiple conditions without nested IFs.',
+        metaDescription: 'Generate IFS formulas in Excel and Google Sheets. Free tool for multiple conditions. No signup required. Replace nested IF statements easily.',
         excelFunction: 'IFS',
         category: 'Logic',
         description: 'Checks multiple conditions and returns a value corresponding to the first TRUE condition. Cleaner than nested IFs.',
@@ -815,7 +815,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'substitute',
         title: 'Free SUBSTITUTE Formula Generator',
-        metaDescription: 'Replace text within a string using the SUBSTITUTE function.',
+        metaDescription: 'Replace text in Excel and Google Sheets. Free SUBSTITUTE tool for data cleaning. No signup required. Swap characters or words instantly.',
         excelFunction: 'SUBSTITUTE',
         category: 'Text',
         description: 'Substitutes new text for old text in a text string. Great for data cleaning.',
@@ -872,7 +872,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'text',
         title: 'Free TEXT Formula Generator',
-        metaDescription: 'Format numbers as text with custom number formats.',
+        metaDescription: 'Format numbers as text in Excel and Google Sheets. Free TEXT tool for custom formats. No signup required. Convert to currency, date, percent.',
         excelFunction: 'TEXT',
         category: 'Text',
         description: 'Converts a value to text in a specific number format.',
@@ -899,7 +899,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'round',
         title: 'Free ROUND Formula Generator',
-        metaDescription: 'Round numbers to a specified number of decimal places.',
+        metaDescription: 'Round numbers in Excel and Google Sheets. Free ROUND tool for decimal places. No signup required. Format values precisely and easily.',
         excelFunction: 'ROUND',
         category: 'Math',
         description: 'Rounds a number to a specified number of digits.',
@@ -914,7 +914,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'roundup',
         title: 'Free ROUNDUP Formula Generator',
-        metaDescription: 'Round numbers up, away from zero.',
+        metaDescription: 'Round numbers up in Excel and Google Sheets. Free ROUNDUP tool for ceiling values. No signup required. Always round away from zero.',
         excelFunction: 'ROUNDUP',
         category: 'Math',
         description: 'Rounds a number up, away from zero.',
@@ -929,7 +929,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'rounddown',
         title: 'Free ROUNDDOWN Formula Generator',
-        metaDescription: 'Round numbers down, toward zero.',
+        metaDescription: 'Round numbers down in Excel and Google Sheets. Free ROUNDDOWN tool for floor values. No signup required. Always round toward zero.',
         excelFunction: 'ROUNDDOWN',
         category: 'Math',
         description: 'Rounds a number down, toward zero.',
@@ -968,7 +968,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'edate',
         title: 'Free EDATE Formula Generator',
-        metaDescription: 'Add or subtract months from a date.',
+        metaDescription: 'Add or subtract months in Excel and Google Sheets. Free EDATE tool for date calculations. No signup required. Calculate future or past dates.',
         excelFunction: 'EDATE',
         category: 'Date',
         description: 'Returns a date that is a specified number of months before or after a given date.',
@@ -983,7 +983,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'eomonth',
         title: 'Free EOMONTH Formula Generator',
-        metaDescription: 'Get the last day of a month, with optional month offset.',
+        metaDescription: 'Get month end dates in Excel and Google Sheets. Free EOMONTH tool for last day calculations. No signup required. Perfect for financial reports.',
         excelFunction: 'EOMONTH',
         category: 'Date',
         description: 'Returns the last day of the month a specified number of months before or after a date.',

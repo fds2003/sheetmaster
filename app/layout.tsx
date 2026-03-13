@@ -97,6 +97,26 @@ export default function RootLayout({
             </div>
           </div>
         </nav>
+        {/* IndexNow: Auto-submit current page URL on page load */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function() {
+  var key = 'B4D1A61564BD21F77BDEC9F74D26FC75';
+  var url = window.location.href;
+  
+  // Submit URL to IndexNow via our API endpoint
+  fetch('/api/indexnow', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key: key, url: url })
+  }).catch(function(e) {
+    // Silently fail - IndexNow is non-critical
+  });
+})();
+            `.trim(),
+          }}
+        />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pt-24 bg-white min-h-screen">
           {children}
         </main>

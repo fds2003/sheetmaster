@@ -1,13 +1,55 @@
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { FORMULAS } from '../../../lib/formulas';
-import FormulaBuilder from '../../../components/FormulaBuilder';
-import InteractiveFormulaBuilder from '../../../components/InteractiveFormulaBuilder';
-import InteractiveSumifsBuilder from '../../../components/InteractiveSumifsBuilder';
 import AffiliateBanner from '../../../components/AffiliateBanner';
+
+const FormulaBuilder = dynamic(() => import('../../../components/FormulaBuilder'), {
+    loading: () => <div className="h-64 w-full animate-pulse bg-gray-100 rounded-xl border border-gray-200" />
+});
+const InteractiveFormulaBuilder = dynamic(() => import('../../../components/InteractiveFormulaBuilder'), {
+    loading: () => <div className="h-96 w-full animate-pulse bg-gray-100 rounded-xl border border-gray-200" />
+});
+const InteractiveSumifsBuilder = dynamic(() => import('../../../components/InteractiveSumifsBuilder'), {
+    loading: () => <div className="h-[500px] w-full animate-pulse bg-gray-100 rounded-xl border border-gray-200" />
+});
 import JsonLd from '../../../components/JsonLd';
 import Breadcrumbs, { BreadcrumbJsonLd } from '../../../components/Breadcrumbs';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+
+// Utility to inject internal links into formula rich content
+// It finds occurrences of formula names (e.g. VLOOKUP, SUMIFS) exactly matched,
+// skipping those already inside HTML tags (like <a> or <code>).
+function injectInternalLinks(content: string, currentSlug: string): string {
+    if (!content) return content;
+    
+    // Create an array of available formulas sorted by length descending so longer names match first (e.g. INDEX MATCH before INDEX)
+    const availableFormulas = FORMULAS
+        .filter(f => f.slug !== currentSlug) // Don't link to the current page itself
+        .sort((a, b) => b.excelFunction.length - a.excelFunction.length);
+
+    let processedContent = content;
+
+    for (const formula of availableFormulas) {
+        // We want to find the exact formula name (case insensitive for matching, but keeping original case in replace)
+        // Negative lookbehinds/lookaheads to prevent replacing text inside HTML tags like <a href="..."> or <code...>
+        const escapedName = formula.excelFunction.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        
+        // This regex ensures:
+        // 1. Matches as a whole word (\b)
+        // 2. Ignores matches that are inside HTML tags (e.g., href="...", class="...") by checking that the next occurring angle bracket isn't a closing one '>'
+        // Note: JS regex in browsers/node doesn't perfectly parse HTML, but this simple heuristic works well for basic rich content.
+        const regex = new RegExp("\\\\b(" + escapedName + ")\\\\b(?![^<]*>|[^<>]*<\\\\/(a|code)>)", 'gi');
+        
+        processedContent = processedContent.replace(regex, (match) => {
+            // Check if it's already an anchor tag by looking around in the original content (simple fallback check)
+            // But the regex lookahead usually handles this safely.
+            return '<a href="/formulas/' + formula.slug + '" class="text-blue-600 hover:text-blue-800 font-medium underline transition-colors" title="Learn more about ' + formula.excelFunction + '">' + match + '</a>';
+        });
+    }
+
+    return processedContent;
+}
 
 const RELATED_BY_SLUG: Record<string, string[]> = {
     vlookup: ['index-match', 'xlookup', 'iferror', 'sumif', 'countif'],
@@ -105,7 +147,10 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
             )}
 
             {formula.richContent && (
-                <div className="prose prose-slate max-w-none mt-12 pt-12 border-t border-gray-100" dangerouslySetInnerHTML={{ __html: formula.richContent }} />
+                <div 
+                    className="prose prose-slate max-w-none mt-12 pt-12 border-t border-gray-100" 
+                    dangerouslySetInnerHTML={{ __html: injectInternalLinks(formula.richContent, formula.slug) }} 
+                />
             )}
             {formula.commonErrors && formula.commonErrors.length > 0 && (
                 <div className="mt-12 pt-12 border-t border-gray-100">

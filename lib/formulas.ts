@@ -224,7 +224,7 @@ export const FORMULAS: FormulaConfig[] = [
             { question: "Why does IF return #NAME?", answer: "Usually a typo in the function name or unquoted text. Text must be in double quotes; numbers and cell references do not need quotes." }
         ],
         commonErrors: [
-            { title: 'IF returns #NAME? or wrong result', causes: ['Text in value_if_true/value_if_false not in double quotes.', 'Misspelled function name (IF not IFF).', 'Too many nested IFs; limit in Excel is 64.'], fixes: ['Put all literal text in quotes: "Pass", "Fail".', 'Check spelling; use IFS for many conditions instead of nesting.' , 'Use IFS or SWITCH for cleaner multi-condition logic.'] },
+            { title: 'IF returns #NAME? or wrong result', causes: ['Text in value_if_true/value_if_false not in double quotes.', 'Misspelled function name (IF not IFF).', 'Too many nested IFs; limit in Excel is 64.'], fixes: ['Put all literal text in quotes: "Pass", "Fail".', 'Check spelling; use IFS for many conditions instead of nesting.', 'Use IFS or SWITCH for cleaner multi-condition logic.'] },
         ],
     },
 
@@ -660,8 +660,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'SUMIFS Generator - Sum with Multiple Criteria | Excel & Sheets',
-        metaDescription: 'Sum cells that meet two or more conditions. Free SUMIFS builder for Excel and Google Sheets. Sum range first, then criteria pairs. No signup.',
+        title: 'Excel SUMIFS Formula Generator | Sum Multiple Criteria Easily',
+        metaDescription: 'Stop struggling with sum_range and criteria_range. Use our interactive SUMIFS builder to sum cells based on multiple conditions. Includes SUMIF vs SUMIFS guide.',
         excelFunction: 'SUMIFS',
         category: 'Math',
         description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
@@ -674,33 +674,38 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=SUMIFS(${p.sum_range || 'sum_range'}, ${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`,
         faq: [
-            { question: 'Why is SUMIFS argument order different from SUMIF?', answer: 'SUMIFS puts the sum range first, then each criteria_range and criteria pair. SUMIF uses range, criteria, sum_range. Mixing them up causes wrong results or errors.' },
-            { question: 'Why does SUMIFS return 0?', answer: 'Check that criteria match data types (text in quotes, numbers with operators like ">100"). Ensure all criteria ranges have the same number of rows as the sum range.' },
-            { question: 'Can SUMIFS use wildcards?', answer: 'Yes. Use * for any characters and ? for one: =SUMIFS(C:C, A:A, "*North*", B:B, ">100").' },
-            { question: 'How do I sum between two dates with SUMIFS?', answer: 'Use two criteria on the date column: criteria_range1 date column with ">="&start_date, criteria_range2 same column with "<="&end_date.' },
-            { question: 'When should I use SUMIFS vs SUMIF?', answer: 'Use SUMIF for one condition; SUMIFS when you need two or more conditions (e.g. region and product, or date range).' },
+            { question: 'What is the correct SUMIFS syntax order (sum_range criteria_range1 criteria1)?', answer: 'The syntax is exactly: =SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2]...). The sum_range MUST come first, followed by pairs of criteria ranges and their specific conditions.' },
+            { question: 'Why does SUMIFS return 0?', answer: 'This usually happens if criteria_range and sum_range are different sizes, or text criteria are missing quotes (like ">100"). Ensure all ranges have the exact same number of rows.' },
+            { question: 'How do I use SUMIFS with dates?', answer: 'To sum between two dates, use two criteria on the same date column: criteria_range1 with ">="&start_date, and criteria_range2 with "<="&end_date.' },
+            { question: 'SUMIF vs SUMIFS: What is the difference?', answer: 'SUMIF is for a single condition and its syntax is (range, criteria, sum_range). SUMIFS handles multiple conditions and its syntax is (sum_range, criteria_range1, criteria1...). We recommend always using SUMIFS because it is more flexible.' },
+            { question: 'Can SUMIFS use wildcards?', answer: 'Yes. Use * for any characters and ? for one character: =SUMIFS(C:C, A:A, "*North*", B:B, ">100").' },
         ],
         commonErrors: [
             { title: 'SUMIFS returns 0 or wrong total', causes: ['Sum range and criteria ranges have different heights or columns.', 'Criteria in wrong order (text without quotes, date not as DATE() or cell ref).', 'Using SUMIF-style argument order (sum range must come first in SUMIFS).'], fixes: ['Use same-sized ranges: e.g. A1:A100, B1:B100, C1:C100.', 'Put text in quotes; use ">="&A1 for dates where A1 is a date.', 'Syntax: =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2).'] },
         ],
         richContent: `
-<div class="prose max-w-none mt-8">
-  <h2>Master SUMIFS: Sum with Multiple Conditions</h2>
-  <p>The <strong>SUMIFS function</strong> is an enhanced version of SUMIF that allows you to apply multiple criteria. It's essential for financial analysis, sales reports, and data aggregation.</p>
+<div class="prose max-w-none mt-8 text-left">
+  <h2 class="text-2xl font-bold mb-4">Master SUMIFS: Sum with Multiple Conditions</h2>
+  <p class="mb-4">The <strong>SUMIFS function</strong> is an enhanced version of SUMIF that allows you to apply multiple criteria. It's essential for financial analysis, sales commission reports, and complex data aggregation.</p>
   
-  <h3>SUMIFS vs SUMIF</h3>
-  <table class="min-w-full border-collapse border border-gray-300 my-4">
-    <tr class="bg-gray-100"><th class="border border-gray-300 p-2">Feature</th><th class="border border-gray-300 p-2">SUMIF</th><th class="border border-gray-300 p-2">SUMIFS</th></tr>
-    <tr><td class="border border-gray-300 p-2">Criteria</td><td class="border border-gray-300 p-2">Single</td><td class="border border-gray-300 p-2">Multiple</td></tr>
-    <tr><td class="border border-gray-300 p-2">Syntax Order</td><td class="border border-gray-300 p-2">Range, Criteria, Sum Range</td><td class="border border-gray-300 p-2">Sum Range first, then Criteria pairs</td></tr>
+  <h3 class="text-xl font-semibold mb-2 mt-8">SUMIF vs SUMIFS: Which should I use?</h3>
+  <p class="mb-4">Many users struggle to choose between SUMIF and SUMIFS. Our recommendation is simple: <strong>Learn and always use SUMIFS</strong>. Why? SUMIFS can do everything SUMIF can (even just one condition), but its formula structure is entirely different and often easier to read because the result column comes first.</p>
+  
+  <table class="min-w-full border-collapse border border-gray-300 my-4 text-sm bg-white">
+    <tr class="bg-gray-100"><th class="border border-gray-300 p-2 text-left">Feature</th><th class="border border-gray-300 p-2 text-left">SUMIF</th><th class="border border-gray-300 p-2 text-left">SUMIFS (Winner 🏆)</th></tr>
+    <tr><td class="border border-gray-300 p-2 font-medium">Conditions Support</td><td class="border border-gray-300 p-2 text-gray-600">Max 1 condition</td><td class="border border-gray-300 p-2 font-bold text-green-600">Up to 127 conditions</td></tr>
+    <tr><td class="border border-gray-300 p-2 font-medium">Syntax Argument Order</td><td class="border border-gray-300 p-2 text-gray-600">Range, Criteria, <em class="text-gray-400">Sum_Range</em></td><td class="border border-gray-300 p-2 font-bold text-blue-600"><em class="text-blue-400">Sum_Range</em>, Criteria_Range1, Criteria1...</td></tr>
   </table>
 
-  <h3>Common Use Cases</h3>
-  <ul>
-    <li>Sum sales by region AND product category</li>
-    <li>Calculate total expenses by date range AND department</li>
-    <li>Aggregate data with multiple filters</li>
+  <h3 class="text-xl font-semibold mb-2 mt-8">Real-World Examples</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-2">
+    <li><strong>HR & Payroll</strong>: Sum total hours worked by a specific employee (Condition 1) between January 1 and January 31 (Conditions 2 & 3).</li>
+    <li><strong>E-commerce</strong>: Sum total revenue for "Electronics" (Condition 1) where order status is "Delivered" (Condition 2) and discount was "&gt;0" (Condition 3).</li>
   </ul>
+  
+  <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
+    <p class="text-sm text-blue-800 italic"><strong>Pro Tip:</strong> Ensure that your <code>sum_range</code> and all <code>criteria_range</code> arrays are exactly the same size (e.g., all span rows 2 to 100). If they are mismatched, Excel will return an error.</p>
+  </div>
 </div>`
     },
 

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FORMULAS } from '../../../lib/formulas';
 import FormulaBuilder from '../../../components/FormulaBuilder';
 import InteractiveFormulaBuilder from '../../../components/InteractiveFormulaBuilder';
+import InteractiveSumifsBuilder from '../../../components/InteractiveSumifsBuilder';
 import AffiliateBanner from '../../../components/AffiliateBanner';
 import JsonLd from '../../../components/JsonLd';
 import Breadcrumbs, { BreadcrumbJsonLd } from '../../../components/Breadcrumbs';
@@ -9,11 +10,11 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 const RELATED_BY_SLUG: Record<string, string[]> = {
-  vlookup: ['index-match', 'xlookup', 'iferror', 'sumif', 'countif'],
-  'index-match': ['vlookup', 'xlookup', 'iferror', 'sumif'],
-  xlookup: ['vlookup', 'index-match', 'iferror', 'sumif'],
-  if: ['ifs', 'iferror', 'and', 'or', 'sumif'],
-  sumif: ['sumifs', 'countif', 'countifs', 'averageif', 'vlookup'],
+    vlookup: ['index-match', 'xlookup', 'iferror', 'sumif', 'countif'],
+    'index-match': ['vlookup', 'xlookup', 'iferror', 'sumif'],
+    xlookup: ['vlookup', 'index-match', 'iferror', 'sumif'],
+    if: ['ifs', 'iferror', 'and', 'or', 'sumif'],
+    sumif: ['sumifs', 'countif', 'countifs', 'averageif', 'vlookup'],
 };
 const RELATED_COUNT = 5;
 
@@ -95,7 +96,9 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
             <BreadcrumbJsonLd items={breadcrumbItems} />
             <Breadcrumbs items={breadcrumbItems} />
 
-            {isInteractive ? (
+            {formula.slug === 'sumifs' ? (
+                <InteractiveSumifsBuilder formulaSlug={formula.slug} />
+            ) : isInteractive ? (
                 <InteractiveFormulaBuilder formulaSlug={formula.slug} />
             ) : (
                 <FormulaBuilder formulaSlug={formula.slug} />

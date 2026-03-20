@@ -45,6 +45,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.7,
         },
         {
+            url: `${baseUrl}/tools/excel-age-calculator`,
+            lastModified: new Date(),
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/tools/gpa-calculator-excel`,
+            lastModified: new Date(),
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/tools/excel-gradebook-template`,
+            lastModified: new Date(),
+            priority: 0.8,
+        },
+        {
             url: `${baseUrl}/compare/vlookup-vs-xlookup`,
             lastModified: new Date(),
             priority: 0.7,

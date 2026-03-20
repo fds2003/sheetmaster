@@ -178,13 +178,13 @@ export default function ExcelGradebookTemplatePage() {
         <pre><code>=SUMPRODUCT(B2:E2, {"{0.2, 0.2, 0.25, 0.35}"})</code></pre>
 
         <h3>2. Letter Grade from Score</h3>
-        <pre><code>=IFS(F2&gt;=90,"A", F2&gt;=80,"B", F2&gt;=70,"C", F2&gt;=60,"D", TRUE,"F")</code></pre>
+        <pre><code>=IFS(F2&gt;=90,&quot;A&quot;, F2&gt;=80,&quot;B&quot;, F2&gt;=70,&quot;C&quot;, F2&gt;=60,&quot;D&quot;, TRUE,&quot;F&quot;)</code></pre>
 
         <h3>3. Class Average</h3>
         <pre><code>=AVERAGE(F2:F30)</code></pre>
 
         <h3>4. Count by Grade</h3>
-        <pre><code>=COUNTIF(G2:G30,"A")</code></pre>
+        <pre><code>=COUNTIF(G2:G30,&quot;A&quot;)</code></pre>
 
         <h3>5. Conditional Formatting for Failing Grades</h3>
         <p>Select the grade column → Conditional Formatting → New Rule → Formula:</p>

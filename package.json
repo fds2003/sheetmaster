@@ -1,7 +1,11 @@
 {
-  "name": "sheetmaster",
+  "name": "getsheetmaster-monorepo",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "extension",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +13,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@sheetmaster/shared": "^1.0.0",
+    "@sheetmaster/shared": "*",
     "@vercel/analytics": "^1.5.0",
     "@vercel/og": "^0.8.6",
     "lucide-react": "^0.555.0",

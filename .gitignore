@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+38: 
+39: # extension
+40: /extension/build/
+41: /extension/.plasmo/

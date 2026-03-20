@@ -188,7 +188,7 @@ export default function ExcelGradebookTemplatePage() {
 
         <h3>5. Conditional Formatting for Failing Grades</h3>
         <p>Select the grade column → Conditional Formatting → New Rule → Formula:</p>
-        <pre><code>=G2="F"</code></pre>
+        <pre><code>=G2=&quot;F&quot;</code></pre>
         <p>Set a red fill to highlight failing students automatically.</p>
 
         <h3>Frequently Asked Questions</h3>

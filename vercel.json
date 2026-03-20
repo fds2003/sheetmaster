@@ -20,13 +20,8 @@
       "permanent": true
     },
     {
-      "source": "/blog",
-      "destination": "/blog",
-      "permanent": true
-    },
-    {
-      "source": "/tutorials",
-      "destination": "/tutorials",
+      "source": "/formulas",
+      "destination": "/",
       "permanent": true
     }
   ],

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { FORMULAS } from '../lib/formulas';
+import { FORMULAS } from './lib/formulas';
 import { Copy, Check, Share2, Link2 } from 'lucide-react';
 
 interface FormulaBuilderProps {

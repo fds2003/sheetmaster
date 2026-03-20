@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { FORMULAS } from '@/lib/formulas';
 import { SOLUTIONS } from '@/lib/solutions';
-import { POSTS } from '@/lib/posts';
+import { BLOG_POSTS } from '@/lib/posts';
 import { USE_CASES } from '@/lib/use-cases';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -84,7 +84,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     // Blog post routes
-    const blogRoutes = POSTS.map((post) => ({
+    const blogRoutes = BLOG_POSTS.map((post) => ({
         url: `${baseUrl}/blog/${post.slug}`,
         lastModified: new Date(),
         priority: 0.7,

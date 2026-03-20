@@ -13,6 +13,66 @@ export interface Post {
 }
 
 export const BLOG_POSTS: Post[] = [
+  {
+    slug: 'excel-formula-get-first-word',
+    title: 'Excel Formula to Get First Word from Cell (3 Easy Ways)',
+    description: 'Learn how to extract the first word from a cell in Excel using LEFT, FIND, IFERROR, and the new TEXTBEFORE function in Excel 365. Step-by-step guide with examples.',
+    date: '2026-03-20',
+    faqs: [
+      { question: 'What is the Excel formula to get the first word?', answer: '=LEFT(A2, FIND(" ", A2)-1). This extracts everything before the first space.' },
+      { question: 'How do I handle cells that only contain one word?', answer: 'Use =IFERROR(LEFT(A2, FIND(" ", A2)-1), A2). If no space is found, it returns the whole cell.' },
+      { question: 'What is the easiest way in Excel 365?', answer: 'Use =TEXTBEFORE(A2, " "). It is the most modern and readable method.' },
+    ],
+    content: `<p>Extracting the first word from a cell is a common task when cleaning data, such as separating first names from full names or product categories from SKUs. Here are the three best ways to do it in Excel.</p>
+
+<h2>Method 1: The Classic LEFT & FIND Formula</h2>
+<p>This is the most compatible method and works in all versions of Excel (and Google Sheets).</p>
+<pre><code>=LEFT(A2, FIND(" ", A2)-1)</code></pre>
+<p><strong>How it works:</strong></p>
+<ul>
+  <li><code>FIND(" ", A2)</code> locates the position of the first space.</li>
+  <li><code>-1</code> ensures we don't include the space itself.</li>
+  <li><code>LEFT(A2, ...)</code> extracts that number of characters from the start.</li>
+</ul>
+
+<h2>Method 2: The "One-Word Proof" Formula (Recommended)</h2>
+<p>The basic formula above will return a <code>#VALUE!</code> error if the cell contains only one word (because there is no space to find). Use <code>IFERROR</code> to fix this:</p>
+<pre><code>=IFERROR(LEFT(A2, FIND(" ", A2)-1), A2)</code></pre>
+<p>If no space is found, <code>IFERROR</code> simply returns the original text in <code>A2</code>.</p>
+
+<h2>Method 3: Excel 365 — TEXTBEFORE (Cleanest)</h2>
+<p>If you are using Microsoft 365 or Excel 2024, there is a much simpler function designed specifically for this:</p>
+<pre><code>=TEXTBEFORE(A2, " ")</code></pre>
+<p>This does exactly what it says: it returns all text before the specified delimiter (the space). If you want it to handle single words without an error, add the optional arguments:</p>
+<pre><code>=TEXTBEFORE(A2, " ", , , , A2)</code></pre>
+
+<h2>Comparison Summary</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Requirement</th>
+      <th>Best Formula</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Maximum Compatibility</td>
+      <td><code>=LEFT(A2, FIND(" ", A2)-1)</code></td>
+    </tr>
+    <tr>
+      <td>Handles Single Words</td>
+      <td><code>=IFERROR(...)</code> Version</td>
+    </tr>
+    <tr>
+      <td>Simplicity (Excel 365)</td>
+      <td><code>=TEXTBEFORE(A2, " ")</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Need more help with text? Try our <a href="/tools/split-text">Split Text Tool</a> or our <a href="/formulas/left">LEFT Formula Generator</a>.</p>`,
+  },
+
   // ── 新增文章（按搜索量降序） ──────────────────────────────────────────────
 
   {

@@ -12,7 +12,7 @@ export interface Post {
   faqs?: Array<{ question: string; answer: string }>;
 }
 
-export const POSTS: Post[] = [
+export const BLOG_POSTS: Post[] = [
   // ── 新增文章（按搜索量降序） ──────────────────────────────────────────────
 
   {

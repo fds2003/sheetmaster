@@ -1,10 +1,10 @@
-import { POSTS } from '@/lib/posts';
+import { BLOG_POSTS } from '@/lib/posts';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export async function generateStaticParams() {
-  return POSTS.map((post) => ({ slug: post.slug }));
+  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -12,7 +12,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const post = POSTS.find((p) => p.slug === params.slug);
+  const post = BLOG_POSTS.find((p) => p.slug === params.slug);
   if (!post) {
     return { title: 'Post Not Found | SheetMaster' };
   }
@@ -37,7 +37,7 @@ export async function generateMetadata({
 }
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = POSTS.find((p) => p.slug === params.slug);
+  const post = BLOG_POSTS.find((p) => p.slug === params.slug);
   if (!post) notFound();
 
   // NOTE: 仅当文章配置了 faqs 字段时才生成 FAQPage 结构化数据，

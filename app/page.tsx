@@ -65,13 +65,32 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-10">
         <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
           Free Excel & Google Sheets Formula Generator - 50+ Tools
         </h1>
         <p className="mt-4 text-xl text-gray-500">
           No signup, instant results. Search or select a tool below to generate formulas instantly.
         </p>
+      </div>
+
+      {/* Scenarios Navigation (Intent-based) */}
+      <div className="mb-12">
+        <h2 className="text-xl font-bold text-gray-900 mb-5 text-center">Not Sure Where to Start? Choose Your Scenario:</h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Link href="/use-cases/ecommerce" className="inline-flex items-center rounded-full bg-blue-50 text-blue-700 px-5 py-2.5 text-sm font-medium hover:bg-blue-100 hover:shadow-sm transition-all border border-blue-100">
+            📦 Ecommerce Sellers
+          </Link>
+          <Link href="/use-cases/hr" className="inline-flex items-center rounded-full bg-emerald-50 text-emerald-700 px-5 py-2.5 text-sm font-medium hover:bg-emerald-100 hover:shadow-sm transition-all border border-emerald-100">
+            👥 HR Professionals
+          </Link>
+          <Link href="/use-cases/finance" className="inline-flex items-center rounded-full bg-indigo-50 text-indigo-700 px-5 py-2.5 text-sm font-medium hover:bg-indigo-100 hover:shadow-sm transition-all border border-indigo-100">
+            💰 Finance & Accounting
+          </Link>
+          <Link href="/use-cases/marketing" className="inline-flex items-center rounded-full bg-purple-50 text-purple-700 px-5 py-2.5 text-sm font-medium hover:bg-purple-100 hover:shadow-sm transition-all border border-purple-100">
+            📈 Marketers & SEO
+          </Link>
+        </div>
       </div>
 
       {/* Why SheetMaster */}

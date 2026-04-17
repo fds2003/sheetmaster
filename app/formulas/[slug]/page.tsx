@@ -186,6 +186,27 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
                     </ul>
                 </div>
             )}
+            
+            {/* Visual FAQ Section for SEO and User Guidance */}
+            {formula.faq && formula.faq.length > 0 && (
+                <div className="mt-12 pt-12 border-t border-gray-100">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        Frequently Asked Questions
+                    </h2>
+                    <div className="space-y-6">
+                        {formula.faq.map((faqItem, i) => (
+                            <div key={i} className="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
+                                <h3 className="text-lg font-semibold text-gray-900 mb-3">{faqItem.question}</h3>
+                                <div 
+                                    className="text-gray-600 prose prose-sm max-w-none" 
+                                    dangerouslySetInnerHTML={{ __html: faqItem.answer }} 
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
             {relatedToShow.length > 0 && (
                 <div className="pt-8 border-t border-gray-100">
                     <h2 className="text-lg font-semibold text-gray-900 mb-3">Related Formulas</h2>

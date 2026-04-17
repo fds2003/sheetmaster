@@ -13,18 +13,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@sheetmaster/shared": "*",
+    "@supabase/ssr": "^0.10.0",
+    "@supabase/supabase-js": "^2.101.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/og": "^0.8.6",
     "lucide-react": "^0.555.0",
     "next": "14.2.15",
+    "papaparse": "^5.5.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "stripe": "^21.0.1"
   },
   "devDependencies": {
     "@swc/helpers": "^0.5.18",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20",
+    "@types/papaparse": "^5.5.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.24",

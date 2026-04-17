@@ -1,8 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { FORMULAS } from '../lib/formulas';
-import { Copy, Check, Info, Share2, Link2 } from 'lucide-react';
+import { Copy, Check, Info, Share2, Link2, Mail, FileDown, Send, ArrowRight, Lock, Crown, Clock } from 'lucide-react';
+import { createClient } from '../lib/supabase/client';
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+const CsvSandbox = dynamic(() => import('./CsvSandbox'), { ssr: false });
 
 interface InteractiveFormulaBuilderProps {
     formulaSlug: string;
@@ -13,6 +20,128 @@ export default function InteractiveFormulaBuilder({ formulaSlug }: InteractiveFo
     const [values, setValues] = useState<Record<string, string>>({});
     const [copied, setCopied] = useState(false);
     const [activeInput, setActiveInput] = useState<string | null>(null);
+    const [showEmailModal, setShowEmailModal] = useState(false);
+    const [email, setEmail] = useState('');
+    const [emailSent, setEmailSent] = useState(false);
+    const [userId, setUserId] = useState<string | null>(null);
+    const [userEmail, setUserEmail] = useState<string | null>(null);
+    const [isPro, setIsPro] = useState(false);
+    const [loadingAuth, setLoadingAuth] = useState(true);
+    const [showUpgradeEmailModal, setShowUpgradeEmailModal] = useState(false);
+    const [upgradeEmail, setUpgradeEmail] = useState('');
+    const [magicLinkSent, setMagicLinkSent] = useState(false);
+    const [isSavingVault, setIsSavingVault] = useState(false);
+    const [vaultSuccess, setVaultSuccess] = useState(false);
+    const [isLoadingVault, setIsLoadingVault] = useState(false);
+    const [showSandbox, setShowSandbox] = useState(false);
+    const searchParams = useSearchParams();
+    const vaultId = searchParams.get('vault');
+
+    useEffect(() => {
+        const supabase = createClient();
+        
+        async function fetchUser() {
+            setIsLoadingVault(true);
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
+                setUserId(session.user.id);
+                setUserEmail(session.user.email || null);
+                const { data: profile } = await supabase
+                    .from('profiles')
+                    .select('is_pro')
+                    .eq('id', session.user.id)
+                    .single();
+                if (profile?.is_pro) {
+                    setIsPro(true);
+                    
+                    // If Pro and vaultId exists, fetch the vault data
+                    if (vaultId) {
+                        const { data: vaultData } = await supabase
+                            .from('saved_formulas')
+                            .select('settings')
+                            .eq('id', vaultId)
+                            .eq('user_id', session.user.id)
+                            .single();
+                            
+                        if (vaultData && vaultData.settings) {
+                            setValues(vaultData.settings);
+                        }
+                    }
+                }
+            }
+            setLoadingAuth(false);
+            setIsLoadingVault(false);
+        }
+        fetchUser();
+    }, [vaultId]);
+
+    const handleRequestMagicLink = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!upgradeEmail) return;
+        const supabase = createClient();
+        const { error } = await supabase.auth.signInWithOtp({
+            email: upgradeEmail,
+            options: { 
+                emailRedirectTo: typeof window !== 'undefined' 
+                    ? `${window.location.origin}/auth/callback?next=${window.location.pathname}` 
+                    : 'http://localhost:3000/auth/callback' 
+            }
+        });
+        if (!error) {
+            setMagicLinkSent(true);
+        } else {
+            alert('Error sending login link: ' + error.message);
+        }
+    };
+
+    const handleSaveToVault = async () => {
+        if (!userId || !isPro) return;
+        
+        // Use native prompt for MVP naming, or default name
+        const configName = prompt('Enter a memorable name for this configuration:', 'Untitled ' + formula.title);
+        if (!configName) return; // User cancelled
+        
+        setIsSavingVault(true);
+        const supabase = createClient();
+        const { error } = await supabase.from('saved_formulas').insert({
+            user_id: userId,
+            formula_slug: formula.slug,
+            name: configName,
+            settings: values
+        });
+        
+        setIsSavingVault(false);
+        if (error) {
+            alert('Failed to save configuration: ' + error.message);
+        } else {
+            setVaultSuccess(true);
+            setTimeout(() => setVaultSuccess(false), 3000);
+        }
+    };
+
+    const handleUpgrade = async () => {
+        if (!userId) {
+            setShowUpgradeEmailModal(true);
+            return;
+        }
+        
+        try {
+            const res = await fetch('/api/checkout_sessions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId, email: userEmail })
+            });
+            const data = await res.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else if (data.error) {
+                console.error('Checkout error:', data.error);
+                alert('Checkout failed: ' + data.error);
+            }
+        } catch (e: any) {
+            alert('Payment failed to initialize: ' + e.message);
+        }
+    };
 
     if (!formula) {
         return <div>Formula not found</div>;
@@ -39,6 +168,25 @@ export default function InteractiveFormulaBuilder({ formulaSlug }: InteractiveFo
         navigator.clipboard.writeText(url);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleExportPdf = () => {
+        if (typeof window !== 'undefined') {
+            window.print();
+        }
+    };
+
+    const handleSendEmail = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Mock sending email to our backend system for lead capture
+        if (email) {
+            setEmailSent(true);
+            setTimeout(() => {
+                setShowEmailModal(false);
+                setEmailSent(false);
+                setEmail('');
+            }, 3000);
+        }
     };
 
     // Simplified grid visualization based on formula type
@@ -73,6 +221,7 @@ export default function InteractiveFormulaBuilder({ formulaSlug }: InteractiveFo
     };
 
     return (
+        <>
         <div className="w-full max-w-4xl mx-auto bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
             {/* Header */}
             <div className="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex justify-between items-center">
@@ -84,6 +233,14 @@ export default function InteractiveFormulaBuilder({ formulaSlug }: InteractiveFo
                     <p className="text-sm text-gray-500">{formula.description}</p>
                 </div>
             </div>
+
+            {isLoadingVault && (
+                <div className="bg-indigo-50 border-l-4 border-indigo-500 p-4 mb-4 mx-6 rounded flex items-center justify-between">
+                    <span className="text-indigo-700 font-medium text-sm flex items-center gap-2">
+                        <Clock className="w-4 h-4 animate-spin" /> Loading your saved configuration...
+                    </span>
+                </div>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-2">
                 {/* Left: Input Form */}
@@ -152,23 +309,184 @@ export default function InteractiveFormulaBuilder({ formulaSlug }: InteractiveFo
                                 <button onClick={handleCopy} className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-md transition-colors" title="Copy formula">
                                     <Copy className="w-4 h-4" />
                                 </button>
+                                <button onClick={handleExportPdf} className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-md transition-colors" title="Export PDF">
+                                    <FileDown className="w-4 h-4" />
+                                </button>
+                                <button onClick={() => setShowEmailModal(!showEmailModal)} className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-md transition-colors" title="Email me this formula">
+                                    <Mail className="w-4 h-4" />
+                                </button>
                                 <a href={twitterUrl} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-md transition-colors" title="Share to Twitter">
                                     <Share2 className="w-4 h-4" />
-                                </a>
-                                <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-md transition-colors" title="Share to LinkedIn">
-                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                                 </a>
                                 <button onClick={handleCopyLink} className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-md transition-colors" title="Copy link">
                                     <Link2 className="w-4 h-4" />
                                 </button>
                             </div>
-                            <code className="block font-mono text-lg text-green-400 break-all pr-32 min-h-[1.75rem]">
+                            <code className="block font-mono text-lg text-green-400 break-all pr-44 min-h-[1.75rem]">
                                 {generatedFormula}
                             </code>
                         </div>
+
+                        {/* Email Lead Capture Modal Overlay (inline) */}
+                        {showEmailModal && (
+                            <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-5 mt-4 transition-all animate-in fade-in slide-in-from-top-4">
+                                <div className="flex items-center gap-3 mb-3">
+                                    <Mail className="w-5 h-5 text-blue-600" />
+                                    <h4 className="text-sm font-semibold text-gray-900">Email me this formula for backup</h4>
+                                </div>
+                                {emailSent ? (
+                                    <div className="flex items-center gap-2 text-green-600 text-sm font-medium p-2 bg-green-50 rounded-md border border-green-200">
+                                        <Check className="w-4 h-4" /> Formula sent to your inbox!
+                                    </div>
+                                ) : (
+                                    <form onSubmit={handleSendEmail} className="flex gap-2">
+                                        <input 
+                                            type="email" 
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="your@email.com"
+                                            required
+                                            className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border"
+                                        />
+                                        <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2">
+                                            <Send className="w-4 h-4" /> Send
+                                        </button>
+                                    </form>
+                                )}
+                                <p className="text-xs text-gray-500 mt-2">We will never spam you. Save your formula history instantly.</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
+            
+            {/* Founder Features Paywall */}
+            <div className={`p-6 border-t border-gray-100 relative ${isPro ? 'bg-gradient-to-r from-blue-50 to-indigo-50' : 'bg-gray-50'}`}>
+                {!isPro && !loadingAuth && (
+                    <div className="absolute inset-0 z-10 backdrop-blur-sm bg-white/60 flex flex-col items-center justify-center rounded-b-xl border-t border-gray-200">
+                        <Lock className="w-10 h-10 text-gray-400 mb-3" />
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">Unlock Founder Features</h3>
+                        <p className="text-gray-600 mb-4 flex items-center gap-2">Get lifetime access to the Data Cleaning Sandbox and Password Vault.</p>
+                        
+                        {!showUpgradeEmailModal ? (
+                            <button onClick={handleUpgrade} className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-bold shadow-lg transition-transform hover:scale-105 flex items-center gap-2">
+                                <Crown className="w-5 h-5 text-yellow-300" /> Pay Once $4.99
+                            </button>
+                        ) : (
+                            <div className="bg-white p-5 rounded-xl shadow-xl w-full max-w-sm border border-gray-100 flex flex-col mt-2 animate-in fade-in slide-in-from-bottom-4">
+                                <form onSubmit={handleRequestMagicLink}>
+                                    <h4 className="font-bold text-gray-900 mb-2 text-center">Secure Your Access</h4>
+                                    <p className="text-xs text-gray-500 mb-4 text-center">Enter your email to bind your lifetime PRO license.</p>
+                                    
+                                    {magicLinkSent ? (
+                                        <div className="bg-green-50 text-green-700 p-3 rounded text-sm text-center border border-green-200">
+                                            ✅ Great! Please check your email inbox (or spam) and click the magic link to continue.
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-col gap-3">
+                                            <input 
+                                                type="email" 
+                                                required 
+                                                value={upgradeEmail} 
+                                                onChange={(e) => setUpgradeEmail(e.target.value)} 
+                                                placeholder="your@email.com" 
+                                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
+                                            />
+                                            <button type="submit" className="bg-gray-900 hover:bg-black text-white py-2 rounded-lg font-medium w-full transition-colors">
+                                                Send Login Link
+                                            </button>
+                                            <p className="text-xs text-center mt-1"><button type="button" onClick={() => setShowUpgradeEmailModal(false)} className="text-gray-400 hover:underline">Cancel</button></p>
+                                        </div>
+                                    )}
+                                </form>
+                            </div>
+                        )}
+                    </div>
+                )}
+                
+                <h3 className="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <Crown className="w-4 h-4" /> Founder Features
+                </h3>
+                <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 ${!isPro && !loadingAuth ? 'opacity-30 blur-[2px] pointer-events-none select-none' : ''}`}>
+                    <div className={`bg-white p-4 rounded-lg border shadow-sm transition-colors ${showSandbox ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-indigo-100'}`}>
+                        <h4 className="font-bold text-gray-900 mb-1">🧹 Data Cleaning Sandbox</h4>
+                        <p className="text-sm text-gray-500 mb-3">Upload your CSV and execute this formula across 10,000+ rows instantly.</p>
+                        <button 
+                            onClick={() => setShowSandbox(!showSandbox)}
+                            className="text-sm bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold py-2 px-4 rounded w-full transition-colors"
+                        >
+                            {showSandbox ? 'Hide Sandbox' : 'Launch Sandbox'}
+                        </button>
+                    </div>
+                    <div className="bg-white p-4 rounded-lg border border-indigo-100 shadow-sm">
+                        <h4 className="font-bold text-gray-900 mb-1">💾 Save to Vault</h4>
+                        <p className="text-sm text-gray-500 mb-3">Save this exact formula configuration to your personal cloud vault for easy access.</p>
+                        <button 
+                            onClick={handleSaveToVault} 
+                            disabled={isSavingVault || vaultSuccess}
+                            className={`text-sm font-semibold py-2 px-4 rounded w-full transition-colors ${
+                                vaultSuccess ? 'bg-green-100 text-green-700' : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100'
+                            }`}
+                        >
+                            {isSavingVault ? 'Saving...' : vaultSuccess ? '✅ Saved Successfully!' : 'Save Configuration'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Render Sandbox UI */}
+            {showSandbox && isPro && (
+                <div className="p-6 border-t border-gray-100 bg-gray-50 animate-in fade-in slide-in-from-top-4">
+                    <CsvSandbox />
+                </div>
+            )}
+
+            {/* Formula Logic Breakdown */}
+            {formula.formulaLogicBreakdown && (
+                <div className="p-6 border-t border-gray-100 bg-gray-50/50">
+                    <h3 className="tex-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Formula Logic Breakdown</h3>
+                    <div className="space-y-3">
+                        {formula.formulaLogicBreakdown.map((item, idx) => (
+                            <div key={idx} className="flex flex-col sm:flex-row gap-2 sm:gap-4 p-3 bg-white border border-gray-100 rounded-lg shadow-sm">
+                                <div className="sm:w-1/4 font-mono text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded w-fit h-fit whitespace-nowrap">
+                                    {item.argument}
+                                </div>
+                                <div className="sm:w-3/4">
+                                    <p className="text-sm text-gray-700">{item.explanation}</p>
+                                    <p className="text-xs text-gray-400 mt-1 font-mono">Example: {item.example}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
+
+        {/* Related Tools */}
+        {formula.relatedTools && formula.relatedTools.length > 0 && (
+            <div className="w-full max-w-4xl mx-auto mt-8 mb-8">
+                <h3 className="text-lg font-bold text-gray-900 mb-4 px-1">Related Generators</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {formula.relatedTools.map(slug => {
+                        const related = FORMULAS.find(f => f.slug === slug);
+                        if (!related) return null;
+                        return (
+                            <Link 
+                                key={slug} 
+                                href={`/formulas/${slug}`}
+                                className="group block p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all"
+                            >
+                                <div className="font-mono text-sm font-bold text-blue-600 mb-2 group-hover:text-blue-700">{related.excelFunction}</div>
+                                <p className="text-xs text-gray-500 line-clamp-2">{related.description}</p>
+                                <div className="mt-3 flex items-center text-xs font-semibold text-gray-900 group-hover:text-blue-600">
+                                    Use Tool <ArrowRight className="w-3 h-3 ml-1" />
+                                </div>
+                            </Link>
+                        );
+                    })}
+                </div>
+            </div>
+        )}
+        </>
     );
 }

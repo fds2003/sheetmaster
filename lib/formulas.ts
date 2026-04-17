@@ -40,6 +40,8 @@ export interface FormulaConfig {
     howToSteps?: FormulaStep[];
     faq?: FormulaFAQ[];
     commonErrors?: FormulaCommonError[];
+    formulaLogicBreakdown?: { argument: string; explanation: string; example: string }[];
+    relatedTools?: string[];
 }
 
 function createSimpleFormula(
@@ -165,6 +167,13 @@ export const FORMULAS: FormulaConfig[] = [
             { title: 'VLOOKUP returns #N/A', causes: ['Lookup value not in the first column of table_array.', 'Data type mismatch (number vs text, e.g. 123 vs "123").', 'Extra spaces or different formatting in lookup value or table.'], fixes: ['Ensure the column you search is the leftmost in table_array.', 'Use TRIM and VALUE or TEXT to align types; check for leading zeros.', 'Use TRIM on both sides or normalize with VALUE/TEXT.'] },
             { title: 'Wrong column returned', causes: ['col_index_num is 1-based; counting from 1, not 0.', 'Inserted columns shifted the return column; index not updated.'], fixes: ['Count columns from the first column of table_array (1 = first column).', 'Use INDEX/MATCH or XLOOKUP to avoid column index breakage.'] },
         ],
+        formulaLogicBreakdown: [
+            { argument: 'lookup_value', explanation: 'The exact value you want to search for in your table.', example: 'e.g., A2 or "Apple"' },
+            { argument: 'table_array', explanation: 'The range containing both the lookup column (must be the left-most column) and the return column.', example: 'e.g., Sheet2!A:E' },
+            { argument: 'col_index_num', explanation: 'The column number in the table_array that contains the value you want to return. Count starting from 1 for the leftmost column.', example: 'e.g., 3' },
+            { argument: 'range_lookup', explanation: 'Determines if you want an exact match (FALSE/0) or approximate match (TRUE/1). 99% of the time, you want FALSE.', example: 'e.g., FALSE' },
+        ],
+        relatedTools: ['xlookup', 'index-match', 'if'],
     },
 
     // 2. IF
@@ -209,7 +218,7 @@ export const FORMULAS: FormulaConfig[] = [
   <p>In this example, the formula checks for 90 first, then 80, then 70, before defaulting to "F". While powerful, try to keep nested IFs simple to avoid confusion, or consider using the <code>IFS</code> function in newer versions of Excel and Google Sheets.</p>
   
   <h3>Why Use SheetMaster's IF Generator?</h3>
-  <p>Building complex logical statements manually can be prone to syntax errors, especially with parentheses. Our generator handles the formatting for you, ensuring your formula works perfectly the first time you paste it into your sheet. Save time and reduce frustration by letting our AI-ready tools handle the heavy lifting of data analysis.</p>
+  <p>Building complex logical statements manually can be prone to syntax errors, especially with parentheses. Our generator handles the formatting for you, ensuring your formula works perfectly the first time you paste it into your sheet. Save time and reduce frustration by letting our expert-crafted tools handle the heavy lifting of data analysis.</p>
 </div>`,
         howToSteps: [
             { name: "Define your condition", text: "Decide what you want to test. For example, is cell A1 greater than 10?" },
@@ -226,6 +235,12 @@ export const FORMULAS: FormulaConfig[] = [
         commonErrors: [
             { title: 'IF returns #NAME? or wrong result', causes: ['Text in value_if_true/value_if_false not in double quotes.', 'Misspelled function name (IF not IFF).', 'Too many nested IFs; limit in Excel is 64.'], fixes: ['Put all literal text in quotes: "Pass", "Fail".', 'Check spelling; use IFS for many conditions instead of nesting.', 'Use IFS or SWITCH for cleaner multi-condition logic.'] },
         ],
+        formulaLogicBreakdown: [
+            { argument: 'logical_test', explanation: 'The condition or criteria you are evaluating to see if it is true or false.', example: 'e.g., A1>10 or B2="Closed"' },
+            { argument: 'value_if_true', explanation: 'The result returned if the logical_test evaluates to TRUE. Text must be in double quotes.', example: 'e.g., "Pass" or A1*0.1' },
+            { argument: 'value_if_false', explanation: 'The result returned if the logical_test evaluates to FALSE. Text must be in double quotes.', example: 'e.g., "Fail" or 0' },
+        ],
+        relatedTools: ['sumif', 'countif', 'and'],
     },
 
     // 3. SUMIF
@@ -414,6 +429,15 @@ export const FORMULAS: FormulaConfig[] = [
         commonErrors: [
             { title: 'XLOOKUP returns #N/A', causes: ['Lookup value not in lookup_array.', 'Lookup and return arrays different lengths.', 'Data type or format mismatch.'], fixes: ['Use fourth argument (if_not_found) to return a default.', 'Ensure lookup_array and return_array have the same number of rows.', 'Use TRIM, VALUE, or TEXT to align formats.'] },
         ],
+        formulaLogicBreakdown: [
+            { argument: 'lookup_value', explanation: 'What you are looking for.', example: 'e.g., A2' },
+            { argument: 'lookup_array', explanation: 'The single column or row where the lookup_value should be found.', example: 'e.g., B:B' },
+            { argument: 'return_array', explanation: 'The single column or row containing the value you want to return.', example: 'e.g., C:C' },
+            { argument: 'if_not_found', explanation: 'Optional. The value to return if no match is found, eliminating the need for IFERROR.', example: 'e.g., "Not Found"' },
+            { argument: 'match_mode', explanation: 'Optional. 0 for exact match (default), -1 for exact or next smaller, 1 for exact or next larger.', example: 'e.g., 0' },
+            { argument: 'search_mode', explanation: 'Optional. 1 to search first-to-last (default), -1 to search last-to-first.', example: 'e.g., 1' },
+        ],
+        relatedTools: ['vlookup', 'index-match', 'iferror'],
     },
 
     // 8. TRIM
@@ -575,7 +599,7 @@ export const FORMULAS: FormulaConfig[] = [
         generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")`,
         richContent: `
        <h2 class="text-2xl font-bold mb-4">How to Extract Email from Text in Google Sheets</h2>
-       <p class="mb-4">Cleaning messy data is one of the most time-consuming tasks in spreadsheet management. If you have a column of raw text, such as CRM exports or scraped web data, our <strong>AI-powered Email Extractor</strong> generates the exact REGEXEXTRACT formula you need to automate this process.</p>
+       <p class="mb-4">Cleaning messy data is one of the most time-consuming tasks in spreadsheet management. If you have a column of raw text, such as CRM exports or scraped web data, our <strong>Deterministic Email Extractor</strong> generates the exact REGEXEXTRACT formula you need to automate this process.</p>
        
        <h3 class="text-xl font-semibold mb-2">Understanding the Formula Logic</h3>
        <p class="mb-4">The core of this tool relies on <strong>Regular Expressions (Regex)</strong>. The standard formula follows this pattern: <br/><code class="bg-gray-100 p-1 rounded font-mono text-sm">=REGEXEXTRACT(A2, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")</code></p>
@@ -706,7 +730,14 @@ export const FORMULAS: FormulaConfig[] = [
   <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
     <p class="text-sm text-blue-800 italic"><strong>Pro Tip:</strong> Ensure that your <code>sum_range</code> and all <code>criteria_range</code> arrays are exactly the same size (e.g., all span rows 2 to 100). If they are mismatched, Excel will return an error.</p>
   </div>
-</div>`
+</div>`,
+        formulaLogicBreakdown: [
+            { argument: 'sum_range', explanation: 'The actual cells to add up. This must be the exact same size as the criteria ranges.', example: 'e.g., C:C' },
+            { argument: 'criteria_range1', explanation: 'The first range to evaluate against criteria1.', example: 'e.g., A:A' },
+            { argument: 'criteria1', explanation: 'The condition that must be met in criteria_range1. Text and operators go in quotes.', example: 'e.g., ">100" or "Sales"' },
+            { argument: 'criteria_range2...', explanation: 'Additional pairs of ranges and criteria. You can add up to 127 pairs.', example: 'e.g., B:B, "Completed"' },
+        ],
+        relatedTools: ['sumif', 'countifs', 'averageif'],
     },
 
     // 26. COUNTIFS - Multiple Criteria Count

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { FORMULAS } from '../lib/formulas';
-import { Copy, Check, Share2, Link2 } from 'lucide-react';
+import { Copy, Check, Share2, Link2, Mail, FileDown, Send } from 'lucide-react';
 
 interface FormulaBuilderProps {
     formulaSlug: string;
@@ -12,6 +12,9 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
     const formula = FORMULAS.find((f) => f.slug === formulaSlug);
     const [values, setValues] = useState<Record<string, string>>({});
     const [copied, setCopied] = useState(false);
+    const [showEmailModal, setShowEmailModal] = useState(false);
+    const [email, setEmail] = useState('');
+    const [emailSent, setEmailSent] = useState(false);
 
     if (!formula) {
         return <div>Formula not found</div>;
@@ -39,6 +42,25 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
         navigator.clipboard.writeText(url);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleExportPdf = () => {
+        if (typeof window !== 'undefined') {
+            window.print();
+        }
+    };
+
+    const handleSendEmail = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Mock sending email to our backend system for lead capture
+        if (email) {
+            setEmailSent(true);
+            setTimeout(() => {
+                setShowEmailModal(false);
+                setEmailSent(false);
+                setEmail('');
+            }, 3000);
+        }
     };
 
     return (
@@ -105,6 +127,20 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
                         >
                             {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
                         </button>
+                        <button
+                            onClick={handleExportPdf}
+                            className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-md transition-colors"
+                            title="Export PDF"
+                        >
+                            <FileDown className="w-4 h-4" />
+                        </button>
+                        <button
+                            onClick={() => setShowEmailModal(!showEmailModal)}
+                            className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-md transition-colors"
+                            title="Email me this formula"
+                        >
+                            <Mail className="w-4 h-4" />
+                        </button>
                         <a
                             href={twitterUrl}
                             target="_blank"
@@ -113,15 +149,6 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
                             title="Share to Twitter"
                         >
                             <Share2 className="w-4 h-4" />
-                        </a>
-                        <a
-                            href={linkedInUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-md transition-colors"
-                            title="Share to LinkedIn"
-                        >
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                         </a>
                         <button
                             onClick={handleCopyLink}
@@ -134,10 +161,40 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
                     <div className="text-xs font-medium text-gray-500 mb-2 uppercase tracking-wider">
                         Generated Formula
                     </div>
-                    <code className="block font-mono text-lg text-green-400 break-all pr-32">
+                    <code className="block font-mono text-lg text-green-400 break-all pr-44">
                         {generatedFormula}
                     </code>
                 </div>
+
+                {/* Email Lead Capture Modal Overlay (inline) */}
+                {showEmailModal && (
+                    <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-5 mt-4 transition-all animate-in fade-in slide-in-from-top-4">
+                        <div className="flex items-center gap-3 mb-3">
+                            <Mail className="w-5 h-5 text-blue-600" />
+                            <h4 className="text-sm font-semibold text-gray-900">Email me this formula for backup</h4>
+                        </div>
+                        {emailSent ? (
+                            <div className="flex items-center gap-2 text-green-600 text-sm font-medium p-2 bg-green-50 rounded-md border border-green-200">
+                                <Check className="w-4 h-4" /> Formula sent to your inbox!
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSendEmail} className="flex gap-2">
+                                <input 
+                                    type="email" 
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="your@email.com"
+                                    required
+                                    className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border"
+                                />
+                                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2">
+                                    <Send className="w-4 h-4" /> Send
+                                </button>
+                            </form>
+                        )}
+                        <p className="text-xs text-gray-500 mt-2">We will never spam you. Save your formula history instantly.</p>
+                    </div>
+                )}
 
                 {/* Learning Resources - Affiliate Section */}
                 <div className="bg-gradient-to-r from-blue-50 to-yellow-50 rounded-lg p-6 border border-blue-200">

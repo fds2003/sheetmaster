@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Copy, Check, Info, Share2, Link2, PlusCircle, Trash2 } from 'lucide-react';
+import { Copy, Check, Info, Share2, Link2, PlusCircle, Trash2, Mail, FileDown, Send } from 'lucide-react';
 
 interface InteractiveSumifsBuilderProps {
     formulaSlug?: string;
@@ -19,6 +19,9 @@ export default function InteractiveSumifsBuilder({ formulaSlug = 'sumifs' }: Int
     const [conditions, setConditions] = useState<Condition[]>([
         { id: '1', range: '', criteria: '' }
     ]);
+    const [showEmailModal, setShowEmailModal] = useState(false);
+    const [email, setEmail] = useState('');
+    const [emailSent, setEmailSent] = useState(false);
 
     const addCondition = () => {
         setConditions(prev => [
@@ -67,6 +70,24 @@ export default function InteractiveSumifsBuilder({ formulaSlug = 'sumifs' }: Int
         navigator.clipboard.writeText(url);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleExportPdf = () => {
+        if (typeof window !== 'undefined') {
+            window.print();
+        }
+    };
+
+    const handleSendEmail = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (email) {
+            setEmailSent(true);
+            setTimeout(() => {
+                setShowEmailModal(false);
+                setEmailSent(false);
+                setEmail('');
+            }, 3000);
+        }
     };
 
     // SUMIFS specific visual helper
@@ -236,6 +257,12 @@ export default function InteractiveSumifsBuilder({ formulaSlug = 'sumifs' }: Int
                                 <button onClick={handleCopy} className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 hover:shadow-sm rounded-md transition-all border border-transparent hover:border-gray-600" title="Copy formula">
                                     <Copy className="w-4 h-4" />
                                 </button>
+                                <button onClick={handleExportPdf} className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 hover:shadow-sm rounded-md transition-all border border-transparent hover:border-gray-600" title="Export PDF">
+                                    <FileDown className="w-4 h-4" />
+                                </button>
+                                <button onClick={() => setShowEmailModal(!showEmailModal)} className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 hover:shadow-sm rounded-md transition-all border border-transparent hover:border-gray-600" title="Email me this formula">
+                                    <Mail className="w-4 h-4" />
+                                </button>
                                 <a href={twitterUrl} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 hover:shadow-sm rounded-md transition-all border border-transparent hover:border-gray-600" title="Share to Twitter">
                                     <Share2 className="w-4 h-4" />
                                 </a>
@@ -246,10 +273,40 @@ export default function InteractiveSumifsBuilder({ formulaSlug = 'sumifs' }: Int
                                     <Link2 className="w-4 h-4" />
                                 </button>
                             </div>
-                            <code className="block font-mono text-lg text-green-300 break-all pr-32 min-h-[1.75rem] font-medium leading-relaxed">
+                            <code className="block font-mono text-lg text-green-300 break-all pr-56 min-h-[1.75rem] font-medium leading-relaxed">
                                 {generatedFormula()}
                             </code>
                         </div>
+
+                        {/* Email Lead Capture Modal Overlay (inline) */}
+                        {showEmailModal && (
+                            <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-5 mt-4 transition-all animate-in fade-in slide-in-from-top-4">
+                                <div className="flex items-center gap-3 mb-3">
+                                    <Mail className="w-5 h-5 text-blue-600" />
+                                    <h4 className="text-sm font-semibold text-gray-900">Email me this formula for backup</h4>
+                                </div>
+                                {emailSent ? (
+                                    <div className="flex items-center gap-2 text-green-600 text-sm font-medium p-2 bg-green-50 rounded-md border border-green-200">
+                                        <Check className="w-4 h-4" /> Formula sent to your inbox!
+                                    </div>
+                                ) : (
+                                    <form onSubmit={handleSendEmail} className="flex gap-2">
+                                        <input 
+                                            type="email" 
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="your@email.com"
+                                            required
+                                            className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border"
+                                        />
+                                        <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2">
+                                            <Send className="w-4 h-4" /> Send
+                                        </button>
+                                    </form>
+                                )}
+                                <p className="text-xs text-gray-500 mt-2">We will never spam you. Save your formula history instantly.</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

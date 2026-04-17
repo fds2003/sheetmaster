@@ -27,6 +27,11 @@ export async function POST(request: Request) {
         const body = await request.json();
         const { url, key, urlList } = body;
 
+        // Skip in local development to prevent 422/500 errors
+        if (process.env.NODE_ENV !== 'production') {
+            return NextResponse.json({ success: true, message: 'Skipped strictly in dev environment.' });
+        }
+
         // Validate required parameters
         if (!key) {
             return NextResponse.json(

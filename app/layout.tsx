@@ -94,6 +94,9 @@ export default function RootLayout({
               <Link href="/resources" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
                 Resources
               </Link>
+              <Link href="/vault" className="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors flex items-center gap-1">
+                ☁️ My Vault
+              </Link>
             </div>
           </div>
         </nav>

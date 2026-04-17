@@ -5,6 +5,7 @@ import "./globals.css";
 import Link from "next/link";
 import FeedbackWidget from "@/components/FeedbackWidget";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 /* Inter: SIL OFL 1.1 免费可商用 */
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -145,6 +146,7 @@ export default function RootLayout({
         </footer>
         <FeedbackWidget />
         <Analytics />
+        <Script src="https://pl29172607.profitablecpmratenetwork.com/a9/4b/7e/a94b7ee0e1a59ee2004562ef5af5fc4e.js" strategy="afterInteractive" />
       </body>
     </html>
   );

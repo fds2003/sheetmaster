@@ -21,7 +21,7 @@ export default function AdUnit() {
             <div className={`overflow-hidden flex items-center justify-center bg-gray-50 border border-gray-100 rounded ${isMobile ? 'h-[50px] w-[320px]' : 'h-[90px] w-[728px]'}`}>
                 <iframe 
                     title="Advertisement"
-                    src={isMobile ? "/ad-mobile.html" : "/ad-desktop.html"}
+                    src={isMobile ? "/promo-m.html" : "/promo-d.html"}
                     width={isMobile ? 320 : 728}
                     height={isMobile ? 50 : 90}
                     frameBorder="0"

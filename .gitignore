@@ -41,5 +41,5 @@ next-env.d.ts
 /extension/build/
 /extension/.plasmo/
 
-# supabase
-supabase/
+# supabase root database configuration
+/supabase/

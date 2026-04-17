@@ -35,7 +35,6 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
     const pageUrl = `https://www.getsheetmaster.com/formulas/${formulaSlug}`;
     const shareText = `Just generated this ${formula.excelFunction} formula with SheetMaster. Try it free: getsheetmaster.com`;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`;
-    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`;
 
     const handleCopyLink = () => {
         const url = typeof window !== 'undefined' ? window.location.href : pageUrl;

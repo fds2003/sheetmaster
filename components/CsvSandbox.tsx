@@ -62,21 +62,21 @@ export default function CsvSandbox() {
             header: true,
             skipEmptyLines: true,
             complete: (refResults) => {
-                refResults.data.forEach((row: any) => {
+                refResults.data.forEach((row: Record<string, unknown>) => {
                     // Normalize keys: trim whitespace, lowercase for robust matching
                     const key = String(row[refJoinKey]).trim().toLowerCase();
-                    const value = row[returnColumn];
+                    const value = String(row[returnColumn] || '');
                     lookupMap.set(key, value);
                 });
 
                 // Step 2: Stream the main file and append the matched values
-                const processedRows: any[] = [];
+                const processedRows: Record<string, unknown>[] = [];
                 
                 Papa.parse(mainFile, {
                     header: true,
                     skipEmptyLines: true,
                     complete: (mainResults) => {
-                        mainResults.data.forEach((row: any) => {
+                        mainResults.data.forEach((row: Record<string, unknown>) => {
                             const key = String(row[mainJoinKey]).trim().toLowerCase();
                             // Perform the lookup (VLOOKUP logic)
                             const matchedValue = lookupMap.get(key) || '#N/A';

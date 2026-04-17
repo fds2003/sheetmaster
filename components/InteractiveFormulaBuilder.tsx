@@ -138,8 +138,9 @@ export default function InteractiveFormulaBuilder({ formulaSlug }: InteractiveFo
                 console.error('Checkout error:', data.error);
                 alert('Checkout failed: ' + data.error);
             }
-        } catch (e: any) {
-            alert('Payment failed to initialize: ' + e.message);
+        } catch (e: unknown) {
+            const error = e as Error;
+            alert('Payment failed to initialize: ' + error.message);
         }
     };
 
@@ -162,7 +163,6 @@ export default function InteractiveFormulaBuilder({ formulaSlug }: InteractiveFo
     const pageUrl = `https://www.getsheetmaster.com/formulas/${formulaSlug}`;
     const shareText = `Just generated this ${formula.excelFunction} formula with SheetMaster. Try it free: getsheetmaster.com`;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`;
-    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`;
     const handleCopyLink = () => {
         const url = typeof window !== 'undefined' ? window.location.href : pageUrl;
         navigator.clipboard.writeText(url);

@@ -20,6 +20,9 @@
 .DS_Store
 *.pem
 
+# Spec Workflow CLI — optional templates, not part of the Next app
+.spec-workflow/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

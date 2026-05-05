@@ -180,7 +180,8 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'if',
         title: 'IF Formula Generator - Create IF-THEN Statements | Free',
-        metaDescription: 'Build IF formulas for Excel and Google Sheets. Handle nested IF, IF-AND, IF-OR conditions. Free generator with examples. No signup required.',
+        metaDescription:
+            'Build IF formulas instantly—nested IF, IF-AND, IF-OR—with examples for Excel and Google Sheets. Free generator. No signup required.',
         excelFunction: 'IF',
         category: 'Logic',
         description: 'Checks whether a condition is met, and returns one value if true and another value if false.',
@@ -389,8 +390,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 7. XLOOKUP
     {
         slug: 'xlookup',
-        title: 'XLOOKUP Formula Generator | Excel 365 & Google Sheets (Free)',
-        metaDescription: 'Build XLOOKUP with lookup/return arrays and optional if-not-found. Replaces VLOOKUP—left or right lookup. Free generator, no signup.',
+        title: 'XLOOKUP Generator — Look Left & Right, No Column Index Errors',
+        metaDescription:
+            'XLOOKUP does what VLOOKUP cannot: look left, separate lookup and return arrays, and optional if-not-found. Free for Excel 365 and Google Sheets. No signup.',
         excelFunction: 'XLOOKUP',
         category: 'Lookup',
         description: 'Searches a range or an array, and then returns the item corresponding to the first match it finds. If no match exists, then XLOOKUP can return the closest (approximate) match.',
@@ -639,8 +641,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 22. Extract Domain
     {
         slug: 'extract-domain',
-        title: 'Extract Domain from URL',
-        metaDescription: 'Extract domain names from URLs in Excel and Google Sheets. Free REGEXEXTRACT tool for SEO. No signup required. Parse URLs instantly.',
+        title: 'Extract Domain from URL in Excel — SEO & Marketing Lists',
+        metaDescription:
+            'Pull root domains from messy URLs for SEO, backlinks, and CRM cleanup—REGEXEXTRACT patterns for Excel and Google Sheets. Free, no signup.',
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts the domain part from a URL.',
@@ -659,13 +662,33 @@ export const FORMULAS: FormulaConfig[] = [
   <h4>Pro Tip</h4>
   <p>If you need to extract the full path or specific parameters, consider using the <code>SPLIT</code> function with "/" as the delimiter.</p>
 `
+        ,
+        faq: [
+            {
+                question: 'How do I extract domain from URL in Excel?',
+                answer: 'Use REGEXEXTRACT with a pattern that strips protocol and path, or this generator’s pattern to return the host (e.g. example.com) from a full URL in a cell.',
+            },
+            {
+                question: 'Does this return subdomain or root domain only?',
+                answer: 'The default pattern captures the host after optional http(s) and www. For subdomains you get the full host (e.g. blog.example.com). Adjust the regex if you need only the registrable domain.',
+            },
+        ],
+        commonErrors: [
+            {
+                title: 'REGEXEXTRACT returns empty or wrong string',
+                causes: ['URL missing or not a string.', 'Pattern does not match internationalized or unusual TLDs.', 'Cell contains only a path with no host.'],
+                fixes: ['Ensure the cell has a full URL with a host.', 'Test the pattern in one cell before filling down.', 'For email-based domains use the extract-email tool instead.'],
+            },
+        ],
+        relatedTools: ['extract-email', 'trim', 'substitute', 'concatenate'],
     },
 
     // 23. Get First Word
     {
         slug: 'get-first-word',
-        title: 'Get First Word from Text',
-        metaDescription: 'Extract first word from text in Excel and Google Sheets. Free LEFT and FIND tool. No signup required. Get first names or keywords instantly.',
+        title: 'Get First Word in Excel — LEFT + FIND Generator',
+        metaDescription:
+            'Extract the first word from a cell (names, keywords)—excel get first word style workflows. LEFT and FIND for Excel and Google Sheets. Free, no signup.',
         excelFunction: 'LEFT & FIND',
         category: 'Text',
         description: 'Returns the first word in a text string.',
@@ -687,13 +710,37 @@ export const FORMULAS: FormulaConfig[] = [
   <h4>Edge Case: Single Words</h4>
   <p>Note: If the cell contains only one word (no spaces), this formula might return an error. You can wrap it in <code>IFERROR</code> to handle single-word cells gracefully.</p>
 `
+        ,
+        faq: [
+            {
+                question: 'How do I get the first word in Excel?',
+                answer: 'Use LEFT with FIND on the first space: =LEFT(A2,FIND(" ",A2)-1). For Google Sheets you can also use TEXTBEFORE when available.',
+            },
+            {
+                question: 'Why do I get #VALUE when extracting the first word?',
+                answer: 'Usually there is no space in the cell (single word) or the cell is empty. Wrap with IFERROR or test with IF(ISERROR(FIND(...))).',
+            },
+            {
+                question: 'How is this different from PROPER or TRIM?',
+                answer: 'PROPER capitalizes words; TRIM removes extra spaces. LEFT+FIND returns only the substring before the first space.',
+            },
+        ],
+        commonErrors: [
+            {
+                title: '#VALUE! when extracting first word',
+                causes: ['No space in the cell (single word).', 'FIND returns error when space is missing.', 'Empty cell.'],
+                fixes: ['Use IFERROR: =IFERROR(LEFT(A2,FIND(" ",A2&" ")-1),A2) to treat one word as the whole cell.', 'Or use TEXTBEFORE in Excel 365 / Sheets when supported.'],
+            },
+        ],
+        relatedTools: ['left', 'find', 'iferror', 'trim', 'text'],
     },
 
     // 24. Remove First 3 Characters
     {
         slug: 'remove-first-3-chars',
-        title: 'Remove First N Characters',
-        metaDescription: 'Remove first N characters in Excel and Google Sheets. Free RIGHT and LEN tool. No signup required. Clean text data instantly.',
+        title: 'Remove First N Characters in Excel — RIGHT, LEN & Text Cleaning',
+        metaDescription:
+            'Remove first 3 characters (or any N) from text—how to remove first characters in Excel style fixes. RIGHT + LEN for Excel and Google Sheets. Free, no signup.',
         excelFunction: 'RIGHT & LEN',
         category: 'Text',
         description: 'Removes the specified number of characters from the beginning of a text string.',
@@ -701,14 +748,41 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'target_cell', label: 'Target Cell', type: 'text', placeholder: 'e.g., A2' },
             { id: 'num_chars', label: 'Number of chars to remove', type: 'number', placeholder: 'e.g., 3' },
         ],
-        generate: (p) => `=RIGHT(${p.target_cell || 'A2'}, LEN(${p.target_cell || 'A2'}) - ${p.num_chars || '3'})`
+        generate: (p) => `=RIGHT(${p.target_cell || 'A2'}, LEN(${p.target_cell || 'A2'}) - ${p.num_chars || '3'})`,
+        richContent: `
+  <h3>Remove the First N Characters in Excel or Google Sheets</h3>
+  <p>Common when cleaning CSV prefixes, IDs, or fixed-width junk at the start of a cell. Use <code>RIGHT</code> with <code>LEN</code> so the number of characters to drop is explicit.</p>
+  <h4>Why LEN minus N?</h4>
+  <p><code>RIGHT(text, LEN(text)-N)</code> keeps everything after the first N characters. Change N to match &quot;remove first 3 characters&quot; or any count.</p>
+  <h4>Variable N</h4>
+  <p>Put N in a cell (e.g. D1) and reference it: <code>=RIGHT(A2,LEN(A2)-D1)</code> so one formula works for different strip lengths.</p>
+`,
+        faq: [
+            {
+                question: 'How do I remove the first 3 characters in Excel?',
+                answer: '=RIGHT(A2,LEN(A2)-3) removes exactly three characters from the left of the text in A2.',
+            },
+            {
+                question: 'How do I remove last N characters instead?',
+                answer: 'Use LEFT with LEN: =LEFT(A2,LEN(A2)-N). Or see SUBSTITUTE for removing specific characters rather than a fixed count.',
+            },
+        ],
+        commonErrors: [
+            {
+                title: '#VALUE! or wrong length after RIGHT/LEN',
+                causes: ['Cell contains a number; LEN still works but formula may be mixed with dates.', 'N larger than LEN(text) returns empty.'],
+                fixes: ['Wrap source in TEXT if needed: TEXT(A2,"@").', 'Use MAX(0,LEN(A2)-N) inside RIGHT if N can exceed length in edge cases.'],
+            },
+        ],
+        relatedTools: ['right', 'len', 'left', 'substitute', 'mid'],
     },
 
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'SUMIFS Formula Generator & Syntax | Excel & Google Sheets',
-        metaDescription: 'Correct order: sum_range, criteria_range1, criteria1, then more pairs. Interactive SUMIFS builder, examples, SUMIF vs SUMIFS. Free, no signup.',
+        title: 'SUMIFS Multi-Criteria Sum — Correct Syntax (Sum Range First) | Excel & Sheets',
+        metaDescription:
+            'Sum with multiple criteria: sum_range first, then criteria pairs—syntax that matches real searches (multi-criteria, same column). Excel & Google Sheets. Free, no signup.',
         excelFunction: 'SUMIFS',
         category: 'Math',
         description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
@@ -766,8 +840,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 26. COUNTIFS - Multiple Criteria Count
     {
         slug: 'countifs',
-        title: 'COUNTIFS Generator - Count with Multiple Criteria | Excel & Sheets',
-        metaDescription: 'Count cells that meet two or more conditions. Free COUNTIFS builder for Excel and Google Sheets. No signup.',
+        title: 'COUNTIFS — Multiple Criteria & Date Ranges | Excel & Google Sheets',
+        metaDescription:
+            'Count rows with two or more conditions (text, numbers, date ranges). COUNTIFS builder for Excel and Google Sheets—aligned with countifs with date range searches. No signup.',
         excelFunction: 'COUNTIFS',
         category: 'Math',
         description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
@@ -854,8 +929,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 29. IFS - Multiple Conditions
     {
         slug: 'ifs',
-        title: 'IFS Function Generator | Multiple Conditions (Excel & Sheets)',
-        metaDescription: 'Create IFS for multiple conditions—cleaner than nested IF. Great for letter grades and tiered logic. Free for Excel and Google Sheets, no signup.',
+        title: 'IFS Formula Generator — Letter Grades, Tiered Pricing & Multi-Condition Logic',
+        metaDescription:
+            'Build IFS formulas without deep nested IF—letter grades (A–F), tiered pricing, and score bands in Excel and Google Sheets. Free, no signup.',
         excelFunction: 'IFS',
         category: 'Logic',
         description: 'Checks multiple conditions and returns a value corresponding to the first TRUE condition. Cleaner than nested IFs.',
@@ -867,7 +943,44 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'condition3', label: 'Condition 3', type: 'text', placeholder: 'e.g., A1>=70' },
             { id: 'value3', label: 'Value if True 3', type: 'text', placeholder: 'e.g., "C"' },
         ],
-        generate: (p) => `=IFS(${p.condition1 || 'condition1'}, ${p.value1 || 'value1'}, ${p.condition2 || 'condition2'}, ${p.value2 || 'value2'}, ${p.condition3 || 'condition3'}, ${p.value3 || 'value3'})`
+        generate: (p) =>
+            `=IFS(${p.condition1 || 'condition1'}, ${p.value1 || 'value1'}, ${p.condition2 || 'condition2'}, ${p.value2 || 'value2'}, ${p.condition3 || 'condition3'}, ${p.value3 || 'value3'})`,
+        richContent: `
+<div class="prose max-w-none mt-8">
+  <h2>IFS vs Nested IF</h2>
+  <p><strong>IFS</strong> evaluates conditions in order and returns the value for the first TRUE test—ideal for <strong>letter grades</strong>, <strong>tiered discounts</strong>, and commission bands without stacking IF(IF(IF(...))).</p>
+  <h3>Minimum viable pattern</h3>
+  <p>Always end with a catch-all: use <code>TRUE</code> as the last condition to assign a default (e.g. &quot;F&quot; or &quot;Other&quot;).</p>
+  <h3>Google Sheets & Excel</h3>
+  <p>IFS works in Excel 2019+ / Microsoft 365 and Google Sheets. For older Excel, use nested IF or lookup tables.</p>
+</div>`,
+        howToSteps: [
+            { name: 'List thresholds', text: 'Order conditions from highest priority downward (e.g. score >=90 before >=80).' },
+            { name: 'Pair each test with a result', text: 'Each condition must be followed by its return value—IFS requires an even number of arguments after the first.' },
+            { name: 'Add TRUE fallback', text: 'Use TRUE as the final condition to handle every remaining case.' },
+        ],
+        faq: [
+            {
+                question: 'Can IFS replace nested IF for letter grades?',
+                answer: 'Yes. Example: =IFS(A1>=90,"A",A1>=80,"B",A1>=70,"C",TRUE,"F"). Easier to read than multiple nested IFs.',
+            },
+            {
+                question: 'Why does IFS return #N/A?',
+                answer: 'No condition matched and there is no final TRUE fallback. Add TRUE, "Default" as the last pair.',
+            },
+            {
+                question: 'IFS vs SWITCH?',
+                answer: 'IFS tests ranges and inequalities; SWITCH matches exact values. Use IFS for grade bands and tier thresholds.',
+            },
+        ],
+        commonErrors: [
+            {
+                title: '#N/A or wrong grade bucket',
+                causes: ['Conditions out of order so a lower threshold matches first.', 'Missing TRUE fallback.', 'Comparing text scores without VALUE().'],
+                fixes: ['Put highest thresholds first.', 'End with TRUE, "default".', 'Use VALUE(A1) if scores are stored as text.'],
+            },
+        ],
+        relatedTools: ['if', 'iferror', 'sumifs', 'averageif'],
     },
 
     // 30. SUBSTITUTE - Text Replacement

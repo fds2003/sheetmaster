@@ -223,8 +223,9 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 3. SEO Toolkit (NEW)
     {
         slug: 'seo-toolkit',
-        title: 'URL Slug Generator & Meta Tag Checker | SEO Tools',
-        metaDescription: 'Generate SEO-friendly URL slugs, check meta tag character limits, and build UTM tracking links. Free tools for content marketers and SEO specialists.',
+        title: 'Free SEO Toolkit — URL Slugs, Meta Length & UTM Links | Excel & Sheets',
+        metaDescription:
+            'Slug generator, meta title/description length checks, and UTM builder using Excel & Google Sheets formulas. Free for marketers—no signup.',
         icon: 'Search',
         description: 'Create clean URLs, check meta lengths & build UTM links',
         tools: [
@@ -462,8 +463,9 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 5. Subscription Tracker (NEW)
     {
         slug: 'subscription-tracker',
-        title: 'Subscription Renewal Tracker | Excel & Google Sheets Formulas',
-        metaDescription: 'Track renewal dates, billing period ends, and days until expiry with EDATE, EOMONTH, and IF. For SaaS, gyms, and leases. Free, no signup.',
+        title: 'Free Excel Subscription Tracker — Renewals, Costs & Expiry Dates',
+        metaDescription:
+            'Track Netflix, SaaS, gyms, and leases in Excel or Google Sheets. EDATE, EOMONTH, DATEDIF—copy formulas for renewal dates and days until expiry. Free, no signup.',
         icon: 'Calendar',
         description: 'Track renewals, billing cycles & expiry dates',
         tools: [
@@ -573,8 +575,9 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 6. Grade Calculator (NEW)
     {
         slug: 'grade-calculator',
-        title: 'Letter Grade Calculator for Excel & Google Sheets | Teachers',
-        metaDescription: 'Letter grades (A–F), class averages, pass rates, and attendance-style counts. IFS, AVERAGEIF, COUNTIF—free, no signup for teachers and trainers.',
+        title: 'Letter Grade Calculator Excel — Class Average, Pass Rate & Attendance',
+        metaDescription:
+            'Convert scores to A–F, class averages, pass rates, and absence counts with IFS, AVERAGEIF, and COUNTIF. Free for teachers—Excel & Google Sheets, no signup.',
         icon: 'GraduationCap',
         description: 'Convert scores to grades, calculate averages & track attendance',
         tools: [

@@ -10,6 +10,12 @@ export interface Post {
    * 搜索引擎可能将其渲染为富摘要（FAQ rich result）。
    */
   faqs?: Array<{ question: string; answer: string }>;
+  /** 博客 → 公式生成器主 CTA（每篇最多一条按钮；可选次要文字链） */
+  toolCta?: {
+    href: string;
+    label: string;
+    subLink?: { href: string; label: string };
+  };
 }
 
 export const BLOG_POSTS: Post[] = [
@@ -18,6 +24,10 @@ export const BLOG_POSTS: Post[] = [
     title: 'Excel Formula to Get First Word from Cell (3 Easy Ways)',
     description: 'Learn how to extract the first word from a cell in Excel using LEFT, FIND, IFERROR, and the new TEXTBEFORE function in Excel 365. Step-by-step guide with examples.',
     date: '2026-03-20',
+    toolCta: {
+      href: '/formulas/get-first-word',
+      label: 'Open Get First Word formula generator',
+    },
     faqs: [
       { question: 'What is the Excel formula to get the first word?', answer: '=LEFT(A2, FIND(" ", A2)-1). This extracts everything before the first space.' },
       { question: 'How do I handle cells that only contain one word?', answer: 'Use =IFERROR(LEFT(A2, FIND(" ", A2)-1), A2). If no space is found, it returns the whole cell.' },
@@ -169,6 +179,10 @@ export const BLOG_POSTS: Post[] = [
     title: 'Calculate Business Days Between Two Dates in Excel (NETWORKDAYS)',
     description: 'Use the NETWORKDAYS and NETWORKDAYS.INTL functions to calculate the number of business days between two dates in Excel. Includes examples and holiday handling.',
     date: '2026-03-17',
+    toolCta: {
+      href: '/formulas/networkdays',
+      label: 'Open NETWORKDAYS formula generator',
+    },
     faqs: [
       { question: 'What is the Excel formula to calculate business days?', answer: '=NETWORKDAYS(start_date, end_date) counts workdays including both start and end dates.' },
       { question: 'Does NETWORKDAYS include the start and end date?', answer: 'Yes, both dates are included in the count if they fall on a workday.' },
@@ -632,6 +646,11 @@ Minutes: =MOD(A2,60)</code></pre>
     title: 'VLOOKUP vs XLOOKUP: Which Should You Use in 2026?',
     description: 'Compare VLOOKUP and XLOOKUP: syntax, use cases, and when to use each in Excel and Google Sheets.',
     date: '2026-01-15',
+    toolCta: {
+      href: '/formulas/xlookup',
+      label: 'Open XLOOKUP formula generator',
+      subLink: { href: '/compare/vlookup-vs-xlookup', label: 'Side-by-side comparison page' },
+    },
     content: '<p>VLOOKUP has been the go-to lookup function for decades, but XLOOKUP is now available in Excel 365 and Google Sheets. This guide compares both so you can choose the right one.</p><h2>Key differences</h2><p>VLOOKUP only looks right and requires a column index number. XLOOKUP looks in any direction, uses separate lookup and return arrays, and supports built-in if-not-found.</p><p>Use our <a href="/formulas/vlookup">VLOOKUP Generator</a> or <a href="/formulas/xlookup">XLOOKUP Generator</a> to build formulas instantly.</p>',
   },
   {
@@ -646,6 +665,10 @@ Minutes: =MOD(A2,60)</code></pre>
     title: 'INDEX MATCH Complete Guide: Why It\'s More Powerful Than VLOOKUP',
     description: 'Learn INDEX MATCH for Excel and Google Sheets: look left, avoid column index errors, and build flexible lookups.',
     date: '2026-01-10',
+    toolCta: {
+      href: '/formulas/index-match',
+      label: 'Open INDEX MATCH formula generator',
+    },
     content: '<p>INDEX MATCH combines INDEX and MATCH to look up values in any column and return from any other column—including to the left.</p><p>Generate your formula with our <a href="/formulas/index-match">INDEX MATCH Generator</a>.</p>',
   },
   {
@@ -658,8 +681,63 @@ Minutes: =MOD(A2,60)</code></pre>
   {
     slug: 'sumif-vs-sumifs',
     title: 'SUMIF vs SUMIFS: When to Use Each (+Examples)',
-    description: 'SUMIF has one condition; SUMIFS has multiple. Learn when to use each with examples.',
+    description:
+      'SUMIF vs SUMIFS explained: comparison table, syntax, and examples. When one condition is enough vs when you need SUMIFS—plus our SUMIFS formula generator.',
     date: '2026-01-05',
-    content: '<p>SUMIF sums cells that meet one criterion. SUMIFS sums cells that meet two or more criteria. Both work in Excel and Google Sheets.</p><p>Build your formula with our <a href="/formulas/sumif">SUMIF Generator</a> or <a href="/formulas/sumifs">SUMIFS Generator</a>.</p>',
+    toolCta: {
+      href: '/formulas/sumifs',
+      label: 'Open SUMIFS formula generator',
+    },
+    content: `<p>If you are comparing <strong>SUMIF vs SUMIFS</strong> for a report or dashboard, the rule is simple: <strong>SUMIF</strong> supports one condition; <strong>SUMIFS</strong> supports one or more conditions and uses a clearer argument order for new formulas. Both work in Excel and Google Sheets.</p>
+
+<h2>SUMIF vs SUMIFS: comparison table</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>SUMIF</th>
+      <th>SUMIFS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Number of conditions</td>
+      <td>Exactly one</td>
+      <td>One or more (pairs)</td>
+    </tr>
+    <tr>
+      <td>Syntax shape</td>
+      <td><code>range, criteria, [sum_range]</code></td>
+      <td><code>sum_range, criteria_range1, criteria1, …</code></td>
+    </tr>
+    <tr>
+      <td>Typical use</td>
+      <td>Sum where one column matches (e.g. status = Paid)</td>
+      <td>Sum where region, month, and product must all match</td>
+    </tr>
+    <tr>
+      <td>Logic between criteria</td>
+      <td>N/A (single test)</td>
+      <td>All criteria must pass (AND). Use multiple formulas or helpers for OR.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>When to use SUMIF</h2>
+<p>Use SUMIF when a single column decides inclusion—for example, sum amounts in column C where column B equals <code>"Paid"</code>:</p>
+<pre><code>=SUMIF(B:B, "Paid", C:C)</code></pre>
+
+<h2>When to use SUMIFS</h2>
+<p>Use SUMIFS when you filter on two or more columns at once. Example: sum column D where column A is <code>"West"</code> and column B is <code>"Jan"</code>:</p>
+<pre><code>=SUMIFS(D:D, A:A, "West", B:B, "Jan")</code></pre>
+<p>You can also use SUMIFS with <strong>only one</strong> criteria pair; many teams standardize on SUMIFS everywhere so argument order stays consistent.</p>
+
+<h2>Syntax cheat sheet</h2>
+<p><strong>SUMIF:</strong> <code>=SUMIF(range, criteria, [sum_range])</code> — if <code>sum_range</code> is omitted, Excel sums <code>range</code>.</p>
+<p><strong>SUMIFS:</strong> <code>=SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], …)</code> — notice <code>sum_range</code> comes first.</p>
+
+<h2>Next step: build SUMIFS without typos</h2>
+<p>For fields you can fill in and a copy-ready formula, open our <a href="/formulas/sumifs">SUMIFS formula generator</a>. It follows the same <strong>excel sumifs syntax</strong> order Excel expects: sum range first, then repeating criteria range / criteria pairs.</p>
+<p>Need only one condition? You can still use the <a href="/formulas/sumif">SUMIF generator</a>—or stay on <a href="/formulas/sumifs">SUMIFS</a> with a single pair for consistency.</p>`,
   },
 ];

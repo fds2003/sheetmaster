@@ -57,6 +57,12 @@ const RELATED_BY_SLUG: Record<string, string[]> = {
     xlookup: ['vlookup', 'index-match', 'iferror', 'sumif'],
     if: ['ifs', 'iferror', 'and', 'or', 'sumif'],
     sumif: ['sumifs', 'countif', 'countifs', 'averageif', 'vlookup'],
+    ifs: ['if', 'iferror', 'sumifs', 'averageif', 'countif'],
+    sumifs: ['sumif', 'countifs', 'averageif', 'if', 'ifs'],
+    countifs: ['countif', 'sumifs', 'sumif', 'averageif', 'ifs'],
+    'get-first-word': ['left', 'find', 'iferror', 'trim', 'proper'],
+    'remove-first-3-chars': ['right', 'len', 'substitute', 'mid', 'left'],
+    'extract-domain': ['extract-email', 'trim', 'substitute', 'concatenate', 'mid'],
 };
 const RELATED_COUNT = 5;
 

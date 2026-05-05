@@ -73,15 +73,28 @@ export async function POST(request: Request) {
         });
 
         if (!response.ok) {
-            throw new Error(`IndexNow API returned ${response.status}`);
+            const errText = await response.text();
+            throw new Error(
+                `IndexNow API returned ${response.status}: ${errText?.slice(0, 200) || 'no body'}`
+            );
         }
 
-        const result = await response.json();
+        // IndexNow often returns 200/202 with an empty body — do not call .json() blindly
+        const raw = await response.text();
+        let result: unknown = null;
+        if (raw) {
+            try {
+                result = JSON.parse(raw) as unknown;
+            } catch {
+                result = raw;
+            }
+        }
 
         return NextResponse.json({
             success: true,
             message: `Submitted ${urls.length} URL(s) to IndexNow`,
             submittedUrls: urls,
+            indexNowStatus: response.status,
             result,
         });
     } catch (error) {

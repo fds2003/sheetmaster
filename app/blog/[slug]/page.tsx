@@ -2,6 +2,7 @@ import { BLOG_POSTS } from '@/lib/posts';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import BlogPrimaryToolCta from '@/components/BlogPrimaryToolCta';
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({ slug: post.slug }));
@@ -79,6 +80,13 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             day: 'numeric',
           })}
         </time>
+        {post.toolCta ? (
+          <BlogPrimaryToolCta
+            href={post.toolCta.href}
+            label={post.toolCta.label}
+            subLink={post.toolCta.subLink}
+          />
+        ) : null}
         {post.content ? (
           <div
             className="prose prose-slate max-w-none"

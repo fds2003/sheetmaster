@@ -60,6 +60,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.8,
         },
         {
+            url: `${baseUrl}/tools/bom-inventory`,
+            lastModified: new Date(),
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/tools/regex-extract-generator`,
+            lastModified: new Date(),
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/tools/sumifs-across-sheets`,
+            lastModified: new Date(),
+            priority: 0.8,
+        },
+        {
             url: `${baseUrl}/compare/vlookup-vs-xlookup`,
             lastModified: new Date(),
             priority: 0.7,

@@ -462,8 +462,8 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 5. Subscription Tracker (NEW)
     {
         slug: 'subscription-tracker',
-        title: 'Membership Expiry Calculator | Subscription Management',
-        metaDescription: 'Calculate subscription renewal dates, find billing cycle end dates, and track days until expiry. For SaaS, gyms, and rental services.',
+        title: 'Subscription Renewal Tracker | Excel & Google Sheets Formulas',
+        metaDescription: 'Track renewal dates, billing period ends, and days until expiry with EDATE, EOMONTH, and IF. For SaaS, gyms, and leases. Free, no signup.',
         icon: 'Calendar',
         description: 'Track renewals, billing cycles & expiry dates',
         tools: [
@@ -573,8 +573,8 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 6. Grade Calculator (NEW)
     {
         slug: 'grade-calculator',
-        title: 'Letter Grade Converter & Grade Calculator | For Teachers',
-        metaDescription: 'Convert scores to letter grades, calculate class averages excluding absent students, and track attendance. Free grading tools for teachers and trainers.',
+        title: 'Letter Grade Calculator for Excel & Google Sheets | Teachers',
+        metaDescription: 'Letter grades (A–F), class averages, pass rates, and attendance-style counts. IFS, AVERAGEIF, COUNTIF—free, no signup for teachers and trainers.',
         icon: 'GraduationCap',
         description: 'Convert scores to grades, calculate averages & track attendance',
         tools: [

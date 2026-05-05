@@ -8,7 +8,15 @@ export default function NotFound() {
       <p className="text-gray-500 mb-8 max-w-md">
         The page you&apos;re looking for might have been moved or doesn&apos;t exist. Try one of these:
       </p>
-      <div className="flex flex-wrap gap-3 justify-center">
+      <div
+        className="flex flex-wrap gap-3 justify-center"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "12px",
+          justifyContent: "center",
+        }}
+      >
         <Link
           href="/"
           className="inline-flex items-center rounded-lg bg-green-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-green-700 transition-colors"

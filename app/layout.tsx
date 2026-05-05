@@ -22,16 +22,6 @@ export const metadata: Metadata = {
     template: "%s | SheetMaster",
   },
   description: "Free tools to generate Excel and Google Sheets formulas instantly. No AI, no signup. Master VLOOKUP, IF, SUMIF, and 50+ formulas.",
-  keywords: [
-    "Excel formula generator",
-    "Google Sheets formulas",
-    "VLOOKUP generator",
-    "IF statement generator",
-    "SUMIF formula",
-    "spreadsheet formulas",
-    "Excel functions",
-    "Google Sheets functions",
-  ],
   authors: [{ name: "SheetMaster" }],
   creator: "SheetMaster",
   openGraph: {

@@ -363,13 +363,19 @@ export const FORMULAS: FormulaConfig[] = [
         commonErrors: [
             { title: 'INDEX MATCH returns #N/A or wrong value', causes: ['Lookup range and return range have different heights (rows).', 'MATCH type wrong: use 0 for exact match; -1/1 for sorted lookup.', 'Data type mismatch between lookup value and lookup range.'], fixes: ['Use same-sized single-column ranges for lookup_range and return_range.', 'Use 0 for exact match in most cases.', 'Normalize types with TRIM, VALUE, or TEXT.'] },
         ],
+        howToSteps: [
+            { name: 'Choose the return column', text: 'Select the range that holds the values you want returned (your result column), e.g. C:C.' },
+            { name: 'Choose where to search', text: 'Enter the lookup value cell (e.g. A2) and the column where that value appears (e.g. B:B). MATCH finds the row within that column.' },
+            { name: 'Use exact match', text: 'Set Match Type to Exact Match (0) unless your lookup column is sorted and you need approximate match.' },
+            { name: 'Combine INDEX and MATCH', text: 'The generator builds =INDEX(return_range, MATCH(lookup_value, lookup_range, match_type)) so you can look left or right without a column index number.' },
+        ],
     },
 
     // 7. XLOOKUP
     {
         slug: 'xlookup',
-        title: 'XLOOKUP Generator - Modern VLOOKUP Replacement | Free',
-        metaDescription: 'Generate XLOOKUP formulas for Excel and Google Sheets. The modern replacement for VLOOKUP with built-in error handling. Free, no signup.',
+        title: 'XLOOKUP Formula Generator | Excel 365 & Google Sheets (Free)',
+        metaDescription: 'Build XLOOKUP with lookup/return arrays and optional if-not-found. Replaces VLOOKUP—left or right lookup. Free generator, no signup.',
         excelFunction: 'XLOOKUP',
         category: 'Lookup',
         description: 'Searches a range or an array, and then returns the item corresponding to the first match it finds. If no match exists, then XLOOKUP can return the closest (approximate) match.',
@@ -413,6 +419,12 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         commonErrors: [
             { title: 'XLOOKUP returns #N/A', causes: ['Lookup value not in lookup_array.', 'Lookup and return arrays different lengths.', 'Data type or format mismatch.'], fixes: ['Use fourth argument (if_not_found) to return a default.', 'Ensure lookup_array and return_array have the same number of rows.', 'Use TRIM, VALUE, or TEXT to align formats.'] },
+        ],
+        howToSteps: [
+            { name: 'Pick lookup and return columns', text: 'Enter the cell with the value to find, the column (or row) to search, and the column (or row) that holds the answer. Unlike VLOOKUP, these can be separate ranges.' },
+            { name: 'Add if-not-found (optional)', text: 'Use the optional fourth argument to show text like "Not Found" instead of #N/A when there is no match.' },
+            { name: 'Keep ranges aligned', text: 'lookup_array and return_array must have the same number of rows (or columns for horizontal lookup).' },
+            { name: 'Paste into Excel or Sheets', text: 'Copy the generated formula into Microsoft Excel 365 or Google Sheets—both support XLOOKUP.' },
         ],
     },
 
@@ -575,7 +587,7 @@ export const FORMULAS: FormulaConfig[] = [
         generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")`,
         richContent: `
        <h2 class="text-2xl font-bold mb-4">How to Extract Email from Text in Google Sheets</h2>
-       <p class="mb-4">Cleaning messy data is one of the most time-consuming tasks in spreadsheet management. If you have a column of raw text, such as CRM exports or scraped web data, our <strong>AI-powered Email Extractor</strong> generates the exact REGEXEXTRACT formula you need to automate this process.</p>
+       <p class="mb-4">Cleaning messy data is one of the most time-consuming tasks in spreadsheet management. If you have a column of raw text, such as CRM exports or scraped web data, our <strong>Deterministic Email Extractor</strong> generates the exact REGEXEXTRACT formula you need to automate this process.</p>
        
        <h3 class="text-xl font-semibold mb-2">Understanding the Formula Logic</h3>
        <p class="mb-4">The core of this tool relies on <strong>Regular Expressions (Regex)</strong>. The standard formula follows this pattern: <br/><code class="bg-gray-100 p-1 rounded font-mono text-sm">=REGEXEXTRACT(A2, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")</code></p>
@@ -586,7 +598,18 @@ export const FORMULAS: FormulaConfig[] = [
        <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
          <p class="text-sm text-blue-800 italic"><strong>Pro Tip:</strong> To extract multiple emails from a single cell, you might need a custom Apps Script or a combination of TEXTJOIN and REGEXREPLACE.</p>
        </div>
-     `
+     `,
+        howToSteps: [
+            { name: 'Put messy text in a cell', text: 'Paste CRM exports, notes, or scraped text into a cell (e.g. A2).' },
+            { name: 'Use REGEXEXTRACT', text: 'The formula uses REGEXEXTRACT with an email pattern to return the first matching address.' },
+            { name: 'Fill or reference the cell', text: 'Point the generator at your cell reference so the formula reads from the correct row.' },
+            { name: 'Copy into Google Sheets', text: 'REGEXEXTRACT is native in Google Sheets; Excel 365 can use REGEXEXTRACT where available or alternative text parsing.' },
+        ],
+        faq: [
+            { question: 'Does Excel support REGEXEXTRACT?', answer: 'Google Sheets uses REGEXEXTRACT natively. Microsoft Excel 365 has added REGEXEXTRACT in newer builds; otherwise use TEXTSPLIT, MID/FIND patterns, or Power Query for extraction.' },
+            { question: 'Why is my extracted email incomplete?', answer: 'The pattern returns one match. For multiple emails in one cell, use repeated formulas, SPLIT/TEXTJOIN workflows, or Apps Script.' },
+            { question: 'How do I extract email from text in Sheets?', answer: 'Use REGEXEXTRACT with an email pattern on your cell (e.g. A2), or paste the exact formula from SheetMaster’s generator.' },
+        ],
     },
 
     // 22. Extract Domain
@@ -660,8 +683,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'Excel SUMIFS Formula Generator | Sum Multiple Criteria Easily',
-        metaDescription: 'Stop struggling with sum_range and criteria_range. Use our interactive SUMIFS builder to sum cells based on multiple conditions. Includes SUMIF vs SUMIFS guide.',
+        title: 'SUMIFS Formula Generator & Syntax | Excel & Google Sheets',
+        metaDescription: 'Correct order: sum_range, criteria_range1, criteria1, then more pairs. Interactive SUMIFS builder, examples, SUMIF vs SUMIFS. Free, no signup.',
         excelFunction: 'SUMIFS',
         category: 'Math',
         description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
@@ -800,8 +823,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 29. IFS - Multiple Conditions
     {
         slug: 'ifs',
-        title: 'Free IFS Formula Generator',
-        metaDescription: 'Generate IFS formulas in Excel and Google Sheets. Free tool for multiple conditions. No signup required. Replace nested IF statements easily.',
+        title: 'IFS Function Generator | Multiple Conditions (Excel & Sheets)',
+        metaDescription: 'Create IFS for multiple conditions—cleaner than nested IF. Great for letter grades and tiered logic. Free for Excel and Google Sheets, no signup.',
         excelFunction: 'IFS',
         category: 'Logic',
         description: 'Checks multiple conditions and returns a value corresponding to the first TRUE condition. Cleaner than nested IFs.',

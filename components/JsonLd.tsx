@@ -3,13 +3,24 @@ import { FormulaConfig } from '../lib/formulas';
 
 interface JsonLdProps {
     formula: FormulaConfig;
+    /** Canonical URL for this formula page (improves HowTo / SoftwareApplication linkage). */
+    pageUrl?: string;
 }
 
-const JsonLd: React.FC<JsonLdProps> = ({ formula }) => {
+/** Strip HTML tags for schema.org text fields (FAQ answers may contain markup). */
+function plainTextForSchema(htmlOrText: string): string {
+    if (!htmlOrText) return '';
+    return htmlOrText
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl }) => {
     const schemas = [];
 
     // 1. SoftwareApplication Schema
-    const softwareAppSchema = {
+    const softwareAppSchema: Record<string, unknown> = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": formula.title,
@@ -23,22 +34,30 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula }) => {
         "description": formula.description,
         "featureList": formula.inputs.map(input => input.label).join(", ")
     };
+    if (pageUrl) {
+        softwareAppSchema.url = pageUrl;
+    }
     schemas.push(softwareAppSchema);
 
     // 2. HowTo Schema
     if (formula.howToSteps && formula.howToSteps.length > 0) {
-        const howToSchema = {
+        const howToSchema: Record<string, unknown> = {
             "@context": "https://schema.org",
             "@type": "HowTo",
-            "name": `How to use the ${formula.excelFunction} function`,
-            "step": formula.howToSteps.map(step => ({
+            "name": `How to use the ${formula.excelFunction} function in Excel or Google Sheets`,
+            "description": plainTextForSchema(formula.metaDescription || formula.description),
+            "step": formula.howToSteps.map((step, index) => ({
                 "@type": "HowToStep",
+                "position": index + 1,
                 "name": step.name,
                 "text": step.text,
-                "image": step.image,
-                "url": step.url
+                ...(step.image ? { image: step.image } : {}),
+                ...(step.url ? { url: step.url } : {})
             }))
         };
+        if (pageUrl) {
+            howToSchema.url = pageUrl;
+        }
         schemas.push(howToSchema);
     }
 
@@ -52,7 +71,7 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula }) => {
                 "name": item.question,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": item.answer
+                    "text": plainTextForSchema(item.answer)
                 }
             }))
         };

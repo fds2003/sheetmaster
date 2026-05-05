@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Copy, Check, Info, Share2, Link2, PlusCircle, Trash2, Mail, FileDown, Send } from 'lucide-react';
+import { FORMULAS } from '../lib/formulas';
 
 interface InteractiveSumifsBuilderProps {
     formulaSlug?: string;
@@ -14,6 +15,7 @@ interface Condition {
 }
 
 export default function InteractiveSumifsBuilder({ formulaSlug = 'sumifs' }: InteractiveSumifsBuilderProps) {
+    const formula = FORMULAS.find((f) => f.slug === formulaSlug);
     const [copied, setCopied] = useState(false);
     const [sumRange, setSumRange] = useState('');
     const [conditions, setConditions] = useState<Condition[]>([
@@ -145,7 +147,7 @@ export default function InteractiveSumifsBuilder({ formulaSlug = 'sumifs' }: Int
             <div className="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex justify-between items-center">
                 <div>
                     <div className="flex items-center gap-2 mb-1">
-                        <h2 className="text-2xl font-bold text-gray-900">SUMIFS Generator</h2>
+                        <h1 className="text-2xl font-bold text-gray-900">{formula?.title ?? 'SUMIFS Formula Generator'}</h1>
                         <span className="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full font-medium">Multi-Condition Mode</span>
                     </div>
                     <p className="text-sm text-gray-500">Add as many conditions as you need to filter the sum range.</p>

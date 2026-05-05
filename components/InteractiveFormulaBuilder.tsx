@@ -191,6 +191,43 @@ export default function InteractiveFormulaBuilder({ formulaSlug }: InteractiveFo
 
     // Simplified grid visualization based on formula type
     const renderGridPreview = () => {
+        if (formula.slug === 'if') {
+            return (
+                <div className="border border-gray-200 rounded-lg bg-white overflow-hidden text-sm shadow-sm">
+                    <div className="bg-gray-50 px-3 py-2 border-b border-gray-200 text-gray-600 text-xs font-medium">Logical test → two outcomes</div>
+                    <div className="p-4 grid grid-cols-2 gap-3">
+                        <div className={`rounded-lg border-2 p-3 text-center ${activeInput === 'logical_test' ? 'border-blue-400 bg-blue-50' : 'border-green-200 bg-green-50'}`}>
+                            <div className="text-xs text-green-800 mb-1 font-semibold">If TRUE</div>
+                            <div className="font-mono text-xs text-gray-700">{values.value_if_true || 'value_if_true'}</div>
+                        </div>
+                        <div className={`rounded-lg border-2 p-3 text-center ${activeInput === 'logical_test' ? 'border-blue-400 bg-blue-50' : 'border-red-200 bg-red-50'}`}>
+                            <div className="text-xs text-red-800 mb-1 font-semibold">If FALSE</div>
+                            <div className="font-mono text-xs text-gray-700">{values.value_if_false || 'value_if_false'}</div>
+                        </div>
+                    </div>
+                    <p className="text-xs text-gray-500 px-3 pb-3">Focus the <strong>Test</strong> field to see how the condition drives the branch.</p>
+                </div>
+            );
+        }
+        if (formula.slug === 'extract-email') {
+            return (
+                <div className="border border-gray-200 rounded-lg bg-white overflow-hidden text-xs shadow-sm">
+                    <div className="bg-amber-50 px-3 py-2 border-b border-amber-100 text-amber-900 text-xs font-medium">REGEX preview</div>
+                    <div className="p-4 space-y-3">
+                        <div>
+                            <div className="text-gray-500 mb-1">Raw text (e.g. A2)</div>
+                            <div className="bg-gray-50 border border-gray-200 rounded p-2 font-mono break-all">
+                                Contact us at <span className="bg-yellow-100 text-blue-700 font-semibold">hello@example.com</span> today.
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-2 text-green-700 font-medium">
+                            <span aria-hidden>→</span>
+                            <span>Extracted: hello@example.com</span>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
         if (formula.slug === 'vlookup' || formula.slug === 'xlookup' || formula.slug === 'index-match') {
             return (
                 <div className="border border-gray-200 rounded text-xs font-mono bg-white overflow-hidden shadow-sm">
@@ -227,7 +264,7 @@ export default function InteractiveFormulaBuilder({ formulaSlug }: InteractiveFo
             <div className="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex justify-between items-center">
                 <div>
                     <div className="flex items-center gap-2 mb-1">
-                        <h2 className="text-2xl font-bold text-gray-900">{formula.title}</h2>
+                        <h1 className="text-2xl font-bold text-gray-900">{formula.title}</h1>
                         <span className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-medium">Wizard Mode</span>
                     </div>
                     <p className="text-sm text-gray-500">{formula.description}</p>

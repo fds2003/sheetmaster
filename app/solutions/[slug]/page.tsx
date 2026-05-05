@@ -29,7 +29,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
         title: solution.title,
         description: solution.metaDescription,
-        keywords: ['Excel', 'Google Sheets', 'formula generator', solution.title.split('|')[0].trim()],
         openGraph: {
             title: solution.title,
             description: solution.metaDescription,

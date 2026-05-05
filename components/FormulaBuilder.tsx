@@ -15,6 +15,8 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
     const [showEmailModal, setShowEmailModal] = useState(false);
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);
+    const [emailSending, setEmailSending] = useState(false);
+    const [emailError, setEmailError] = useState<string | null>(null);
 
     if (!formula) {
         return <div>Formula not found</div>;
@@ -49,16 +51,40 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
         }
     };
 
-    const handleSendEmail = (e: React.FormEvent) => {
+    const handleSendEmail = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Mock sending email to our backend system for lead capture
-        if (email) {
+        if (!email.trim()) return;
+        setEmailError(null);
+        setEmailSending(true);
+        try {
+            const res = await fetch('/api/formula-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email.trim(),
+                    formulaSlug,
+                    formulaText: generatedFormula,
+                    formulaTitle: formula.title,
+                }),
+            });
+            const data = (await res.json().catch(() => ({}))) as { error?: string };
+            if (!res.ok) {
+                throw new Error(
+                    data.error || 'Could not send email. Please try again later.'
+                );
+            }
             setEmailSent(true);
             setTimeout(() => {
                 setShowEmailModal(false);
                 setEmailSent(false);
                 setEmail('');
             }, 3000);
+        } catch (err) {
+            setEmailError(
+                err instanceof Error ? err.message : 'Could not send email.'
+            );
+        } finally {
+            setEmailSending(false);
         }
     };
 
@@ -67,7 +93,7 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
             {/* Header */}
             <div className="p-6 border-b border-gray-100 bg-gray-50/50">
                 <div>
-                    <h2 className="text-xl font-bold text-gray-900">{formula.title}</h2>
+                    <h1 className="text-xl font-bold text-gray-900">{formula.title}</h1>
                     <p className="text-sm text-gray-500 mt-1">{formula.description}</p>
                 </div>
             </div>
@@ -177,18 +203,34 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
                                 <Check className="w-4 h-4" /> Formula sent to your inbox!
                             </div>
                         ) : (
-                            <form onSubmit={handleSendEmail} className="flex gap-2">
-                                <input 
-                                    type="email" 
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="your@email.com"
-                                    required
-                                    className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border"
-                                />
-                                <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2">
-                                    <Send className="w-4 h-4" /> Send
-                                </button>
+                            <form onSubmit={handleSendEmail} className="space-y-2">
+                                <div className="flex gap-2">
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => {
+                                            setEmail(e.target.value);
+                                            setEmailError(null);
+                                        }}
+                                        placeholder="your@email.com"
+                                        required
+                                        disabled={emailSending}
+                                        className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm py-2 px-3 border disabled:opacity-60"
+                                    />
+                                    <button
+                                        type="submit"
+                                        disabled={emailSending}
+                                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 disabled:opacity-60"
+                                    >
+                                        <Send className="w-4 h-4" />
+                                        {emailSending ? 'Sending…' : 'Send'}
+                                    </button>
+                                </div>
+                                {emailError && (
+                                    <p className="text-sm text-red-600" role="alert">
+                                        {emailError}
+                                    </p>
+                                )}
                             </form>
                         )}
                         <p className="text-xs text-gray-500 mt-2">We will never spam you. Save your formula history instantly.</p>

@@ -18,7 +18,6 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  console.log('Rendering BlogPage, posts count:', BLOG_POSTS.length);
   return (
     <div className="max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold text-gray-900 mb-2">Blog</h1>

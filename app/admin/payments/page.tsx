@@ -1,8 +1,6 @@
 import React from 'react';
 import Stripe from 'stripe';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export const revalidate = 0; // Don't cache payments data
 
 export default async function AdminPaymentsPage() {

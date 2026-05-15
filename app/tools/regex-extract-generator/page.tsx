@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import RegexExtractClient from './RegexExtractClient';
 
+/* eslint-disable react/no-unescaped-entities */
+
 export const metadata: Metadata = {
   title: 'RegexExtract Generator - Multi-Word Search | SheetMaster',
   description: 'Generate REGEXEXTRACT formulas to find and extract multiple specific words from a cell instantly. Fix case sensitivity and wildcard limitations.',
@@ -9,6 +11,12 @@ export const metadata: Metadata = {
     description: 'Solve the problem of extracting multiple words from a cell without complex nested IF statements.',
     url: 'https://www.getsheetmaster.com/tools/regex-extract-generator',
     type: 'website',
+    siteName: 'SheetMaster',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'RegexExtract Generator - Multi-Word Search | SheetMaster',
+    description: 'Extract multiple words from a cell without nested IF statements using REGEXEXTRACT.',
   },
   alternates: {
     canonical: 'https://www.getsheetmaster.com/tools/regex-extract-generator',

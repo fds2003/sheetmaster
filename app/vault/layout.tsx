@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { requirePro } from '@/lib/proAuth';
-import { Cloud, ArrowLeft, History } from 'lucide-react';
+import { Cloud, ArrowLeft } from 'lucide-react';
 
 export const metadata = {
   title: 'My Vault | SheetMaster',

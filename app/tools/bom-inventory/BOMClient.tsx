@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Copy, Check, FileDown, Download } from 'lucide-react';
+import { Copy, Download } from 'lucide-react';
 
 export default function BOMClient() {
-    const [copied, setCopied] = useState(false);
+    const [_copied, setCopied] = useState(false);
 
     const generatedFormula = `=MMULT(TRANSPOSE(SalesQtyRange), BOMMatrixRange)`;
 

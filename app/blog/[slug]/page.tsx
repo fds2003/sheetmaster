@@ -59,8 +59,37 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         }
       : null;
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.description,
+    "datePublished": post.date,
+    "author": {
+      "@type": "Organization",
+      "name": "SheetMaster",
+      "url": "https://www.getsheetmaster.com",
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SheetMaster",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.getsheetmaster.com/logo.png",
+      },
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.getsheetmaster.com/blog/${post.slug}`,
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* FAQPage JSON-LD — 仅有 faqs 字段时注入，提升搜索结果富摘要展示机会 */}
       {faqJsonLd && (
         <script

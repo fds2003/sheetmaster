@@ -7,6 +7,15 @@ import FeedbackWidget from "@/components/FeedbackWidget";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SheetMaster",
+  "url": "https://www.getsheetmaster.com",
+  "logo": "https://www.getsheetmaster.com/logo.png",
+  "description": "Free Excel and Google Sheets formula generators. No AI, no signup.",
+};
+
 /* Inter: SIL OFL 1.1 免费可商用 */
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -52,6 +61,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -134,6 +150,10 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
         <FeedbackWidget />
         <Analytics />
         <Script src="https://pl29172607.profitablecpmratenetwork.com/a9/4b/7e/a94b7ee0e1a59ee2004562ef5af5fc4e.js" strategy="afterInteractive" />

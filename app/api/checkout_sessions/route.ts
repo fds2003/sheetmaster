@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2024-06-20',
+  apiVersion: '2026-03-25.dahlia' as const,
 });
 
 export async function POST(req: Request) {
@@ -45,8 +45,11 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ id: session.id, url: session.url });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    const stripeErr = err as { statusCode?: number };
+    const status = stripeErr.statusCode || 500;
     console.error('Stripe checkout error:', err);
-    return NextResponse.json({ error: err.message }, { status: err.statusCode || 500 });
+    return NextResponse.json({ error: message }, { status });
   }
 }

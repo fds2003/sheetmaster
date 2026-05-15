@@ -9,7 +9,7 @@ export default function SumifsAcrossClient() {
     const [criteriaRange, setCriteriaRange] = useState('A:A');
     const [criteria, setCriteria] = useState('"Apple"');
     
-    const [copied, setCopied] = useState(false);
+    const [_copied, setCopied] = useState(false);
     const [showEmailModal, setShowEmailModal] = useState(false);
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);

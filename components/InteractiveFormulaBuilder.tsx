@@ -98,6 +98,8 @@ export default function InteractiveFormulaBuilder({ formulaSlug }: InteractiveFo
         if (!userId || !isPro) return;
         
         // Use native prompt for MVP naming, or default name
+        if (!formula) return null;
+
         const configName = prompt('Enter a memorable name for this configuration:', 'Untitled ' + formula.title);
         if (!configName) return; // User cancelled
         

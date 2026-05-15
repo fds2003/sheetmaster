@@ -8,7 +8,7 @@ export default function RegexExtractClient() {
     const [words, setWords] = useState('Apple, Banana, Orange');
     const [caseSensitive, setCaseSensitive] = useState(false);
     
-    const [copied, setCopied] = useState(false);
+    const [_copied, setCopied] = useState(false);
     const [showEmailModal, setShowEmailModal] = useState(false);
     const [email, setEmail] = useState('');
     const [emailSent, setEmailSent] = useState(false);

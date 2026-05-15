@@ -16,7 +16,7 @@ export default async function AdminUsersPage() {
   });
 
   // 2. Fetch profiles to get is_pro and is_admin states
-  const { data: profiles, error: profilesError } = await supabaseAdmin
+  const { data: profiles } = await supabaseAdmin
     .from('profiles')
     .select('*');
 

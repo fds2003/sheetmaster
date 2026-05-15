@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+
+/* eslint-disable react/no-unescaped-entities */
 import { requirePro } from '@/lib/proAuth';
 import { FORMULAS } from '@/lib/formulas';
 import { FolderOpen, Clock, ArrowRight, Trash2 } from 'lucide-react';

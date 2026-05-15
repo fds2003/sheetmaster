@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import BOMClient from './BOMClient';
 
+/* eslint-disable react/no-unescaped-entities */
+
 export const metadata: Metadata = {
   title: 'BOM Inventory Template & ArrayFormula Generator | SheetMaster',
   description: 'Download the Reddit-famous BOM inventory tracker template. Automatically deduct raw materials when a finished good is sold using ArrayFormulas and MMULT.',
@@ -9,6 +11,12 @@ export const metadata: Metadata = {
     description: 'Avoid nested IFs. Deduct inventory components instantly.',
     url: 'https://www.getsheetmaster.com/tools/bom-inventory',
     type: 'website',
+    siteName: 'SheetMaster',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BOM Inventory Tracker & Formula Template | SheetMaster',
+    description: 'Automatically deduct raw materials when a finished good is sold using ArrayFormulas.',
   },
   alternates: {
     canonical: 'https://www.getsheetmaster.com/tools/bom-inventory',

@@ -2,8 +2,10 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2024-06-20',
+  apiVersion: '2026-03-25.dahlia' as const,
 });
 
 // We need the service role key to bypass RLS and update the profile
@@ -24,9 +26,10 @@ export async function POST(req: Request) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
-  } catch (err: any) {
-    console.error(`Webhook signature verification failed.`, err.message);
-    return NextResponse.json({ error: err.message }, { status: 400 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error(`Webhook signature verification failed.`, message);
+    return NextResponse.json({ error: message }, { status: 400 });
   }
 
   // Handle the checkout.session.completed event

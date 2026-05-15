@@ -11,6 +11,11 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'SheetMaster',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'VLOOKUP vs XLOOKUP: Which Should You Use? | SheetMaster',
+    description: 'Compare syntax, use cases, and when to use VLOOKUP vs XLOOKUP.',
+  },
   alternates: {
     canonical: 'https://www.getsheetmaster.com/compare/vlookup-vs-xlookup',
   },

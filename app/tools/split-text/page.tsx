@@ -11,6 +11,11 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'SheetMaster',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Split Text in Excel - TEXTSPLIT & Text to Columns | SheetMaster',
+    description: 'Split text by delimiter, extract first/last name, or split by comma. Free formulas.',
+  },
   alternates: {
     canonical: 'https://www.getsheetmaster.com/tools/split-text',
   },

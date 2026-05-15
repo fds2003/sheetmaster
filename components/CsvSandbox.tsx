@@ -61,8 +61,10 @@ export default function CsvSandbox() {
         Papa.parse(refFile, {
             header: true,
             skipEmptyLines: true,
-            complete: (refResults) => {
-                refResults.data.forEach((row: Record<string, unknown>) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            complete: (refResults: any) => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                refResults.data.forEach((row: any) => {
                     // Normalize keys: trim whitespace, lowercase for robust matching
                     const key = String(row[refJoinKey]).trim().toLowerCase();
                     const value = String(row[returnColumn] || '');
@@ -75,8 +77,10 @@ export default function CsvSandbox() {
                 Papa.parse(mainFile, {
                     header: true,
                     skipEmptyLines: true,
-                    complete: (mainResults) => {
-                        mainResults.data.forEach((row: Record<string, unknown>) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    complete: (mainResults: any) => {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        mainResults.data.forEach((row: any) => {
                             const key = String(row[mainJoinKey]).trim().toLowerCase();
                             // Perform the lookup (VLOOKUP logic)
                             const matchedValue = lookupMap.get(key) || '#N/A';

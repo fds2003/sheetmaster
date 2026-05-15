@@ -14,14 +14,6 @@ const nextConfig = {
       },
     ];
   },
-  eslint: {
-    // 忽略所有代码规范警告，确保立刻打包成功
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    // 忽略类型检查报错
-    ignoreBuildErrors: true,
-  },
 };
 
 export default nextConfig;

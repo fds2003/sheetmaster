@@ -44,73 +44,11 @@ export interface FormulaConfig {
     relatedTools?: string[];
 }
 
-function createSimpleFormula(
-    slug: string,
-    excelFunction: string,
-    category: string,
-    description: string,
-    inputs: FormulaInput[],
-    generateFn: (params: Record<string, string>) => string,
-    metaDescription?: string
-): FormulaConfig {
-    return {
-        slug,
-        title: `Free ${excelFunction} Formula Generator`,
-        metaDescription: metaDescription || `Generate ${excelFunction} formulas for Excel and Google Sheets.`,
-        excelFunction,
-        category,
-        description,
-        inputs,
-        generate: generateFn,
-    };
-}
-
-function createSingleParamFormula(
-    slug: string,
-    excelFunction: string,
-    category: string,
-    description: string,
-    paramName: string,
-    paramLabel: string,
-    paramType: FormulaInputType,
-    metaDescription?: string
-): FormulaConfig {
-    const input = { id: paramName, label: paramLabel, type: paramType, placeholder: 'e.g., A1' };
-    return createSimpleFormula(
-        slug,
-        excelFunction,
-        category,
-        description,
-        [input],
-        (p: Record<string, string>) => `=${excelFunction}(${p[paramName] || paramName})`,
-        metaDescription
-    );
-}
-
-function createTwoParamFormula(
-    slug: string,
-    excelFunction: string,
-    category: string,
-    description: string,
-    params: Array<{ id: string; label: string; type: FormulaInputType; placeholder: string }>,
-    metaDescription?: string
-): FormulaConfig {
-    return createSimpleFormula(
-        slug,
-        excelFunction,
-        category,
-        description,
-        params,
-        (p: Record<string, string>) => `=${excelFunction}(${params.map(param => p[param.id] || param.id).join(', ')})`,
-        metaDescription
-    );
-}
-
 export const FORMULAS: FormulaConfig[] = [
     // 1. VLOOKUP
     {
         slug: 'vlookup',
-        title: 'Free VLOOKUP Generator - Excel & Google Sheets | No Signup',
+        title: 'VLOOKUP Formula Generator (2026) — Free Excel & Google Sheets',
         metaDescription: 'Generate VLOOKUP formulas instantly for Excel and Google Sheets. Free tool with examples, error fixes (#N/A solutions), and step-by-step guide. No signup required.',
         excelFunction: 'VLOOKUP',
         category: 'Lookup',
@@ -179,7 +117,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 2. IF
     {
         slug: 'if',
-        title: 'IF Formula Generator - Create IF-THEN Statements | Free',
+        title: 'IF Formula Generator (2026) — Create IF-THEN Statements | Free Excel & Sheets',
         metaDescription:
             'Build IF formulas instantly—nested IF, IF-AND, IF-OR—with examples for Excel and Google Sheets. Free generator. No signup required.',
         excelFunction: 'IF',
@@ -247,7 +185,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 3. SUMIF
     {
         slug: 'sumif',
-        title: 'SUMIF Generator - Sum with Conditions | Excel & Sheets',
+        title: 'SUMIF Formula Generator (2026) — Sum with Conditions | Excel & Sheets',
         metaDescription: 'Generate SUMIF formulas to sum cells based on criteria. Free tool for Excel and Google Sheets with multiple condition examples. No signup required.',
         excelFunction: 'SUMIF',
         category: 'Math',
@@ -263,6 +201,12 @@ export const FORMULAS: FormulaConfig[] = [
             const sumRange = p.sum_range ? `, ${p.sum_range}` : '';
             return `=SUMIF(${range}, ${criteria}${sumRange})`;
         },
+        howToSteps: [
+            { name: 'Select your range', text: 'Choose the range of cells that contains your criteria. For example, A1:A10 contains product names or numbers.' },
+            { name: 'Define your criteria', text: 'Enter the condition in quotes, like "Apple" for exact text or ">100" for numbers. For cell references use "="&E1.' },
+            { name: 'Select sum range (optional)', text: 'If summing a different column, add the sum_range. If omitted, SUMIF sums the range itself.' },
+            { name: 'Copy and test', text: 'Paste the formula into your spreadsheet and verify the result matches your expected total.' }
+        ],
         faq: [
             { question: "What is the difference between SUMIF and SUMIFS?", answer: "SUMIF has one condition; SUMIFS can have multiple conditions. Use SUMIFS when you need to sum only when two or more criteria are met." },
             { question: "Can SUMIF use wildcards?", answer: "Yes. Use * for any characters and ? for one character. Example: =SUMIF(A:A,\"*apple*\",B:B) sums B where A contains \"apple\"." },
@@ -278,7 +222,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 4. COUNTIF
     {
         slug: 'countif',
-        title: 'COUNTIF Generator - Count Cells by Criteria | Excel & Sheets',
+        title: 'COUNTIF Formula Generator (2026) — Count Cells by Criteria | Excel & Sheets',
         metaDescription: 'Build COUNTIF formulas to count cells that meet a criterion (text, number, date). Free tool for Excel and Google Sheets. No signup.',
         excelFunction: 'COUNTIF',
         category: 'Math',
@@ -288,6 +232,12 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'criteria', label: 'Criteria', type: 'text', placeholder: 'e.g., ">100" or "Completed"' },
         ],
         generate: (p) => `=COUNTIF(${p.range || 'range'}, ${p.criteria || 'criteria'})`,
+        howToSteps: [
+            { name: 'Select your range', text: 'Choose the range of cells you want to count from, such as A1:A100.' },
+            { name: 'Define your criteria', text: 'Enter the condition in quotes: "Completed" for exact text, ">100" for numbers, or "="&E1 for cell references.' },
+            { name: 'Understand the result', text: 'COUNTIF returns the count of cells that match your criteria. Use COUNTIFS for multiple conditions.' },
+            { name: 'Copy into your sheet', text: 'Paste the formula into your target cell and adjust ranges to match your actual data.' }
+        ],
         faq: [
             { question: 'Why does COUNTIF return 0 when I expect a count?', answer: 'Check that your criteria match the data type (number vs text). Use quotes for text: "Completed" or "=100". For numbers use ">50" or "=100". Dates may need DATE() or a cell reference.' },
             { question: 'How do I count blank or non-blank cells?', answer: 'Use criteria "" for blanks: =COUNTIF(A:A,""). For non-blanks use "<>": =COUNTIF(A:A,"<>").' },
@@ -303,7 +253,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 5. CONCATENATE
     {
         slug: 'concatenate',
-        title: 'CONCATENATE Generator - Join Text with Separator | Excel & Sheets',
+        title: 'CONCATENATE Formula Generator (2026) — Join Text with Separator | Excel & Sheets',
         metaDescription: 'Join text strings with a separator (comma, space, dash). Free CONCATENATE and TEXTJOIN-style builder for Excel and Google Sheets. No signup.',
         excelFunction: 'CONCATENATE',
         category: 'Text',
@@ -327,6 +277,12 @@ export const FORMULAS: FormulaConfig[] = [
             }
             return `=CONCATENATE(${formulaArgs})`;
         },
+        howToSteps: [
+            { name: 'Identify your text values', text: 'Select the cells or text strings you want to join together, such as first name in A1 and last name in B1.' },
+            { name: 'Add separators', text: 'Include separator strings between values: ", " for comma-space, " " for space-only, or " - " for dash. Always wrap separators in double quotes.' },
+            { name: 'Optional: format numbers', text: 'If concatenating numbers or dates, wrap them in TEXT() first: =CONCATENATE(TEXT(A1,"0.00"), " units").' },
+            { name: 'Copy the result', text: 'Paste the generated formula into your spreadsheet. It will join all values together into one text string.' }
+        ],
         faq: [
             { question: 'How do I add a space or separator between concatenated values?', answer: 'Include a string argument for the separator, e.g. ", " or " - " between cell references: =CONCATENATE(A1, " - ", B1).' },
             { question: 'What is the difference between CONCATENATE and TEXTJOIN?', answer: 'CONCATENATE joins arguments in order; TEXTJOIN lets you specify a delimiter once and can ignore empty cells. In Excel 2016+ and Sheets, TEXTJOIN is often easier for lists.' },
@@ -342,7 +298,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 6. INDEX/MATCH
     {
         slug: 'index-match',
-        title: 'INDEX MATCH Generator - More Powerful Than VLOOKUP',
+        title: 'INDEX MATCH Formula Generator (2026) — More Powerful Than VLOOKUP',
         metaDescription: 'Generate INDEX MATCH formulas for Excel and Google Sheets. Look left, avoid column index errors. Free tool, no signup.',
         excelFunction: 'INDEX/MATCH',
         category: 'Lookup',
@@ -390,7 +346,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 7. XLOOKUP
     {
         slug: 'xlookup',
-        title: 'XLOOKUP Generator — Look Left & Right, No Column Index Errors',
+        title: 'XLOOKUP Formula Generator (2026) — Look Left & Right, No Column Index Errors',
         metaDescription:
             'XLOOKUP does what VLOOKUP cannot: look left, separate lookup and return arrays, and optional if-not-found. Free for Excel 365 and Google Sheets. No signup.',
         excelFunction: 'XLOOKUP',
@@ -455,47 +411,135 @@ export const FORMULAS: FormulaConfig[] = [
     },
 
     // 8. TRIM
-    createSingleParamFormula('trim', 'TRIM', 'Text', 'Removes all spaces from text except for single spaces between words.', 'text', 'Text', 'text', 'Remove extra spaces from text with the TRIM function.'),
+    {
+        slug: 'trim',
+        title: 'TRIM Formula Generator (2026) — Remove Extra Spaces | Free Excel & Sheets',
+        metaDescription: 'Remove extra spaces from text with the TRIM function.',
+        excelFunction: 'TRIM',
+        category: 'Text',
+        description: 'Removes all spaces from text except for single spaces between words.',
+        inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
+        generate: (p) => `=TRIM(${p.text || 'text'})`,
+        faq: [
+            { question: 'Does TRIM remove line breaks?', answer: 'No, TRIM only removes extra spaces between words and leading/trailing spaces. Use CLEAN to remove non-printing characters and line breaks.' },
+            { question: 'What is the difference between TRIM and CLEAN?', answer: 'TRIM removes extra spaces. CLEAN removes non-printable characters (line breaks, tabs, etc.). Use both: =TRIM(CLEAN(A1)) for thorough cleaning.' },
+            { question: 'Does TRIM work in Google Sheets?', answer: 'Yes, TRIM works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'TRIM not removing all spaces', causes: ['Non-breaking spaces (CHAR(160)) are not removed by TRIM.', 'Line breaks or tab characters between words.'], fixes: ['Use SUBSTITUTE to replace CHAR(160) with space first, then TRIM.', 'Use CLEAN before TRIM to remove line breaks.'] }
+        ]
+    },
 
     // 9. UPPER
-    createSingleParamFormula('upper', 'UPPER', 'Text', 'Converts text to uppercase.', 'text', 'Text', 'text', 'Convert text to uppercase.'),
+    {
+        slug: 'upper',
+        title: 'UPPER Formula Generator (2026) — Convert Text to Uppercase | Free Excel & Sheets',
+        metaDescription: 'Convert text to uppercase.',
+        excelFunction: 'UPPER',
+        category: 'Text',
+        description: 'Converts text to uppercase.',
+        inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
+        generate: (p) => `=UPPER(${p.text || 'text'})`,
+        faq: [
+            { question: 'Does UPPER work with accented characters?', answer: 'Yes, UPPER converts accented characters like é to É and ñ to Ñ. It handles all Unicode letters properly.' },
+            { question: 'What is the difference between UPPER, LOWER, and PROPER?', answer: 'UPPER makes all letters uppercase. LOWER makes all letters lowercase. PROPER capitalizes the first letter of each word.' },
+            { question: 'Does UPPER work in Google Sheets?', answer: 'Yes, UPPER works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'Text not converting to uppercase', causes: ['The cell contains numbers or special characters (UPPER ignores non-text).', 'The formula is referencing the wrong cell.'], fixes: ['Ensure the cell contains text values, not just numbers.', 'Double-check the cell reference in the formula.'] }
+        ]
+    },
 
     // 10. LOWER
-    createSingleParamFormula('lower', 'LOWER', 'Text', 'Converts all uppercase letters in a text string to lowercase.', 'text', 'Text', 'text', 'Convert text to lowercase.'),
+    {
+        slug: 'lower',
+        title: 'LOWER Formula Generator (2026) — Convert Text to Lowercase | Free Excel & Sheets',
+        metaDescription: 'Convert text to lowercase.',
+        excelFunction: 'LOWER',
+        category: 'Text',
+        description: 'Converts all uppercase letters in a text string to lowercase.',
+        inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
+        generate: (p) => `=LOWER(${p.text || 'text'})`,
+        faq: [
+            { question: 'Does LOWER affect numbers?', answer: 'No, LOWER only affects letter characters. Numbers and special characters remain unchanged.' },
+            { question: 'LOWER vs UPPER vs PROPER — when to use each?', answer: 'Use LOWER to standardize text to lowercase, UPPER for all caps headings, and PROPER for names and titles.' },
+            { question: 'Does LOWER work in Google Sheets?', answer: 'Yes, LOWER works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'Text not changing to lowercase', causes: ['The cell contains only numbers or symbols.', 'Text is already lowercase so no change is visible.'], fixes: ['Verify the cell actually contains uppercase letters.', 'Test with a known mixed-case value like "Test123".'] }
+        ]
+    },
 
     // 11. PROPER
-    createSingleParamFormula('proper', 'PROPER', 'Text', 'Capitalizes the first letter in each word of a text value.', 'text', 'Text', 'text', 'Capitalize the first letter of each word.'),
+    {
+        slug: 'proper',
+        title: 'PROPER Formula Generator (2026) — Capitalize Each Word | Free Excel & Sheets',
+        metaDescription: 'Capitalize the first letter of each word.',
+        excelFunction: 'PROPER',
+        category: 'Text',
+        description: 'Capitalizes the first letter in each word of a text value.',
+        inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
+        generate: (p) => `=PROPER(${p.text || 'text'})`,
+        faq: [
+            { question: 'How does PROPER handle apostrophes like O\'Brien?', answer: 'PROPER capitalizes the letter after the apostrophe, so O\'brien becomes O\'Brien. This is actually correct for most Irish and Scottish surnames.' },
+            { question: 'Does PROPER handle mixed case?', answer: 'Yes, PROPER ignores the original case and capitalizes the first letter of each word, making all other letters lowercase.' },
+            { question: 'Does PROPER work in Google Sheets?', answer: 'Yes, PROPER works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'Wrong capitalization result', causes: ['PROPER capitalizes every word — including prepositions like "of" or "and".', 'PROPER cannot distinguish proper names from regular words (e.g. "mcdonald" becomes "Mcdonald").'], fixes: ['Manually fix small words that should stay lowercase.', 'For complex name capitalization, consider a lookup table or manual correction.'] }
+        ]
+    },
 
     // 12. LEFT
-    createSimpleFormula(
-        'left',
-        'LEFT',
-        'Text',
-        'Returns the first character or characters in a text string, based on the number of characters you specify.',
-        [
+    {
+        slug: 'left',
+        title: 'LEFT Formula Generator (2026) — Extract First Characters | Free Excel & Sheets',
+        metaDescription: 'Extract the first characters from a text string.',
+        excelFunction: 'LEFT',
+        category: 'Text',
+        description: 'Returns the first character or characters in a text string, based on the number of characters you specify.',
+        inputs: [
             { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_chars', label: 'Number of Characters', type: 'number', placeholder: 'e.g., 5' },
         ],
-        (p) => `=LEFT(${p.text || 'text'}, ${p.num_chars || '1'})`
-    ),
+        generate: (p) => `=LEFT(${p.text || 'text'}, ${p.num_chars || '1'})`,
+        faq: [
+            { question: 'What does LEFT return if num_chars is omitted?', answer: 'LEFT returns just the first character by default. So LEFT(A1) is the same as LEFT(A1, 1).' },
+            { question: 'What happens if num_chars is more than the text length?', answer: 'LEFT returns the entire text string. For example, LEFT("Hello", 10) returns "Hello" without any errors.' },
+            { question: 'Does LEFT work in Google Sheets?', answer: 'Yes, LEFT works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'LEFT returns fewer characters than expected', causes: ['The cell contains extra spaces at the beginning (leading spaces).', 'Non-printing characters exist before the visible text.'], fixes: ['Use TRIM(A1) to remove leading spaces.', 'Use CLEAN(A1) to remove non-printable characters before using LEFT.'] }
+        ]
+    },
 
     // 13. RIGHT
-    createSimpleFormula(
-        'right',
-        'RIGHT',
-        'Text',
-        'Returns the last character or characters in a text string, based on the number of characters you specify.',
-        [
+    {
+        slug: 'right',
+        title: 'RIGHT Formula Generator (2026) — Extract Last Characters | Free Excel & Sheets',
+        metaDescription: 'Extract the last characters from a text string.',
+        excelFunction: 'RIGHT',
+        category: 'Text',
+        description: 'Returns the last character or characters in a text string, based on the number of characters you specify.',
+        inputs: [
             { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_chars', label: 'Number of Characters', type: 'number', placeholder: 'e.g., 5' },
         ],
-        (p) => `=RIGHT(${p.text || 'text'}, ${p.num_chars || '1'})`
-    ),
+        generate: (p) => `=RIGHT(${p.text || 'text'}, ${p.num_chars || '1'})`,
+        faq: [
+            { question: 'How do I use RIGHT to extract text after a specific character?', answer: 'Combine RIGHT with FIND: =RIGHT(A1, LEN(A1) - FIND("@", A1)) extracts everything after the @ symbol in an email.' },
+            { question: 'What happens if num_chars is negative?', answer: 'RIGHT returns a #VALUE! error if num_chars is negative. Always use a positive number.' },
+            { question: 'Does RIGHT work in Google Sheets?', answer: 'Yes, RIGHT works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'RIGHT returns wrong characters', causes: ['Incorrect num_chars value — counting from the end is counterintuitive.', 'Trailing spaces in the text are included in the count.'], fixes: ['Use LEN to verify text length first.', 'Use TRIM to remove trailing spaces before applying RIGHT.'] }
+        ]
+    },
 
     // 14. DATEDIF
     {
         slug: 'datedif',
-        title: 'Free DATEDIF Formula Generator',
+        title: 'DATEDIF Formula Generator (2026) — Calculate Date Difference | Free Excel & Sheets',
         metaDescription: 'Calculate date differences in Excel and Google Sheets. Free DATEDIF tool for days, months, years. No signup required. Generate formulas instantly.',
         excelFunction: 'DATEDIF',
         category: 'Date',
@@ -514,33 +558,80 @@ export const FORMULAS: FormulaConfig[] = [
                 ]
             },
         ],
-        generate: (p) => `=DATEDIF(${p.start_date || 'start_date'}, ${p.end_date || 'end_date'}, ${p.unit || '"Y"'})`
+        generate: (p) => `=DATEDIF(${p.start_date || 'start_date'}, ${p.end_date || 'end_date'}, ${p.unit || '"Y"'})`,
+        howToSteps: [
+            { name: 'Select your start and end dates', text: 'Enter the cells containing your start date and end date, such as A1 and B1.' },
+            { name: 'Choose your unit', text: 'Pick Y for complete years, M for complete months, or D for days between the two dates.' },
+            { name: 'Understand hidden behavior', text: 'DATEDIF is a hidden function in Excel — type it manually as it won\'t appear in autocomplete. It works normally once entered.' },
+            { name: 'Handle reversed dates', text: 'If the start date is later than the end date, DATEDIF returns #NUM!. Use =IF(A1>B1, -DATEDIF(B1,A1,"Y"), DATEDIF(A1,B1,"Y")) for signed results.' }
+        ],
+        faq: [
+            {
+                question: 'Why is DATEDIF not showing up in my Excel?',
+                answer: 'DATEDIF is a hidden function in modern Excel. It still works but does not appear in the formula autocomplete. Type =DATEDIF( manually and it will work.'
+            },
+            {
+                question: 'What DATEDIF units are available?',
+                answer: '"Y" for complete years, "M" for complete months, "D" for days, "YM" for months ignoring years, "YD" for days ignoring years, and "MD" for days ignoring months and years.'
+            },
+            {
+                question: 'Does DATEDIF work in Google Sheets?',
+                answer: 'Yes, DATEDIF works in Google Sheets with the same syntax. All unit types (Y, M, D, YM, YD, MD) are supported.'
+            }
+        ],
+        commonErrors: [
+            {
+                title: '#NUM! error',
+                causes: ['Start date is later than end date. DATEDIF does not handle reversed dates.'],
+                fixes: ['Use =IF(start &gt; end, -DATEDIF(end, start, unit), DATEDIF(start, end, unit)) for signed results, or swap the arguments.']
+            }
+        ]
     },
 
     // 15. NOW
-    createSimpleFormula(
-        'now',
-        'NOW',
-        'Date',
-        'Returns the serial number of the current date and time.',
-        [],
-        () => `=NOW()`
-    ),
+    {
+        slug: 'now',
+        title: 'NOW Formula Generator (2026) — Current Date & Time | Free Excel & Sheets',
+        metaDescription: 'Get the current date and time in Excel.',
+        excelFunction: 'NOW',
+        category: 'Date',
+        description: 'Returns the serial number of the current date and time.',
+        inputs: [],
+        generate: () => `=NOW()`,
+        faq: [
+            { question: 'Why does NOW update every time I open the spreadsheet?', answer: 'NOW is a volatile function — it recalculates whenever the worksheet recalculates. The result changes to the current date and time each time.' },
+            { question: 'How do I freeze the value from NOW?', answer: 'Copy the cell and paste as values (Ctrl+Shift+V) to convert the formula to a static date/time. Alternatively, use Ctrl+; for the date and Ctrl+Shift+; for the time.' },
+            { question: 'Does NOW work in Google Sheets?', answer: 'Yes, NOW works identically in Google Sheets. It also updates when the sheet recalculates or is reopened.' }
+        ],
+        commonErrors: [
+            { title: 'NOW is not showing the correct time', causes: ['The cell is formatted to show only the date, hiding the time portion.', 'The system clock is incorrect.', 'Manual calculation mode is enabled (F9 to recalculate).'], fixes: ['Format the cell as "YYYY-MM-DD HH:MM:SS" to see both date and time.', 'Check your system clock settings.', 'Press F9 to force recalculation if manual mode is on.'] }
+        ]
+    },
 
     // 16. TODAY
-    createSimpleFormula(
-        'today',
-        'TODAY',
-        'Date',
-        'Returns the serial number of the current date.',
-        [],
-        () => `=TODAY()`
-    ),
+    {
+        slug: 'today',
+        title: 'TODAY Formula Generator (2026) — Current Date | Free Excel & Sheets',
+        metaDescription: 'Get the current date in Excel.',
+        excelFunction: 'TODAY',
+        category: 'Date',
+        description: 'Returns the serial number of the current date.',
+        inputs: [],
+        generate: () => `=TODAY()`,
+        faq: [
+            { question: 'What is the difference between TODAY and NOW?', answer: 'TODAY returns just the current date (no time component). NOW returns both the current date and time. TODAY is a volatile function like NOW.' },
+            { question: 'How do I calculate the number of days until a future date?', answer: 'Use a difference formula: =A1 - TODAY() where A1 contains the future date. The result is the number of days remaining.' },
+            { question: 'Does TODAY work in Google Sheets?', answer: 'Yes, TODAY works identically in Google Sheets. It updates when the sheet recalculates.' }
+        ],
+        commonErrors: [
+            { title: 'TODAY returns a serial number instead of a date', causes: ['The cell is formatted as General or Number instead of Date.', 'The column is not wide enough to display the full date.'], fixes: ['Format the cell as a date: right-click > Format Cells > Date.', 'Widen the column or change the date format.'] }
+        ]
+    },
 
     // 17. NETWORKDAYS
     {
         slug: 'networkdays',
-        title: 'Free NETWORKDAYS Formula Generator',
+        title: 'NETWORKDAYS Formula Generator (2026) — Count Working Days | Free Excel & Sheets',
         metaDescription: 'Calculate working days in Excel and Google Sheets. Free NETWORKDAYS tool excludes weekends. No signup required. Add holidays optionally.',
         excelFunction: 'NETWORKDAYS',
         category: 'Date',
@@ -554,13 +645,23 @@ export const FORMULAS: FormulaConfig[] = [
             const args = [p.start_date || 'start_date', p.end_date || 'end_date'];
             if (p.holidays) args.push(p.holidays);
             return `=NETWORKDAYS(${args.join(', ')})`;
-        }
+        },
+        faq: [
+            {
+                question: 'Does NETWORKDAYS include weekends?',
+                answer: 'No, NETWORKDAYS automatically excludes Saturdays and Sundays. Only weekdays (Monday-Friday) are counted as working days.'
+            },
+            {
+                question: 'How do I add holidays to NETWORKDAYS?',
+                answer: 'Add a range of holiday dates as the third argument. For example: =NETWORKDAYS(A1, B1, H1:H10) where H1:H10 contains your holiday dates.'
+            }
+        ]
     },
 
     // 18. PMT
     {
         slug: 'pmt',
-        title: 'Free PMT Formula Generator',
+        title: 'PMT Formula Generator (2026) — Calculate Loan Payments | Free Excel & Sheets',
         metaDescription: 'Calculate loan payments in Excel and Google Sheets. Free PMT tool for monthly payments. No signup required. Based on rate, periods, and loan amount.',
         excelFunction: 'PMT',
         category: 'Math', // Changed from Financial to Math as per type definition, or need to add Financial type
@@ -570,39 +671,86 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'nper', label: 'Number of Payments', type: 'text', placeholder: 'e.g., 60' },
             { id: 'pv', label: 'Present Value (Loan Amount)', type: 'text', placeholder: 'e.g., 10000' },
         ],
-        generate: (p) => `=PMT(${p.rate || 'rate'}, ${p.nper || 'nper'}, ${p.pv || 'pv'})`
+        generate: (p) => `=PMT(${p.rate || 'rate'}, ${p.nper || 'nper'}, ${p.pv || 'pv'})`,
+        howToSteps: [
+            { name: 'Convert annual rate to periodic rate', text: 'Divide the annual interest rate by 12 for monthly payments. Example: 5%/12 for a 5% annual rate with monthly payments.' },
+            { name: 'Set the number of payments', text: 'Multiply the loan term in years by 12 for monthly payments. Example: 30 years × 12 = 360 payments.' },
+            { name: 'Enter the loan amount', text: 'Input the present value (loan principal). For a $200,000 loan, enter 200000.' },
+            { name: 'Interpret the result', text: 'PMT returns a negative value because it represents a payment (cash outflow). Use =-PMT(...) to display a positive number.' }
+        ],
+        faq: [
+            {
+                question: 'What does PMT calculate?',
+                answer: 'PMT calculates the constant periodic payment for a loan, such as the monthly payment for a mortgage or car loan.'
+            },
+            {
+                question: 'How do I convert an annual rate to a monthly rate for PMT?',
+                answer: 'Divide the annual rate by 12. For example, 6% annual becomes 6%/12. Also multiply the number of years by 12 for the nper.'
+            },
+            {
+                question: 'Why is the PMT result negative?',
+                answer: 'PMT returns a negative number by convention because it represents an outgoing payment (cash outflow). To get a positive result, use -PMT(...) or negate the loan amount.'
+            }
+        ],
+        commonErrors: [
+            {
+                title: 'Payment seems too high or too low',
+                causes: ['Annual rate not converted to monthly rate.', 'Number of payments not matching the rate period.'],
+                fixes: ['Convert annual rate: rate/12 for monthly payments.', 'Match nper to rate: 12 months × years for monthly payments, or use 12 for 12 monthly payments.']
+            }
+        ]
     },
 
     // 19. AND
-    createSimpleFormula(
-        'and',
-        'AND',
-        'Logic',
-        'Returns TRUE if all its arguments are TRUE; returns FALSE if one or more argument is FALSE.',
-        [
+    {
+        slug: 'and',
+        title: 'AND Formula Generator (2026) — Logical AND | Free Excel & Sheets',
+        metaDescription: 'Check if all conditions are true.',
+        excelFunction: 'AND',
+        category: 'Logic',
+        description: 'Returns TRUE if all its arguments are TRUE; returns FALSE if one or more argument is FALSE.',
+        inputs: [
             { id: 'logical1', label: 'Condition 1', type: 'text', placeholder: 'e.g., A1>0' },
             { id: 'logical2', label: 'Condition 2', type: 'text', placeholder: 'e.g., B1<10' },
         ],
-        (p) => `=AND(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`
-    ),
+        generate: (p) => `=AND(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`,
+        faq: [
+            { question: 'How many conditions can AND check?', answer: 'AND can check up to 255 conditions in Excel (Excel 2007+). Google Sheets also supports multiple conditions.' },
+            { question: 'Does AND evaluate all conditions or stop early?', answer: 'Excel AND evaluates all arguments regardless. Google Sheets uses short-circuit evaluation, stopping at the first FALSE.' },
+            { question: 'What is the difference between AND and nested IF?', answer: 'AND returns TRUE/FALSE directly. Combined with IF, =IF(AND(A1>0, B1<10), "Yes", "No") is cleaner than nested IFs.' }
+        ],
+        commonErrors: [
+            { title: 'AND returns FALSE when I expect TRUE', causes: ['One or more conditions are not being met.', 'Numbers stored as text do not match numeric comparisons.', 'Cell references are incorrect or pointing to empty cells.'], fixes: ['Test each condition separately to find the failing one.', 'Use VALUE() to convert text to numbers.', 'Verify cell references.'] }
+        ]
+    },
 
     // 20. OR
-    createSimpleFormula(
-        'or',
-        'OR',
-        'Logic',
-        'Returns TRUE if any argument is TRUE; returns FALSE if all arguments are FALSE.',
-        [
+    {
+        slug: 'or',
+        title: 'OR Formula Generator (2026) — Logical OR | Free Excel & Sheets',
+        metaDescription: 'Check if any condition is true.',
+        excelFunction: 'OR',
+        category: 'Logic',
+        description: 'Returns TRUE if any argument is TRUE; returns FALSE if all arguments are FALSE.',
+        inputs: [
             { id: 'logical1', label: 'Condition 1', type: 'text', placeholder: 'e.g., A1>0' },
             { id: 'logical2', label: 'Condition 2', type: 'text', placeholder: 'e.g., B1<10' },
         ],
-        (p) => `=OR(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`
-    ),
+        generate: (p) => `=OR(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`,
+        faq: [
+            { question: 'Can OR be used in conditional formatting?', answer: 'Yes. Use =OR(A1="Overdue", B1>30) in a conditional formatting rule to highlight cells matching any condition.' },
+            { question: 'What is the difference between OR and AND?', answer: 'OR returns TRUE if ANY condition is true. AND returns TRUE only if ALL conditions are true. Use OR for flexible criteria and AND for strict criteria.' },
+            { question: 'Does OR work in Google Sheets?', answer: 'Yes, OR works identically in Google Sheets with the same syntax and behavior.' }
+        ],
+        commonErrors: [
+            { title: 'OR returns TRUE unexpectedly', causes: ['A condition matches when you thought all should fail.', 'Empty cells are treated as 0, which may be a valid condition match.'], fixes: ['Test each condition individually.', 'Check how empty cells are evaluated in your specific criteria.'] }
+        ]
+    },
 
     // 21. Extract Email
     {
         slug: 'extract-email',
-        title: 'Extract Email Address from Text',
+        title: 'Extract Email from Text in Excel (2026) — Free Regex Formula Generator',
         metaDescription: 'Extract email addresses in Excel and Google Sheets. Free REGEXEXTRACT tool for email extraction. No signup required. Clean data instantly.',
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
@@ -686,7 +834,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 23. Get First Word
     {
         slug: 'get-first-word',
-        title: 'Get First Word in Excel — LEFT + FIND Generator',
+        title: 'Get First Word in Excel (2026) — LEFT + FIND Formula Generator',
         metaDescription:
             'Extract the first word from a cell (names, keywords)—excel get first word style workflows. LEFT and FIND for Excel and Google Sheets. Free, no signup.',
         excelFunction: 'LEFT & FIND',
@@ -738,7 +886,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 24. Remove First 3 Characters
     {
         slug: 'remove-first-3-chars',
-        title: 'Remove First N Characters in Excel — RIGHT, LEN & Text Cleaning',
+        title: 'Remove First N Characters in Excel (2026) — RIGHT, LEN & Text Cleaning',
         metaDescription:
             'Remove first 3 characters (or any N) from text—how to remove first characters in Excel style fixes. RIGHT + LEN for Excel and Google Sheets. Free, no signup.',
         excelFunction: 'RIGHT & LEN',
@@ -780,7 +928,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'SUMIFS Multi-Criteria Sum — Correct Syntax (Sum Range First) | Excel & Sheets',
+        title: 'SUMIFS Formula Generator (2026) — Multi-Criteria Sum | Excel & Sheets',
         metaDescription:
             'Sum with multiple criteria: sum_range first, then criteria pairs—syntax that matches real searches (multi-criteria, same column). Excel & Google Sheets. Free, no signup.',
         excelFunction: 'SUMIFS',
@@ -794,6 +942,12 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'criteria2', label: 'Criteria 2', type: 'text', placeholder: 'e.g., ">1000"' },
         ],
         generate: (p) => `=SUMIFS(${p.sum_range || 'sum_range'}, ${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`,
+        howToSteps: [
+            { name: 'Place sum_range FIRST', text: 'Unlike SUMIF, SUMIFS requires the sum_range as the first argument, followed by criteria pairs.' },
+            { name: 'Add criteria pairs', text: 'Each pair consists of a criteria_range and a criteria. Example: A1:A100 is the range, "Sales" is the condition for that range.' },
+            { name: 'Keep ranges equal-sized', text: 'All criteria ranges must have the same number of rows as the sum_range. Mismatched sizes cause wrong results.' },
+            { name: 'Copy and verify', text: 'Paste the formula and check the result against a manual calculation to confirm all criteria are applied correctly.' }
+        ],
         faq: [
             { question: 'What is the correct SUMIFS syntax order (sum_range criteria_range1 criteria1)?', answer: 'The syntax is exactly: =SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2]...). The sum_range MUST come first, followed by pairs of criteria ranges and their specific conditions.' },
             { question: 'Why does SUMIFS return 0?', answer: 'This usually happens if criteria_range and sum_range are different sizes, or text criteria are missing quotes (like ">100"). Ensure all ranges have the exact same number of rows.' },
@@ -840,7 +994,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 26. COUNTIFS - Multiple Criteria Count
     {
         slug: 'countifs',
-        title: 'COUNTIFS — Multiple Criteria & Date Ranges | Excel & Google Sheets',
+        title: 'COUNTIFS Formula Generator (2026) — Multiple Criteria & Date Ranges | Excel & Sheets',
         metaDescription:
             'Count rows with two or more conditions (text, numbers, date ranges). COUNTIFS builder for Excel and Google Sheets—aligned with countifs with date range searches. No signup.',
         excelFunction: 'COUNTIFS',
@@ -853,6 +1007,12 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'criteria2', label: 'Criteria 2', type: 'text', placeholder: 'e.g., ">500"' },
         ],
         generate: (p) => `=COUNTIFS(${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`,
+        howToSteps: [
+            { name: 'Set your first criteria pair', text: 'Choose the first range and condition. For example, A1:A100 is the range, "Completed" is the first condition.' },
+            { name: 'Add more criteria pairs', text: 'Add additional range/condition pairs for more specific filters. All conditions must be TRUE for a row to be counted.' },
+            { name: 'Keep ranges the same size', text: 'Every criteria range must have the same number of rows. Mismatched ranges give wrong counts.' },
+            { name: 'Copy and test', text: 'Paste into your spreadsheet. Test with a few rows to verify the count is correct before using it in reports.' }
+        ],
         faq: [
             { question: 'Why does COUNTIFS return 0?', answer: 'All conditions must be met in the same row. Check that criteria ranges are the same size and that criteria match data types (text in quotes, numbers with ">50" etc).' },
             { question: 'Do COUNTIFS ranges have to be the same size?', answer: 'Yes. Each criteria range must have the same number of rows (and columns). Mismatched range sizes can give wrong counts or errors.' },
@@ -868,7 +1028,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 27. AVERAGEIF - Conditional Average
     {
         slug: 'averageif',
-        title: 'Free AVERAGEIF Formula Generator',
+        title: 'AVERAGEIF Formula Generator (2026) — Conditional Average | Free Excel & Sheets',
         metaDescription: 'Calculate conditional average in Excel and Google Sheets. Free AVERAGEIF tool for criteria-based averages. No signup required. Analyze data easily.',
         excelFunction: 'AVERAGEIF',
         category: 'Math',
@@ -882,13 +1042,21 @@ export const FORMULAS: FormulaConfig[] = [
             const args = [p.range || 'range', p.criteria || 'criteria'];
             if (p.average_range) args.push(p.average_range);
             return `=AVERAGEIF(${args.join(', ')})`;
-        }
+        },
+        faq: [
+            { question: 'What is the difference between AVERAGEIF and AVERAGE?', answer: 'AVERAGE returns the mean of all values. AVERAGEIF returns the mean only of cells that meet a specific condition, like averaging sales only for region "East".' },
+            { question: 'Can I use wildcards in AVERAGEIF?', answer: 'Yes. Use * for multiple characters and ? for single characters, like AVERAGEIF(A:A,"*Corp",B:B) to average values for all companies ending in "Corp".' },
+            { question: 'Does AVERAGEIF work in Google Sheets?', answer: 'Yes, AVERAGEIF works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'AVERAGEIF returns 0', causes: ['No cells match the criteria, so the average of no cells is 0.', 'Data type mismatch between criteria and actual data.', 'Blank or incorrectly formatted criteria_range or average_range.'], fixes: ['Verify the criteria matches at least one cell in the range.', 'Use TRIM() to remove hidden spaces and TEXT()/VALUE() to align types.', 'Ensure average_range and range are the same size.'] }
+        ]
     },
 
     // 28. IFERROR - Error Handling
     {
         slug: 'iferror',
-        title: 'IFERROR Generator - Hide Errors, Show Fallback | Excel & Sheets',
+        title: 'IFERROR Formula Generator (2026) — Hide Errors, Show Fallback | Free Excel & Sheets',
         metaDescription: 'Wrap formulas in IFERROR to show a fallback value instead of #N/A, #DIV/0!, #VALUE!. Free tool for Excel and Google Sheets. No signup.',
         excelFunction: 'IFERROR',
         category: 'Logic',
@@ -898,6 +1066,12 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'value_if_error', label: 'Value if Error', type: 'text', placeholder: 'e.g., 0 or "N/A"' },
         ],
         generate: (p) => `=IFERROR(${p.value || 'value'}, ${p.value_if_error || '""'})`,
+        howToSteps: [
+            { name: 'Identify the formula to protect', text: 'Enter the formula or cell reference that might produce an error, such as A1/B1 or VLOOKUP(...).' },
+            { name: 'Choose your fallback value', text: 'Decide what to show when there is an error: 0 for calculations, "N/A" for lookups, or "" to leave the cell blank.' },
+            { name: 'Understand scope', text: 'IFERROR catches ALL error types (#N/A, #DIV/0!, #VALUE!, etc.). Use IFNA instead if you only want to catch #N/A errors.' },
+            { name: 'Copy and test', text: 'Wrap your formula with IFERROR and test with data that would normally cause an error to verify the fallback displays correctly.' }
+        ],
         faq: [
             { question: 'What errors does IFERROR catch?', answer: 'IFERROR catches #N/A, #VALUE!, #REF!, #DIV/0!, #NAME?, #NUM!, and #NULL!. It returns your fallback value for any of these.' },
             { question: 'Should I use IFERROR around VLOOKUP?', answer: 'Yes. When the lookup value is not found, VLOOKUP returns #N/A. Wrapping in IFERROR lets you show "Not Found" or 0 instead: =IFERROR(VLOOKUP(...), "Not Found").' },
@@ -929,7 +1103,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 29. IFS - Multiple Conditions
     {
         slug: 'ifs',
-        title: 'IFS Formula Generator — Letter Grades, Tiered Pricing & Multi-Condition Logic',
+        title: 'IFS Formula Generator (2026) — Letter Grades, Tiered Pricing & Multi-Condition Logic',
         metaDescription:
             'Build IFS formulas without deep nested IF—letter grades (A–F), tiered pricing, and score bands in Excel and Google Sheets. Free, no signup.',
         excelFunction: 'IFS',
@@ -986,7 +1160,7 @@ export const FORMULAS: FormulaConfig[] = [
     // 30. SUBSTITUTE - Text Replacement
     {
         slug: 'substitute',
-        title: 'Free SUBSTITUTE Formula Generator',
+        title: 'SUBSTITUTE Formula Generator (2026) — Replace Text | Free Excel & Sheets',
         metaDescription: 'Replace text in Excel and Google Sheets. Free SUBSTITUTE tool for data cleaning. No signup required. Swap characters or words instantly.',
         excelFunction: 'SUBSTITUTE',
         category: 'Text',
@@ -996,54 +1170,111 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'old_text', label: 'Old Text', type: 'text', placeholder: 'e.g., "-"' },
             { id: 'new_text', label: 'New Text', type: 'text', placeholder: 'e.g., "/"' },
         ],
-        generate: (p) => `=SUBSTITUTE(${p.text || 'text'}, ${p.old_text || '"old"'}, ${p.new_text || '"new"'})`
+        generate: (p) => `=SUBSTITUTE(${p.text || 'text'}, ${p.old_text || '"old"'}, ${p.new_text || '"new"'})`,
+        faq: [
+            { question: 'Is SUBSTITUTE case-sensitive?', answer: 'Yes, SUBSTITUTE is case-sensitive. "apple" will not match "Apple". For case-insensitive replacement, use REPLACE with UPPER/LOWER.' },
+            { question: 'Can I replace only the first occurrence?', answer: 'Yes, add a fourth argument (instance_num) to specify which occurrence. Omit it to replace all occurrences.' },
+            { question: 'What is the difference between SUBSTITUTE and REPLACE?', answer: 'SUBSTITUTE replaces specific text wherever it appears. REPLACE replaces text at a specific starting position with a given length.' }
+        ],
+        commonErrors: [
+            { title: 'SUBSTITUTE is not changing anything', causes: ['old_text does not match due to case sensitivity or extra spaces.', 'old_text may have leading/trailing spaces that are not visible.'], fixes: ['Use TRIM(A1) on the source cell to remove extra spaces.', 'Double-check exact spelling and case of old_text.'] }
+        ]
     },
 
     // 31. MID - Extract Middle Text
-    createSimpleFormula(
-        'mid',
-        'MID',
-        'Text',
-        'Returns a specific number of characters from a text string, starting at the position you specify.',
-        [
+    {
+        slug: 'mid',
+        title: 'MID Formula Generator (2026) — Extract Middle Characters | Free Excel & Sheets',
+        metaDescription: 'Extract characters from the middle of a text string.',
+        excelFunction: 'MID',
+        category: 'Text',
+        description: 'Returns a specific number of characters from a text string, starting at the position you specify.',
+        inputs: [
             { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
             { id: 'start_num', label: 'Start Position', type: 'number', placeholder: 'e.g., 3' },
             { id: 'num_chars', label: 'Number of Characters', type: 'number', placeholder: 'e.g., 5' },
         ],
-        (p) => `=MID(${p.text || 'text'}, ${p.start_num || '1'}, ${p.num_chars || '1'})`
-    ),
+        generate: (p) => `=MID(${p.text || 'text'}, ${p.start_num || '1'}, ${p.num_chars || '1'})`,
+        faq: [
+            { question: 'What happens if start_num is negative or zero?', answer: 'MID returns a #VALUE! error if start_num is less than 1. Always start from position 1 or higher.' },
+            { question: 'What if start_num is beyond the text length?', answer: 'MID returns an empty string ("") if start_num exceeds the total length of the text.' },
+            { question: 'How do I extract text between two characters?', answer: 'Combine MID with FIND: =MID(A1, FIND("(", A1)+1, FIND(")", A1)-FIND("(", A1)-1) extracts text between parentheses.' }
+        ],
+        commonErrors: [
+            { title: '#VALUE! error or wrong result', causes: ['start_num is less than 1.', 'num_chars is negative.', 'The text is shorter than the start position.'], fixes: ['Ensure start_num is at least 1.', 'Use a positive number for num_chars.', 'Check the actual length of the text string first with LEN.'] }
+        ]
+    },
 
     // 32. LEN - Text Length
-    createSingleParamFormula('len', 'LEN', 'Text', 'Returns the number of characters in a text string.', 'text', 'Text', 'text'),
+    {
+        slug: 'len',
+        title: 'LEN Formula Generator (2026) — Count Characters | Free Excel & Sheets',
+        metaDescription: 'Count the number of characters in a text string.',
+        excelFunction: 'LEN',
+        category: 'Text',
+        description: 'Returns the number of characters in a text string.',
+        inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
+        generate: (p) => `=LEN(${p.text || 'text'})`,
+        faq: [
+            { question: 'Does LEN count spaces?', answer: 'Yes, LEN counts every character including spaces, punctuation, and invisible characters. "Hello World" returns 11, not 10.' },
+            { question: 'What does LEN return for an empty cell?', answer: 'LEN returns 0 for a completely empty cell. If the cell contains a formula that returns "", the length is also 0.' },
+            { question: 'What is the difference between LEN and LENB?', answer: 'LEN counts each character as 1. LENB counts bytes (2 per character for double-byte languages like Chinese or Japanese). For English text, they return the same result.' }
+        ],
+        commonErrors: [
+            { title: 'LEN returns a higher count than expected', causes: ['The cell contains extra spaces, line breaks, or non-printable characters.', 'Number formatting adds hidden characters.'], fixes: ['Use TRIM(CLEAN(A1)) before counting to remove excess whitespace and non-printable chars.', 'Ensure numbers are plain text, not formatted values.'] }
+        ]
+    },
 
     // 33. FIND - Find Text Position
-    createTwoParamFormula(
-        'find',
-        'FIND',
-        'Text',
-        'Returns the starting position of one text string within another (case-sensitive).',
-        [
+    {
+        slug: 'find',
+        title: 'FIND Formula Generator (2026) — Case-Sensitive Text Search | Free Excel & Sheets',
+        metaDescription: 'Find the position of text within another text string (case-sensitive).',
+        excelFunction: 'FIND',
+        category: 'Text',
+        description: 'Returns the starting position of one text string within another (case-sensitive).',
+        inputs: [
             { id: 'find_text', label: 'Text to Find', type: 'text', placeholder: 'e.g., "@"' },
             { id: 'within_text', label: 'Within Text', type: 'text', placeholder: 'e.g., A1' },
+        ],
+        generate: (p) => `=FIND(${p.find_text || 'find_text'}, ${p.within_text || 'within_text'})`,
+        faq: [
+            { question: 'Is FIND case-sensitive?', answer: 'Yes, FIND is case-sensitive. "Apple" and "apple" are different. For case-insensitive search, use SEARCH instead.' },
+            { question: 'What does FIND return if the text is not found?', answer: 'FIND returns a #VALUE! error if the search text is not found. Use IFERROR to handle this: =IFERROR(FIND("x", A1), 0).' },
+            { question: 'How do I find the second occurrence of a character?', answer: 'Use the start_num argument: =FIND("@", A1, FIND("@", A1)+1) finds the second @ symbol.' }
+        ],
+        commonErrors: [
+            { title: '#VALUE! error', causes: ['The search text does not exist in the source text.', 'Case mismatch (FIND is case-sensitive).', 'The source cell is empty.'], fixes: ['Double-check the search text exists.', 'Use SEARCH instead for case-insensitive search.', 'Check that the source cell is not blank.'] }
         ]
-    ),
+    },
 
     // 34. SEARCH - Search Text Position
-    createTwoParamFormula(
-        'search',
-        'SEARCH',
-        'Text',
-        'Returns the position of a text string within another (case-insensitive). Supports wildcards.',
-        [
+    {
+        slug: 'search',
+        title: 'SEARCH Formula Generator (2026) — Case-Insensitive Text Search | Free Excel & Sheets',
+        metaDescription: 'Find the position of text within another text string (case-insensitive, supports wildcards).',
+        excelFunction: 'SEARCH',
+        category: 'Text',
+        description: 'Returns the position of a text string within another (case-insensitive). Supports wildcards.',
+        inputs: [
             { id: 'find_text', label: 'Text to Find', type: 'text', placeholder: 'e.g., "error"' },
             { id: 'within_text', label: 'Within Text', type: 'text', placeholder: 'e.g., A1' },
+        ],
+        generate: (p) => `=SEARCH(${p.find_text || 'find_text'}, ${p.within_text || 'within_text'})`,
+        faq: [
+            { question: 'What wildcards does SEARCH support?', answer: 'SEARCH supports * (any characters), ? (single character), and ~ (escape character). For example, SEARCH("A*", A1) finds any text starting with A.' },
+            { question: 'What is the difference between SEARCH and FIND?', answer: 'SEARCH is case-insensitive and supports wildcards. FIND is case-sensitive and does not support wildcards. SEARCH("apple") matches "Apple", "APPLE", "apple". FIND does not.' },
+            { question: 'Does SEARCH work in Google Sheets?', answer: 'Yes, SEARCH works identically in Google Sheets with case-insensitive behavior and wildcard support.' }
+        ],
+        commonErrors: [
+            { title: '#VALUE! error when text exists', causes: ['The search text has a different case (SEARCH is insensitive so this is unlikely).', 'Wildcard pattern does not match.', 'The source cell contains only numbers stored as text.'], fixes: ['Test with a simple exact match first.', 'Use * only when you need pattern matching.', 'Ensure the source cell is formatted as text.'] }
         ]
-    ),
+    },
 
     // 35. TEXT - Format Numbers as Text
     {
         slug: 'text',
-        title: 'Free TEXT Formula Generator',
+        title: 'TEXT Formula Generator (2026) — Format Numbers as Text | Free Excel & Sheets',
         metaDescription: 'Format numbers as text in Excel and Google Sheets. Free TEXT tool for custom formats. No signup required. Convert to currency, date, percent.',
         excelFunction: 'TEXT',
         category: 'Text',
@@ -1064,13 +1295,21 @@ export const FORMULAS: FormulaConfig[] = [
                 ]
             },
         ],
-        generate: (p) => `=TEXT(${p.value || 'value'}, ${p.format || '"#,##0"'})`
+        generate: (p) => `=TEXT(${p.value || 'value'}, ${p.format || '"#,##0"'})`,
+        faq: [
+            { question: 'What is the most useful TEXT format code?', answer: '"$#,##0.00" for currency, "YYYY-MM-DD" for dates, "0.0%" for percentages, and "00000" for leading zeros (like ZIP codes).' },
+            { question: 'Why is my formatted number not calculating in formulas?', answer: 'TEXT converts numbers to text, which other formulas may not recognize as numeric. Use the original cell for calculations and TEXT only for display/output.' },
+            { question: 'Can TEXT format dates in Google Sheets?', answer: 'Yes. TEXT works identically in Google Sheets. Format codes are the same: "MM/DD/YYYY", "DDD" for abbreviated day name, "MMMM" for full month name.' }
+        ],
+        commonErrors: [
+            { title: 'Result shows #####', causes: ['Column too narrow for the formatted text output.', 'Custom format code is invalid or mistyped.'], fixes: ['Widen the column.', 'Double-check the format string syntax — it must be in quotes.'] }
+        ]
     },
 
     // 36. ROUND - Round Numbers
     {
         slug: 'round',
-        title: 'Free ROUND Formula Generator',
+        title: 'ROUND Formula Generator (2026) — Round Numbers | Free Excel & Sheets',
         metaDescription: 'Round numbers in Excel and Google Sheets. Free ROUND tool for decimal places. No signup required. Format values precisely and easily.',
         excelFunction: 'ROUND',
         category: 'Math',
@@ -1079,13 +1318,21 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 2' },
         ],
-        generate: (p) => `=ROUND(${p.number || 'number'}, ${p.num_digits || '0'})`
+        generate: (p) => `=ROUND(${p.number || 'number'}, ${p.num_digits || '0'})`,
+        faq: [
+            { question: 'What is the difference between ROUND, ROUNDUP, and ROUNDDOWN?', answer: 'ROUND rounds to the nearest value (away from zero at .5). ROUNDUP always rounds up (away from zero). ROUNDDOWN always rounds down (toward zero).' },
+            { question: 'Can I round to the left of the decimal point?', answer: 'Yes. Use negative num_digits: -1 rounds to tens, -2 to hundreds, -3 to thousands. Example: =ROUND(1234, -2) returns 1200.' },
+            { question: 'Does Excel use bankers rounding?', answer: 'No. Excel ROUND uses standard rounding (0.5 always rounds up). For bankers rounding (round to even), use a custom VBA function.' }
+        ],
+        commonErrors: [
+            { title: 'Unexpected rounding result', causes: ['Display formatting shows fewer decimals but the actual value is not rounded.', 'Negative num_digits rounds to the left of the decimal, changing magnitude significantly.'], fixes: ['Use ROUND in the formula, not just cell formatting.', 'Check the num_digits value — positive for decimal places, negative for tens/hundreds.'] }
+        ]
     },
 
     // 37. ROUNDUP - Round Up
     {
         slug: 'roundup',
-        title: 'Free ROUNDUP Formula Generator',
+        title: 'ROUNDUP Formula Generator (2026) — Always Round Up | Free Excel & Sheets',
         metaDescription: 'Round numbers up in Excel and Google Sheets. Free ROUNDUP tool for ceiling values. No signup required. Always round away from zero.',
         excelFunction: 'ROUNDUP',
         category: 'Math',
@@ -1094,13 +1341,21 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 0' },
         ],
-        generate: (p) => `=ROUNDUP(${p.number || 'number'}, ${p.num_digits || '0'})`
+        generate: (p) => `=ROUNDUP(${p.number || 'number'}, ${p.num_digits || '0'})`,
+        faq: [
+            { question: 'When should I use ROUNDUP instead of ROUND?', answer: 'Use ROUNDUP when you need to ensure a value never falls below a threshold, such as calculating required materials, shipping charges, or pricing markups.' },
+            { question: 'Does ROUNDUP ever round down?', answer: 'No. ROUNDUP always rounds away from zero. Even 1.001 rounded to 0 decimals becomes 2. Use ROUNDDOWN for forced rounding toward zero.' },
+            { question: 'How does ROUNDUP handle negative numbers?', answer: 'ROUNDUP rounds away from zero, so -1.5 becomes -2 (more negative). This is consistent with "always round up" behavior.' }
+        ],
+        commonErrors: [
+            { title: 'Number rounded in the wrong direction', causes: ['Using ROUNDUP when ROUND or ROUNDDOWN was intended.', 'Negative numbers may give unexpected results if you expect "up" to mean "less negative".'], fixes: ['Use ROUND for standard rounding, ROUNDDOWN for truncation.', 'For negative numbers, test with a small sample first.'] }
+        ]
     },
 
     // 38. ROUNDDOWN - Round Down
     {
         slug: 'rounddown',
-        title: 'Free ROUNDDOWN Formula Generator',
+        title: 'ROUNDDOWN Formula Generator (2026) — Always Round Down | Free Excel & Sheets',
         metaDescription: 'Round numbers down in Excel and Google Sheets. Free ROUNDDOWN tool for floor values. No signup required. Always round toward zero.',
         excelFunction: 'ROUNDDOWN',
         category: 'Math',
@@ -1109,37 +1364,181 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 0' },
         ],
-        generate: (p) => `=ROUNDDOWN(${p.number || 'number'}, ${p.num_digits || '0'})`
+        generate: (p) => `=ROUNDDOWN(${p.number || 'number'}, ${p.num_digits || '0'})`,
+        faq: [
+            { question: 'When should I use ROUNDDOWN?', answer: 'Use ROUNDDOWN when you need to truncate values without rounding up, such as calculating whole units, integer payouts, or conservative estimates.' },
+            { question: 'Does ROUNDDOWN just drop extra digits?', answer: 'Yes. ROUNDDOWN truncates toward zero — it simply discards digits beyond the specified decimal places without any rounding.' },
+            { question: 'Is ROUNDDOWN the same as TRUNC?', answer: 'For positive numbers and default num_digits, yes, ROUNDDOWN and TRUNC behave identically. For negative numbers, TRUNC still truncates toward zero while ROUNDDOWN always rounds toward zero.' }
+        ],
+        commonErrors: [
+            { title: 'Number not rounding down as expected', causes: ['Using ROUNDDOWN on positive num_digits but the value is already below the threshold.', 'Applying to negatives — -1.5 rounddown to 0 decimals gives -1 (toward zero).'], fixes: ['Test with a simple value first to verify the direction.', 'Remember: ROUNDDOWN always goes toward zero regardless of sign.'] }
+        ]
     },
 
     // 39. ABS - Absolute Value
-    createSingleParamFormula('abs', 'ABS', 'Math', 'Returns the absolute value of a number (removes the negative sign).', 'number', 'Number', 'text', 'Get the absolute value of a number.'),
+    {
+        slug: 'abs',
+        title: 'ABS Formula Generator (2026) — Absolute Value | Free Excel & Sheets',
+        metaDescription: 'Get the absolute value of a number.',
+        excelFunction: 'ABS',
+        category: 'Math',
+        description: 'Returns the absolute value of a number (removes the negative sign).',
+        inputs: [{ id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' }],
+        generate: (p) => `=ABS(${p.number || 'number'})`,
+        faq: [
+            { question: 'What does ABS do?', answer: 'ABS returns the absolute value of a number, removing any negative sign. ABS(-5) returns 5, ABS(5) returns 5, and ABS(0) returns 0.' },
+            { question: 'Does ABS work with negative numbers?', answer: 'Yes. ABS converts negative numbers to positive by removing the minus sign. This is useful for calculating differences regardless of direction.' },
+            { question: 'Does ABS work in Google Sheets?', answer: 'Yes, ABS works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'ABS not removing the negative sign from a date', causes: ['Excel stores dates as serial numbers. A negative date serial number results when you subtract a later date from an earlier one.', 'The value might be text, not a number.'], fixes: ['Ensure the value is numeric. Use VALUE() to convert text to a number.', 'For date differences, use DATEDIF or DAYS instead.'] }
+        ]
+    },
 
     // 40. MAX - Maximum Value
-    createSingleParamFormula('max', 'MAX', 'Math', 'Returns the largest value in a set of values.', 'range', 'Range', 'range', 'Find the largest value in a range of cells.'),
+    {
+        slug: 'max',
+        title: 'MAX Formula Generator (2026) — Find Largest Value | Free Excel & Sheets',
+        metaDescription: 'Find the largest value in a range of cells.',
+        excelFunction: 'MAX',
+        category: 'Math',
+        description: 'Returns the largest value in a set of values.',
+        inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
+        generate: (p) => `=MAX(${p.range || 'range'})`,
+        faq: [
+            { question: 'What is the difference between MAX and MAXA?', answer: 'MAX ignores text and logical values. MAXA evaluates TRUE as 1, FALSE as 0, and includes text values.' },
+            { question: 'How do I find the MAX while ignoring errors?', answer: 'Use IFERROR inside an array: =MAX(IFERROR(A1:A10, "")) entered with Ctrl+Shift+Enter, or =AGGREGATE(4, 6, A1:A10) in Excel 2010+.' },
+            { question: 'Does MAX work in Google Sheets?', answer: 'Yes, MAX works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'MAX returns 0 when I expect a positive number', causes: ['The range includes cells with 0 or empty cells that Excel treats as 0.', 'The range contains all text values instead of numbers.'], fixes: ['Exclude zero cells with MAXIFS or an array formula.', 'Ensure values are stored as numbers, not text.'] }
+        ]
+    },
 
     // 41. MIN - Minimum Value
-    createSingleParamFormula('min', 'MIN', 'Math', 'Returns the smallest value in a set of values.', 'range', 'Range', 'range', 'Find the smallest value in a range of cells.'),
+    {
+        slug: 'min',
+        title: 'MIN Formula Generator (2026) — Find Smallest Value | Free Excel & Sheets',
+        metaDescription: 'Find the smallest value in a range of cells.',
+        excelFunction: 'MIN',
+        category: 'Math',
+        description: 'Returns the smallest value in a set of values.',
+        inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
+        generate: (p) => `=MIN(${p.range || 'range'})`,
+        faq: [
+            { question: 'What is the difference between MIN and MINA?', answer: 'MIN ignores text and logical values. MINA evaluates TRUE as 1 and FALSE as 0, which may give unexpected results.' },
+            { question: 'How do I find the smallest value excluding zeros?', answer: 'Use an array formula: =MIN(IF(A1:A100>0, A1:A100)), or MINIFS in Excel 2019+ if you have a criteria range.' },
+            { question: 'Does MIN work in Google Sheets?', answer: 'Yes, MIN works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'MIN returns 0 when expecting a positive minimum', causes: ['The range includes zeros which are technically the minimum.', 'Blank cells in the range are counted as 0.'], fixes: ['Use MINIFS or array formulas to exclude 0.', 'Use =MINIFS(range, range, ">0") in supported Excel versions.'] }
+        ]
+    },
 
     // 42. AVERAGE - Average Value
-    createSingleParamFormula('average', 'AVERAGE', 'Math', 'Returns the average (arithmetic mean) of the arguments.', 'range', 'Range', 'range', 'Calculate the average of a range of numbers.'),
+    {
+        slug: 'average',
+        title: 'AVERAGE Formula Generator (2026) — Calculate Mean | Free Excel & Sheets',
+        metaDescription: 'Calculate the average of a range of numbers.',
+        excelFunction: 'AVERAGE',
+        category: 'Math',
+        description: 'Returns the average (arithmetic mean) of the arguments.',
+        inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
+        generate: (p) => `=AVERAGE(${p.range || 'range'})`,
+        faq: [
+            { question: 'What is the difference between AVERAGE and MEDIAN?', answer: 'AVERAGE calculates the arithmetic mean (sum divided by count). MEDIAN returns the middle value. MEDIAN is better for data with outliers.' },
+            { question: 'How does AVERAGE handle blank cells and zeros?', answer: 'AVERAGE ignores blank cells but counts zeros. This means a cell with 0 lowers the average. Use AVERAGEA to count text as 0.' },
+            { question: 'Does AVERAGE work in Google Sheets?', answer: 'Yes, AVERAGE works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: '#DIV/0! error', causes: ['The range contains no numeric values — all blank cells, text, or errors.', 'The range reference is invalid.'], fixes: ['Add at least one number to the range.', 'Use IFERROR to handle the error gracefully: =IFERROR(AVERAGE(A1:A10), 0).'] }
+        ]
+    },
 
     // 43. SUM - Sum Values
-    createSingleParamFormula('sum', 'SUM', 'Math', 'Adds all the numbers in a range of cells.', 'range', 'Range', 'range', 'Add up all numbers in a range of cells.'),
+    {
+        slug: 'sum',
+        title: 'SUM Formula Generator (2026) — Add Numbers | Free Excel & Sheets',
+        metaDescription: 'Add up all numbers in a range of cells.',
+        excelFunction: 'SUM',
+        category: 'Math',
+        description: 'Adds all the numbers in a range of cells.',
+        inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
+        generate: (p) => `=SUM(${p.range || 'range'})`,
+        faq: [
+            { question: 'What is the difference between SUM and SUMIF?', answer: 'SUM adds all numbers in a range. SUMIF adds only the cells that meet a specific condition, like summing values greater than 100.' },
+            { question: 'How do I sum across multiple sheets?', answer: 'Use a 3D reference: =SUM(Sheet1:Sheet3!A1). This adds cell A1 from Sheet1, Sheet2, and Sheet3.' },
+            { question: 'Does SUM work in Google Sheets?', answer: 'Yes, SUM works identically in Google Sheets. Google Sheets also supports SUM across multiple sheets with the same 3D reference syntax.' }
+        ],
+        commonErrors: [
+            { title: 'SUM returns 0 when there are numbers in the range', causes: ['Numbers are stored as text (green triangle in corner of cell).', 'Cells contain formulas returning text that looks like numbers.', 'There are hidden spaces or non-printable characters.'], fixes: ['Use VALUE() to convert text to numbers, or multiply by 1: =SUM(VALUE(A1:A10)) as array.', 'Use TRIM(CLEAN()) to remove hidden characters before summing.', 'Use the "Convert to Number" option from the error alert dropdown.'] }
+        ]
+    },
 
     // 44. YEAR - Extract Year
-    createSingleParamFormula('year', 'YEAR', 'Date', 'Returns the year of a date, an integer in the range 1900-9999.', 'date', 'Date', 'text', 'Extract the year from a date.'),
+    {
+        slug: 'year',
+        title: 'YEAR Formula Generator (2026) — Extract Year from Date | Free Excel & Sheets',
+        metaDescription: 'Extract the year from a date.',
+        excelFunction: 'YEAR',
+        category: 'Date',
+        description: 'Returns the year of a date, an integer in the range 1900-9999.',
+        inputs: [{ id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' }],
+        generate: (p) => `=YEAR(${p.date || 'date'})`,
+        faq: [
+            { question: 'Why is YEAR returning a strange 4-digit number?', answer: 'Excel stores dates as serial numbers. YEAR correctly converts them. If YEAR returns something like 1905, the cell likely contains a serial number instead of a formatted date.' },
+            { question: 'Can YEAR extract the year from a text date?', answer: 'Only if the text is recognized as a valid date format by Excel. For text dates, use DATEVALUE() first: =YEAR(DATEVALUE(A1)).' },
+            { question: 'What is the difference between YEAR and YEARFRAC?', answer: 'YEAR extracts the year portion of a date. YEARFRAC calculates the fraction of a year between two dates, useful for age or tenure calculations.' }
+        ],
+        commonErrors: [
+            { title: '#VALUE! error', causes: ['The input is text that Excel cannot interpret as a date.', 'The cell contains an error value.'], fixes: ['Use DATEVALUE() to convert text dates.', 'Ensure the cell contains a valid date, not a string.'] }
+        ]
+    },
 
     // 45. MONTH - Extract Month
-    createSingleParamFormula('month', 'MONTH', 'Date', 'Returns the month of a date, a number from 1 (January) to 12 (December).', 'date', 'Date', 'text', 'Extract the month from a date.'),
+    {
+        slug: 'month',
+        title: 'MONTH Formula Generator (2026) — Extract Month from Date | Free Excel & Sheets',
+        metaDescription: 'Extract the month from a date.',
+        excelFunction: 'MONTH',
+        category: 'Date',
+        description: 'Returns the month of a date, a number from 1 (January) to 12 (December).',
+        inputs: [{ id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' }],
+        generate: (p) => `=MONTH(${p.date || 'date'})`,
+        faq: [
+            { question: 'Why does MONTH return a number instead of the month name?', answer: 'MONTH always returns a number (1-12). To show the month name, use TEXT: =TEXT(A1, "MMMM") for full name or "MMM" for abbreviated name.' },
+            { question: 'What does MONTH return for a blank cell?', answer: 'MONTH returns 1 for a blank cell because Excel treats empty cells as date serial number 0, which corresponds to January 0, 1900 — month 1.' },
+            { question: 'Does MONTH work in Google Sheets?', answer: 'Yes, MONTH works identically in Google Sheets with the same syntax and behavior.' }
+        ],
+        commonErrors: [
+            { title: 'MONTH returns wrong value', causes: ['The date cell contains a serial number display issue.', 'The input is text in an unrecognized date format.'], fixes: ['Format the date cell properly using Format Cells > Date.', 'Use DATEVALUE() for text dates.'] }
+        ]
+    },
 
     // 46. DAY - Extract Day
-    createSingleParamFormula('day', 'DAY', 'Date', 'Returns the day of a date, a number from 1 to 31.', 'date', 'Date', 'text', 'Extract the day from a date.'),
+    {
+        slug: 'day',
+        title: 'DAY Formula Generator (2026) — Extract Day from Date | Free Excel & Sheets',
+        metaDescription: 'Extract the day from a date.',
+        excelFunction: 'DAY',
+        category: 'Date',
+        description: 'Returns the day of a date, a number from 1 to 31.',
+        inputs: [{ id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' }],
+        generate: (p) => `=DAY(${p.date || 'date'})`,
+        faq: [
+            { question: 'Does DAY return the day of the week or the day of the month?', answer: 'DAY returns the day of the month (1-31). For the day of the week (1=Sunday to 7=Saturday), use WEEKDAY instead.' },
+            { question: 'Can DAY extract the day from a text string?', answer: 'If the text is a recognizable date format in Excel, yes. Otherwise, use DATEVALUE to convert the text to a date first.' },
+            { question: 'What is the difference between DAY and WEEKDAY?', answer: 'DAY returns the day of the month (1-31). WEEKDAY returns the day of the week (1-7, where 1 depends on your return_type).' }
+        ],
+        commonErrors: [
+            { title: '#VALUE! error', causes: ['The input is text Excel cannot recognize as a date.', 'The cell contains an error from another formula.'], fixes: ['Use DATEVALUE() to convert text dates to valid date serial numbers.', 'Check the source cell for formula errors.'] }
+        ]
+    },
 
     // 47. EDATE - Add Months to Date
     {
         slug: 'edate',
-        title: 'Free EDATE Formula Generator',
+        title: 'EDATE Formula Generator (2026) — Add or Subtract Months | Free Excel & Sheets',
         metaDescription: 'Add or subtract months in Excel and Google Sheets. Free EDATE tool for date calculations. No signup required. Calculate future or past dates.',
         excelFunction: 'EDATE',
         category: 'Date',
@@ -1148,13 +1547,21 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'start_date', label: 'Start Date', type: 'text', placeholder: 'e.g., A1' },
             { id: 'months', label: 'Months to Add', type: 'number', placeholder: 'e.g., 3 or -6' },
         ],
-        generate: (p) => `=EDATE(${p.start_date || 'start_date'}, ${p.months || '1'})`
+        generate: (p) => `=EDATE(${p.start_date || 'start_date'}, ${p.months || '1'})`,
+        faq: [
+            { question: 'What does EDATE do?', answer: 'EDATE returns a date that is a specified number of months before or after a given date. For example, EDATE("2026-01-15", 3) returns April 15, 2026.' },
+            { question: 'Can EDATE handle negative months?', answer: 'Yes. Use a negative number for the months argument to go back in time. For example, EDATE(A1, -6) gives the date 6 months before A1.' },
+            { question: 'Does EDATE handle month-end dates correctly?', answer: 'Yes. If the start date is Jan 31 and you add 1 month, EDATE returns Feb 28 (or 29 in leap years) — the last day of the month.' }
+        ],
+        commonErrors: [
+            { title: '#VALUE! error with EDATE', causes: ['Start date is not a valid date (text instead of a date value).', 'Months argument is not a number.'], fixes: ['Use DATEVALUE() to convert text dates, or ensure the cell contains a proper date.', 'Make sure the months argument is a number, not text.'] }
+        ]
     },
 
     // 48. EOMONTH - End of Month
     {
         slug: 'eomonth',
-        title: 'Free EOMONTH Formula Generator',
+        title: 'EOMONTH Formula Generator (2026) — Get Month End Date | Free Excel & Sheets',
         metaDescription: 'Get month end dates in Excel and Google Sheets. Free EOMONTH tool for last day calculations. No signup required. Perfect for financial reports.',
         excelFunction: 'EOMONTH',
         category: 'Date',
@@ -1163,12 +1570,54 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'start_date', label: 'Start Date', type: 'text', placeholder: 'e.g., A1' },
             { id: 'months', label: 'Month Offset', type: 'number', placeholder: 'e.g., 0 for current month' },
         ],
-        generate: (p) => `=EOMONTH(${p.start_date || 'start_date'}, ${p.months || '0'})`
+        generate: (p) => `=EOMONTH(${p.start_date || 'start_date'}, ${p.months || '0'})`,
+        faq: [
+            { question: 'What is EOMONTH used for?', answer: 'EOMONTH returns the last day of the month, given a starting date and month offset. It is commonly used for financial reporting, invoice due dates, and subscription billing cycles.' },
+            { question: 'What does months = 0 do?', answer: 'EOMONTH(A1, 0) returns the last day of the month for the date in A1. For example, EOMONTH("2026-05-14", 0) returns May 31, 2026.' },
+            { question: 'Does EOMONTH work in Google Sheets?', answer: 'Yes, EOMONTH works identically in Google Sheets with the same syntax. It is fully compatible between both platforms.' }
+        ],
+        commonErrors: [
+            { title: '#NUM! or #VALUE! error', causes: ['Start date is not a valid date.', 'Month offset is non-numeric or the resulting date is invalid (e.g., year beyond Excel limits).'], fixes: ['Ensure the start date cell contains a valid date.', 'Validate the months argument is a number within a reasonable range.'] }
+        ]
     },
 
     // 49. COUNTA - Count Non-Empty Cells
-    createSingleParamFormula('counta', 'COUNTA', 'Math', 'Counts number of cells that are not empty in a range.', 'range', 'Range', 'range', 'Count number of non-empty cells in a range.'),
+    {
+        slug: 'counta',
+        title: 'COUNTA Formula Generator (2026) — Count Non-Empty Cells | Free Excel & Sheets',
+        metaDescription: 'Count number of non-empty cells in a range.',
+        excelFunction: 'COUNTA',
+        category: 'Math',
+        description: 'Counts number of cells that are not empty in a range.',
+        inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
+        generate: (p) => `=COUNTA(${p.range || 'range'})`,
+        faq: [
+            { question: 'What is the difference between COUNTA and COUNT?', answer: 'COUNTA counts all non-empty cells including text, numbers, errors, and logical values. COUNT only counts cells containing numeric values.' },
+            { question: 'Does COUNTA count cells with formulas?', answer: 'Yes, COUNTA counts a cell if its formula returns any value — even an empty string "". COUNTA only excludes truly blank cells.' },
+            { question: 'Does COUNTA work in Google Sheets?', answer: 'Yes, COUNTA works identically in Google Sheets with the same syntax.' }
+        ],
+        commonErrors: [
+            { title: 'COUNTA counts more cells than expected', causes: ['Cells that appear empty may contain formula-generated empty strings ("").', 'Hidden spaces or non-printable characters make cells appear non-empty.'], fixes: ['Use COUNTIF(range, "?*") to count only cells with visible text.', 'Use SUMPRODUCT(--(TRIM(range)<>"")) to exclude blank-looking cells with spaces.'] }
+        ]
+    },
 
     // 50. COUNTBLANK - Count Empty Cells
-    createSingleParamFormula('countblank', 'COUNTBLANK', 'Math', 'Counts the number of empty cells in a specified range.', 'range', 'Range', 'range', 'Count number of empty cells in a range.'),
+    {
+        slug: 'countblank',
+        title: 'COUNTBLANK Formula Generator (2026) — Count Empty Cells | Free Excel & Sheets',
+        metaDescription: 'Count number of empty cells in a range.',
+        excelFunction: 'COUNTBLANK',
+        category: 'Math',
+        description: 'Counts the number of empty cells in a specified range.',
+        inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
+        generate: (p) => `=COUNTBLANK(${p.range || 'range'})`,
+        faq: [
+            { question: 'What is the difference between COUNTBLANK and COUNTIF(range, "")?', answer: 'COUNTBLANK counts both truly empty cells and cells with empty strings (""). COUNTIF(range, "") only counts cells that visually appear blank.' },
+            { question: 'Does COUNTBLANK count cells with spaces?', answer: 'No, a cell with a space (" ") is not blank. COUNTBLANK will not count it. Use TRIM to clean cells before counting if stray spaces are an issue.' },
+            { question: 'COUNTBLANK vs COUNTA — what is the relationship?', answer: 'For a given range, COUNTBLANK + COUNTA does not always equal the total cells because COUNTBLANK counts empty-string formulas while COUNTA counts formula outputs. Use ROWS(range)*COLUMNS(range) for the total cell count.' }
+        ],
+        commonErrors: [
+            { title: 'COUNTBLANK counts wrong number of blanks', causes: ['Cells with formulas returning "" are counted as blank.', 'Cells with spaces or non-printing characters appear blank but are not counted.', 'Merged cells may cause unexpected counting behavior.'], fixes: ['Use COUNTIF(range, "=") to count truly empty cells excluding empty-string formulas.', 'Use TRIM to clean data before counting blanks.'] }
+        ]
+    },
 ];

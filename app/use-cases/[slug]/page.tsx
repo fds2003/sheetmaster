@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { USE_CASES } from '../../../lib/use-cases';
 import { FORMULAS } from '../../../lib/formulas';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
 export function generateStaticParams() {
   return USE_CASES.map((uc) => ({
@@ -9,13 +10,27 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const uc = USE_CASES.find((u) => u.slug === params.slug);
   if (!uc) return { title: 'Not Found' };
   
+  const url = `https://www.getsheetmaster.com/use-cases/${uc.slug}`;
   return {
     title: `${uc.title} - Excel & Google Sheets Automation | SheetMaster`,
     description: `Free spreadsheet tools and formulas specifically designed ${uc.title.toLowerCase()}. ${uc.description}`,
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${uc.title} | SheetMaster`,
+      description: `Free spreadsheet tools for ${uc.title.toLowerCase()}. ${uc.description}`,
+      url,
+      type: 'website',
+      siteName: 'SheetMaster',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${uc.title} | SheetMaster`,
+      description: `Free spreadsheet tools for ${uc.title.toLowerCase()}. ${uc.description}`,
+    },
   };
 }
 
@@ -26,8 +41,31 @@ export default function UseCaseView({ params }: { params: { slug: string } }) {
   // Find all formulas matching this use case
   const matchingFormulas = FORMULAS.filter(f => uc.formulaSlugs.includes(f.slug));
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.getsheetmaster.com' },
+      { '@type': 'ListItem', position: 2, name: 'Use Cases', item: 'https://www.getsheetmaster.com/use-cases' },
+      { '@type': 'ListItem', position: 3, name: uc.title },
+    ],
+  };
+
+  const softwareJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: `${uc.title} Tools - SheetMaster`,
+    description: uc.description,
+    url: `https://www.getsheetmaster.com/use-cases/${uc.slug}`,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }} />
       {/* Header */}
       <div className="text-center mb-12">
         <div className="text-5xl mb-4">{uc.icon}</div>

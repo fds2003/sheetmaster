@@ -3,8 +3,23 @@ import { USE_CASES } from '../../lib/use-cases';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Excel & Google Sheets Solutions by Industry | SheetMaster',
+  title: 'Excel & Google Sheets Solutions by Industry',
   description: 'Browse all 50+ free formula tools categorized by industry: Ecommerce, HR, Finance, and Marketing.',
+  alternates: {
+    canonical: 'https://www.getsheetmaster.com/use-cases',
+  },
+  openGraph: {
+    title: 'Solutions by Industry | SheetMaster',
+    description: 'Free formula tools for Ecommerce, HR, Finance, and Marketing. No signup.',
+    url: 'https://www.getsheetmaster.com/use-cases',
+    type: 'website',
+    siteName: 'SheetMaster',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Solutions by Industry | SheetMaster',
+    description: 'Free formula tools for Ecommerce, HR, Finance, and Marketing. No signup.',
+  },
 };
 
 export default function UseCasesPage() {

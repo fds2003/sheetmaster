@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import SumifsAcrossClient from './SumifsAcrossClient';
 
+/* eslint-disable react/no-unescaped-entities */
+
 export const metadata: Metadata = {
   title: 'SUMIFS Across Multiple Sheets Generator | SheetMaster',
   description:
@@ -10,6 +12,12 @@ export const metadata: Metadata = {
     description: 'Sum data across Jan, Feb, Mar tabs instantly using INDIRECT arrays.',
     url: 'https://www.getsheetmaster.com/tools/sumifs-across-sheets',
     type: 'website',
+    siteName: 'SheetMaster',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SUMIFS Across Multiple Sheets - Excel Formula Generator',
+    description: 'Sum data across multiple tabs using SUMPRODUCT + INDIRECT arrays.',
   },
   alternates: {
     canonical: 'https://www.getsheetmaster.com/tools/sumifs-across-sheets',

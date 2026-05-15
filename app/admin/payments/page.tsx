@@ -1,11 +1,13 @@
 import React from 'react';
 import Stripe from 'stripe';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export const revalidate = 0; // Don't cache payments data
 
 export default async function AdminPaymentsPage() {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: '2024-06-20',
+    apiVersion: '2026-03-25.dahlia' as const,
   });
 
   let sessions: Stripe.Checkout.Session[] = [];
@@ -14,8 +16,8 @@ export default async function AdminPaymentsPage() {
   try {
     const response = await stripe.checkout.sessions.list({ limit: 100 });
     sessions = response.data;
-  } catch (err: any) {
-    fetchError = err.message;
+  } catch (err: unknown) {
+    fetchError = err instanceof Error ? err.message : String(err);
   }
 
   return (

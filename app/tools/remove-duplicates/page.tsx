@@ -11,6 +11,11 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'SheetMaster',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Remove Duplicates in Excel - Free Formula Tool | SheetMaster',
+    description: 'Remove duplicate values with formulas. Keep first, keep latest, or count duplicates.',
+  },
   alternates: {
     canonical: 'https://www.getsheetmaster.com/tools/remove-duplicates',
   },

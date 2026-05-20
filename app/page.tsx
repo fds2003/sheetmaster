@@ -74,8 +74,36 @@ export default function Home() {
         </p>
       </div>
 
-      {/* Scenarios Navigation (Intent-based) */}
+      {/* Formula Grid with Search (提至首屏) */}
       <div className="mb-12">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">📋 Formula Search & Generator</h2>
+            <p className="text-sm text-gray-500 mt-1">Search 50+ formulas or choose a tool below</p>
+          </div>
+          {/* Quick Popular Formulas inside Search Area */}
+          <div className="flex flex-wrap gap-2 items-center">
+            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Popular:</span>
+            {['xlookup', 'vlookup', 'if', 'sumif', 'ifs'].map((slug) => {
+              const formula = FORMULAS.find((f) => f.slug === slug);
+              if (!formula) return null;
+              return (
+                <Link
+                  key={slug}
+                  href={`/formulas/${slug}`}
+                  className="inline-flex items-center rounded bg-gray-100 hover:bg-gray-200 px-2 py-1 text-xs font-semibold text-gray-700 transition-colors"
+                >
+                  {formula.excelFunction}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+        <FormulaGrid formulas={formulaCards} />
+      </div>
+
+      {/* Scenarios Navigation (Intent-based) */}
+      <div className="mb-12 border-t pt-8 border-gray-100">
         <h2 className="text-xl font-bold text-gray-900 mb-5 text-center">Not Sure Where to Start? Choose Your Scenario:</h2>
         <div className="flex flex-wrap justify-center gap-3">
           <Link href="/use-cases/ecommerce" className="inline-flex items-center rounded-full bg-blue-50 text-blue-700 px-5 py-2.5 text-sm font-medium hover:bg-blue-100 hover:shadow-sm transition-all border border-blue-100">
@@ -93,27 +121,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Why SheetMaster */}
-      <div className="mb-12 rounded-xl bg-gray-50 border border-gray-100 p-6 sm:p-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Why SheetMaster?</h2>
-        <ul className="grid gap-4 sm:grid-cols-3 text-left">
-          <li className="flex gap-3">
-            <span className="text-green-600 font-semibold shrink-0">✓</span>
-            <span><strong>Free & no signup</strong> — Use every tool without an account.</span>
-          </li>
-          <li className="flex gap-3">
-            <span className="text-green-600 font-semibold shrink-0">✓</span>
-            <span><strong>Not AI — full control</strong> — You choose parameters; we build the exact formula.</span>
-          </li>
-          <li className="flex gap-3">
-            <span className="text-green-600 font-semibold shrink-0">✓</span>
-            <span><strong>Learn every formula</strong> — See how each function works with examples.</span>
-          </li>
-        </ul>
-      </div>
-
       {/* Industry Solutions */}
-      <div className="mb-12">
+      <div className="mb-12 border-t pt-8 border-gray-100">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Industry Solutions</h2>
           <span className="text-sm text-gray-500">Solve common problems fast</span>
@@ -136,30 +145,23 @@ export default function Home() {
         </p>
       </div>
 
-      {/* Most Popular Formulas */}
-      <div className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Most Popular Formulas</h2>
-        <div className="flex flex-wrap gap-3">
-          {['vlookup', 'if', 'sumif', 'index-match', 'xlookup'].map((slug) => {
-            const formula = FORMULAS.find((f) => f.slug === slug);
-            if (!formula) return null;
-            return (
-              <a
-                key={slug}
-                href={`/formulas/${slug}`}
-                className="inline-flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition-colors"
-              >
-                {formula.excelFunction}
-              </a>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Formula Grid with Search */}
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">📋 All Formula Tools</h2>
-        <FormulaGrid formulas={formulaCards} />
+      {/* Why SheetMaster */}
+      <div className="mb-6 rounded-xl bg-gray-50 border border-gray-100 p-6 sm:p-8">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">Why SheetMaster?</h2>
+        <ul className="grid gap-4 sm:grid-cols-3 text-left">
+          <li className="flex gap-3">
+            <span className="text-green-600 font-semibold shrink-0">✓</span>
+            <span><strong>Free & no signup</strong> — Use every tool without an account.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-green-600 font-semibold shrink-0">✓</span>
+            <span><strong>Not AI — full control</strong> — You choose parameters; we build the exact formula.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="text-green-600 font-semibold shrink-0">✓</span>
+            <span><strong>Learn every formula</strong> — See how each function works with examples.</span>
+          </li>
+        </ul>
       </div>
     </div>
   );

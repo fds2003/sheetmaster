@@ -1,16 +1,18 @@
+import type { Metadata } from 'next';
 import React from 'react';
 import { Users, Crown, DollarSign } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
-// Revalidate this page every 60 seconds (optional, keeps data fresh without hammering DB on every load)
+export const metadata: Metadata = {
+  title: 'Admin Dashboard',
+  robots: { index: false, follow: false },
+};
+
+// Revalidate this page every 60 seconds
 export const revalidate = 60;
 
 export default async function AdminDashboardPage() {
-  // Use service role to bypass RLS and fetch global stats
-  const supabaseAdmin = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const supabaseAdmin = getSupabaseAdmin();
 
   // 1. Fetch total users (from auth.users via admin api, or just count profiles)
   const { count: totalUsers } = await supabaseAdmin
@@ -30,7 +32,7 @@ export default async function AdminDashboardPage() {
   return (
     <div className="p-8">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Dashboard Overview</h2>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {/* Metric Card 1 */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">

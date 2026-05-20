@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import React from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
@@ -7,6 +8,12 @@ import { requirePro } from '@/lib/proAuth';
 import { FORMULAS } from '@/lib/formulas';
 import { FolderOpen, Clock, ArrowRight, Trash2 } from 'lucide-react';
 import { revalidatePath } from 'next/cache';
+
+export const metadata: Metadata = {
+  title: 'My Vault',
+  description: 'View and manage your saved formula configurations.',
+  robots: { index: false, follow: false },
+};
 
 export const revalidate = 0;
 

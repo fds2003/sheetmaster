@@ -31,8 +31,8 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 1. Data Cleaning Hub (RETAINED)
     {
         slug: 'data-cleaning',
-        title: 'Email Extractor & Data Cleanup Tools | Free Online',
-        metaDescription: 'Extract emails from messy text, pull domains from URLs, and clean up formatting issues. Free tools for marketers, sales teams, and data analysts.',
+        title: 'Free Email Extractor & Data Clean Up Tools | Excel & Sheets',
+        metaDescription: 'Extract emails from text, pull domains from URLs, and remove extra spaces. Free data cleanup formula generator for Excel & Google Sheets.',
         icon: 'Mail',
         description: 'Pull emails, domains & clean messy data in seconds',
         tools: [
@@ -463,9 +463,9 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 5. Subscription Tracker (NEW)
     {
         slug: 'subscription-tracker',
-        title: 'Free Excel Subscription Tracker — Renewals, Costs & Expiry Dates',
+        title: 'Free Excel Subscription Tracker Template & Formula (2026)',
         metaDescription:
-            'Track Netflix, SaaS, gyms, and leases in Excel or Google Sheets. EDATE, EOMONTH, DATEDIF—copy formulas for renewal dates and days until expiry. Free, no signup.',
+            'Download our free Excel subscription tracker. Copy-paste EDATE & DATEDIF formulas to track SaaS renewals and expiry dates. No signup.',
         icon: 'Calendar',
         description: 'Track renewals, billing cycles & expiry dates',
         tools: [

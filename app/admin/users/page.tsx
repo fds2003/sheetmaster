@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import React from 'react';
 import { createClient } from '@supabase/supabase-js';
+
+export const metadata: Metadata = {
+  title: 'User Management',
+  robots: { index: false, follow: false },
+};
 
 export const revalidate = 0; // Always fetch fresh user data
 

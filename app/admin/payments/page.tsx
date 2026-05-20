@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import React from 'react';
 import Stripe from 'stripe';
+
+export const metadata: Metadata = {
+  title: 'Payment History',
+  robots: { index: false, follow: false },
+};
 
 export const revalidate = 0; // Don't cache payments data
 

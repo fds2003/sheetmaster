@@ -1,24 +1,41 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { env } from '@/lib/config';
+import { createClient } from '@/lib/supabase/server';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+const stripe = new Stripe(env.stripeSecretKey, {
   apiVersion: '2026-03-25.dahlia' as const,
 });
 
 export async function POST(req: Request) {
   try {
-    const { userId, email } = await req.json();
+    const body = await req.json();
+    const email = body?.email;
 
-    if (!userId) {
-      return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
+    // Verify the authenticated session — extract userId from auth cookie, not request body
+    const supabase = createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+    const userId = user.id;
+
+    if (email !== undefined && email !== null && (typeof email !== 'string' || !email.includes('@'))) {
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 }
+      );
     }
 
     // Determine the base URL dynamically based on environment
     const isLocal = process.env.NODE_ENV === 'development';
-    const baseUrl = isLocal 
-      ? 'http://localhost:3000' 
-      // If deployed on Vercel, read origin or NEXT_PUBLIC_SITE_URL
-      : process.env.NEXT_PUBLIC_SITE_URL || 'https://www.getsheetmaster.com';
+    const baseUrl = isLocal
+      ? 'http://localhost:3000'
+      : env.siteUrl;
 
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({

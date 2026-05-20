@@ -346,9 +346,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 7. XLOOKUP
     {
         slug: 'xlookup',
-        title: 'XLOOKUP Formula Generator (2026) — Look Left & Right, No Column Index Errors',
+        title: 'Free XLOOKUP Formula Generator & Easy Guide (2026) — Excel & Sheets',
         metaDescription:
-            'XLOOKUP does what VLOOKUP cannot: look left, separate lookup and return arrays, and optional if-not-found. Free for Excel 365 and Google Sheets. No signup.',
+            'Generate XLOOKUP formulas instantly. Look left or right, avoid index errors. Free online tool for Excel and Google Sheets, no signup.',
         excelFunction: 'XLOOKUP',
         category: 'Lookup',
         description: 'Searches a range or an array, and then returns the item corresponding to the first match it finds. If no match exists, then XLOOKUP can return the closest (approximate) match.',
@@ -612,7 +612,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'today',
         title: 'TODAY Formula Generator (2026) — Current Date | Free Excel & Sheets',
-        metaDescription: 'Get the current date in Excel.',
+        metaDescription: 'Get the current date in Excel and Google Sheets. Use TODAY() and NOW() for countdowns, aging reports, expiration tracking, and date-based conditional formatting.',
         excelFunction: 'TODAY',
         category: 'Date',
         description: 'Returns the serial number of the current date.',
@@ -632,7 +632,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'networkdays',
         title: 'NETWORKDAYS Formula Generator (2026) — Count Working Days | Free Excel & Sheets',
-        metaDescription: 'Calculate working days in Excel and Google Sheets. Free NETWORKDAYS tool excludes weekends. No signup required. Add holidays optionally.',
+        metaDescription: 'Calculate the number of working/business days between two dates in Excel and Google Sheets using NETWORKDAYS and NETWORKDAYS.INTL. Exclude weekends and custom holidays.',
         excelFunction: 'NETWORKDAYS',
         category: 'Date',
         description: 'Returns the number of whole working days between start_date and end_date.',
@@ -902,6 +902,18 @@ export const FORMULAS: FormulaConfig[] = [
   <p>Common when cleaning CSV prefixes, IDs, or fixed-width junk at the start of a cell. Use <code>RIGHT</code> with <code>LEN</code> so the number of characters to drop is explicit.</p>
   <h4>Why LEN minus N?</h4>
   <p><code>RIGHT(text, LEN(text)-N)</code> keeps everything after the first N characters. Change N to match &quot;remove first 3 characters&quot; or any count.</p>
+
+  <h4>Real-World Use Cases</h4>
+  <ul>
+    <li><strong>Cleaning product codes</strong>: Remove prefix "SKU-" from "SKU-12345" → "12345".</li>
+    <li><strong>Phone numbers</strong>: Strip country code "+1" from "+15551234567" → "5551234567".</li>
+    <li><strong>CSV imports</strong>: Remove quote character or "#" prefix from imported data.</li>
+    <li><strong>Serial numbers</strong>: Drop fixed-length batch prefix from part numbers.</li>
+  </ul>
+
+  <h4>Alternative: Using MID Instead</h4>
+  <p>You can also use <code>=MID(A2, N+1, LEN(A2))</code>. The logic is the same but some users find MID more intuitive since the second parameter is the starting position. For N=3: <code>=MID(A2, 4, LEN(A2))</code>.</p>
+
   <h4>Variable N</h4>
   <p>Put N in a cell (e.g. D1) and reference it: <code>=RIGHT(A2,LEN(A2)-D1)</code> so one formula works for different strip lengths.</p>
 `,
@@ -976,8 +988,22 @@ export const FORMULAS: FormulaConfig[] = [
   <ul class="list-disc pl-5 mb-4 space-y-2">
     <li><strong>HR & Payroll</strong>: Sum total hours worked by a specific employee (Condition 1) between January 1 and January 31 (Conditions 2 & 3).</li>
     <li><strong>E-commerce</strong>: Sum total revenue for "Electronics" (Condition 1) where order status is "Delivered" (Condition 2) and discount was "&gt;0" (Condition 3).</li>
+    <li><strong>Finance</strong>: Sum all invoices over $5,000 in Q1 2026 that are still "Unpaid".</li>
+    <li><strong>Marketing</strong>: Sum total ad spend for campaign "Summer Sale" where ROI &gt; 200%.</li>
   </ul>
-  
+
+  <h3 class="text-xl font-semibold mb-2 mt-8">SUMIFS with Date Ranges</h3>
+  <p class="mb-4">Sum values between two dates by using two conditions on the same date column:</p>
+  <pre class="bg-gray-100 p-3 rounded text-sm mb-4">=SUMIFS(C:C, A:A, "&gt;="&DATE(2026,1,1), A:A, "&lt;="&DATE(2026,3,31))</pre>
+  <p class="mb-4">This sums column C for all rows where column A dates fall within Q1 2026.</p>
+
+  <h3 class="text-xl font-semibold mb-2 mt-8">Common Mistakes and How to Fix Them</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-2">
+    <li><strong>Wrong argument order</strong>: SUMIFS syntax is <code>=SUMIFS(sum_range, criteria_range1, criteria1)</code>. The sum range comes FIRST—unlike SUMIF where it comes last.</li>
+    <li><strong>Criteria not quoted</strong>: Text criteria need quotes: <code>"=Sales"</code>. For cell references: <code>"&gt;"&A1</code>.</li>
+    <li><strong>Mismatched range sizes</strong>: All ranges must have the same number of rows or SUMIFS returns wrong results or errors.</li>
+  </ul>
+
   <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
     <p class="text-sm text-blue-800 italic"><strong>Pro Tip:</strong> Ensure that your <code>sum_range</code> and all <code>criteria_range</code> arrays are exactly the same size (e.g., all span rows 2 to 100). If they are mismatched, Excel will return an error.</p>
   </div>
@@ -1020,6 +1046,38 @@ export const FORMULAS: FormulaConfig[] = [
             { question: 'How do I count rows where one column is blank and another is not?', answer: 'Use criteria "" for blank and "<>" for non-blank: =COUNTIFS(A:A,"", B:B,"<>").' },
             { question: 'What is the difference between COUNTIF and COUNTIFS?', answer: 'COUNTIF has one condition; COUNTIFS has multiple criteria_range/criteria pairs. Use COUNTIFS when you need two or more conditions at once.' },
         ],
+        richContent: `
+<div class="prose max-w-none mt-8 text-left">
+  <h2 class="text-2xl font-bold mb-4">Master COUNTIFS: Count with Multiple Conditions</h2>
+  <p class="mb-4">The <strong>COUNTIFS function</strong> counts rows that meet multiple criteria across different columns. It is the multi-condition version of COUNTIF and one of the most versatile functions for data analysis in Excel and Google Sheets.</p>
+
+  <h3 class="text-xl font-semibold mb-2 mt-8">COUNTIF vs COUNTIFS: What is the difference?</h3>
+  <p class="mb-4">COUNTIF handles <strong>one condition</strong> only. COUNTIFS handles <strong>two or more conditions</strong> simultaneously. Every condition is connected by AND logic—all conditions must be true for a row to be counted.</p>
+
+  <table class="min-w-full border-collapse border border-gray-300 my-4 text-sm bg-white">
+    <tr class="bg-gray-100"><th class="border border-gray-300 p-2 text-left">Feature</th><th class="border border-gray-300 p-2 text-left">COUNTIF</th><th class="border border-gray-300 p-2 text-left">COUNTIFS</th></tr>
+    <tr><td class="border border-gray-300 p-2 font-medium">Conditions</td><td class="border border-gray-300 p-2 text-gray-600">Single condition</td><td class="border border-gray-300 p-2 font-bold text-green-600">Multiple conditions (AND)</td></tr>
+    <tr><td class="border border-gray-300 p-2 font-medium">Syntax</td><td class="border border-gray-300 p-2 text-gray-600">=COUNTIF(range, criteria)</td><td class="border border-gray-300 p-2 font-bold text-blue-600">=COUNTIFS(range1, criteria1, range2, criteria2)</td></tr>
+    <tr><td class="border border-gray-300 p-2 font-medium">OR Logic</td><td class="border border-gray-300 p-2 text-gray-600">Not supported natively</td><td class="border border-gray-300 p-2 text-gray-600">Requires multiple formulas</td></tr>
+  </table>
+
+  <h3 class="text-xl font-semibold mb-2 mt-8">Real-World Examples</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-2">
+    <li><strong>Sales Reporting</strong>: Count orders where region = "East" AND amount > $500.</li>
+    <li><strong>HR Analytics</strong>: Count employees in department "Engineering" with tenure > 3 years.</li>
+    <li><strong>Inventory</strong>: Count products in category "Electronics" where stock < 10 (needs restocking).</li>
+    <li><strong>Date Range</strong>: Count transactions between Jan 1 and Mar 31, 2026.</li>
+  </ul>
+
+  <h3 class="text-xl font-semibold mb-2 mt-8">Working with Date Ranges</h3>
+  <p class="mb-4">To count rows where a date falls within a specific range, use two conditions on the same date column:</p>
+  <pre class="bg-gray-100 p-3 rounded text-sm mb-4">=COUNTIFS(A:A, ">="&DATE(2026,1,1), A:A, "<="&DATE(2026,3,31))</pre>
+
+  <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
+    <p class="text-sm text-blue-800 italic"><strong>Important:</strong> All criteria ranges must be the same size. If range1 is A1:A100, range2 must also be 100 rows. Mismatched sizes cause incorrect counts.</p>
+  </div>
+</div>`,
+        relatedTools: ['countif', 'sumifs', 'averageif', 'sumproduct'],
         commonErrors: [
             { title: 'COUNTIFS returns 0 or unexpected count', causes: ['Criteria ranges have different lengths.', 'Text criteria not in quotes; number criteria wrong format.'], fixes: ['Use identical range sizes: A1:A100, B1:B100.', 'Use "Completed", ">100", "="&A1 for text, number, and cell reference.'] },
         ],
@@ -1028,11 +1086,16 @@ export const FORMULAS: FormulaConfig[] = [
     // 27. AVERAGEIF - Conditional Average
     {
         slug: 'averageif',
-        title: 'AVERAGEIF Formula Generator (2026) — Conditional Average | Free Excel & Sheets',
-        metaDescription: 'Calculate conditional average in Excel and Google Sheets. Free AVERAGEIF tool for criteria-based averages. No signup required. Analyze data easily.',
+        title: 'Free AVERAGEIF Formula Generator (2026) — Conditional Average',
+        metaDescription: 'Generate AVERAGEIF formulas to calculate conditional averages in Excel and Sheets. Copy-paste formulas instantly, no signup needed.',
         excelFunction: 'AVERAGEIF',
         category: 'Math',
         description: 'Returns the average of all cells in a range that meet a given criteria.',
+        howToSteps: [
+            { name: 'Select check range', text: 'Enter the column or range of cells you want to evaluate (e.g. A1:A100).' },
+            { name: 'Define condition', text: 'Enter the criteria to filter by, such as ">0" or "Sales".' },
+            { name: 'Specify average range (optional)', text: 'If the cells to average are different from the criteria range, select the average range (e.g. B1:B100).' }
+        ],
         inputs: [
             { id: 'range', label: 'Range to Check', type: 'range', placeholder: 'e.g., A1:A100' },
             { id: 'criteria', label: 'Criteria', type: 'text', placeholder: 'e.g., ">0" or "Sales"' },
@@ -1056,8 +1119,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 28. IFERROR - Error Handling
     {
         slug: 'iferror',
-        title: 'IFERROR Formula Generator (2026) — Hide Errors, Show Fallback | Free Excel & Sheets',
-        metaDescription: 'Wrap formulas in IFERROR to show a fallback value instead of #N/A, #DIV/0!, #VALUE!. Free tool for Excel and Google Sheets. No signup.',
+        title: 'Free IFERROR Formula Generator (2026) — Hide Excel Errors',
+        metaDescription: 'Wrap formulas in IFERROR instantly. Hide #N/A, #DIV/0!, #VALUE! errors in Excel & Google Sheets. Free tool with examples, no signup.',
         excelFunction: 'IFERROR',
         category: 'Logic',
         description: 'Returns a value you specify if a formula evaluates to an error; otherwise returns the result of the formula.',
@@ -1103,9 +1166,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 29. IFS - Multiple Conditions
     {
         slug: 'ifs',
-        title: 'IFS Formula Generator (2026) — Letter Grades, Tiered Pricing & Multi-Condition Logic',
+        title: 'Free IFS Formula Generator (2026) — Multi-Condition Logic',
         metaDescription:
-            'Build IFS formulas without deep nested IF—letter grades (A–F), tiered pricing, and score bands in Excel and Google Sheets. Free, no signup.',
+            'Build multi-condition IFS formulas for Excel & Sheets. Avoid complex nested IF statements. Generate & copy-paste instantly. Free, no signup.',
         excelFunction: 'IFS',
         category: 'Logic',
         description: 'Checks multiple conditions and returns a value corresponding to the first TRUE condition. Cleaner than nested IFs.',
@@ -1160,11 +1223,16 @@ export const FORMULAS: FormulaConfig[] = [
     // 30. SUBSTITUTE - Text Replacement
     {
         slug: 'substitute',
-        title: 'SUBSTITUTE Formula Generator (2026) — Replace Text | Free Excel & Sheets',
-        metaDescription: 'Replace text in Excel and Google Sheets. Free SUBSTITUTE tool for data cleaning. No signup required. Swap characters or words instantly.',
+        title: 'Free SUBSTITUTE Formula Generator — Find & Replace Text in Excel',
+        metaDescription: 'Replace old text with new text using Excel SUBSTITUTE formulas. Free interactive tool with examples. No signup required.',
         excelFunction: 'SUBSTITUTE',
         category: 'Text',
         description: 'Substitutes new text for old text in a text string. Great for data cleaning.',
+        howToSteps: [
+            { name: 'Select source text', text: 'Choose the cell containing the text you want to modify (e.g. A1).' },
+            { name: 'Enter old text', text: 'Specify the exact text or character you want to replace, enclosed in quotes.' },
+            { name: 'Enter new text', text: 'Specify the text you want to replace it with, enclosed in quotes.' }
+        ],
         inputs: [
             { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
             { id: 'old_text', label: 'Old Text', type: 'text', placeholder: 'e.g., "-"' },
@@ -1208,11 +1276,15 @@ export const FORMULAS: FormulaConfig[] = [
     // 32. LEN - Text Length
     {
         slug: 'len',
-        title: 'LEN Formula Generator (2026) — Count Characters | Free Excel & Sheets',
-        metaDescription: 'Count the number of characters in a text string.',
+        title: 'Free LEN Formula Generator & Character Counter — Excel & Sheets',
+        metaDescription: 'Count characters in cells using Excel & Google Sheets LEN formulas. Free generator with clear syntax examples and quick guide.',
         excelFunction: 'LEN',
         category: 'Text',
         description: 'Returns the number of characters in a text string.',
+        howToSteps: [
+            { name: 'Select target cell', text: 'Choose the cell containing the text or number you want to count (e.g. A1).' },
+            { name: 'Clean text (optional)', text: 'If there are leading or trailing spaces, wrap the cell in TRIM to avoid counting them (e.g. =LEN(TRIM(A1))).' }
+        ],
         inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=LEN(${p.text || 'text'})`,
         faq: [
@@ -1229,7 +1301,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'find',
         title: 'FIND Formula Generator (2026) — Case-Sensitive Text Search | Free Excel & Sheets',
-        metaDescription: 'Find the position of text within another text string (case-sensitive).',
+        metaDescription: 'Find the position of a substring in a text string in Excel and Google Sheets using FIND and SEARCH. Case-sensitive vs wildcard text search explained with examples.',
         excelFunction: 'FIND',
         category: 'Text',
         description: 'Returns the starting position of one text string within another (case-sensitive).',
@@ -1252,7 +1324,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'search',
         title: 'SEARCH Formula Generator (2026) — Case-Insensitive Text Search | Free Excel & Sheets',
-        metaDescription: 'Find the position of text within another text string (case-insensitive, supports wildcards).',
+        metaDescription: 'Search for a substring in a text string in Excel and Google Sheets. Wildcard support (*, ?) with SEARCH for flexible text matching and extraction.',
         excelFunction: 'SEARCH',
         category: 'Text',
         description: 'Returns the position of a text string within another (case-insensitive). Supports wildcards.',
@@ -1274,11 +1346,16 @@ export const FORMULAS: FormulaConfig[] = [
     // 35. TEXT - Format Numbers as Text
     {
         slug: 'text',
-        title: 'TEXT Formula Generator (2026) — Format Numbers as Text | Free Excel & Sheets',
-        metaDescription: 'Format numbers as text in Excel and Google Sheets. Free TEXT tool for custom formats. No signup required. Convert to currency, date, percent.',
+        title: 'Free TEXT Formula Generator (2026) — Format Numbers as Text',
+        metaDescription: 'Convert numbers to formatted text, currency, or dates using Excel TEXT formulas. Free interactive builder. No signup.',
         excelFunction: 'TEXT',
         category: 'Text',
         description: 'Converts a value to text in a specific number format.',
+        howToSteps: [
+            { name: 'Select value', text: 'Enter the cell containing the number or date you want to format (e.g. A1).' },
+            { name: 'Choose format code', text: 'Select or write a custom format code (like "$#,##0.00" for money or "YYYY-MM-DD" for date).' },
+            { name: 'Copy formatted output', text: 'Note that the result is text, so it cannot be used in numerical calculations directly.' }
+        ],
         inputs: [
             { id: 'value', label: 'Value', type: 'text', placeholder: 'e.g., A1' },
             {
@@ -1309,11 +1386,15 @@ export const FORMULAS: FormulaConfig[] = [
     // 36. ROUND - Round Numbers
     {
         slug: 'round',
-        title: 'ROUND Formula Generator (2026) — Round Numbers | Free Excel & Sheets',
-        metaDescription: 'Round numbers in Excel and Google Sheets. Free ROUND tool for decimal places. No signup required. Format values precisely and easily.',
+        title: 'Free ROUND Formula Generator — Round Numbers in Excel & Sheets',
+        metaDescription: 'Generate ROUND formulas to round numbers to specific decimals. Free Excel & Google Sheets tool. Copy-paste results instantly, no signup.',
         excelFunction: 'ROUND',
         category: 'Math',
         description: 'Rounds a number to a specified number of digits.',
+        howToSteps: [
+            { name: 'Select number', text: 'Choose the cell containing the decimal value you want to round (e.g. A1).' },
+            { name: 'Set decimal places', text: 'Enter the number of digits to round to. 0 rounds to the nearest whole integer.' }
+        ],
         inputs: [
             { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 2' },
@@ -1355,11 +1436,15 @@ export const FORMULAS: FormulaConfig[] = [
     // 38. ROUNDDOWN - Round Down
     {
         slug: 'rounddown',
-        title: 'ROUNDDOWN Formula Generator (2026) — Always Round Down | Free Excel & Sheets',
-        metaDescription: 'Round numbers down in Excel and Google Sheets. Free ROUNDDOWN tool for floor values. No signup required. Always round toward zero.',
+        title: 'Free ROUNDDOWN Formula Generator — Round Down in Excel',
+        metaDescription: 'Round numbers down towards zero using Excel ROUNDDOWN formula. Free online generator with examples and step-by-step guide.',
         excelFunction: 'ROUNDDOWN',
         category: 'Math',
         description: 'Rounds a number down, toward zero.',
+        howToSteps: [
+            { name: 'Select number', text: 'Choose the cell containing the decimal value you want to truncate (e.g. A1).' },
+            { name: 'Set decimal places', text: 'Enter how many digits to keep. 0 rounds down to the nearest whole integer towards zero.' }
+        ],
         inputs: [
             { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 0' },
@@ -1379,7 +1464,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'abs',
         title: 'ABS Formula Generator (2026) — Absolute Value | Free Excel & Sheets',
-        metaDescription: 'Get the absolute value of a number.',
+        metaDescription: 'Get the absolute value of a number in Excel and Google Sheets. Use ABS to remove negative signs, calculate variance, and handle financial data.',
         excelFunction: 'ABS',
         category: 'Math',
         description: 'Returns the absolute value of a number (removes the negative sign).',
@@ -1438,11 +1523,15 @@ export const FORMULAS: FormulaConfig[] = [
     // 42. AVERAGE - Average Value
     {
         slug: 'average',
-        title: 'AVERAGE Formula Generator (2026) — Calculate Mean | Free Excel & Sheets',
-        metaDescription: 'Calculate the average of a range of numbers.',
+        title: 'Free AVERAGE Formula Generator (2026) — Calculate Mean Instantly',
+        metaDescription: 'Generate AVERAGE formulas for Excel and Google Sheets. Free tool with step-by-step guide and troubleshooting. No signup required.',
         excelFunction: 'AVERAGE',
         category: 'Math',
         description: 'Returns the average (arithmetic mean) of the arguments.',
+        howToSteps: [
+            { name: 'Highlight range', text: 'Select the range of numeric cells you want to average (e.g. A1:A100).' },
+            { name: 'Handle blank cells', text: 'Average automatically ignores blank cells, but counts zeros. Ensure empty values are truly empty, not 0.' }
+        ],
         inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
         generate: (p) => `=AVERAGE(${p.range || 'range'})`,
         faq: [
@@ -1458,11 +1547,15 @@ export const FORMULAS: FormulaConfig[] = [
     // 43. SUM - Sum Values
     {
         slug: 'sum',
-        title: 'SUM Formula Generator (2026) — Add Numbers | Free Excel & Sheets',
-        metaDescription: 'Add up all numbers in a range of cells.',
+        title: 'Free SUM Formula Generator (2026) — Add Numbers Instantly',
+        metaDescription: 'Add up numbers in a range with Excel & Google Sheets SUM formulas. Free tool with shortcut tips (Alt+=). Copy-paste instantly.',
         excelFunction: 'SUM',
         category: 'Math',
         description: 'Adds all the numbers in a range of cells.',
+        howToSteps: [
+            { name: 'Select sum range', text: 'Highlight the range of cells you want to add up (e.g. A1:A100).' },
+            { name: 'Confirm number formatting', text: 'Make sure cells are formatted as numbers and not text, otherwise SUM will return 0.' }
+        ],
         inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
         generate: (p) => `=SUM(${p.range || 'range'})`,
         faq: [
@@ -1478,11 +1571,15 @@ export const FORMULAS: FormulaConfig[] = [
     // 44. YEAR - Extract Year
     {
         slug: 'year',
-        title: 'YEAR Formula Generator (2026) — Extract Year from Date | Free Excel & Sheets',
-        metaDescription: 'Extract the year from a date.',
+        title: 'Free YEAR Formula Generator — Extract Year from Dates | Excel',
+        metaDescription: 'Extract the year portion of any date in Excel & Google Sheets. Free YEAR formula generator with clear examples and quick guide.',
         excelFunction: 'YEAR',
         category: 'Date',
         description: 'Returns the year of a date, an integer in the range 1900-9999.',
+        howToSteps: [
+            { name: 'Select date cell', text: 'Choose the cell containing a valid Excel date or date serial number (e.g. A1).' },
+            { name: 'Format cell as General', text: 'Make sure the output cell is formatted as "General" or "Number" to display the 4-digit year correctly.' }
+        ],
         inputs: [{ id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=YEAR(${p.date || 'date'})`,
         faq: [
@@ -1519,7 +1616,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'day',
         title: 'DAY Formula Generator (2026) — Extract Day from Date | Free Excel & Sheets',
-        metaDescription: 'Extract the day from a date.',
+        metaDescription: 'Extract the day of the month from a date in Excel and Google Sheets. Use DAY with MONTH, YEAR, DATE, and EOMONTH for date-based reporting.',
         excelFunction: 'DAY',
         category: 'Date',
         description: 'Returns the day of a date, a number from 1 to 31.',

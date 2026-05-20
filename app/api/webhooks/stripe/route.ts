@@ -1,16 +1,11 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { createClient } from '@supabase/supabase-js';
+import { env } from '@/lib/config';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+const stripe = new Stripe(env.stripeSecretKey, {
   apiVersion: '2026-03-25.dahlia' as const,
 });
-
-// We need the service role key to bypass RLS and update the profile
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 export async function POST(req: Request) {
   const payload = await req.text();
@@ -22,7 +17,7 @@ export async function POST(req: Request) {
     event = stripe.webhooks.constructEvent(
       payload,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      env.stripeWebhookSecret!
     );
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
@@ -33,12 +28,11 @@ export async function POST(req: Request) {
   // Handle the checkout.session.completed event
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session;
-    
+
     const userId = session.client_reference_id;
 
     if (userId) {
-      console.log(`Upgrading user ${userId} to Pro...`);
-      // Update the user's profile to is_pro = true
+      const supabaseAdmin = getSupabaseAdmin();
       const { error } = await supabaseAdmin
         .from('profiles')
         .update({ is_pro: true, updated_at: new Date().toISOString() })
@@ -48,7 +42,6 @@ export async function POST(req: Request) {
         console.error('Error updating user profile:', error);
         return NextResponse.json({ error: 'Database update failed' }, { status: 500 });
       }
-      console.log(`User ${userId} successfully upgraded to Pro!`);
     } else {
       console.warn('No client_reference_id found in session. Missing user ID binding.');
     }

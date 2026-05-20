@@ -1,10 +1,22 @@
 import React from 'react';
 import { FormulaConfig } from '../lib/formulas';
 
+/** Map formula category to Schema.org applicationSubCategory */
+const CATEGORY_MAP: Record<string, string> = {
+    'Lookup': 'SpreadsheetLookup',
+    'Math': 'SpreadsheetCalculation',
+    'Text': 'SpreadsheetTextProcessing',
+    'Date': 'SpreadsheetDateCalculation',
+    'Logic': 'SpreadsheetLogic',
+    'Statistical': 'SpreadsheetStatistical',
+};
+
 interface JsonLdProps {
     formula: FormulaConfig;
     /** Canonical URL for this formula page (improves HowTo / SoftwareApplication linkage). */
     pageUrl?: string;
+    /** ISO date string e.g. "2026-01-15" for freshness signal */
+    dateModified?: string;
 }
 
 /** Strip HTML tags for schema.org text fields (FAQ answers may contain markup). */
@@ -16,7 +28,7 @@ function plainTextForSchema(htmlOrText: string): string {
         .trim();
 }
 
-const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl }) => {
+const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl, dateModified }) => {
     const schemas = [];
 
     // 1. SoftwareApplication Schema
@@ -25,6 +37,7 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl }) => {
         "@type": "SoftwareApplication",
         "name": formula.title,
         "applicationCategory": "BusinessApplication",
+        "applicationSubCategory": CATEGORY_MAP[formula.category] || 'Utilities',
         "operatingSystem": "Web",
         "offers": {
             "@type": "Offer",
@@ -32,10 +45,19 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl }) => {
             "priceCurrency": "USD"
         },
         "description": formula.description,
-        "featureList": formula.inputs.map(input => input.label).join(", ")
+        "featureList": formula.inputs.map(input => input.label).join(", "),
+        "author": {
+            "@type": "Organization",
+            "name": "SheetMaster",
+            "url": "https://www.getsheetmaster.com",
+        },
+        "inLanguage": "en-US",
     };
     if (pageUrl) {
         softwareAppSchema.url = pageUrl;
+    }
+    if (dateModified) {
+        softwareAppSchema.dateModified = dateModified;
     }
     schemas.push(softwareAppSchema);
 
@@ -46,6 +68,12 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl }) => {
             "@type": "HowTo",
             "name": `How to use the ${formula.excelFunction} function in Excel or Google Sheets`,
             "description": plainTextForSchema(formula.metaDescription || formula.description),
+            "inLanguage": "en-US",
+            "author": {
+                "@type": "Organization",
+                "name": "SheetMaster",
+                "url": "https://www.getsheetmaster.com",
+            },
             "step": formula.howToSteps.map((step, index) => ({
                 "@type": "HowToStep",
                 "position": index + 1,
@@ -57,6 +85,9 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl }) => {
         };
         if (pageUrl) {
             howToSchema.url = pageUrl;
+        }
+        if (dateModified) {
+            howToSchema.dateModified = dateModified;
         }
         schemas.push(howToSchema);
     }

@@ -95,6 +95,10 @@ export const BLOG_POSTS: Post[] = [
       { question: 'How do I calculate year-over-year growth in Excel?', answer: 'Use =(This Year - Last Year) / Last Year. Works for any time period.' },
       { question: 'Why does my percentage show as a decimal?', answer: 'Select the cell and press Ctrl+Shift+% to apply Percentage formatting.' },
     ],
+    toolCta: {
+      href: '/formulas/if',
+      label: 'Open IF formula generator',
+    },
     content: `<p>Calculating percentage increase in Excel is one of the most common tasks in finance, sales reporting, and data analysis. The formula is simple once you understand it.</p>
 
 <h2>The Basic Percentage Increase Formula</h2>
@@ -103,7 +107,7 @@ export const BLOG_POSTS: Post[] = [
 <p>Format the result cell as a Percentage (Ctrl+Shift+%) to display it correctly.</p>
 
 <h2>Step-by-Step Example</h2>
-<p>Say last month's sales (B2) were $10,000 and this month's (C2) are $12,500:</p>
+<p>Last month's sales (B2) were $10,000 and this month's (C2) are $12,500:</p>
 <pre><code>=(C2-B2)/B2   → 25%</code></pre>
 
 <h2>Calculate Percentage Increase for an Entire Column</h2>
@@ -138,6 +142,10 @@ export const BLOG_POSTS: Post[] = [
       { question: 'How do I find duplicates between two columns in Excel?', answer: 'Use =COUNTIF($B:$B, A2)>0 in a helper column, or use Conditional Formatting with the same formula.' },
       { question: 'What is the fastest way to compare two columns in Excel?', answer: 'Conditional Formatting is the fastest for visual review. COUNTIF is best for filtering programmatically.' },
     ],
+    toolCta: {
+      href: '/formulas/countif',
+      label: 'Open COUNTIF formula generator',
+    },
     content: `<p>Finding duplicates across two columns is a critical skill for data cleaning. Excel gives you several approaches depending on whether you want to highlight, list, or remove duplicates.</p>
 
 <h2>Method 1: COUNTIF — Mark Duplicates with a TRUE/FALSE Flag</h2>
@@ -241,6 +249,10 @@ export const BLOG_POSTS: Post[] = [
       { question: 'How do I show time as 1h 30m in Excel?', answer: '=INT(A2/60)&"h "&MOD(A2,60)&"m"' },
       { question: 'Why does Excel show #### when I enter time?', answer: 'The column is too narrow. Widen it, or the value is negative (Excel cannot display negative times by default).' },
     ],
+    toolCta: {
+      href: '/formulas/text',
+      label: 'Open TEXT formula generator',
+    },
     content: `<p>Converting minutes to hours and minutes in Excel is simple once you know how Excel stores time internally. Here are three reliable methods.</p>
 
 <h2>Method 1: Division (Quickest)</h2>
@@ -283,6 +295,10 @@ Minutes: =MOD(A2,60)</code></pre>
       { question: 'How do I capitalize the first letter of each word in Excel?', answer: 'Use =PROPER(A2). It capitalizes the first letter of every word.' },
       { question: 'Does Excel have a sentence case function?', answer: 'No built-in sentence case function exists. Use =UPPER(LEFT(A2,1))&LOWER(MID(A2,2,LEN(A2)-1)) instead.' },
     ],
+    toolCta: {
+      href: '/formulas/proper',
+      label: 'Open PROPER formula generator',
+    },
     content: `<p>Excel has no single built-in function for "sentence case" (first letter only capitalized), but you can achieve it with a combination of text functions.</p>
 
 <h2>Method 1: PROPER — Capitalizes Every Word</h2>
@@ -327,6 +343,10 @@ Minutes: =MOD(A2,60)</code></pre>
       { question: 'How do I highlight a row if a cell is not empty?', answer: 'Use the formula =$B2<>"" to highlight rows where column B has any value.' },
       { question: 'How do I highlight rows with multiple conditions?', answer: 'Use AND() or OR() inside your formula: =AND($B2="Done", $C2>10)' },
     ],
+    toolCta: {
+      href: '/formulas/search',
+      label: 'Open SEARCH formula generator',
+    },
     content: `<p>Highlighting entire rows based on a cell's content makes data patterns immediately visible. Here's how to do it with Conditional Formatting.</p>
 
 <h2>Step 1: Select Your Data Range</h2>
@@ -373,6 +393,10 @@ Minutes: =MOD(A2,60)</code></pre>
       { question: 'How do I calculate GPA in Excel?', answer: 'Assign numeric GPA points (A=4.0, B=3.0, etc.) and multiply by credit hours, then sum and divide by total credits.' },
       { question: 'What is the difference between AVERAGE and weighted average?', answer: 'AVERAGE treats all values equally. Weighted average multiplies each value by its importance before averaging.' },
     ],
+    toolCta: {
+      href: '/formulas/sum',
+      label: 'Open SUM formula generator',
+    },
     content: `<p>A weighted grade gives more importance to some scores than others — for example, a final exam worth 40% vs. homework worth 10%. Excel's SUMPRODUCT function handles this perfectly.</p>
 
 <h2>The SUMPRODUCT Formula for Weighted Grades</h2>
@@ -418,6 +442,10 @@ Minutes: =MOD(A2,60)</code></pre>
       { question: 'Can I use Pass/Fail with a percentage cell?', answer: 'Yes. If A2 already contains a percentage like 72%, use =IF(A2>=60%,"Pass","Fail") or =IF(A2>=0.6,"Pass","Fail").' },
       { question: 'How do I use IFS for multiple grade levels?', answer: '=IFS(A2>=90,"A",A2>=80,"B",A2>=70,"C",A2>=60,"D",TRUE,"F")' },
     ],
+    toolCta: {
+      href: '/formulas/if',
+      label: 'Open IF formula generator',
+    },
     content: `<p>The Excel IF function is perfect for automatically labeling scores as "Pass" or "Fail" based on a percentage threshold. Here's how to set it up.</p>
 
 <h2>Basic Pass/Fail Formula</h2>
@@ -464,6 +492,10 @@ Minutes: =MOD(A2,60)</code></pre>
       { question: 'How do I split first and last name into separate columns?', answer: 'Use Data → Text to Columns → Delimited → Space. Or use Flash Fill (Ctrl+E).' },
       { question: 'What if the name has a middle name?', answer: 'Use the SUBSTITUTE formula that finds the last space, or use TEXTSPLIT in Excel 365.' },
     ],
+    toolCta: {
+      href: '/formulas/right',
+      label: 'Open RIGHT formula generator',
+    },
     content: `<p>Splitting names in Excel is a common data cleaning task. Here are formulas for the most common name formats.</p>
 
 <h2>Format: "First Last" — Extract Last Name</h2>
@@ -509,6 +541,10 @@ Minutes: =MOD(A2,60)</code></pre>
       { question: 'What if there are multiple occurrences of the delimiter?', answer: 'FIND returns the first occurrence. Use FIND with a start position argument to find the second: FIND(char, A2, FIND(char,A2)+1)' },
       { question: 'Is there an easier way in Excel 365?', answer: 'Yes: =TEXTBEFORE(TEXTAFTER(A2, open_char), close_char)' },
     ],
+    toolCta: {
+      href: '/formulas/mid',
+      label: 'Open MID formula generator',
+    },
     content: `<p>Extracting text that appears between two specific characters (like brackets, parentheses, or custom delimiters) is a common parsing task. Here's how to do it in Excel.</p>
 
 <h2>Extract Text Between Two Identical Characters</h2>
@@ -555,6 +591,10 @@ Minutes: =MOD(A2,60)</code></pre>
       { question: 'What Excel version has TEXTAFTER?', answer: 'TEXTAFTER is available in Excel 365 (Microsoft 365 subscription) and Excel 2024.' },
       { question: 'How can I remove duplicate domains after extracting them?', answer: 'Use Data → Remove Duplicates in Excel, or the Remove Duplicates tool on the SheetMaster website.' },
     ],
+    toolCta: {
+      href: '/formulas/extract-domain',
+      label: 'Open Extract Domain formula generator',
+    },
     content: `<p>Extracting the domain part from email addresses is a common data preparation task in marketing and CRM work. Excel makes it easy with text functions.</p>
 
 <h2>Basic Formula: Extract Domain After @</h2>
@@ -600,6 +640,10 @@ Minutes: =MOD(A2,60)</code></pre>
       { question: 'Does Excel update the countdown automatically?', answer: 'Only when the workbook recalculates. TODAY() updates on open; use F9 to force update for NOW().' },
       { question: 'How do I count only working days in the countdown?', answer: '=NETWORKDAYS(TODAY(), A2)-1 counts remaining business days excluding weekends.' },
     ],
+    toolCta: {
+      href: '/formulas/today',
+      label: 'Open TODAY formula generator',
+    },
     content: `<p>While Excel isn't a real-time clock, you can build powerful countdown formulas that show the time remaining until any future date — perfect for project deadlines, event planning, and expiration tracking.</p>
 
 <h2>Days Remaining Until a Date</h2>
@@ -658,6 +702,10 @@ Minutes: =MOD(A2,60)</code></pre>
     title: '5 Excel Formulas That Clean Messy Data 10x Faster',
     description: 'Use TRIM, PROPER, SUBSTITUTE, and more to clean text and data in Excel and Google Sheets.',
     date: '2026-01-12',
+    toolCta: {
+      href: '/solutions/data-cleaning',
+      label: 'Open Data Cleaning tools',
+    },
     content: '<p>Messy data slows you down. These five formulas help you clean text, fix capitalization, and remove extra spaces in seconds.</p><p>Try our <a href="/solutions/data-cleaning">Data Cleaning tools</a> for email extraction, domain extraction, and text normalization.</p>',
   },
   {
@@ -676,6 +724,10 @@ Minutes: =MOD(A2,60)</code></pre>
     title: 'Excel Formulas for E-commerce Inventory Management',
     description: 'SKU lookup, reorder alerts, and inventory formulas for Excel and Google Sheets.',
     date: '2026-01-08',
+    toolCta: {
+      href: '/solutions/inventory-manager',
+      label: 'Open Inventory Manager tools',
+    },
     content: '<p>Manage inventory with VLOOKUP for SKU lookup, IF for reorder alerts, and SUMIF for totals by product.</p><p>See our <a href="/solutions/inventory-manager">Inventory Manager</a> solution for ready-made tools.</p>',
   },
   {
@@ -739,5 +791,144 @@ Minutes: =MOD(A2,60)</code></pre>
 <h2>Next step: build SUMIFS without typos</h2>
 <p>For fields you can fill in and a copy-ready formula, open our <a href="/formulas/sumifs">SUMIFS formula generator</a>. It follows the same <strong>excel sumifs syntax</strong> order Excel expects: sum range first, then repeating criteria range / criteria pairs.</p>
 <p>Need only one condition? You can still use the <a href="/formulas/sumif">SUMIF generator</a>—or stay on <a href="/formulas/sumifs">SUMIFS</a> with a single pair for consistency.</p>`,
+  },
+  {
+    slug: 'excel-grade-calculator',
+    title: 'Excel Grade Calculator: Weighted & Letter Grade Formulas (+Free Tool)',
+    description: 'Calculate weighted grades, letter grades, and pass/fail status in Excel. Includes AVERAGE, SUMPRODUCT, IF, and VLOOKUP formulas with a free grade calculator tool.',
+    date: '2026-05-16',
+    toolCta: {
+      href: '/formulas/sumproduct',
+      label: 'Open SUMPRODUCT formula generator',
+    },
+    content: `<p>Whether you are a teacher calculating final grades or a student tracking your GPA, Excel has all the formulas you need. This guide covers <strong>weighted grade calculations</strong>, <strong>letter grade conversion</strong>, and a <strong>pass/fail checker</strong>.</p>
+
+<h2>Method 1: Simple average (equal weights)</h2>
+<p>If all assignments have equal weight, use <strong>AVERAGE</strong>:</p>
+<pre><code>=AVERAGE(B2:B10)</code></pre>
+<p>Replace B2:B10 with the range that contains your percentage scores. The result is the final grade as a percentage. You can also see our <a href="/formulas/average">AVERAGE formula generator</a> for help.</p>
+
+<h2>Method 2: Weighted grade with SUMPRODUCT</h2>
+<p>When exams, homework, and participation have different weights, use <strong>SUMPRODUCT</strong>:</p>
+<pre><code>=SUMPRODUCT(scores_range, weights_range) / SUM(weights_range)</code></pre>
+<p>Example: If scores are in B2:B4 and weights are in C2:C4:</p>
+<pre><code>=SUMPRODUCT(B2:B4, C2:C4) / SUM(C2:C4)</code></pre>
+<p>This multiplies each score by its weight, sums them, and divides by the total weight. See our <a href="/formulas/sumproduct">SUMPRODUCT formula generator</a> to build this automatically.</p>
+
+<h2>Method 3: Letter grade with nested IF</h2>
+<p>Convert a percentage grade to a letter grade using <strong>nested IF</strong>:</p>
+<pre><code>=IF(A1>=90, "A", IF(A1>=80, "B", IF(A1>=70, "C", IF(A1>=60, "D", "F"))))</code></pre>
+<p>This checks from highest to lowest: A (90+), B (80-89), C (70-79), D (60-69), F (below 60). Adjust the thresholds for your grading scale. Our <a href="/formulas/if">IF formula generator</a> can help build nested conditions.</p>
+
+<h2>Method 4: Pass/Fail with IF</h2>
+<pre><code>=IF(A1>=60, "Pass", "Fail")</code></pre>
+<p>Simple and effective. Replace 60 with your passing threshold. Our <a href="/formulas/pass-fail-percentage">Pass/Fail formula generator</a> automates this.</p>
+
+<h2>Pro tip: use named ranges</h2>
+<p>Select your score and weight cells, go to Formulas → Define Name, and give them names like <code>Scores</code> and <code>Weights</code>. Then your formula becomes:</p>
+<pre><code>=SUMPRODUCT(Scores, Weights) / SUM(Weights)</code></pre>
+<p>Named ranges make grade books much easier to read and audit.</p>`,
+  },
+  {
+    slug: 'remove-characters-excel',
+    title: 'How to Remove Characters in Excel: 5 Methods (From Left, Right, Specific)',
+    description: 'Remove first N characters, last N characters, or specific characters in Excel and Google Sheets. RIGHT+LEN, LEFT+LEN, SUBSTITUTE, TRIM, and REGEXREPLACE methods explained with examples.',
+    date: '2026-05-10',
+    toolCta: {
+      href: '/formulas/remove-first-3-chars',
+      label: 'Open Remove First Characters formula generator',
+    },
+    content: `<p>Cleaning up messy text is one of the most common Excel tasks. Whether you need to <strong>remove the first 3 characters</strong>, <strong>strip specific symbols</strong>, or <strong>delete extra spaces</strong>, this guide covers every method with examples.</p>
+
+<h2>Method 1: Remove first N characters (RIGHT + LEN)</h2>
+<p>Use <strong>RIGHT</strong> combined with <strong>LEN</strong> to remove characters from the start:</p>
+<pre><code>=RIGHT(A2, LEN(A2) - 3)</code></pre>
+<p>This removes the first 3 characters from cell A2. Change "3" to any number. Use our <a href="/formulas/remove-first-3-chars">Remove First Characters Formula Generator</a> to build this instantly.</p>
+
+<h2>Method 2: Remove last N characters (LEFT + LEN)</h2>
+<pre><code>=LEFT(A2, LEN(A2) - 3)</code></pre>
+<p>Removes the last 3 characters. Same logic as Method 1 but using LEFT instead of RIGHT. This is useful for removing file extensions (.pdf, .csv), trailing codes, or suffixes.</p>
+
+<h2>Method 3: Remove specific characters (SUBSTITUTE)</h2>
+<p>Use <strong>SUBSTITUTE</strong> to remove every occurrence of a specific character:</p>
+<pre><code>=SUBSTITUTE(A2, "-", "")</code></pre>
+<p>This removes all hyphens from the text. Replace "-" with any character. For case-insensitive removal, nest with UPPER or LOWER. Generate this with our <a href="/formulas/substitute">SUBSTITUTE formula generator</a>.</p>
+
+<h2>Method 4: Remove extra spaces (TRIM)</h2>
+<pre><code>=TRIM(A2)</code></pre>
+<p><strong>TRIM</strong> removes all extra spaces except single spaces between words. Essential for cleaning data imported from CSV files, web forms, or other systems. Use our <a href="/formulas/trim">TRIM formula generator</a>.</p>
+
+<h2>Method 5: Remove all non-numeric characters (advanced)</h2>
+<p>For Excel 365, use <strong>TEXTJOIN</strong> with <strong>MID</strong> and <strong>ISNUMBER</strong> to keep only digits:</p>
+<pre><code>=TEXTJOIN("", TRUE, IF(ISNUMBER(--MID(A2, ROW(INDIRECT("1:"&LEN(A2))), 1)), MID(A2, ROW(INDIRECT("1:"&LEN(A2))), 1), ""))</code></pre>
+<p>This is an array formula (enter with Ctrl+Shift+Enter in older Excel). For Google Sheets, use <strong>REGEXREPLACE</strong>:</p>
+<pre><code>=REGEXREPLACE(A2, "[^0-9]", "")</code></pre>
+
+<h2>Quick reference table</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Formula</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Remove first 3 characters</td><td><code>=RIGHT(A2, LEN(A2) - 3)</code></td></tr>
+    <tr><td>Remove last 3 characters</td><td><code>=LEFT(A2, LEN(A2) - 3)</code></td></tr>
+    <tr><td>Remove specific character</td><td><code>=SUBSTITUTE(A2, "-", "")</code></td></tr>
+    <tr><td>Remove extra spaces</td><td><code>=TRIM(A2)</code></td></tr>
+    <tr><td>Remove non-numeric (Sheets)</td><td><code>=REGEXREPLACE(A2, "[^0-9]", "")</code></td></tr>
+  </tbody>
+</table>`,
+  },
+  {
+    slug: 'sumifs-multiple-criteria-guide',
+    title: 'Excel SUMIFS with Multiple Criteria: Complete Guide (Includes Real-World Examples)',
+    description: 'Master SUMIFS in Excel and Google Sheets with multiple criteria. Real-world examples for sales, HR, finance, and inventory reports. SUMIF vs SUMIFS comparison included.',
+    date: '2026-05-05',
+    toolCta: {
+      href: '/formulas/sumifs',
+      label: 'Open SUMIFS formula generator',
+    },
+    content: `<p>The <strong>SUMIFS function</strong> is the most powerful way to sum values based on multiple conditions in Excel and Google Sheets. Unlike SUMIF which handles only one condition, SUMIFS supports up to 127 criteria pairs.</p>
+
+<h2>SUMIFS syntax</h2>
+<pre><code>=SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)</code></pre>
+<p>Key rule: the <strong>sum range comes first</strong> (opposite of SUMIF!). Each criteria is a pair: a range and the condition for that range.</p>
+
+<h2>Example 1: Single criteria (like SUMIF)</h2>
+<p>Sum all sales in column C where region in column A is "East":</p>
+<pre><code>=SUMIFS(C:C, A:A, "East")</code></pre>
+
+<h2>Example 2: Two criteria (AND logic)</h2>
+<p>Sum sales where region = "East" AND product = "Widget":</p>
+<pre><code>=SUMIFS(C:C, A:A, "East", B:B, "Widget")</code></pre>
+
+<h2>Example 3: Date range criteria</h2>
+<p>Sum amounts between two dates on the same column:</p>
+<pre><code>=SUMIFS(C:C, A:A, ">=1/1/2026", A:A, "<=3/31/2026")</code></pre>
+<p>Better practice: use cell references with <code>&gt;=</code> operator:</p>
+<pre><code>=SUMIFS(C:C, A:A, ">="&E1, A:A, "<="&F1)</code></pre>
+<p>Put start date in E1 and end date in F1 for easy updates.</p>
+
+<h2>Example 4: Numeric criteria with operators</h2>
+<p>Sum amounts greater than 500 where status is "Pending":</p>
+<pre><code>=SUMIFS(C:C, B:B, "Pending", C:C, ">500")</code></pre>
+
+<h2>Example 5: Blank and non-blank criteria</h2>
+<p>Sum amounts where status column is blank:</p>
+<pre><code>=SUMIFS(C:C, B:B, "")</code></pre>
+<p>Sum amounts where status column is NOT blank:</p>
+<pre><code>=SUMIFS(C:C, B:B, "<>")</code></pre>
+
+<h2>Common mistakes to avoid</h2>
+<ul>
+  <li><strong>Wrong argument order</strong>: sum_range first! <code>=SUMIFS(C:C, A:A, "X")</code> not <code>=SUMIFS(A:A, "X", C:C)</code>.</li>
+  <li><strong>Mismatched range sizes</strong>: all ranges must have the same number of rows. C1:C100 and A1:A100 work; C1:C100 and A1:A50 do not.</li>
+  <li><strong>Text not in quotes</strong>: <code>"East"</code> yes; <code>East</code> no. Use <code>&gt;0</code> for numbers, <code>"&gt;0"</code> for text-style operators.</li>
+  <li><strong>Dates as text</strong>: use DATE() or cell references to avoid date format issues.</li>
+</ul>
+
+<p>Generate your SUMIFS formula instantly with our <a href="/formulas/sumifs">SUMIFS formula generator</a>.</p>`,
   },
 ];

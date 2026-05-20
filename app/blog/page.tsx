@@ -3,10 +3,10 @@ import { BLOG_POSTS } from '@/lib/posts';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog',
+  title: 'Excel Formulas & Google Sheets Tips Blog | SheetMaster',
   description: 'Excel and Google Sheets tips, formula guides, and how-to articles. Free resources from SheetMaster.',
   openGraph: {
-    title: 'Blog | SheetMaster',
+    title: 'Excel Formulas & Google Sheets Tips Blog | SheetMaster',
     description: 'Excel and Google Sheets tips, formula guides, and how-to articles.',
     url: 'https://www.getsheetmaster.com/blog',
     type: 'website',
@@ -20,8 +20,7 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-900 mb-2">Blog</h1>
-      <p className="text-sm text-gray-400 mb-4">Debug: Found {BLOG_POSTS.length} posts</p>
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">Excel Formulas &amp; Google Sheets Tips Blog</h1>
       <p className="text-gray-600 mb-8">
         Excel and Google Sheets tips, formula guides, and how-to articles.
       </p>

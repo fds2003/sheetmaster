@@ -67,10 +67,10 @@ export default function Home() {
       {/* Hero Section */}
       <div className="text-center mb-10">
         <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-          Free Excel & Google Sheets Formula Generator - 50+ Tools
+          Excel Formulas, Generated Instantly
         </h1>
-        <p className="mt-4 text-xl text-gray-500">
-          No signup, instant results. Search or select a tool below to generate formulas instantly.
+        <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
+          Stop Googling syntax. Pick a formula, fill in the blanks, get the exact formula — working on your first try. <span className="text-green-600 font-medium">No signup. No AI errors.</span>
         </p>
       </div>
 

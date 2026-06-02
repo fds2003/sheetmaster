@@ -165,6 +165,7 @@ export const FORMULAS: FormulaConfig[] = [
             { name: "Determine the result if false", text: "Decide what happens if the condition is NOT met (e.g., return text 'Fail')." }
         ],
         faq: [
+            { question: "How to create an IF statement in Excel?", answer: "Start with =IF(logical_test, value_if_true, value_if_false). Example: =IF(A1>60, \"Pass\", \"Fail\"). The logical_test is your condition — if it's true, Excel shows value_if_true; otherwise value_if_false. Use our generator above to build one in seconds." },
             { question: "Can I use multiple IF statements?", answer: "Yes, you can nest IF statements inside each other to test multiple conditions, or use the IFS function for cleaner syntax." },
             { question: "How do I check for text?", answer: "Put text inside double quotes, like \"Yes\" or \"No\". Numbers do not need quotes." },
             { question: "What does the IF function do in Excel?", answer: "IF checks a condition and returns one value when true and another when false. Syntax: =IF(condition, value_if_true, value_if_false)." },
@@ -284,6 +285,7 @@ export const FORMULAS: FormulaConfig[] = [
             { name: 'Copy into your sheet', text: 'Paste the formula into your target cell and adjust ranges to match your actual data.' }
         ],
         faq: [
+            { question: 'Can COUNTIF handle multiple criteria?', answer: 'No — COUNTIF handles only one condition at a time. For multiple criteria (e.g., "count rows where A>100 AND B=\\"Yes\\""), use COUNTIFS instead. To count with OR logic, add two COUNTIFs together: =COUNTIF(A:A,"X")+COUNTIF(A:A,"Y").' },
             { question: 'Why does COUNTIF return 0 when I expect a count?', answer: 'Check that your criteria match the data type (number vs text). Use quotes for text: "Completed" or "=100". For numbers use ">50" or "=100". Dates may need DATE() or a cell reference.' },
             { question: 'How do I count blank or non-blank cells?', answer: 'Use criteria "" for blanks: =COUNTIF(A:A,""). For non-blanks use "<>": =COUNTIF(A:A,"<>").' },
             { question: 'What is the difference between COUNTIF and COUNTIFS?', answer: 'COUNTIF has one condition; COUNTIFS supports multiple criteria ranges. Use COUNTIFS when you need to count only when two or more conditions are met.' },
@@ -986,9 +988,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 24. Remove First 3 Characters
     {
         slug: 'remove-first-3-chars',
-        title: 'Remove First N Characters in Excel (2026) — RIGHT, LEN & Text Cleaning',
+        title: 'Remove First 3 Characters in Excel — Instant Formula, No Manual Work | SheetMaster',
         metaDescription:
-            'Remove first 3 characters (or any N) from text—how to remove first characters in Excel style fixes. RIGHT + LEN for Excel and Google Sheets. Free, no signup.',
+            'Need to remove first 3 characters from hundreds of cells? Don\'t do it by hand. Get the exact RIGHT+LEN formula in one click. Works for Excel & Google Sheets. Free.',
         excelFunction: 'RIGHT & LEN',
         category: 'Text',
         description: 'Removes the specified number of characters from the beginning of a text string.',
@@ -1040,9 +1042,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'SUMIFS Formula Generator (2026) — Multi-Criteria Sum | Excel & Sheets',
+        title: 'SUMIFS Made Easy — Sum with Multiple Conditions (Step by Step) | SheetMaster',
         metaDescription:
-            'Sum with multiple criteria: sum_range first, then criteria pairs—syntax that matches real searches (multi-criteria, same column). Excel & Google Sheets. Free, no signup.',
+            'Stop wrestling with SUMIFS syntax. Paste your data, pick your conditions, and get the exact formula in seconds. Works for Excel & Google Sheets. 3 real examples inside.',
         excelFunction: 'SUMIFS',
         category: 'Math',
         description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
@@ -1061,10 +1063,11 @@ export const FORMULAS: FormulaConfig[] = [
             { name: 'Copy and verify', text: 'Paste the formula and check the result against a manual calculation to confirm all criteria are applied correctly.' }
         ],
         faq: [
+            { question: 'How to do a SUMIFS with multiple criteria?', answer: 'Use =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2, ...). The sum_range comes first, then each pair of (range, condition). Example: =SUMIFS(C:C, A:A, "North", B:B, ">100") sums column C where A is "North" AND B > 100.' },
             { question: 'What is the correct SUMIFS syntax order (sum_range criteria_range1 criteria1)?', answer: 'The syntax is exactly: =SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2]...). The sum_range MUST come first, followed by pairs of criteria ranges and their specific conditions.' },
             { question: 'Why does SUMIFS return 0?', answer: 'This usually happens if criteria_range and sum_range are different sizes, or text criteria are missing quotes (like ">100"). Ensure all ranges have the exact same number of rows.' },
             { question: 'How do I use SUMIFS with dates?', answer: 'To sum between two dates, use two criteria on the same date column: criteria_range1 with ">="&start_date, and criteria_range2 with "<="&end_date.' },
-            { question: 'SUMIF vs SUMIFS: What is the difference?', answer: 'SUMIF is for a single condition and its syntax is (range, criteria, sum_range). SUMIFS handles multiple conditions and its syntax is (sum_range, criteria_range1, criteria1...). We recommend always using SUMIFS because it is more flexible.' },
+            { question: 'Can SUMIFS use multiple criteria on the same column?', answer: 'Yes, use SUMIFS with separate criteria pairs on the same range: =SUMIFS(C:C, A:A, ">100", A:A, "<500") sums C where A is between 100 and 500. Or add multiple SUMIFS for OR logic.' },
             { question: 'Can SUMIFS use wildcards?', answer: 'Yes. Use * for any characters and ? for one character: =SUMIFS(C:C, A:A, "*North*", B:B, ">100").' },
         ],
         commonErrors: [
@@ -1120,9 +1123,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 26. COUNTIFS - Multiple Criteria Count
     {
         slug: 'countifs',
-        title: 'COUNTIFS Formula Generator (2026) — Multiple Criteria & Date Ranges | Excel & Sheets',
+        title: 'COUNTIFS with Multiple Criteria — Count Rows That Match 2+ Conditions | SheetMaster',
         metaDescription:
-            'Count rows with two or more conditions (text, numbers, date ranges). COUNTIFS builder for Excel and Google Sheets—aligned with countifs with date range searches. No signup.',
+            'Need COUNTIFS with multiple criteria and date ranges? Enter your data once, get the formula instantly. Handles same-column conditions, text & number matching. Free tool, no signup.',
         excelFunction: 'COUNTIFS',
         category: 'Math',
         description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
@@ -1140,8 +1143,9 @@ export const FORMULAS: FormulaConfig[] = [
             { name: 'Copy and test', text: 'Paste into your spreadsheet. Test with a few rows to verify the count is correct before using it in reports.' }
         ],
         faq: [
+            { question: 'COUNTIFS with multiple criteria — how does it work?', answer: 'COUNTIFS counts rows only when ALL conditions are true (AND logic). Syntax: =COUNTIFS(range1, criteria1, range2, criteria2). Example: =COUNTIFS(A:A, ">100", B:B, "Yes") counts rows where A>100 AND B="Yes".' },
             { question: 'Why does COUNTIFS return 0?', answer: 'All conditions must be met in the same row. Check that criteria ranges are the same size and that criteria match data types (text in quotes, numbers with ">50" etc).' },
-            { question: 'Do COUNTIFS ranges have to be the same size?', answer: 'Yes. Each criteria range must have the same number of rows (and columns). Mismatched range sizes can give wrong counts or errors.' },
+            { question: 'COUNTIFS ranges must be same size — what happens if they\'re not?', answer: 'If ranges have different sizes, COUNTIFS may return 0 or wrong results. Always use the same number of rows for every criteria_range. Example: use A1:A100 with B1:B100, not A1:A100 with B2:B101.' },
             { question: 'Can COUNTIFS count with OR logic?', answer: 'COUNTIFS is AND logic only. For OR, add multiple COUNTIFS: =COUNTIFS(A:A,"X")+COUNTIFS(A:A,"Y"), or use SUMPRODUCT with (condition1)+(condition2).' },
             { question: 'How do I count rows where one column is blank and another is not?', answer: 'Use criteria "" for blank and "<>" for non-blank: =COUNTIFS(A:A,"", B:B,"<>").' },
             { question: 'What is the difference between COUNTIF and COUNTIFS?', answer: 'COUNTIF has one condition; COUNTIFS has multiple criteria_range/criteria pairs. Use COUNTIFS when you need two or more conditions at once.' },

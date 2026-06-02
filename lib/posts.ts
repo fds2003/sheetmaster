@@ -21,8 +21,8 @@ export interface Post {
 export const BLOG_POSTS: Post[] = [
   {
     slug: 'excel-formula-get-first-word',
-    title: 'Excel Formula to Get First Word from Cell (3 Easy Ways)',
-    description: 'Learn how to extract the first word from a cell in Excel using LEFT, FIND, IFERROR, and the new TEXTBEFORE function in Excel 365. Step-by-step guide with examples.',
+    title: 'Excel Get First Word from Cell — 3 Simple Formulas That Work Instantly | SheetMaster',
+    description: 'Extract the first word from any cell in seconds — LEFT+FIND for all versions, TEXTBEFORE for Excel 365. No manual splitting. Works on names, addresses, product codes.',
     date: '2026-03-20',
     toolCta: {
       href: '/formulas/get-first-word',
@@ -87,8 +87,8 @@ export const BLOG_POSTS: Post[] = [
 
   {
     slug: 'calculate-percentage-increase-excel-formula',
-    title: 'Calculate Percentage Increase in Excel: Formula + Examples',
-    description: 'Learn the Excel formula to calculate percentage increase between two numbers. Step-by-step guide with real examples for sales, revenue, and growth tracking.',
+    title: 'How to Calculate Percentage Increase in Excel — Formula & Examples | SheetMaster',
+    description: 'Master the Excel percentage increase formula in under 2 minutes. Step-by-step with real examples for sales growth, revenue tracking & YoY comparisons. Copy the formula, done.',
     date: '2026-03-19',
     faqs: [
       { question: 'What is the Excel formula for percentage increase?', answer: '=(New-Old)/Old. Format the cell as Percentage (Ctrl+Shift+%) to see the % symbol.' },
@@ -434,8 +434,8 @@ Minutes: =MOD(A2,60)</code></pre>
 
   {
     slug: 'excel-pass-fail-percentage-formula',
-    title: 'Excel Formula for Pass or Fail Based on Percentage (IF Function)',
-    description: 'Use the IF function in Excel to automatically show Pass or Fail based on a percentage score. Includes examples with custom thresholds and letter grades.',
+    title: 'Pass Fail Percentage Formula in Excel — Set It Up in 30 Seconds | SheetMaster',
+    description: 'Stop manually checking scores. One IF formula auto-labels Pass/Fail for your entire class. Includes custom thresholds, letter grades (A-F), and conditional formatting. Copy & paste ready.',
     date: '2026-03-12',
     faqs: [
       { question: 'What Excel formula shows Pass or Fail?', answer: '=IF(A2>=60,"Pass","Fail") — adjust 60 to your threshold.' },
@@ -533,8 +533,8 @@ Minutes: =MOD(A2,60)</code></pre>
 
   {
     slug: 'excel-extract-text-between-characters',
-    title: 'Excel Extract Text Between Two Characters (MID + FIND Formula)',
-    description: 'Use Excel formulas with MID, FIND, and SEARCH to extract text between two characters like brackets, parentheses, or custom delimiters.',
+    title: 'Extract Text Between Characters in Excel — Brackets, Quotes & More | SheetMaster',
+    description: 'Need text between parentheses, brackets, or quotes? MID+FIND formula handles it in one cell. Works with any delimiters. Includes Excel 365 TEXTBEFORE/TEXTAFTER shortcut.',
     date: '2026-03-10',
     faqs: [
       { question: 'How do I extract text between two characters in Excel?', answer: 'Use =MID(A2, FIND(char1,A2)+1, FIND(char2,A2)-FIND(char1,A2)-1)' },
@@ -632,8 +632,8 @@ Minutes: =MOD(A2,60)</code></pre>
 
   {
     slug: 'excel-countdown-timer-formula',
-    title: 'Excel Countdown Timer Formula: Days, Hours, and Minutes Until a Date',
-    description: 'Build an Excel countdown timer using TODAY(), NOW(), and text formulas. Count days, hours, and minutes remaining until a deadline or event.',
+    title: 'Excel Countdown Timer — Days, Hours & Minutes Until Any Date | SheetMaster',
+    description: 'Create a live countdown in Excel with TODAY() and NOW(). Shows days/hours/minutes remaining, auto-colors overdue items red. Perfect for project deadlines & event tracking.',
     date: '2026-03-08',
     faqs: [
       { question: 'How do I create a countdown timer in Excel?', answer: 'Use =A2-TODAY() for days remaining, or =INT(A2-NOW())&" days, "&HOUR(A2-NOW())&" hrs" for a detailed countdown.' },

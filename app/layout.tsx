@@ -17,7 +17,7 @@ const organizationSchema = {
 };
 
 /* Inter: SIL OFL 1.1 免费可商用 */
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const viewport: Viewport = {
   width: "device-width",

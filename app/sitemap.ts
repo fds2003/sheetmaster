@@ -4,120 +4,49 @@ import { SOLUTIONS } from '@/lib/solutions';
 import { BLOG_POSTS } from '@/lib/posts';
 import { USE_CASES } from '@/lib/use-cases';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://www.getsheetmaster.com';
+const BASE_URL = 'https://www.getsheetmaster.com';
+const LAST_MOD = new Date('2026-06-02');
 
+function entry(url: string, priority: number, changeFreq: 'daily' | 'weekly' | 'monthly' | 'yearly' = 'weekly') {
+    return { url, lastModified: LAST_MOD, changeFrequency: changeFreq, priority };
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Static routes
     const routes = [
-        {
-            url: baseUrl,
-            lastModified: new Date(),
-            priority: 1,
-        },
-        {
-            url: `${baseUrl}/privacy`,
-            lastModified: new Date(),
-            priority: 0.3,
-        },
-        {
-            url: `${baseUrl}/terms`,
-            lastModified: new Date(),
-            priority: 0.3,
-        },
-        {
-            url: `${baseUrl}/blog`,
-            lastModified: new Date(),
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/resources`,
-            lastModified: new Date(),
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/tools/remove-duplicates`,
-            lastModified: new Date(),
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/tools/split-text`,
-            lastModified: new Date(),
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/tools/excel-age-calculator`,
-            lastModified: new Date(),
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/tools/gpa-calculator-excel`,
-            lastModified: new Date(),
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/tools/excel-gradebook-template`,
-            lastModified: new Date(),
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/tools/bom-inventory`,
-            lastModified: new Date(),
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/tools/regex-extract-generator`,
-            lastModified: new Date(),
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/tools/sumifs-across-sheets`,
-            lastModified: new Date(),
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/compare/vlookup-vs-xlookup`,
-            lastModified: new Date(),
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/use-cases`,
-            lastModified: new Date(),
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/solutions`,
-            lastModified: new Date(),
-            priority: 0.7,
-        },
+        entry(BASE_URL, 1, 'daily'),
+        entry(`${BASE_URL}/privacy`, 0.3, 'monthly'),
+        entry(`${BASE_URL}/terms`, 0.3, 'monthly'),
+        entry(`${BASE_URL}/blog`, 0.7, 'weekly'),
+        entry(`${BASE_URL}/resources`, 0.7, 'weekly'),
+        entry(`${BASE_URL}/tools/remove-duplicates`, 0.7, 'weekly'),
+        entry(`${BASE_URL}/tools/split-text`, 0.7, 'weekly'),
+        entry(`${BASE_URL}/tools/excel-age-calculator`, 0.8, 'weekly'),
+        entry(`${BASE_URL}/tools/gpa-calculator-excel`, 0.8, 'weekly'),
+        entry(`${BASE_URL}/tools/excel-gradebook-template`, 0.8, 'weekly'),
+        entry(`${BASE_URL}/tools/bom-inventory`, 0.8, 'weekly'),
+        entry(`${BASE_URL}/tools/regex-extract-generator`, 0.8, 'weekly'),
+        entry(`${BASE_URL}/tools/sumifs-across-sheets`, 0.8, 'weekly'),
+        entry(`${BASE_URL}/compare/vlookup-vs-xlookup`, 0.7, 'weekly'),
+        entry(`${BASE_URL}/use-cases`, 0.7, 'weekly'),
+        entry(`${BASE_URL}/solutions`, 0.7, 'weekly'),
     ];
 
-    // Use-case (industry) routes
-    const useCaseRoutes = USE_CASES.map((uc) => ({
-        url: `${baseUrl}/use-cases/${uc.slug}`,
-        lastModified: new Date(),
-        priority: 0.7,
-    }));
+    const useCaseRoutes = USE_CASES.map((uc) =>
+        entry(`${BASE_URL}/use-cases/${uc.slug}`, 0.7, 'weekly')
+    );
 
-    // Blog post routes
-    const blogRoutes = BLOG_POSTS.map((post) => ({
-        url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: new Date(),
-        priority: 0.7,
-    }));
+    const blogRoutes = BLOG_POSTS.map((post) =>
+        entry(`${BASE_URL}/blog/${post.slug}`, 0.7, 'weekly')
+    );
 
-    // Dynamic routes from formulas
-    const formulaRoutes = FORMULAS.map((formula) => ({
-        url: `${baseUrl}/formulas/${formula.slug}`,
-        lastModified: new Date(),
-        priority: 0.8,
-    }));
+    const formulaRoutes = FORMULAS.map((formula) =>
+        entry(`${BASE_URL}/formulas/${formula.slug}`, 0.8, 'weekly')
+    );
 
-    // Dynamic routes from solutions (high priority industry tools)
-    const solutionRoutes = SOLUTIONS.map((solution) => ({
-        url: `${baseUrl}/solutions/${solution.slug}`,
-        lastModified: new Date(),
-        priority: 0.9,
-    }));
+    const solutionRoutes = SOLUTIONS.map((solution) =>
+        entry(`${BASE_URL}/solutions/${solution.slug}`, 0.9, 'weekly')
+    );
 
     return [...routes, ...blogRoutes, ...useCaseRoutes, ...solutionRoutes, ...formulaRoutes];
 }

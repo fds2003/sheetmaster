@@ -7,6 +7,11 @@ const nextConfig = {
         destination: '/formulas/:slug',
         permanent: true,
       },
+      {
+        source: '/formulas',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
   async headers() {

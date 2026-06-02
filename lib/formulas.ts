@@ -201,6 +201,29 @@ export const FORMULAS: FormulaConfig[] = [
             const sumRange = p.sum_range ? `, ${p.sum_range}` : '';
             return `=SUMIF(${range}, ${criteria}${sumRange})`;
         },
+        richContent: `
+<div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
+  <h2 class="text-2xl font-bold mb-4">Mastering SUMIF: Conditional Sums in Excel & Google Sheets</h2>
+  <p class="mb-4">The <strong>SUMIF</strong> function is one of the most practical tools for financial analysis, sales reporting, and budget tracking. It sums values based on a single condition — like "sum all sales where the region is North" or "sum expenses where category is Marketing."</p>
+
+  <h3 class="text-xl font-semibold mb-2">How SUMIF Works</h3>
+  <p class="mb-4">The SUMIF function evaluates each cell in a range against your criteria. If it matches, the corresponding value from the sum_range is added to the total. If you omit sum_range, SUMIF sums the range itself.</p>
+
+  <h3 class="text-xl font-semibold mb-2">Real-World SUMIF Examples</h3>
+  <p class="mb-2"><strong>Sum sales by region:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=SUMIF(A:A, "North", B:B)</code></pre>
+  <p class="mb-2"><strong>Sum amounts greater than 500:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=SUMIF(B:B, ">500")</code></pre>
+  <p class="mb-2"><strong>Sum with a cell reference as criteria:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=SUMIF(A:A, E1, B:B)</code></pre>
+
+  <h3 class="text-xl font-semibold mb-2">SUMIF vs SUMIFS: When to Use Each</h3>
+  <p class="mb-4">SUMIF handles one condition. When you need multiple conditions — like "sum sales for Product X in the North region during Q1" — use <a href="/formulas/sumifs" class="text-blue-600 underline font-semibold">SUMIFS</a>. The key difference: SUMIFS puts the sum_range first, then pairs of criteria_range and criteria.</p>
+
+  <div class="bg-green-50 p-4 rounded-lg border border-green-100 mt-6">
+    <p class="text-sm text-green-800"><strong>Pro Tip:</strong> Use wildcards for flexible matching. <code>=SUMIF(A:A, "*Widget*", B:B)</code> sums all rows where column A contains "Widget" anywhere in the text. Use <code>?</code> for single-character matching.</p>
+  </div>
+</div>`,
         howToSteps: [
             { name: 'Select your range', text: 'Choose the range of cells that contains your criteria. For example, A1:A10 contains product names or numbers.' },
             { name: 'Define your criteria', text: 'Enter the condition in quotes, like "Apple" for exact text or ">100" for numbers. For cell references use "="&E1.' },
@@ -232,6 +255,28 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'criteria', label: 'Criteria', type: 'text', placeholder: 'e.g., ">100" or "Completed"' },
         ],
         generate: (p) => `=COUNTIF(${p.range || 'range'}, ${p.criteria || 'criteria'})`,
+        richContent: `
+<div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
+  <h2 class="text-2xl font-bold mb-4">Mastering COUNTIF: Count Cells That Meet Any Condition</h2>
+  <p class="mb-4">The <strong>COUNTIF</strong> function is essential for data analysis, quality control, and reporting. Need to know how many orders exceed $1,000? How many tasks are marked "Complete"? How many entries fall within a date range? COUNTIF answers these instantly.</p>
+
+  <h3 class="text-xl font-semibold mb-2">COUNTIF Syntax & Common Patterns</h3>
+  <p class="mb-3">The basic syntax: <code>=COUNTIF(range, criteria)</code></p>
+  <ul class="list-disc pl-5 mb-4 space-y-2">
+    <li><strong>Count exact text:</strong> <code>=COUNTIF(A:A, "Completed")</code></li>
+    <li><strong>Count numbers greater than:</strong> <code>=COUNTIF(B:B, ">1000")</code></li>
+    <li><strong>Count blank cells:</strong> <code>=COUNTIF(A:A, "")</code></li>
+    <li><strong>Count non-blank cells:</strong> <code>=COUNTIF(A:A, "<>")</code></li>
+    <li><strong>Count dates after a specific date:</strong> <code>=COUNTIF(A:A, ">="&DATE(2026,1,1))</code></li>
+  </ul>
+
+  <h3 class="text-xl font-semibold mb-2">When COUNTIF Meets Wildcards</h3>
+  <p class="mb-4">Wildcards make COUNTIF extremely powerful for partial matching. Use <code>*</code> for any sequence of characters and <code>?</code> for a single character. For example, <code>=COUNTIF(A:A, "*East*")</code> counts all cells containing "East" — including "Northeast" and "Eastern".</p>
+
+  <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 mt-6">
+    <p class="text-sm text-yellow-800"><strong>Pro Tip:</strong> For multiple conditions, upgrade to <a href="/formulas/countifs" class="text-blue-600 underline font-semibold">COUNTIFS</a>. The syntax is <code>=COUNTIFS(criteria_range1, criteria1, criteria_range2, criteria2)</code>. It's like COUNTIF on steroids.</p>
+  </div>
+</div>`,
         howToSteps: [
             { name: 'Select your range', text: 'Choose the range of cells you want to count from, such as A1:A100.' },
             { name: 'Define your criteria', text: 'Enter the condition in quotes: "Completed" for exact text, ">100" for numbers, or "="&E1 for cell references.' },
@@ -277,6 +322,31 @@ export const FORMULAS: FormulaConfig[] = [
             }
             return `=CONCATENATE(${formulaArgs})`;
         },
+        richContent: `
+<div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
+  <h2 class="text-2xl font-bold mb-4">CONCATENATE: Joining Text in Excel & Google Sheets</h2>
+  <p class="mb-4">The <strong>CONCATENATE</strong> function combines text from multiple cells into one. It is indispensable for formatting names, addresses, and any data where you need to merge column values into a readable string.</p>
+
+  <h3 class="text-xl font-semibold mb-2">Practical CONCATENATE Examples</h3>
+  <p class="mb-2"><strong>Combine first and last name:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=CONCATENATE(A1, " ", B1)</code></pre>
+  <p class="mb-2"><strong>Build a full address:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=CONCATENATE(A1, ", ", B1, ", ", C1, " ", D1)</code></pre>
+  <p class="mb-2"><strong>Format a number with text:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=CONCATENATE("Total: $", TEXT(A1, "#,##0.00"))</code></pre>
+
+  <h3 class="text-xl font-semibold mb-2">CONCATENATE vs TEXTJOIN vs Ampersand (&)</h3>
+  <p class="mb-4">In modern Excel and Google Sheets, you have three options for joining text:</p>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><strong>CONCATENATE</strong> — Explicit arguments, works in all versions. Good for fixed-length joins.</li>
+    <li><strong>TEXTJOIN</strong> — Set a delimiter once and optionally skip empty cells. Ideal for variable-length lists.</li>
+    <li><strong>Ampersand (&)</strong> — Short syntax: <code>=A1&" "&B1</code>. Clean for simple joins but less readable with many values.</li>
+  </ul>
+
+  <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
+    <p class="text-sm text-blue-800"><strong>Did You Know?</strong> CONCATENATE turns everything to text. If you need to preserve number formatting, always wrap the number in <code>TEXT(value, "format")</code> before concatenating.</p>
+  </div>
+</div>`,
         howToSteps: [
             { name: 'Identify your text values', text: 'Select the cells or text strings you want to join together, such as first name in A1 and last name in B1.' },
             { name: 'Add separators', text: 'Include separator strings between values: ", " for comma-space, " " for space-only, or " - " for dash. Always wrap separators in double quotes.' },
@@ -325,6 +395,36 @@ export const FORMULAS: FormulaConfig[] = [
             const matchType = p.match_type || '0';
             return `=INDEX(${returnRange}, MATCH(${lookupValue}, ${lookupRange}, ${matchType}))`;
         },
+        richContent: `
+<div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
+  <h2 class="text-2xl font-bold mb-4">INDEX MATCH: The Ultimate VLOOKUP Alternative</h2>
+  <p class="mb-4">The <strong>INDEX MATCH</strong> combination is widely considered the most flexible lookup method in Excel and Google Sheets. It overcomes VLOOKUP's biggest limitations: it can look left, doesn't break when columns are inserted, and handles large datasets more efficiently.</p>
+
+  <h3 class="text-xl font-semibold mb-2">How INDEX MATCH Works Together</h3>
+  <p class="mb-4">INDEX MATCH is actually two functions working in tandem: <strong>MATCH</strong> finds the row number where your lookup value appears, and <strong>INDEX</strong> returns the value from that row in your target column. Together they achieve what VLOOKUP does — but with no column order restrictions.</p>
+
+  <h3 class="text-xl font-semibold mb-2">INDEX MATCH vs VLOOKUP vs XLOOKUP</h3>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full text-sm border-collapse border border-gray-200">
+      <thead><tr class="bg-gray-50"><th class="border border-gray-200 p-2 text-left">Feature</th><th class="border border-gray-200 p-2 text-left">INDEX MATCH</th><th class="border border-gray-200 p-2 text-left">VLOOKUP</th><th class="border border-gray-200 p-2 text-left">XLOOKUP</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-200 p-2">Look left</td><td class="border border-gray-200 p-2 text-green-600">✅ Yes</td><td class="border border-gray-200 p-2 text-red-600">❌ No</td><td class="border border-gray-200 p-2 text-green-600">✅ Yes</td></tr>
+        <tr><td class="border border-gray-200 p-2">Insert-safe</td><td class="border border-gray-200 p-2 text-green-600">✅ Yes</td><td class="border border-gray-200 p-2 text-red-600">❌ No</td><td class="border border-gray-200 p-2 text-green-600">✅ Yes</td></tr>
+        <tr><td class="border border-gray-200 p-2">Handle not found</td><td class="border border-gray-200 p-2 text-yellow-600">⚠️ IFERROR</td><td class="border border-gray-200 p-2 text-yellow-600">⚠️ IFERROR</td><td class="border border-gray-200 p-2 text-green-600">✅ Built-in</td></tr>
+        <tr><td class="border border-gray-200 p-2">Backward compatible</td><td class="border border-gray-200 p-2 text-green-600">✅ All versions</td><td class="border border-gray-200 p-2 text-green-600">✅ All versions</td><td class="border border-gray-200 p-2 text-red-600">❌ Excel 2021+</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="text-xl font-semibold mb-2">Advanced: INDEX MATCH with Multiple Criteria</h3>
+  <p class="mb-4">You can match on multiple columns by concatenating criteria within the MATCH function using an array formula:</p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=INDEX(C:C, MATCH(1, (A:A=E2)*(B:B=F2), 0))</code></pre>
+  <p class="mb-4">In Excel, press <strong>Ctrl+Shift+Enter</strong> for array formulas. In Google Sheets, wrap with <code>ARRAYFORMULA()</code>.</p>
+
+  <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100 mt-6">
+    <p class="text-sm text-indigo-800"><strong>Best Practice:</strong> INDEX MATCH is the go-to choice for shared workbooks that must work across Excel 2010-2019 and Google Sheets. If you only use Excel 365 or Google Sheets, <a href="/formulas/xlookup" class="text-blue-600 underline font-semibold">XLOOKUP</a> offers cleaner syntax with built-in error handling.</p>
+  </div>
+</div>`,
         faq: [
             { question: "What does INDEX MATCH do?", answer: "INDEX returns a value from a range by position; MATCH finds the position of a value. Combined, they look up a value and return from another column—and can look to the left, unlike VLOOKUP." },
             { question: "Why use INDEX MATCH instead of VLOOKUP?", answer: "INDEX MATCH can look left, is not broken when you insert columns, and often performs better on large data. It is more flexible than VLOOKUP." },
@@ -1106,6 +1206,30 @@ export const FORMULAS: FormulaConfig[] = [
             if (p.average_range) args.push(p.average_range);
             return `=AVERAGEIF(${args.join(', ')})`;
         },
+        richContent: `
+<div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
+  <h2 class="text-2xl font-bold mb-4">AVERAGEIF: Calculate Conditional Means in Excel & Sheets</h2>
+  <p class="mb-4">The <strong>AVERAGEIF</strong> function returns the average (arithmetic mean) of cells that meet a specific condition. It's perfect for calculating average sales per region, average scores for passing students, or average revenue for a product category.</p>
+
+  <h3 class="text-xl font-semibold mb-2">Common AVERAGEIF Use Cases</h3>
+  <p class="mb-2"><strong>Average sales for a specific product:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=AVERAGEIF(A:A, "Widget X", B:B)</code></pre>
+  <p class="mb-2"><strong>Average values above a threshold:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=AVERAGEIF(B:B, ">500")</code></pre>
+  <p class="mb-2"><strong>Average dates in a specific month:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=AVERAGEIF(A:A, ">="&DATE(2026,6,1), B:B)</code></pre>
+
+  <h3 class="text-xl font-semibold mb-2">AVERAGEIF vs AVERAGEIFS vs AVERAGE</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-2">
+    <li><strong>AVERAGE</strong> — Simple mean of all values. No filtering.</li>
+    <li><strong>AVERAGEIF</strong> — Mean of cells matching <em>one</em> condition. Great for single-category reports.</li>
+    <li><strong>AVERAGEIFS</strong> — Mean with <em>multiple</em> conditions. Use for complex filtering like "average orders in Q1 over $100 from California."</li>
+  </ul>
+
+  <div class="bg-orange-50 p-4 rounded-lg border border-orange-100 mt-6">
+    <p class="text-sm text-orange-800"><strong>Watch Out:</strong> AVERAGEIF ignores blank cells and text in the average_range. If no cells match the criteria, it returns <code>#DIV/0!</code>. Wrap with <a href="/formulas/iferror" class="text-blue-600 underline font-semibold">IFERROR</a> to handle this gracefully: <code>=IFERROR(AVERAGEIF(...), 0)</code>.</p>
+  </div>
+</div>`,
         faq: [
             { question: 'What is the difference between AVERAGEIF and AVERAGE?', answer: 'AVERAGE returns the mean of all values. AVERAGEIF returns the mean only of cells that meet a specific condition, like averaging sales only for region "East".' },
             { question: 'Can I use wildcards in AVERAGEIF?', answer: 'Yes. Use * for multiple characters and ? for single characters, like AVERAGEIF(A:A,"*Corp",B:B) to average values for all companies ending in "Corp".' },

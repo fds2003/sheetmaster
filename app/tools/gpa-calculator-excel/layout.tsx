@@ -1,28 +1,29 @@
 import type { Metadata } from 'next';
 
-const canonical = 'https://www.getsheetmaster.com/tools/gpa-calculator-excel';
-
 export const metadata: Metadata = {
-  title: 'GPA Calculator Excel — Weighted GPA from Grades & Credits',
-  description:
-    'Compute weighted GPA in Excel or Google Sheets. Interactive GPA calculator with grade points and credit hours—free formulas, no signup.',
-  alternates: { canonical },
+  title: 'GPA Calculator Excel Template | SheetMaster',
+  description: 'Free GPA calculator Excel template. Enter your courses and grades, instantly calculate weighted GPA with the corresponding Excel formulas.',
   openGraph: {
-    title: 'GPA Calculator Excel — Weighted GPA from Grades & Credits',
-    description:
-      'Free GPA calculator for spreadsheet users. Enter courses, grades, and credits to get weighted GPA formulas.',
-    url: canonical,
+    title: 'GPA Calculator Excel Template | SheetMaster',
+    description: 'Free interactive GPA calculator. Enter courses and grades to get your weighted GPA with Excel formulas.',
+    url: 'https://www.getsheetmaster.com/tools/gpa-calculator-excel',
     type: 'website',
     siteName: 'SheetMaster',
-    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'GPA Calculator Excel — Weighted GPA from Grades & Credits',
-    description: 'Interactive GPA calculator with Excel-ready formulas for students and advisors.',
+    title: 'GPA Calculator Excel Template | SheetMaster',
+    description: 'Free interactive GPA calculator with Excel formulas.',
+  },
+  alternates: {
+    canonical: 'https://www.getsheetmaster.com/tools/gpa-calculator-excel',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
-export default function GpaCalculatorLayout({ children }: { children: React.ReactNode }) {
-  return children;
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
 }

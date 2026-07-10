@@ -24,6 +24,19 @@ export default function BlogPage() {
       <p className="text-gray-600 mb-8">
         Excel and Google Sheets tips, formula guides, and how-to articles.
       </p>
+
+      {/* CTA — Browse all formulas */}
+      <div className="mb-8 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 p-5">
+        <p className="text-sm text-gray-700 mb-3">
+          <strong>Looking for a specific formula?</strong> Browse our collection of 50+ free Excel &amp; Google Sheets formula generators.
+        </p>
+        <Link
+          href="/formulas"
+          className="inline-flex items-center rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition-colors"
+        >
+          Browse All Formulas →
+        </Link>
+      </div>
       <ul className="space-y-6">
         {BLOG_POSTS.map((post) => (
           <li key={post.slug} className="border-b border-gray-100 pb-6 last:border-0">

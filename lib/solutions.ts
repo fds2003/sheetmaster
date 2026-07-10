@@ -223,9 +223,9 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 3. SEO Toolkit (NEW)
     {
         slug: 'seo-toolkit',
-        title: 'Free SEO Toolkit — URL Slugs, Meta Length & UTM Links | Excel & Sheets',
+        title: 'Free SEO Toolkit — URL Slugs, Meta Tags & UTM Builder for Excel & Sheets',
         metaDescription:
-            'Slug generator, meta title/description length checks, and UTM builder using Excel & Google Sheets formulas. Free for marketers—no signup.',
+            'Generate URL slugs, check meta title/description length, and build UTM tracking links using Excel & Google Sheets formulas. Free SEO tools for marketers — no signup.',
         icon: 'Search',
         description: 'Create clean URLs, check meta lengths & build UTM links',
         tools: [
@@ -341,8 +341,8 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 4. Inventory Manager (NEW)
     {
         slug: 'inventory-manager',
-        title: 'Inventory Reorder Alert & SKU Lookup | Stock Management',
-        metaDescription: 'Set up automatic reorder alerts, look up prices by SKU, and find missing product data. Free inventory tools for Amazon sellers and retail stores.',
+        title: 'Inventory Reorder Alert & SKU Lookup Tool — Free Excel Stock Management Template',
+        metaDescription: 'Set up automatic reorder alerts, lookup prices by SKU, and find missing product data. Free Excel & Google Sheets inventory tools for Amazon sellers, retailers, and warehouse managers.',
         icon: 'Package',
         description: 'Get reorder alerts, match SKUs & find missing data',
         tools: [
@@ -575,9 +575,9 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 6. Grade Calculator (NEW)
     {
         slug: 'grade-calculator',
-        title: 'Letter Grade Calculator Excel — Class Average, Pass Rate & Attendance',
+        title: 'Free Excel Grade Calculator — Letter Grades, Class Average & Pass Rate Tool',
         metaDescription:
-            'Convert scores to A–F, class averages, pass rates, and absence counts with IFS, AVERAGEIF, and COUNTIF. Free for teachers—Excel & Google Sheets, no signup.',
+            'Convert scores to A–F letter grades, calculate class averages, pass rates, and track attendance. Free Excel & Google Sheets grade calculator for teachers — no signup.',
         icon: 'GraduationCap',
         description: 'Convert scores to grades, calculate averages & track attendance',
         tools: [

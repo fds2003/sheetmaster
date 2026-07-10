@@ -21,8 +21,8 @@ export interface Post {
 export const BLOG_POSTS: Post[] = [
   {
     slug: 'excel-formula-get-first-word',
-    title: 'Excel Get First Word from Cell — 3 Simple Formulas That Work Instantly | SheetMaster',
-    description: 'Extract the first word from any cell in seconds — LEFT+FIND for all versions, TEXTBEFORE for Excel 365. No manual splitting. Works on names, addresses, product codes.',
+    title: 'How to Get First Word from Cell in Excel (3 Formulas Compared)',
+    description: 'Learn 3 Excel formulas to extract the first word from a cell — LEFT+FIND for all versions, TEXTBEFORE for Excel 365. Step-by-step with examples.',
     date: '2026-03-20',
     toolCta: {
       href: '/formulas/get-first-word',
@@ -434,8 +434,8 @@ Minutes: =MOD(A2,60)</code></pre>
 
   {
     slug: 'excel-pass-fail-percentage-formula',
-    title: 'Pass Fail Percentage Formula in Excel — Set It Up in 30 Seconds | SheetMaster',
-    description: 'Stop manually checking scores. One IF formula auto-labels Pass/Fail for your entire class. Includes custom thresholds, letter grades (A-F), and conditional formatting. Copy & paste ready.',
+    title: 'How to Calculate Pass/Fail Percentage in Excel (Step-by-Step Guide)',
+    description: 'Learn the Excel formula to calculate pass/fail percentages — with custom thresholds, letter grades (A-F), and conditional formatting. Step-by-step examples.',
     date: '2026-03-12',
     faqs: [
       { question: 'What Excel formula shows Pass or Fail?', answer: '=IF(A2>=60,"Pass","Fail") — adjust 60 to your threshold.' },

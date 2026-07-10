@@ -4,6 +4,7 @@ import "./globals.css";
 
 import Link from "next/link";
 import FeedbackWidget from "@/components/FeedbackWidget";
+import GARouteTracker from "@/components/GARouteTracker";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 
@@ -14,6 +15,12 @@ const organizationSchema = {
   "url": "https://www.getsheetmaster.com",
   "logo": "https://www.getsheetmaster.com/logo.png",
   "description": "Free Excel and Google Sheets formula generators. No AI, no signup.",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "support@getsheetmaster.com",
+    "contactType": "customer support"
+  },
+  "sameAs": [],
 };
 
 /* Inter: SIL OFL 1.1 免费可商用 */
@@ -28,7 +35,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.getsheetmaster.com"),
   title: {
     default: "SheetMaster - Free Excel & Google Sheets Formula Generators",
-    template: "%s | SheetMaster",
+    template: "%s",
   },
   description: "Free tools to generate Excel and Google Sheets formulas instantly. No AI, no signup. Master VLOOKUP, IF, SUMIF, and 50+ formulas.",
   authors: [{ name: "SheetMaster" }],
@@ -101,6 +108,9 @@ export default function RootLayout({
               <Link href="/resources" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
                 Resources
               </Link>
+              <Link href="/about" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                About
+              </Link>
               <Link href="/vault" className="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors flex items-center gap-1">
                 ☁️ My Vault
               </Link>
@@ -168,14 +178,14 @@ export default function RootLayout({
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                page_path: window.location.pathname,
+                page_path: window.location.pathname + window.location.search,
               });
             `,
           }}
         />
         <FeedbackWidget />
+        <GARouteTracker />
         <Analytics />
-        <Script src="https://pl29172607.profitablecpmratenetwork.com/a9/4b/7e/a94b7ee0e1a59ee2004562ef5af5fc4e.js" strategy="afterInteractive" />
       </body>
     </html>
   );

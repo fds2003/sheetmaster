@@ -226,6 +226,26 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
                     </div>
                 </div>
             )}
+
+            {/* Related Tools — Drive traffic to interactive tools */}
+            <div className="pt-8 border-t border-gray-100">
+                <h2 className="text-lg font-semibold text-gray-900 mb-3">🛠️ Related Tools</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Link href="/tools/formula-comparator" className="flex items-center rounded-lg border border-gray-200 bg-white p-4 hover:border-green-300 hover:shadow-sm transition-all">
+                        <div>
+                            <p className="text-sm font-semibold text-gray-900">Formula Comparator</p>
+                            <p className="text-xs text-gray-500">Compare Excel formulas side by side</p>
+                        </div>
+                    </Link>
+                    <Link href="/tools/remove-duplicates" className="flex items-center rounded-lg border border-gray-200 bg-white p-4 hover:border-green-300 hover:shadow-sm transition-all">
+                        <div>
+                            <p className="text-sm font-semibold text-gray-900">Remove Duplicates</p>
+                            <p className="text-xs text-gray-500">Clean duplicate values from your data</p>
+                        </div>
+                    </Link>
+                </div>
+            </div>
+
             <AffiliateBanner
                 title="Want to become an Excel Pro?"
                 description="Stop searching for formulas. Master Excel in 30 days with this top-rated course."

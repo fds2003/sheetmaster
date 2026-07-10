@@ -48,8 +48,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 1. VLOOKUP
     {
         slug: 'vlookup',
-        title: 'VLOOKUP Formula Generator (2026) — Free Excel & Google Sheets',
-        metaDescription: 'Generate VLOOKUP formulas instantly for Excel and Google Sheets. Free tool with examples, error fixes (#N/A solutions), and step-by-step guide. No signup required.',
+        title: 'VLOOKUP Formula — Look Up Values in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate VLOOKUP formulas instantly for Excel and Google Sheets. Fix #N/A errors, look up values in any column. Free formula generator with examples.',
         excelFunction: 'VLOOKUP',
         category: 'Lookup',
         description: 'Looks for a value in the leftmost column of a table, and then returns a value in the same row from a column you specify.',
@@ -117,9 +117,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 2. IF
     {
         slug: 'if',
-        title: 'IF Formula Generator (2026) — Create IF-THEN Statements | Free Excel & Sheets',
-        metaDescription:
-            'Build IF formulas instantly—nested IF, IF-AND, IF-OR—with examples for Excel and Google Sheets. Free generator. No signup required.',
+        title: 'IF Formula — IF-THEN-ELSE in Excel & Google Sheets (Free Generator)',
+        metaDescription: 'Generate IF formulas instantly in Excel and Google Sheets. Build IF-THEN-ELSE, nested IF, IF-AND, IF-OR conditions. Free formula generator with examples.',
         excelFunction: 'IF',
         category: 'Logic',
         description: 'Checks whether a condition is met, and returns one value if true and another value if false.',
@@ -186,8 +185,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 3. SUMIF
     {
         slug: 'sumif',
-        title: 'SUMIF Formula Generator (2026) — Sum with Conditions | Excel & Sheets',
-        metaDescription: 'Generate SUMIF formulas to sum cells based on criteria. Free tool for Excel and Google Sheets with multiple condition examples. No signup required.',
+        title: 'SUMIF Formula — Sum with Conditions in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate SUMIF formulas instantly in Excel and Google Sheets. Sum cells by text, number, or date conditions. Free formula generator with real-world examples.',
         excelFunction: 'SUMIF',
         category: 'Math',
         description: 'Adds the cells specified by a given condition or criteria.',
@@ -246,8 +245,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 4. COUNTIF
     {
         slug: 'countif',
-        title: 'COUNTIF Formula Generator (2026) — Count Cells by Criteria | Excel & Sheets',
-        metaDescription: 'Build COUNTIF formulas to count cells that meet a criterion (text, number, date). Free tool for Excel and Google Sheets. No signup.',
+        title: 'COUNTIF Formula — Count Cells by Criteria in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate COUNTIF formulas instantly in Excel and Google Sheets. Count cells by text, number, date, or blank conditions. Free formula generator with examples.',
         excelFunction: 'COUNTIF',
         category: 'Math',
         description: 'Counts the number of cells within a range that meet the given condition.',
@@ -300,8 +299,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 5. CONCATENATE
     {
         slug: 'concatenate',
-        title: 'CONCATENATE Formula Generator (2026) — Join Text with Separator | Excel & Sheets',
-        metaDescription: 'Join text strings with a separator (comma, space, dash). Free CONCATENATE and TEXTJOIN-style builder for Excel and Google Sheets. No signup.',
+        title: 'CONCATENATE Formula — Join Text Strings in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate CONCATENATE formulas instantly in Excel and Google Sheets. Join text strings with separators. Free formula generator with examples.',
         excelFunction: 'CONCATENATE',
         category: 'Text',
         description: 'Joins several text strings into one text string.',
@@ -370,8 +369,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 6. INDEX/MATCH
     {
         slug: 'index-match',
-        title: 'INDEX MATCH Formula Generator (2026) — More Powerful Than VLOOKUP',
-        metaDescription: 'Generate INDEX MATCH formulas for Excel and Google Sheets. Look left, avoid column index errors. Free tool, no signup.',
+        title: 'INDEX MATCH Formula — Flexible Lookups in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate INDEX MATCH formulas for Excel and Google Sheets. Look left, right, or in any direction. Avoid column index errors. Free formula generator.',
         excelFunction: 'INDEX/MATCH',
         category: 'Lookup',
         description: 'A more flexible alternative to VLOOKUP. Returns the value of an element in a table or an array, selected by the row and column number indexes.',
@@ -448,9 +447,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 7. XLOOKUP
     {
         slug: 'xlookup',
-        title: 'Free XLOOKUP Formula Generator & Easy Guide (2026) — Excel & Sheets',
+        title: 'XLOOKUP Formula — Look Up Values in Any Direction | Excel & Sheets (Free Tool)',
         metaDescription:
-            'Generate XLOOKUP formulas instantly. Look left or right, avoid index errors. Free online tool for Excel and Google Sheets, no signup.',
+            'Generate XLOOKUP formulas instantly in Excel and Google Sheets. Look left or right, avoid #N/A errors. Free formula generator with examples.',
         excelFunction: 'XLOOKUP',
         category: 'Lookup',
         description: 'Searches a range or an array, and then returns the item corresponding to the first match it finds. If no match exists, then XLOOKUP can return the closest (approximate) match.',
@@ -515,8 +514,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 8. TRIM
     {
         slug: 'trim',
-        title: 'TRIM Formula Generator (2026) — Remove Extra Spaces | Free Excel & Sheets',
-        metaDescription: 'Remove extra spaces from text with the TRIM function.',
+        title: 'TRIM Formula — Remove Extra Spaces in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate TRIM formulas instantly in Excel and Google Sheets. Remove extra spaces from text for data cleaning. Free formula generator with examples.',
         excelFunction: 'TRIM',
         category: 'Text',
         description: 'Removes all spaces from text except for single spaces between words.',
@@ -535,8 +534,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 9. UPPER
     {
         slug: 'upper',
-        title: 'UPPER Formula Generator (2026) — Convert Text to Uppercase | Free Excel & Sheets',
-        metaDescription: 'Convert text to uppercase.',
+        title: 'UPPER Formula — Convert Text to Uppercase in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate UPPER formulas instantly in Excel and Google Sheets. Convert text to uppercase for data formatting. Free formula generator with examples.',
         excelFunction: 'UPPER',
         category: 'Text',
         description: 'Converts text to uppercase.',
@@ -555,8 +554,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 10. LOWER
     {
         slug: 'lower',
-        title: 'LOWER Formula Generator (2026) — Convert Text to Lowercase | Free Excel & Sheets',
-        metaDescription: 'Convert text to lowercase.',
+        title: 'LOWER Formula — Convert Text to Lowercase in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate LOWER formulas instantly in Excel and Google Sheets. Convert text to lowercase for data standardization. Free formula generator with examples.',
         excelFunction: 'LOWER',
         category: 'Text',
         description: 'Converts all uppercase letters in a text string to lowercase.',
@@ -575,8 +574,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 11. PROPER
     {
         slug: 'proper',
-        title: 'PROPER Formula Generator (2026) — Capitalize Each Word | Free Excel & Sheets',
-        metaDescription: 'Capitalize the first letter of each word.',
+        title: 'PROPER Formula — Capitalize Each Word in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate PROPER formulas instantly in Excel and Google Sheets. Capitalize the first letter of each word. Free formula generator with examples.',
         excelFunction: 'PROPER',
         category: 'Text',
         description: 'Capitalizes the first letter in each word of a text value.',
@@ -595,8 +594,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 12. LEFT
     {
         slug: 'left',
-        title: 'LEFT Formula Generator (2026) — Extract First Characters | Free Excel & Sheets',
-        metaDescription: 'Extract the first characters from a text string.',
+        title: 'LEFT Formula — Extract First Characters from Text in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate LEFT formulas instantly in Excel and Google Sheets. Extract the first N characters from text strings. Free formula generator with examples.',
         excelFunction: 'LEFT',
         category: 'Text',
         description: 'Returns the first character or characters in a text string, based on the number of characters you specify.',
@@ -618,8 +617,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 13. RIGHT
     {
         slug: 'right',
-        title: 'RIGHT Formula Generator (2026) — Extract Last Characters | Free Excel & Sheets',
-        metaDescription: 'Extract the last characters from a text string.',
+        title: 'RIGHT Formula — Extract Last Characters from Text in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate RIGHT formulas instantly in Excel and Google Sheets. Extract the last N characters from text strings. Free formula generator with examples.',
         excelFunction: 'RIGHT',
         category: 'Text',
         description: 'Returns the last character or characters in a text string, based on the number of characters you specify.',
@@ -641,8 +640,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 14. DATEDIF
     {
         slug: 'datedif',
-        title: 'DATEDIF Formula Generator (2026) — Calculate Date Difference | Free Excel & Sheets',
-        metaDescription: 'Calculate date differences in Excel and Google Sheets. Free DATEDIF tool for days, months, years. No signup required. Generate formulas instantly.',
+        title: 'DATEDIF Formula — Calculate Date Differences in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate DATEDIF formulas instantly in Excel and Google Sheets. Calculate differences in days, months, or years. Free formula generator with examples.',
         excelFunction: 'DATEDIF',
         category: 'Date',
         description: 'Calculates the number of days, months, or years between two dates.',
@@ -693,8 +692,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 15. NOW
     {
         slug: 'now',
-        title: 'NOW Formula Generator (2026) — Current Date & Time | Free Excel & Sheets',
-        metaDescription: 'Get the current date and time in Excel.',
+        title: 'NOW Formula — Current Date & Time in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate NOW formulas instantly in Excel and Google Sheets. Get the current date and time for countdowns and aging reports. Free formula generator.',
         excelFunction: 'NOW',
         category: 'Date',
         description: 'Returns the serial number of the current date and time.',
@@ -713,8 +712,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 16. TODAY
     {
         slug: 'today',
-        title: 'TODAY Formula Generator (2026) — Current Date | Free Excel & Sheets',
-        metaDescription: 'Get the current date in Excel and Google Sheets. Use TODAY() and NOW() for countdowns, aging reports, expiration tracking, and date-based conditional formatting.',
+        title: 'TODAY Formula — Current Date in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate TODAY formulas instantly in Excel and Google Sheets. Get the current date for countdowns, aging reports, and expiration tracking. Free formula generator.',
         excelFunction: 'TODAY',
         category: 'Date',
         description: 'Returns the serial number of the current date.',
@@ -733,8 +732,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 17. NETWORKDAYS
     {
         slug: 'networkdays',
-        title: 'NETWORKDAYS Formula Generator (2026) — Count Working Days | Free Excel & Sheets',
-        metaDescription: 'Calculate the number of working/business days between two dates in Excel and Google Sheets using NETWORKDAYS and NETWORKDAYS.INTL. Exclude weekends and custom holidays.',
+        title: 'NETWORKDAYS Formula — Count Working Days in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate NETWORKDAYS formulas instantly in Excel and Google Sheets. Count business days between dates, exclude weekends and holidays. Free formula generator.',
         excelFunction: 'NETWORKDAYS',
         category: 'Date',
         description: 'Returns the number of whole working days between start_date and end_date.',
@@ -763,8 +762,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 18. PMT
     {
         slug: 'pmt',
-        title: 'PMT Formula Generator (2026) — Calculate Loan Payments | Free Excel & Sheets',
-        metaDescription: 'Calculate loan payments in Excel and Google Sheets. Free PMT tool for monthly payments. No signup required. Based on rate, periods, and loan amount.',
+        title: 'PMT Formula — Calculate Loan Payments in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate PMT formulas instantly in Excel and Google Sheets. Calculate monthly loan payments. Free formula generator with examples for mortgages and auto loans.',
         excelFunction: 'PMT',
         category: 'Math', // Changed from Financial to Math as per type definition, or need to add Financial type
         description: 'Calculates the payment for a loan based on constant payments and a constant interest rate.',
@@ -806,8 +805,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 19. AND
     {
         slug: 'and',
-        title: 'AND Formula Generator (2026) — Logical AND | Free Excel & Sheets',
-        metaDescription: 'Check if all conditions are true.',
+        title: 'AND Formula — Logical AND in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate AND formulas instantly in Excel and Google Sheets. Check if all conditions are true. Free formula generator with examples.',
         excelFunction: 'AND',
         category: 'Logic',
         description: 'Returns TRUE if all its arguments are TRUE; returns FALSE if one or more argument is FALSE.',
@@ -829,8 +828,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 20. OR
     {
         slug: 'or',
-        title: 'OR Formula Generator (2026) — Logical OR | Free Excel & Sheets',
-        metaDescription: 'Check if any condition is true.',
+        title: 'OR Formula — Logical OR in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate OR formulas instantly in Excel and Google Sheets. Check if any condition is true. Free formula generator with examples.',
         excelFunction: 'OR',
         category: 'Logic',
         description: 'Returns TRUE if any argument is TRUE; returns FALSE if all arguments are FALSE.',
@@ -852,8 +851,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 21. Extract Email
     {
         slug: 'extract-email',
-        title: 'Extract Email from Text in Excel (2026) — Free Regex Formula Generator',
-        metaDescription: 'Extract email addresses in Excel and Google Sheets. Free REGEXEXTRACT tool for email extraction. No signup required. Clean data instantly.',
+        title: 'Extract Email from Text in Excel & Sheets — Free REGEXEXTRACT Formula Generator',
+        metaDescription: 'Instantly generate the Excel formula to extract email addresses from any text. REGEXEXTRACT for Excel and Google Sheets. Free tool with examples — no signup.',
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts an email address from a text string.',
@@ -891,9 +890,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 22. Extract Domain
     {
         slug: 'extract-domain',
-        title: 'Extract Domain from URL in Excel — SEO & Marketing Lists',
+        title: 'Extract Domain from URL in Excel & Sheets — Free REGEXEXTRACT Formula Generator',
         metaDescription:
-            'Pull root domains from messy URLs for SEO, backlinks, and CRM cleanup—REGEXEXTRACT patterns for Excel and Google Sheets. Free, no signup.',
+            'Instantly extract domain names from URLs in Excel and Google Sheets. Free REGEXEXTRACT formula generator for SEO, backlink analysis, and CRM cleanup. No signup.',
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts the domain part from a URL.',
@@ -936,9 +935,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 23. Get First Word
     {
         slug: 'get-first-word',
-        title: 'Get First Word in Excel (2026) — LEFT + FIND Formula Generator',
+        title: 'Get First Word from Cell in Excel & Sheets — Free Formula Generator (Copy-Paste)',
         metaDescription:
-            'Extract the first word from a cell (names, keywords)—excel get first word style workflows. LEFT and FIND for Excel and Google Sheets. Free, no signup.',
+            'Instantly generate the Excel formula to extract the first word from any cell. LEFT+FIND, TEXTBEFORE, and PROPER methods for Excel & Google Sheets. Free, no signup.',
         excelFunction: 'LEFT & FIND',
         category: 'Text',
         description: 'Returns the first word in a text string.',
@@ -988,9 +987,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 24. Remove First 3 Characters
     {
         slug: 'remove-first-3-chars',
-        title: 'Remove First 3 Characters in Excel — Instant Formula, No Manual Work | SheetMaster',
+        title: 'Remove First N Characters in Excel — Free Formula Generator (Instant Copy)',
         metaDescription:
-            'Need to remove first 3 characters from hundreds of cells? Don\'t do it by hand. Get the exact RIGHT+LEN formula in one click. Works for Excel & Google Sheets. Free.',
+            'Instantly generate the Excel formula to remove the first 3 (or any N) characters from any cell. Copy-paste RIGHT+LEN, MID, or LEFT formulas for Excel & Google Sheets. Free, no signup.',
         excelFunction: 'RIGHT & LEN',
         category: 'Text',
         description: 'Removes the specified number of characters from the beginning of a text string.',
@@ -1019,14 +1018,36 @@ export const FORMULAS: FormulaConfig[] = [
   <h4>Variable N</h4>
   <p>Put N in a cell (e.g. D1) and reference it: <code>=RIGHT(A2,LEN(A2)-D1)</code> so one formula works for different strip lengths.</p>
 `,
+        howToSteps: [
+            { name: 'Identify the target cell', text: 'Select the cell containing the text string, such as A2.' },
+            { name: 'Use RIGHT + LEN formula', text: 'Enter =RIGHT(A2, LEN(A2)-3) to remove the first 3 characters from the left of the text.' },
+            { name: 'Alternative: Use MID', text: 'Enter =MID(A2, 4, LEN(A2)) to start from the 4th character and keep everything after it.' },
+            { name: 'Drag down to apply', text: 'Copy the formula down to apply it to all cells in your column.' }
+        ],
         faq: [
             {
                 question: 'How do I remove the first 3 characters in Excel?',
-                answer: '=RIGHT(A2,LEN(A2)-3) removes exactly three characters from the left of the text in A2.',
+                answer: '=RIGHT(A2,LEN(A2)-3) removes exactly three characters from the left of the text in A2. You can change 3 to any number of characters you want to remove.',
+            },
+            {
+                question: 'How do I remove the first 2 characters in Excel?',
+                answer: 'Use =RIGHT(A2,LEN(A2)-2) to remove the first 2 characters. This is commonly used to strip country codes from phone numbers or remove prefix characters.',
             },
             {
                 question: 'How do I remove last N characters instead?',
-                answer: 'Use LEFT with LEN: =LEFT(A2,LEN(A2)-N). Or see SUBSTITUTE for removing specific characters rather than a fixed count.',
+                answer: 'Use LEFT with LEN: =LEFT(A2,LEN(A2)-N). For example, =LEFT(A2,LEN(A2)-3) removes the last 3 characters from a text string.',
+            },
+            {
+                question: 'What if the cell has fewer than 3 characters?',
+                answer: 'If the text is shorter than the number of characters you want to remove, RIGHT returns an empty string. Use =IF(LEN(A2)<=3, A2, RIGHT(A2,LEN(A2)-3)) to handle this edge case.',
+            },
+            {
+                question: 'Can I remove the first N characters in Google Sheets?',
+                answer: 'Yes, the same formulas work in Google Sheets. You can also use =MID(A2,4,999) to skip the first 3 characters, or =REGEXREPLACE(A2,"^. {3}","") for a regex approach.',
+            },
+            {
+                question: 'How do I remove a prefix like "SKU-" from product codes?',
+                answer: 'Use =RIGHT(A2,LEN(A2)-4) to remove the 4-character prefix "SKU-". Or more flexibly: =REGEXREPLACE(A2,"^[A-Z]+-","",1) for any alphabetic prefix followed by a dash.',
             },
         ],
         commonErrors: [
@@ -1042,9 +1063,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'SUMIFS Made Easy — Sum with Multiple Conditions (Step by Step) | SheetMaster',
-        metaDescription:
-            'Stop wrestling with SUMIFS syntax. Paste your data, pick your conditions, and get the exact formula in seconds. Works for Excel & Google Sheets. 3 real examples inside.',
+        title: 'SUMIFS Formula Generator — Sum with Multiple Criteria in Excel & Sheets (Free)',
+        metaDescription: 'Generate SUMIFS formulas instantly for Excel and Google Sheets. Sum by multiple criteria, date ranges, and conditions. Free tool with examples — no signup.',
         excelFunction: 'SUMIFS',
         category: 'Math',
         description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
@@ -1123,9 +1143,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 26. COUNTIFS - Multiple Criteria Count
     {
         slug: 'countifs',
-        title: 'COUNTIFS with Multiple Criteria — Count Rows That Match 2+ Conditions | SheetMaster',
-        metaDescription:
-            'Need COUNTIFS with multiple criteria and date ranges? Enter your data once, get the formula instantly. Handles same-column conditions, text & number matching. Free tool, no signup.',
+        title: 'COUNTIFS Formula — Count with Multiple Criteria in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate COUNTIFS formulas instantly for Excel and Google Sheets. Count with multiple conditions, date ranges, and complex criteria. Free formula generator — no signup.',
         excelFunction: 'COUNTIFS',
         category: 'Math',
         description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
@@ -1190,8 +1209,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 27. AVERAGEIF - Conditional Average
     {
         slug: 'averageif',
-        title: 'Free AVERAGEIF Formula Generator (2026) — Conditional Average',
-        metaDescription: 'Generate AVERAGEIF formulas to calculate conditional averages in Excel and Sheets. Copy-paste formulas instantly, no signup needed.',
+        title: 'AVERAGEIF Formula — Conditional Average in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate AVERAGEIF formulas instantly in Excel and Google Sheets. Calculate conditional averages by text, number, or date. Free formula generator with examples.',
         excelFunction: 'AVERAGEIF',
         category: 'Math',
         description: 'Returns the average of all cells in a range that meet a given criteria.',
@@ -1247,8 +1266,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 28. IFERROR - Error Handling
     {
         slug: 'iferror',
-        title: 'Free IFERROR Formula Generator (2026) — Hide Excel Errors',
-        metaDescription: 'Wrap formulas in IFERROR instantly. Hide #N/A, #DIV/0!, #VALUE! errors in Excel & Google Sheets. Free tool with examples, no signup.',
+        title: 'IFERROR Formula — Handle Errors in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate IFERROR formulas instantly in Excel and Google Sheets. Hide #N/A, #DIV/0!, #VALUE! errors gracefully. Free formula generator with examples.',
         excelFunction: 'IFERROR',
         category: 'Logic',
         description: 'Returns a value you specify if a formula evaluates to an error; otherwise returns the result of the formula.',
@@ -1294,9 +1313,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 29. IFS - Multiple Conditions
     {
         slug: 'ifs',
-        title: 'Free IFS Formula Generator (2026) — Multi-Condition Logic',
+        title: 'IFS Formula — Multiple Conditions in Excel & Google Sheets (Free Tool)',
         metaDescription:
-            'Build multi-condition IFS formulas for Excel & Sheets. Avoid complex nested IF statements. Generate & copy-paste instantly. Free, no signup.',
+            'Generate IFS formulas instantly in Excel and Google Sheets. Evaluate multiple conditions without nested IFs. Free formula generator with examples.',
         excelFunction: 'IFS',
         category: 'Logic',
         description: 'Checks multiple conditions and returns a value corresponding to the first TRUE condition. Cleaner than nested IFs.',
@@ -1351,8 +1370,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 30. SUBSTITUTE - Text Replacement
     {
         slug: 'substitute',
-        title: 'Free SUBSTITUTE Formula Generator — Find & Replace Text in Excel',
-        metaDescription: 'Replace old text with new text using Excel SUBSTITUTE formulas. Free interactive tool with examples. No signup required.',
+        title: 'SUBSTITUTE Formula — Find & Replace Text in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate SUBSTITUTE formulas instantly in Excel and Google Sheets. Find and replace text in strings. Free formula generator with examples.',
         excelFunction: 'SUBSTITUTE',
         category: 'Text',
         description: 'Substitutes new text for old text in a text string. Great for data cleaning.',
@@ -1380,8 +1399,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 31. MID - Extract Middle Text
     {
         slug: 'mid',
-        title: 'MID Formula Generator (2026) — Extract Middle Characters | Free Excel & Sheets',
-        metaDescription: 'Extract characters from the middle of a text string.',
+        title: 'MID Formula — Extract Text from Middle of String in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate MID formulas instantly in Excel and Google Sheets. Extract specific characters from anywhere in a text string. Free formula generator with examples.',
         excelFunction: 'MID',
         category: 'Text',
         description: 'Returns a specific number of characters from a text string, starting at the position you specify.',
@@ -1428,8 +1447,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 33. FIND - Find Text Position
     {
         slug: 'find',
-        title: 'FIND Formula Generator (2026) — Case-Sensitive Text Search | Free Excel & Sheets',
-        metaDescription: 'Find the position of a substring in a text string in Excel and Google Sheets using FIND and SEARCH. Case-sensitive vs wildcard text search explained with examples.',
+        title: 'FIND Formula — Case-Sensitive Text Search in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate FIND formulas instantly in Excel and Google Sheets. Find the position of a substring with case-sensitive search. Free formula generator with examples.',
         excelFunction: 'FIND',
         category: 'Text',
         description: 'Returns the starting position of one text string within another (case-sensitive).',
@@ -1451,8 +1470,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 34. SEARCH - Search Text Position
     {
         slug: 'search',
-        title: 'SEARCH Formula Generator (2026) — Case-Insensitive Text Search | Free Excel & Sheets',
-        metaDescription: 'Search for a substring in a text string in Excel and Google Sheets. Wildcard support (*, ?) with SEARCH for flexible text matching and extraction.',
+        title: 'SEARCH Formula — Case-Insensitive Text Search in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate SEARCH formulas instantly for Excel and Google Sheets. Find text positions with wildcards (*, ?). Free formula generator with examples — no signup.',
         excelFunction: 'SEARCH',
         category: 'Text',
         description: 'Returns the position of a text string within another (case-insensitive). Supports wildcards.',
@@ -1474,8 +1493,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 35. TEXT - Format Numbers as Text
     {
         slug: 'text',
-        title: 'Free TEXT Formula Generator (2026) — Format Numbers as Text',
-        metaDescription: 'Convert numbers to formatted text, currency, or dates using Excel TEXT formulas. Free interactive builder. No signup.',
+        title: 'TEXT Formula — Format Numbers, Dates & Currency in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate TEXT formulas instantly in Excel and Google Sheets. Format numbers, dates, currency, and percentages. Free formula generator with examples — no signup.',
         excelFunction: 'TEXT',
         category: 'Text',
         description: 'Converts a value to text in a specific number format.',
@@ -1514,8 +1533,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 36. ROUND - Round Numbers
     {
         slug: 'round',
-        title: 'Free ROUND Formula Generator — Round Numbers in Excel & Sheets',
-        metaDescription: 'Generate ROUND formulas to round numbers to specific decimals. Free Excel & Google Sheets tool. Copy-paste results instantly, no signup.',
+        title: 'ROUND Formula — Round Numbers in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate ROUND formulas instantly in Excel and Google Sheets. Round to specific decimal places, to nearest 10/100, or to integers. Free formula generator.',
         excelFunction: 'ROUND',
         category: 'Math',
         description: 'Rounds a number to a specified number of digits.',
@@ -1541,8 +1560,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 37. ROUNDUP - Round Up
     {
         slug: 'roundup',
-        title: 'ROUNDUP Formula Generator (2026) — Always Round Up | Free Excel & Sheets',
-        metaDescription: 'Round numbers up in Excel and Google Sheets. Free ROUNDUP tool for ceiling values. No signup required. Always round away from zero.',
+        title: 'ROUNDUP Formula — Always Round Up in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate ROUNDUP formulas instantly in Excel and Google Sheets. Always round away from zero for pricing, quantities, and estimates. Free tool with examples.',
         excelFunction: 'ROUNDUP',
         category: 'Math',
         description: 'Rounds a number up, away from zero.',
@@ -1564,8 +1583,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 38. ROUNDDOWN - Round Down
     {
         slug: 'rounddown',
-        title: 'Free ROUNDDOWN Formula Generator — Round Down in Excel',
-        metaDescription: 'Round numbers down towards zero using Excel ROUNDDOWN formula. Free online generator with examples and step-by-step guide.',
+        title: 'ROUNDDOWN Formula — Always Round Down in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate ROUNDDOWN formulas instantly in Excel and Google Sheets. Always round toward zero for conservative estimates and truncation. Free tool with examples.',
         excelFunction: 'ROUNDDOWN',
         category: 'Math',
         description: 'Rounds a number down, toward zero.',
@@ -1591,8 +1610,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 39. ABS - Absolute Value
     {
         slug: 'abs',
-        title: 'ABS Formula Generator (2026) — Absolute Value | Free Excel & Sheets',
-        metaDescription: 'Get the absolute value of a number in Excel and Google Sheets. Use ABS to remove negative signs, calculate variance, and handle financial data.',
+        title: 'ABS Formula — Absolute Value in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate ABS formulas instantly in Excel and Google Sheets. Get absolute values, calculate differences and variances. Free formula generator with examples.',
         excelFunction: 'ABS',
         category: 'Math',
         description: 'Returns the absolute value of a number (removes the negative sign).',
@@ -1611,8 +1630,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 40. MAX - Maximum Value
     {
         slug: 'max',
-        title: 'MAX Formula Generator (2026) — Find Largest Value | Free Excel & Sheets',
-        metaDescription: 'Find the largest value in a range of cells.',
+        title: 'MAX Formula — Find Largest Value in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate MAX formulas instantly in Excel and Google Sheets. Find the largest value in a range. Free formula generator with examples for reporting and analysis.',
         excelFunction: 'MAX',
         category: 'Math',
         description: 'Returns the largest value in a set of values.',
@@ -1631,8 +1650,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 41. MIN - Minimum Value
     {
         slug: 'min',
-        title: 'MIN Formula Generator (2026) — Find Smallest Value | Free Excel & Sheets',
-        metaDescription: 'Find the smallest value in a range of cells.',
+        title: 'MIN Formula — Find Smallest Value in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate MIN formulas instantly in Excel and Google Sheets. Find the smallest value in a range. Free formula generator with examples for reporting and analysis.',
         excelFunction: 'MIN',
         category: 'Math',
         description: 'Returns the smallest value in a set of values.',
@@ -1651,8 +1670,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 42. AVERAGE - Average Value
     {
         slug: 'average',
-        title: 'Free AVERAGE Formula Generator (2026) — Calculate Mean Instantly',
-        metaDescription: 'Generate AVERAGE formulas for Excel and Google Sheets. Free tool with step-by-step guide and troubleshooting. No signup required.',
+        title: 'AVERAGE Formula — Calculate Mean in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate AVERAGE formulas instantly in Excel and Google Sheets. Calculate mean of numeric ranges, handle blanks and zeros. Free formula generator with examples.',
         excelFunction: 'AVERAGE',
         category: 'Math',
         description: 'Returns the average (arithmetic mean) of the arguments.',
@@ -1675,8 +1694,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 43. SUM - Sum Values
     {
         slug: 'sum',
-        title: 'Free SUM Formula Generator (2026) — Add Numbers Instantly',
-        metaDescription: 'Add up numbers in a range with Excel & Google Sheets SUM formulas. Free tool with shortcut tips (Alt+=). Copy-paste instantly.',
+        title: 'SUM Formula — Add Numbers in Excel & Google Sheets (Free Tool)',
+        metaDescription: 'Generate SUM formulas instantly in Excel and Google Sheets. Add ranges, conditional sums with SUMIF/SUMIFS. Free formula generator with examples.',
         excelFunction: 'SUM',
         category: 'Math',
         description: 'Adds all the numbers in a range of cells.',
@@ -1699,8 +1718,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 44. YEAR - Extract Year
     {
         slug: 'year',
-        title: 'Free YEAR Formula Generator — Extract Year from Dates | Excel',
-        metaDescription: 'Extract the year portion of any date in Excel & Google Sheets. Free YEAR formula generator with clear examples and quick guide.',
+        title: 'YEAR Formula — Extract Year from Date in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate YEAR formulas instantly in Excel and Google Sheets. Extract the year from any date for reporting and analysis. Free formula generator with examples.',
         excelFunction: 'YEAR',
         category: 'Date',
         description: 'Returns the year of a date, an integer in the range 1900-9999.',
@@ -1723,8 +1742,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 45. MONTH - Extract Month
     {
         slug: 'month',
-        title: 'MONTH Formula Generator (2026) — Extract Month from Date | Free Excel & Sheets',
-        metaDescription: 'Extract the month from a date.',
+        title: 'MONTH Formula — Extract Month Number from Date in Excel & Sheets (Free Tool)',
+        metaDescription: 'Extract the month number (1-12) from any date in Excel or Google Sheets. Free MONTH formula generator with examples for reporting, dashboards, and date grouping.',
         excelFunction: 'MONTH',
         category: 'Date',
         description: 'Returns the month of a date, a number from 1 (January) to 12 (December).',
@@ -1763,8 +1782,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 47. EDATE - Add Months to Date
     {
         slug: 'edate',
-        title: 'EDATE Formula Generator (2026) — Add or Subtract Months | Free Excel & Sheets',
-        metaDescription: 'Add or subtract months in Excel and Google Sheets. Free EDATE tool for date calculations. No signup required. Calculate future or past dates.',
+        title: 'EDATE Formula — Add/Subtract Months in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate EDATE formulas instantly for Excel and Google Sheets. Add or subtract months from dates for subscription tracking, billing cycles, and due dates. Free tool.',
         excelFunction: 'EDATE',
         category: 'Date',
         description: 'Returns a date that is a specified number of months before or after a given date.',
@@ -1786,8 +1805,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 48. EOMONTH - End of Month
     {
         slug: 'eomonth',
-        title: 'EOMONTH Formula Generator (2026) — Get Month End Date | Free Excel & Sheets',
-        metaDescription: 'Get month end dates in Excel and Google Sheets. Free EOMONTH tool for last day calculations. No signup required. Perfect for financial reports.',
+        title: 'EOMONTH Formula — Get Month End Date in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate EOMONTH formulas instantly in Excel and Google Sheets. Get the last day of any month for financial reports, billing cycles, and due dates. Free tool.',
         excelFunction: 'EOMONTH',
         category: 'Date',
         description: 'Returns the last day of the month a specified number of months before or after a date.',
@@ -1809,8 +1828,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 49. COUNTA - Count Non-Empty Cells
     {
         slug: 'counta',
-        title: 'COUNTA Formula Generator (2026) — Count Non-Empty Cells | Free Excel & Sheets',
-        metaDescription: 'Count number of non-empty cells in a range.',
+        title: 'COUNTA Formula — Count Non-Empty Cells in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate COUNTA formulas instantly in Excel and Google Sheets. Count all non-empty cells including text, numbers, and errors. Free formula generator with examples.',
         excelFunction: 'COUNTA',
         category: 'Math',
         description: 'Counts number of cells that are not empty in a range.',
@@ -1829,8 +1848,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 50. COUNTBLANK - Count Empty Cells
     {
         slug: 'countblank',
-        title: 'COUNTBLANK Formula Generator (2026) — Count Empty Cells | Free Excel & Sheets',
-        metaDescription: 'Count number of empty cells in a range.',
+        title: 'COUNTBLANK Formula — Count Empty Cells in Excel & Sheets (Free Tool)',
+        metaDescription: 'Generate COUNTBLANK formulas instantly in Excel and Google Sheets. Count empty and blank cells in any range. Free formula generator with examples.',
         excelFunction: 'COUNTBLANK',
         category: 'Math',
         description: 'Counts the number of empty cells in a specified range.',

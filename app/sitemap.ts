@@ -27,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry(`${BASE_URL}/tools/bom-inventory`, 0.8, 'weekly'),
         entry(`${BASE_URL}/tools/regex-extract-generator`, 0.8, 'weekly'),
         entry(`${BASE_URL}/tools/sumifs-across-sheets`, 0.8, 'weekly'),
+        entry(`${BASE_URL}/tools/formula-comparator`, 0.8, 'weekly'),
         entry(`${BASE_URL}/compare/vlookup-vs-xlookup`, 0.7, 'weekly'),
         entry(`${BASE_URL}/use-cases`, 0.7, 'weekly'),
         entry(`${BASE_URL}/solutions`, 0.7, 'weekly'),

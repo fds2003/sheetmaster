@@ -1,4 +1,4 @@
-﻿import type { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -112,7 +112,7 @@ export default function RootLayout({
                 About
               </Link>
               <Link href="/vault" className="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors flex items-center gap-1">
-                鈽侊笍 My Vault
+                ☁️ My Vault
               </Link>
             </div>
           </div>

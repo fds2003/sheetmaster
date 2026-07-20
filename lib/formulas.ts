@@ -1568,8 +1568,7 @@ export const FORMULAS: FormulaConfig[] = [
             { question: 'What is the fastest way to remove the first 3 characters from a column of data?', answer: 'Use the formula =RIGHT(A2,LEN(A2)-3) and drag it down the column. For bulk operations on thousands of rows, this is the most efficient method. Alternatively, use Power Query for non-destructive editing.' },
             { question: 'How do I remove the first 3 characters from a cell if it has fewer than 3 characters?', answer: 'Use a protective formula: =IF(LEN(A2)<=3, A2, RIGHT(A2,LEN(A2)-3)). This returns the original value if the text is 3 characters or shorter, preventing errors.' },
             { question: 'Can I remove the first N characters dynamically (not just 3)?', answer: 'Yes. Replace the hardcoded 3 with a cell reference: =RIGHT(A2,LEN(A2)-B1) where B1 contains the number of characters to remove. This makes the formula reusable for any N value.' }
-        
-        
+        ],
         commonErrors: [
             {
                 title: '#VALUE! or wrong length after RIGHT/LEN',
@@ -1740,7 +1739,7 @@ export const FORMULAS: FormulaConfig[] = [
             { question: 'Can COUNTIFS use OR logic instead of AND?', answer: 'COUNTIFS is AND-only. For OR logic, add multiple COUNTIFS together: =COUNTIFS(A:A, "X", B:B, "Y") + COUNTIFS(A:A, "Z", B:B, "Y"). Or use SUMPRODUCT for complex logic.' },
             { question: 'How do I count blank or non-blank cells with COUNTIFS?', answer: 'Use "" for blank and "<>" for non-blank: =COUNTIFS(A:A, "", B:B, "<>") counts rows where A is blank AND B is not blank. This is useful for data quality checks.' },
             { question: 'COUNTIFS with wildcards — how does it work?', answer: 'Use * for any sequence of characters and ? for a single character: =COUNTIFS(A:A, "*North*", B:B, "???-???"). This counts rows where A contains "North" and B has a pattern like "ABC-12".' },
-            { question: 'What if my criteria range and criteria are in another sheet?', answer: 'Reference another sheet normally: =COUNTIFS(Sheet2!A:A, "East", Sheet2!B:B, ">100"). The sheet name with space must be in quotes: =COUNTIFS(\' },
+            { question: 'What if my criteria range and criteria are in another sheet?', answer: 'Reference another sheet normally: =COUNTIFS(Sheet2!A:A, "East", Sheet2!B:B, ">100"). The sheet name with space must be in quotes: =COUNTIFS(\'Sheet 2\'!A:A, "East").' },
             { question: 'COUNTIFS vs COUNTIF — what is the difference?', answer: 'COUNTIF handles exactly ONE condition. COUNTIFS handles 1+ conditions (up to 127 pairs). Always prefer COUNTIFS even for single conditions — if you later add a second condition, the syntax stays consistent.' },
             { question: 'How do I count rows where a date falls between two dates using COUNTIFS?', answer: 'Use two conditions on the same date column: =COUNTIFS(A:A,">="&DATE(2026,1,1),A:A,"<="&DATE(2026,3,31)). This counts all rows where column A has a date between Jan 1 and Mar 31, 2026.' },
             { question: 'Can COUNTIFS handle wildcards for partial text matches?', answer: 'Yes. Use * for any characters and ? for a single character: =COUNTIFS(A:A,"*North*") counts cells containing \'North\' anywhere in the text. Combine with other criteria: =COUNTIFS(A:A,"*North*",B:B,">100").' },
@@ -2015,7 +2014,7 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) =>
             `=IFS(${p.condition1 || 'condition1'}, ${p.value1 || 'value1'}, ${p.condition2 || 'condition2'}, ${p.value2 || 'value2'}, ${p.condition3 || 'condition3'}, ${p.value3 || 'value3'})`,
-        relatedTools: ['if', 'iferror', 'and', 'or', 'sumifs', 'countifs'],
+        relatedTools: ['if', 'iferror', 'and', 'or', 'sumifs', 'countifs', 'averageif'],
         richContent: `
 <div class="prose max-w-none mt-8">
   <h2>How to Use IFS in Excel — Step by Step</h2>
@@ -2117,7 +2116,6 @@ export const FORMULAS: FormulaConfig[] = [
                 fixes: ['Put highest thresholds first.', 'End with TRUE, "default".', 'Use VALUE(A1) if scores are stored as text.'],
             },
         ],
-        relatedTools: ['if', 'iferror', 'sumifs', 'averageif'],
     },
 
     // 30. SUBSTITUTE - Text Replacement

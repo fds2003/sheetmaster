@@ -8,12 +8,6 @@ import { useEffect, Suspense } from 'react';
  * Tracks: page views with page type, formula interactions, tool usage, CTA clicks.
  */
 
-declare global {
-  interface Window {
-    dataLayer: any[];
-    gtag?: (...args: any[]) => void;
-  }
-}
 
 // Detect page type from pathname
 function detectPageType(pathname: string): string {
@@ -47,29 +41,11 @@ function extractToolSlug(pathname: string): string | null {
 /**
  * Send a custom GA4 event.
  */
-function sendGAEvent(eventName: string, params: Record<string, any> = {}) {
+function sendGAEvent(eventName: string, params: Record<string, unknown> = {}) {
   if (typeof window === 'undefined' || !window.gtag) return;
   window.gtag('event', eventName, {
     ...params,
     send_to: process.env.NEXT_PUBLIC_GA_ID,
-  });
-}
-
-/**
- * Track page view with enhanced metadata.
- */
-function trackPageView(pathname: string) {
-  const pageType = detectPageType(pathname);
-  const formulaSlug = extractFormulaSlug(pathname);
-  const blogSlug = extractBlogSlug(pathname);
-  const toolSlug = extractToolSlug(pathname);
-
-  sendGAEvent('page_view', {
-    page_type: pageType,
-    formula_name: formulaSlug,
-    article_slug: blogSlug,
-    tool_name: toolSlug,
-    page_path: pathname + window.location.search,
   });
 }
 

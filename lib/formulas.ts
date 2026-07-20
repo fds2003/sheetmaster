@@ -48,8 +48,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 1. VLOOKUP
     {
         slug: 'vlookup',
-        title: 'VLOOKUP Formula — Look Up Values in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate VLOOKUP formulas instantly for Excel and Google Sheets. Fix #N/A errors, look up values in any column. Free formula generator with examples.',
+        title: 'VLOOKUP Formula — Vertical Lookup in Excel & Sheets | SheetMaster',
+        metaDescription: 'Generate VLOOKUP formulas to search values vertically in tables. Fix #N/A errors, compare with XLOOKUP. Free formula generator.',
         excelFunction: 'VLOOKUP',
         category: 'Lookup',
         description: 'Looks for a value in the leftmost column of a table, and then returns a value in the same row from a column you specify.',
@@ -70,26 +70,138 @@ export const FORMULAS: FormulaConfig[] = [
         generate: (p) => `=VLOOKUP(${p.lookup_value || 'lookup_value'}, ${p.table_array || 'table_array'}, ${p.col_index || 'col_index'}, ${p.range_lookup || 'FALSE'})`,
         richContent: `
    <div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
-     <h2 class="text-2xl font-bold mb-4">Mastering VLOOKUP: The Ultimate Guide</h2>
-     <p class="mb-4">The <strong>VLOOKUP</strong> (Vertical Lookup) function is the backbone of data merging in Excel and Google Sheets. Whether you are reconciling invoices or searching for employee IDs, understanding how to structure this formula is essential for any spreadsheet user.</p>
-     
+     <h2 class="text-2xl font-bold mb-4">How to Use VLOOKUP in Excel: Step-by-Step Guide</h2>
+     <p class="mb-4">The <strong>VLOOKUP</strong> (Vertical Lookup) function is the backbone of data merging in Excel and Google Sheets. Whether you are reconciling invoices, searching for employee IDs, or matching product prices, mastering VLOOKUP will save you hours of manual work.</p>
+
+     <h3 class="text-xl font-semibold mb-2">VLOOKUP Syntax Explained</h3>
+     <p class="mb-4">The VLOOKUP formula follows this structure:</p>
+     <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])</code></pre>
+     <ul class="list-disc pl-5 mb-4">
+       <li><strong>lookup_value</strong> — the value you want to search for (e.g., <code>A2</code> or <code>"Apple"</code>)</li>
+       <li><strong>table_array</strong> — the entire range containing both the lookup column and the result column (e.g., <code>$A$2:$D$100</code>)</li>
+       <li><strong>col_index_num</strong> — the column number in the table_array that holds the return value (1 = first column, 2 = second, etc.)</li>
+       <li><strong>range_lookup</strong> — <code>FALSE</code> for exact match, <code>TRUE</code> for approximate match. Always use <code>FALSE</code> for IDs and exact values.</li>
+     </ul>
+
+     <h3 class="text-xl font-semibold mb-2">Real-World VLOOKUP Example: Employee Lookup</h3>
+     <p class="mb-4">Imagine you have an employee table in cells <code>A2:D10</code>:</p>
+     <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>| A          | B          | C          | D          |
+|------------|------------|------------|------------|
+| EmployeeID | FirstName  | LastName   | Department |
+| 101        | Alice      | Johnson    | Sales      |
+| 102        | Bob        | Smith      | Marketing  |
+| 103        | Carol      | Davis      | Engineering|</code></pre>
+     <p class="mb-4">To find Carol's department using her employee ID <code>103</code> in cell <code>G2</code>:</p>
+     <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=VLOOKUP(G2, A2:D10, 4, FALSE)</code></pre>
+     <p class="mb-4">This tells Excel: "Find <code>103</code> in column A, go to the 4th column of the range (column D), and return the value from that row." The result is <strong>"Engineering"</strong>.</p>
+
+     <h3 class="text-xl font-semibold mb-2">Step-by-Step VLOOKUP Walkthrough</h3>
+     <ol class="list-decimal pl-5 mb-4 space-y-2">
+       <li><strong>Identify the lookup value.</strong> Put the value you want to search for in a cell (e.g., type <code>103</code> into <code>G2</code>).</li>
+       <li><strong>Select the table array.</strong> Highlight the entire data range including both the lookup column and the return column. Always use absolute references like <code>$A$2:$D$10</code> so the range doesn't shift when you copy the formula.</li>
+       <li><strong>Count the return column.</strong> In our table, Department is the 4th column of the range <code>A2:D10</code>, so <code>col_index_num = 4</code>.</li>
+       <li><strong>Set match type to FALSE.</strong> For exact matches on IDs, names, or codes, always use <code>FALSE</code>. Use <code>TRUE</code> only for grade brackets, tax tables, or price tiers where you want the nearest match.</li>
+       <li><strong>Press Enter and verify.</strong> The formula returns the department. Copy it down to look up all employees at once.</li>
+     </ol>
+
      <h3 class="text-xl font-semibold mb-2">Common Pitfalls to Avoid</h3>
      <ul class="list-disc pl-5 mb-4">
-       <li><strong>The Left-to-Right Rule:</strong> Remember that VLOOKUP can only look for a value in the leftmost column of your range. If your lookup value is to the right of your result, VLOOKUP won't work.</li>
-       <li><strong>Approximate vs. Exact Match:</strong> Always use <code>FALSE</code> or <code>0</code> as the last argument if you need an exact match (like an ID or Name). Otherwise, you might get the nearest smaller value instead.</li>
-       <li><strong>Static Column Index:</strong> Hardcoding a column number (e.g., 3) makes your formula fragile. If you insert a new column, the index won't update, leading to broken data.</li>
+       <li><strong>The Left-to-Right Rule:</strong> VLOOKUP can only search for a value in the leftmost column of your range. If your lookup value is to the right of your result, VLOOKUP won't work — use XLOOKUP or INDEX/MATCH instead.</li>
+       <li><strong>Approximate vs. Exact Match:</strong> Always use <code>FALSE</code> or <code>0</code> as the last argument for exact matches (IDs, names, SKUs). Using <code>TRUE</code> on unsorted data returns random-looking results.</li>
+       <li><strong>Static Column Index:</strong> Hardcoding <code>3</code> as col_index_num breaks if you insert a new column in the table_array. Use named ranges or switch to XLOOKUP for dynamic column references.</li>
+       <li><strong>Missing Absolute References:</strong> Without <code>$</code> signs (e.g., <code>$A$2:$D$10</code>), copying the formula down shifts the table array and produces wrong results.</li>
+       <li><strong>Data Type Mismatch:</strong> A number stored as text (e.g., <code>"123"</code> vs <code>123</code>) will cause #N/A. Use <code>VALUE()</code> or <code>TEXT()</code> to align types.</li>
      </ul>
-     
+
+     <h3 class="text-xl font-semibold mb-2">VLOOKUP vs XLOOKUP vs INDEX MATCH</h3>
+     <div class="overflow-x-auto mb-4">
+       <table class="min-w-full border-collapse border border-gray-300 text-sm">
+         <thead>
+           <tr class="bg-gray-100">
+             <th class="border border-gray-300 p-2 font-semibold">Feature</th>
+             <th class="border border-gray-300 p-2 font-semibold">VLOOKUP</th>
+             <th class="border border-gray-300 p-2 font-semibold">INDEX MATCH</th>
+             <th class="border border-gray-300 p-2 font-semibold">XLOOKUP</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="border border-gray-300 p-2">Lookup direction</td>
+             <td class="border border-gray-300 p-2">Right only</td>
+             <td class="border border-gray-300 p-2">Any direction</td>
+             <td class="border border-gray-300 p-2">Any direction</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 p-2">Column insertion safe?</td>
+             <td class="border border-gray-300 p-2">No (breaks index)</td>
+             <td class="border border-gray-300 p-2">Yes</td>
+             <td class="border border-gray-300 p-2">Yes</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 p-2">Default value on miss</td>
+             <td class="border border-gray-300 p-2">#N/A</td>
+             <td class="border border-gray-300 p-2">#N/A</td>
+             <td class="border border-gray-300 p-2">Custom (if_not_found)</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 p-2">Return entire row</td>
+             <td class="border border-gray-300 p-2">No</td>
+             <td class="border border-gray-300 p-2">No</td>
+             <td class="border border-gray-300 p-2">Yes (return array)</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 p-2">Case sensitivity</td>
+             <td class="border border-gray-300 p-2">No</td>
+             <td class="border border-gray-300 p-2">With EXACT()</td>
+             <td class="border border-gray-300 p-2">With EXACT()</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 p-2">Ease of use</td>
+             <td class="border border-gray-300 p-2">Easy</td>
+             <td class="border border-gray-300 p-2">Moderate</td>
+             <td class="border border-gray-300 p-2">Easy</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 p-2">Available in</td>
+             <td class="border border-gray-300 p-2">All Excel versions</td>
+             <td class="border border-gray-300 p-2">All Excel versions</td>
+             <td class="border border-gray-300 p-2">Excel 365 / 2021</td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+     <p class="mb-4"><strong>Bottom line:</strong> Use VLOOKUP for quick one-off lookups in stable tables. Use INDEX MATCH when you need flexibility or lookups to the left. Use XLOOKUP if you have Excel 365 — it is the most powerful and intuitive option.</p>
+
+     <h3 class="text-xl font-semibold mb-2">Using VLOOKUP Across Multiple Sheets</h3>
+     <p class="mb-4">You can VLOOKUP into another worksheet by referencing the sheet name in the table_array:</p>
+     <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=VLOOKUP(A2, 'Sheet2'!$A$2:$D$100, 4, FALSE)</code></pre>
+     <p class="mb-4">For a different workbook (assuming it is open):</p>
+     <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=VLOOKUP(A2, '[SalesData.xlsx]Orders'!$A$2:$D$100, 4, FALSE)</code></pre>
+     <p class="mb-4"><strong>Important:</strong> If you close the external workbook, the formula continues to work with cached values. Re-open the source file to refresh.</p>
+
+     <h3 class="text-xl font-semibold mb-2">5 VLOOKUP Edge Cases You Should Know</h3>
+     <ul class="list-disc pl-5 mb-4">
+       <li><strong>#N/A when value exists:</strong> The lookup value might have trailing spaces. Wrap lookup_value in <code>TRIM()</code>: <code>=VLOOKUP(TRIM(A2), $A$2:$D$10, 4, FALSE)</code>.</li>
+       <li><strong>Matching partial text with wildcards:</strong> Use <code>*</code> for any sequence of characters: <code>=VLOOKUP("*"&amp;TRIM(A2)&amp;"*", $A$2:$D$10, 4, FALSE)</code>. This finds cells that contain the search term anywhere.</li>
+       <li><strong>VLOOKUP returning 0 instead of blank:</strong> If the result cell is empty, VLOOKUP returns 0. Wrap with <code>IF</code>: <code>=IF(VLOOKUP(...)="", "", VLOOKUP(...))</code> or use <code>IFERROR</code> for a cleaner fallback.</li>
+       <li><strong>VLOOKUP with dynamic column index using MATCH:</strong> Combine VLOOKUP with MATCH to make the column index dynamic: <code>=VLOOKUP(A2, $A$2:$D$10, MATCH("Department", $A$1:$D$1, 0), FALSE)</code>. This finds "Department" in the header row and returns the correct column number automatically.</li>
+       <li><strong>VLOOKUP with IFERROR for clean output:</strong> Wrap VLOOKUP in <code>IFERROR</code> to display a friendly message instead of #N/A: <code>=IFERROR(VLOOKUP(A2, $A$2:$D$10, 4, FALSE), "Not Found")</code>.</li>
+     </ul>
+
      <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 mt-6">
-       <p class="text-sm text-yellow-800"><strong>Pro Tip:</strong> If your lookup value is not in the first column, consider using <strong>INDEX & MATCH</strong> or the more modern <a href="/formulas/xlookup" class="text-blue-600 underline font-semibold">XLOOKUP Generator</a> which removes these limitations entirely.</p>
+       <p class="text-sm text-yellow-800"><strong>Pro Tip:</strong> Before writing VLOOKUP, always check that your lookup column is the first column in the range. If it isn't, switch to <a href="/formulas/xlookup" class="text-blue-600 underline font-semibold">XLOOKUP</a> or <a href="/formulas/index-match" class="text-blue-600 underline font-semibold">INDEX MATCH</a> — both can search any column in any direction.</p>
+     </div>
+     <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-4">
+       <p class="text-sm text-blue-800"><strong>Pro Tip #2:</strong> Lock your table_array with absolute references (<code>$A$2:$D$10</code>) before dragging the formula down. For even better maintainability, convert your data range into an Excel Table (<kbd>Ctrl+T</kbd>) so you can use structured references like <code>Table1[#All]</code> that never break.</p>
      </div>
    </div>
    `,
         howToSteps: [
-            { name: "Identify your lookup value", text: "Select the cell that contains the value you want to search for (e.g., an ID or Name in cell A2)." },
-            { name: "Select your data range", text: "Highlight the table where the data exists. Ensure the lookup value is in the FIRST column of this range." },
-            { name: "Count the column number", text: "Count how many columns to the right the result is located. For example, if your table is A:C and you want data from C, the number is 3." },
-            { name: "Choose exact match", text: "Always use FALSE (or 0) for exact matches to avoid incorrect results with unsorted data." }
+            { name: "Put the lookup value in a cell", text: "Enter the value you want to search for in a specific cell (e.g., type Employee ID 103 into cell G2). This cell reference becomes your lookup_value argument." },
+            { name: "Select the full table with absolute references", text: "Highlight the entire data range where column A holds the lookup values and another column has the data you want. Lock the range with $ signs (e.g., $A$2:$D$10) so it does not shift when you copy the formula down." },
+            { name: "Count columns to find the return index", text: "Count from the first column of your selected range. If your range is $A$2:$D$10 and the result is in column D (Department), col_index_num is 4. Column A is 1, B is 2, C is 3, D is 4." },
+            { name: "Set range_lookup to FALSE for exact match", text: "Always use FALSE (or 0) for exact matches on IDs, names, or product codes. Using TRUE on unsorted data returns the nearest match, not the exact value you need." },
+            { name: "Test and copy the formula down", text: "Press Enter to verify the result for the first row. If correct, drag the fill handle (bottom-right corner of the cell) down to apply the VLOOKUP to all rows. Check a few results to confirm accuracy." }
         ],
         faq: [
             { question: "Why is VLOOKUP returning #N/A?", answer: "This usually means the lookup value does not exist in the first column of your table array, or there is a mismatch in data types (e.g., number vs text stored as number). Check for hidden spaces, leading zeros, or use TRIM and VALUE to normalize data." },
@@ -99,7 +211,10 @@ export const FORMULAS: FormulaConfig[] = [
             { question: "Why is VLOOKUP not working?", answer: "Common causes: data type mismatch (number vs text), extra spaces (use TRIM), wrong column index, or range_lookup set to TRUE when you need exact match. Use FALSE for exact match." },
             { question: "Is VLOOKUP case sensitive?", answer: "No, VLOOKUP is not case sensitive. To do a case-sensitive lookup, use INDEX with MATCH and EXACT, or XLOOKUP with EXACT." },
             { question: "How to fix VLOOKUP #REF error?", answer: "#REF usually means the column index number is greater than the columns in your range, or the range was deleted. Check that col_index_num does not exceed the number of columns in table_array." },
-            { question: "Should I use VLOOKUP or INDEX MATCH?", answer: "Use INDEX MATCH when you need to look left, when columns might be inserted, or for clearer formulas. Use VLOOKUP for simple right-only lookups where the table rarely changes." }
+            { question: "Should I use VLOOKUP or INDEX MATCH?", answer: "Use INDEX MATCH when you need to look left, when columns might be inserted, or for clearer formulas. Use VLOOKUP for simple right-only lookups where the table rarely changes." },
+            { question: "How to use VLOOKUP with wildcard characters?", answer: "Use * (asterisk) for any sequence of characters and ? (question mark) for a single character. Example: =VLOOKUP(\"*\"&A2&\"*\", $A$2:$D$10, 4, FALSE) finds a cell that contains the value in A2 anywhere in the text. This is useful for partial name matches or fuzzy lookups." },
+            { question: "Why is VLOOKUP returning the wrong column?", answer: "col_index_num is 1-based — the first column of your table_array is 1, not 0. If you insert or delete columns inside the range, the column index shifts. To avoid this, use MATCH to find the column dynamically: =VLOOKUP(A2, $A$2:$D$10, MATCH(\"Department\", $A$1:$D$1, 0), FALSE)." },
+            { question: "How to use VLOOKUP across different worksheets?", answer: "Reference the sheet name followed by an exclamation mark: =VLOOKUP(A2, 'Sheet2'!$A$2:$D$100, 4, FALSE). For external workbooks: =VLOOKUP(A2, '[SalesData.xlsx]Orders'!$A$2:$D$100, 4, FALSE). The referenced workbook must be open for the formula to update." }
         ],
         commonErrors: [
             { title: 'VLOOKUP returns #N/A', causes: ['Lookup value not in the first column of table_array.', 'Data type mismatch (number vs text, e.g. 123 vs "123").', 'Extra spaces or different formatting in lookup value or table.'], fixes: ['Ensure the column you search is the leftmost in table_array.', 'Use TRIM and VALUE or TEXT to align types; check for leading zeros.', 'Use TRIM on both sides or normalize with VALUE/TEXT.'] },
@@ -111,14 +226,14 @@ export const FORMULAS: FormulaConfig[] = [
             { argument: 'col_index_num', explanation: 'The column number in the table_array that contains the value you want to return. Count starting from 1 for the leftmost column.', example: 'e.g., 3' },
             { argument: 'range_lookup', explanation: 'Determines if you want an exact match (FALSE/0) or approximate match (TRUE/1). 99% of the time, you want FALSE.', example: 'e.g., FALSE' },
         ],
-        relatedTools: ['xlookup', 'index-match', 'if'],
+        relatedTools: ['xlookup', 'index-match', 'iferror', 'sumif', 'countif'],
     },
 
     // 2. IF
     {
         slug: 'if',
-        title: 'IF Formula — IF-THEN-ELSE in Excel & Google Sheets (Free Generator)',
-        metaDescription: 'Generate IF formulas instantly in Excel and Google Sheets. Build IF-THEN-ELSE, nested IF, IF-AND, IF-OR conditions. Free formula generator with examples.',
+        title: 'IF Formula in Excel — Conditional Logic Made Easy | SheetMaster',
+        metaDescription: 'Build IF formulas for conditional logic in Excel and Google Sheets. Nested IFs, IFS, and IFERROR. Free interactive formula generator.',
         excelFunction: 'IF',
         category: 'Logic',
         description: 'Checks whether a condition is met, and returns one value if true and another value if false.',
@@ -141,6 +256,16 @@ export const FORMULAS: FormulaConfig[] = [
     <li><strong>value_if_false</strong>: The value returned if the condition is not met.</li>
   </ul>
 
+  <h3>Real-World Example: Grading Student Scores</h3>
+  <p>Let's walk through a practical example. Imagine you're a teacher grading a class. Column A has student names, and Column B has their scores out of 100. You want to automatically assign a <strong>Pass</strong> or <strong>Fail</strong> grade.</p>
+  <ol>
+    <li><strong>Define your condition:</strong> A score of 60 or higher is passing. Your logical test is <code>B2&gt;=60</code>.</li>
+    <li><strong>Set the true result:</strong> If the score is 60 or above, display <code>"Pass"</code>.</li>
+    <li><strong>Set the false result:</strong> If below 60, display <code>"Fail"</code>.</li>
+  </ol>
+  <p><strong>Complete formula:</strong> <code>=IF(B2&gt;=60, "Pass", "Fail")</code></p>
+  <p>Copy this formula down column C and each student instantly gets a Pass/Fail grade. To add letter grades (A, B, C, D, F), replace the single IF with a <strong>nested IF</strong> — see the section below.</p>
+
   <h3>Common Errors to Watch Out For</h3>
   <p>When working with the IF function, you might encounter some common pitfalls:</p>
   <ol>
@@ -154,14 +279,38 @@ export const FORMULAS: FormulaConfig[] = [
   <p>For example, to grade a score in cell A1:</p>
   <pre><code>=IF(A1>=90, "A", IF(A1>=80, "B", IF(A1>=70, "C", "F")))</code></pre>
   <p>In this example, the formula checks for 90 first, then 80, then 70, before defaulting to "F". While powerful, try to keep nested IFs simple to avoid confusion, or consider using the <code>IFS</code> function in newer versions of Excel and Google Sheets.</p>
-  
+
+  <h3>Using IF with AND and OR</h3>
+  <p>Combine IF with <strong>AND</strong> or <strong>OR</strong> when you need to evaluate multiple conditions at once.</p>
+  <p><strong>IF with AND:</strong> All conditions must be true for the result to show.</p>
+  <pre><code>=IF(AND(A1&gt;=60, B1="Yes"), "Eligible", "Not Eligible")</code></pre>
+  <p>This checks if A1 is at least 60 <em>and</em> B1 is "Yes" before returning "Eligible".</p>
+  <p><strong>IF with OR:</strong> Any single condition being true triggers the result.</p>
+  <pre><code>=IF(OR(A1="Admin", A1="Manager"), "Access Granted", "Access Denied")</code></pre>
+  <p>You can even mix AND and OR: <code>=IF(AND(OR(A1="East", A1="West"), B1&gt;100), "Target Met", "Review")</code>.</p>
+
+  <h3>Common IF Mistakes and How to Fix Them</h3>
+  <p>Even experienced users run into trouble with IF. Here are the most frequent issues:</p>
+  <ul>
+    <li><strong>Text not in quotes:</strong> Excel treats unquoted text as a named range. Always use <code>"text"</code>, not <code>text</code>.</li>
+    <li><strong>Wrong condition order in nested IF:</strong> Excel evaluates left to right and returns the first match. Put the most specific condition first.</li>
+    <li><strong>Using text for numbers:</strong> <code>=IF(A1="100", ...)</code> treats 100 as text. Omit quotes for numeric comparisons: <code>=IF(A1=100, ...)</code>.</li>
+    <li><strong>Hidden spaces in cells:</strong> A cell <em>looks</em> empty but contains a space. Use <code>=IF(TRIM(A1)="", "Empty", A1)</code> to handle this.</li>
+  </ul>
+
+  <div class="bg-green-50 p-4 rounded-lg border border-green-100 mt-6">
+    <p class="text-sm text-green-800"><strong>Pro Tip:</strong> If you're using Excel 2016 or newer (or any Google Sheets), prefer the <code>IFS</code> function over deeply nested IF statements. <code>IFS</code> lets you list multiple condition-result pairs without nesting parentheses: <code>=IFS(A1&gt;=90, "A", A1&gt;=80, "B", A1&gt;=70, "C", TRUE, "F")</code>. It's cleaner, harder to break, and much easier for others to read.</p>
+  </div>
+
   <h3>Why Use SheetMaster's IF Generator?</h3>
   <p>Building complex logical statements manually can be prone to syntax errors, especially with parentheses. Our generator handles the formatting for you, ensuring your formula works perfectly the first time you paste it into your sheet. Save time and reduce frustration by letting our expert-crafted tools handle the heavy lifting of data analysis.</p>
 </div>`,
         howToSteps: [
-            { name: "Define your condition", text: "Decide what you want to test. For example, is cell A1 greater than 10?" },
-            { name: "Determine the result if true", text: "Decide what happens if the condition is met (e.g., return text 'Pass')." },
-            { name: "Determine the result if false", text: "Decide what happens if the condition is NOT met (e.g., return text 'Fail')." }
+            { name: "Define your condition", text: "Decide what you want to test. For example, is cell A1 greater than 10? Use comparison operators like >, <, =, >=, <=, or <>." },
+            { name: "Set the result if true", text: "Enter the value to display when the condition is met. Text must be in double quotes (e.g., \"Pass\"). You can also use a formula, cell reference, or number." },
+            { name: "Set the result if false", text: "Enter the value for when the condition is NOT met (e.g., \"Fail\" or 0). This argument is optional — leave blank to return FALSE." },
+            { name: "Test with sample data", text: "Copy your formula into a spreadsheet and test with known inputs. Verify the true and false results appear as expected before scaling up." },
+            { name: "Extend with nested IF or IFS", text: "For multiple conditions, nest additional IF statements or switch to the IFS function (Excel 2016+ / Google Sheets). Each added condition branches into more granular outcomes." }
         ],
         faq: [
             { question: "How to create an IF statement in Excel?", answer: "Start with =IF(logical_test, value_if_true, value_if_false). Example: =IF(A1>60, \"Pass\", \"Fail\"). The logical_test is your condition — if it's true, Excel shows value_if_true; otherwise value_if_false. Use our generator above to build one in seconds." },
@@ -169,7 +318,10 @@ export const FORMULAS: FormulaConfig[] = [
             { question: "How do I check for text?", answer: "Put text inside double quotes, like \"Yes\" or \"No\". Numbers do not need quotes." },
             { question: "What does the IF function do in Excel?", answer: "IF checks a condition and returns one value when true and another when false. Syntax: =IF(condition, value_if_true, value_if_false)." },
             { question: "How do I use IF with AND or OR?", answer: "Put AND() or OR() in the logical_test: =IF(AND(A1>0, B1<10), \"Yes\", \"No\") or =IF(OR(A1=1, A1=2), \"OK\", \"No\")." },
-            { question: "Why does IF return #NAME?", answer: "Usually a typo in the function name or unquoted text. Text must be in double quotes; numbers and cell references do not need quotes." }
+            { question: "Why does IF return #NAME?", answer: "Usually a typo in the function name or unquoted text. Text must be in double quotes; numbers and cell references do not need quotes." },
+            { question: "Can I use IF with dates in Excel?", answer: "Yes. Use DATE() or DATEVALUE() inside your logical test: =IF(A1>DATE(2024,1,1), \"After Jan 1\", \"Before\"). For cell references containing dates, compare directly: =IF(B1>TODAY(), \"Future\", \"Past\")." },
+            { question: "What is the limit for nested IF functions?", answer: "Excel 2007 and newer allows up to 64 nested IFs, but exceeding 7-10 makes formulas hard to read and debug. For cleaner multi-condition logic, use IFS (Excel 2016+) or SWITCH instead." },
+            { question: "Why is my IF function returning the wrong value?", answer: "Common causes: (1) Text not in double quotes — use \"Yes\" not Yes. (2) Cells that look empty but contain spaces — use TRIM() or LEN() to check. (3) Number stored as text — use VALUE() to convert. (4) Wrong order of nested conditions — the first true condition wins, so check the most specific conditions first." }
         ],
         commonErrors: [
             { title: 'IF returns #NAME? or wrong result', causes: ['Text in value_if_true/value_if_false not in double quotes.', 'Misspelled function name (IF not IFF).', 'Too many nested IFs; limit in Excel is 64.'], fixes: ['Put all literal text in quotes: "Pass", "Fail".', 'Check spelling; use IFS for many conditions instead of nesting.', 'Use IFS or SWITCH for cleaner multi-condition logic.'] },
@@ -179,14 +331,14 @@ export const FORMULAS: FormulaConfig[] = [
             { argument: 'value_if_true', explanation: 'The result returned if the logical_test evaluates to TRUE. Text must be in double quotes.', example: 'e.g., "Pass" or A1*0.1' },
             { argument: 'value_if_false', explanation: 'The result returned if the logical_test evaluates to FALSE. Text must be in double quotes.', example: 'e.g., "Fail" or 0' },
         ],
-        relatedTools: ['sumif', 'countif', 'and'],
+        relatedTools: ['ifs', 'iferror', 'and', 'or', 'vlookup', 'xlookup'],
     },
 
     // 3. SUMIF
     {
         slug: 'sumif',
-        title: 'SUMIF Formula — Sum with Conditions in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate SUMIF formulas instantly in Excel and Google Sheets. Sum cells by text, number, or date conditions. Free formula generator with real-world examples.',
+        title: 'How to Use SUMIF in Excel (Sum with One Condition + Free Generator)',
+        metaDescription: 'Learn how to use SUMIF in Excel and Google Sheets. Sum cells by one condition using text, numbers, dates, or wildcards. Free formula generator included.',
         excelFunction: 'SUMIF',
         category: 'Math',
         description: 'Adds the cells specified by a given condition or criteria.',
@@ -201,41 +353,108 @@ export const FORMULAS: FormulaConfig[] = [
             const sumRange = p.sum_range ? `, ${p.sum_range}` : '';
             return `=SUMIF(${range}, ${criteria}${sumRange})`;
         },
+        relatedTools: ['sumifs', 'countif', 'averageif', 'if', 'sum'],
         richContent: `
 <div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
-  <h2 class="text-2xl font-bold mb-4">Mastering SUMIF: Conditional Sums in Excel & Google Sheets</h2>
-  <p class="mb-4">The <strong>SUMIF</strong> function is one of the most practical tools for financial analysis, sales reporting, and budget tracking. It sums values based on a single condition — like "sum all sales where the region is North" or "sum expenses where category is Marketing."</p>
+  <h2 class="text-2xl font-bold mb-4">How to Use SUMIF in Excel and Google Sheets</h2>
+  <p class="mb-4">The <strong>SUMIF</strong> function sums numeric values that meet a single condition — like "sum all sales where the region is North" or "sum expenses over $500." It is one of the most practical tools for financial analysis, sales reporting, and budget tracking.</p>
 
-  <h3 class="text-xl font-semibold mb-2">How SUMIF Works</h3>
-  <p class="mb-4">The SUMIF function evaluates each cell in a range against your criteria. If it matches, the corresponding value from the sum_range is added to the total. If you omit sum_range, SUMIF sums the range itself.</p>
+  <h3 class="text-xl font-semibold mb-2">SUMIF Syntax</h3>
+  <p class="mb-4"><code>=SUMIF(range, criteria, [sum_range])</code></p>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><strong>range</strong> — The cells you want to evaluate against the criteria.</li>
+    <li><strong>criteria</strong> — The condition that determines which cells to sum (text, number, expression, or cell reference).</li>
+    <li><strong>sum_range</strong> — The actual cells to sum. If omitted, SUMIF sums the range itself.</li>
+  </ul>
 
-  <h3 class="text-xl font-semibold mb-2">Real-World SUMIF Examples</h3>
-  <p class="mb-2"><strong>Sum sales by region:</strong></p>
-  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=SUMIF(A:A, "North", B:B)</code></pre>
+  <h3 class="text-xl font-semibold mb-2">Step-by-Step Example: Sum Sales by Region</h3>
+  <p class="mb-3">Suppose you have a sales table:</p>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full border-collapse border border-gray-300 text-sm">
+      <thead><tr class="bg-gray-100"><th class="border border-gray-300 px-3 py-2 font-semibold">A (Region)</th><th class="border border-gray-300 px-3 py-2 font-semibold">B (Sales)</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-300 px-3 py-1">North</td><td class="border border-gray-300 px-3 py-1">1,200</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1">South</td><td class="border border-gray-300 px-3 py-1">850</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1">North</td><td class="border border-gray-300 px-3 py-1">2,300</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1">East</td><td class="border border-gray-300 px-3 py-1">1,100</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1">North</td><td class="border border-gray-300 px-3 py-1">950</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="mb-2"><strong>Goal:</strong> Total sales for the North region.</p>
+  <ol class="list-decimal pl-5 mb-4 space-y-1">
+    <li>Click cell <strong>D2</strong> (or any empty cell).</li>
+    <li>Enter: <code>=SUMIF(A2:A6, "North", B2:B6)</code></li>
+    <li>Press <strong>Enter</strong>. The result is <strong>4,450</strong> (1,200 + 2,300 + 950).</li>
+  </ol>
+  <p class="mb-4">To make the criteria dynamic, put "North" in cell <strong>E1</strong> and use: <code>=SUMIF(A2:A6, E1, B2:B6)</code>. Update E1 to "South" and the result instantly changes to 850.</p>
+
+  <h3 class="text-xl font-semibold mb-2">More Real-World SUMIF Examples</h3>
   <p class="mb-2"><strong>Sum amounts greater than 500:</strong></p>
   <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=SUMIF(B:B, ">500")</code></pre>
   <p class="mb-2"><strong>Sum with a cell reference as criteria:</strong></p>
   <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=SUMIF(A:A, E1, B:B)</code></pre>
+  <p class="mb-2"><strong>Sum excluding a specific item:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=SUMIF(A:A, "<>Widget", B:B)</code></pre>
+  <p class="mb-2"><strong>Sum with comparison operator + cell reference:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=SUMIF(C:C, ">="&D1, B:B)</code></pre>
+
+  <h3 class="text-xl font-semibold mb-2">Using Wildcards with SUMIF</h3>
+  <p class="mb-2">Wildcards let you match partial text:</p>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><code>*</code> (asterisk) — matches any sequence of characters. <code>=SUMIF(A:A, "*East*", B:B)</code> sums all rows where column A contains "East" anywhere (includes "Northeast", "Eastern").</li>
+    <li><code>?</code> (question mark) — matches any single character. <code>=SUMIF(A:A, "??-100", B:B)</code> matches "AB-100" but not "ABC-100".</li>
+    <li><code>~</code> (tilde) — escape wildcards. <code>=SUMIF(A:A, "~*", B:B)</code> sums rows where column A contains a literal asterisk.</li>
+  </ul>
+
+  <h3 class="text-xl font-semibold mb-2">Summing with Date Criteria</h3>
+  <p class="mb-2">SUMIF handles date conditions using <code>DATE()</code> or cell references:</p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=SUMIF(A:A, ">="&DATE(2025,1,1), B:B)</code></pre>
+  <p class="mb-2">This sums all values in column B where the date in column A is on or after January 1, 2025. For a two-date range (between start and end), use SUMIFS:</p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=SUMIFS(B:B, A:A, ">="&E1, A:A, "<="&F1)</code></pre>
 
   <h3 class="text-xl font-semibold mb-2">SUMIF vs SUMIFS: When to Use Each</h3>
-  <p class="mb-4">SUMIF handles one condition. When you need multiple conditions — like "sum sales for Product X in the North region during Q1" — use <a href="/formulas/sumifs" class="text-blue-600 underline font-semibold">SUMIFS</a>. The key difference: SUMIFS puts the sum_range first, then pairs of criteria_range and criteria.</p>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full border-collapse border border-gray-300 text-sm">
+      <thead><tr class="bg-gray-100"><th class="border border-gray-300 px-3 py-2 font-semibold">Feature</th><th class="border border-gray-300 px-3 py-2 font-semibold">SUMIF</th><th class="border border-gray-300 px-3 py-2 font-semibold">SUMIFS</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-300 px-3 py-1 font-medium">Conditions</td><td class="border border-gray-300 px-3 py-1">1</td><td class="border border-gray-300 px-3 py-1">Up to 127</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1 font-medium">Argument order</td><td class="border border-gray-300 px-3 py-1">range, criteria, sum_range</td><td class="border border-gray-300 px-3 py-1">sum_range, criteria_range1, criteria1, ...</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1 font-medium">Sum_range optional?</td><td class="border border-gray-300 px-3 py-1">Yes</td><td class="border border-gray-300 px-3 py-1">No (required)</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1 font-medium">Best for</td><td class="border border-gray-300 px-3 py-1">Simple single-condition sums</td><td class="border border-gray-300 px-3 py-1">Multi-condition sums (e.g., region + product + date)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="text-xl font-semibold mb-2">Common SUMIF Edge Cases</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><strong>Data type mismatch:</strong> Numbers stored as text won't match numeric criteria. Use <code>VALUE()</code> or <code>TEXT()</code> to align types.</li>
+    <li><strong>Sum_range sizes differ:</strong> If sum_range is smaller than range, SUMIF only sums the overlapping top-left portion. Always match sizes.</li>
+    <li><strong>Leading/trailing spaces:</strong> <code>=SUMIF(A:A, "Apple", B:B)</code> won't match " Apple". Use <code>TRIM()</code> on your data or criteria: <code>"="&TRIM(E1)</code>.</li>
+    <li><strong>Case sensitivity:</strong> SUMIF is not case-sensitive. "APPLE", "Apple", and "apple" all match.</li>
+    <li><strong>Criteria longer than 255 characters:</strong> SUMIF rejects criteria strings longer than 255 characters. For longer patterns, use a helper column or switch to SUMIFS with SUMPRODUCT.</li>
+  </ul>
 
   <div class="bg-green-50 p-4 rounded-lg border border-green-100 mt-6">
-    <p class="text-sm text-green-800"><strong>Pro Tip:</strong> Use wildcards for flexible matching. <code>=SUMIF(A:A, "*Widget*", B:B)</code> sums all rows where column A contains "Widget" anywhere in the text. Use <code>?</code> for single-character matching.</p>
+    <p class="text-sm text-green-800"><strong>Pro Tip:</strong> Use wildcards for flexible matching. <code>=SUMIF(A:A, "*Widget*", B:B)</code> sums all rows where column A contains "Widget" anywhere in the text. Combine with a cell reference: <code>=SUMIF(A:A, "*"&amp;E1&amp;"*", B:B)</code> — typing "Widget" in E1 instantly updates the sum.</p>
   </div>
 </div>`,
         howToSteps: [
-            { name: 'Select your range', text: 'Choose the range of cells that contains your criteria. For example, A1:A10 contains product names or numbers.' },
-            { name: 'Define your criteria', text: 'Enter the condition in quotes, like "Apple" for exact text or ">100" for numbers. For cell references use "="&E1.' },
-            { name: 'Select sum range (optional)', text: 'If summing a different column, add the sum_range. If omitted, SUMIF sums the range itself.' },
-            { name: 'Copy and test', text: 'Paste the formula into your spreadsheet and verify the result matches your expected total.' }
+            { name: 'Set up your data table', text: 'Arrange your data with criteria in one column and values to sum in another. For example, put region names in A2:A11 and sales amounts in B2:B11. This clean layout makes SUMIF easy to write and audit.' },
+            { name: 'Pick the criteria range', text: 'Select the range that contains the condition you want to check, such as A2:A11 for region names. This is your first argument. Use absolute references ($A$2:$A$11) if copying the formula to other cells.' },
+            { name: 'Define your criteria with proper syntax', text: 'Enter the condition in quotes: "North" for exact text match, ">500" for numbers greater than 500, or "="&E1 to reference cell E1. For partial text, use wildcards: "*East*" matches cells containing "East" anywhere.' },
+            { name: 'Add the sum range (optional)', text: 'If your sum values are in a different column, add the sum_range as the third argument: B2:B11. Ensure sum_range is the same size as the criteria range. If omitted, SUMIF sums the criteria range itself (e.g., =SUMIF(B2:B11, ">500").' },
+            { name: 'Test with known values', text: 'Paste the formula into your target cell (e.g., D2) and verify with a known subset. For example, manually sum B2:B11 for "North" rows and confirm the result matches. Drag or copy to adjacent cells if using mixed criteria.' }
         ],
         faq: [
-            { question: "What is the difference between SUMIF and SUMIFS?", answer: "SUMIF has one condition; SUMIFS can have multiple conditions. Use SUMIFS when you need to sum only when two or more criteria are met." },
-            { question: "Can SUMIF use wildcards?", answer: "Yes. Use * for any characters and ? for one character. Example: =SUMIF(A:A,\"*apple*\",B:B) sums B where A contains \"apple\"." },
-            { question: "How do I sum with a date criteria?", answer: "Use a cell reference or DATE() in criteria, e.g. =SUMIF(A:A,\">=\"&DATE(2025,1,1),B:B) or =SUMIF(A:A,\">=\"&E1,B:B) where E1 has the date." },
-            { question: "Why does SUMIF return 0?", answer: "Check that criteria match the data type (e.g. number vs text). Use quotes for text: \"=100\" or \">50\". Ensure sum_range aligns with range if you use it." },
-            { question: "When should I use SUMIF vs COUNTIF?", answer: "Use SUMIF to add values that meet a condition. Use COUNTIF to count how many cells meet a condition. Both use the same criteria syntax." }
+            { question: "What is the difference between SUMIF and SUMIFS?", answer: "SUMIF handles a single condition. SUMIFS handles multiple conditions (up to 127) and puts the sum_range first. Use SUMIF for simple one-criteria sums. Use SUMIFS when you need to sum by multiple criteria like region AND product AND date range." },
+            { question: "Can SUMIF use wildcards?", answer: "Yes. Use * (asterisk) for any sequence of characters and ? (question mark) for a single character. Example: =SUMIF(A:A,\"*apple*\",B:B) sums column B where column A contains \"apple\" anywhere. Use ~ to escape wildcards: =SUMIF(A:A,\"~*\",B:B) sums rows with a literal asterisk." },
+            { question: "How do I sum with a date criteria?", answer: "Use a cell reference or DATE() in criteria: =SUMIF(A:A,\">=\"&DATE(2025,1,1),B:B) sums B where A is on or after Jan 1, 2025. For a date range (between two dates), use SUMIFS with two conditions: =SUMIFS(B:B,A:A,\">=\"&E1,A:A,\"<=\"&F1)." },
+            { question: "Why does SUMIF return 0?", answer: "Common causes: (1) Criteria not matching data type — text stored as numbers or vice versa. Use quotes for text criteria. (2) Extra spaces in cells — use TRIM(). (3) Sum_range misaligned with range — ensure they are the same size. (4) Criteria string exceeds 255 characters." },
+            { question: "How do I sum blank or non-blank cells with SUMIF?", answer: "To sum values where a cell is blank, use \"=\" as criteria: =SUMIF(A:A,\"=\",B:B). For non-blank cells, use \"<>\": =SUMIF(A:A,\"<>\",B:B). Both treat truly empty cells and cells containing only spaces differently — consider combining with TRIM for clean results." },
+            { question: "When should I use SUMIF vs COUNTIF?", answer: "Use SUMIF to add numeric values that meet a condition. Use COUNTIF to count how many cells meet a condition. Both use the same criteria syntax with text, numbers, wildcards, and date comparisons." },
+            { question: "How do I use a cell reference as the criteria in SUMIF?", answer: "Concatenate the operator with the cell reference using &: =SUMIF(A:A,\">\"&E1,B:B). For exact match, reference the cell directly: =SUMIF(A:A,E1,B:B). This lets you change the criteria without editing the formula." },
+            { question: "Why is SUMIF returning a wrong sum instead of an error?", answer: "SUMIF silently skips mismatches instead of erroring. Check these: (1) sum_range and range must be the same size — different sizes use only the overlapping portion. (2) Numeric values stored as text are ignored. (3) Hidden characters in criteria or data cells — use LEN() to verify character counts." }
         ],
         commonErrors: [
             { title: 'SUMIF returns 0 or wrong sum', causes: ['Criteria not in quotes for text (e.g. "Apple" not Apple).', 'Sum_range and range different sizes; only overlapping rows are summed.', 'Number stored as text in range; criteria does not match.'], fixes: ['Use quotes for text: ">100", "Sales".', 'Make sum_range same size as range, or omit sum_range to sum range.', 'Align data types; use VALUE or TEXT as needed.'] },
@@ -245,8 +464,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 4. COUNTIF
     {
         slug: 'countif',
-        title: 'COUNTIF Formula — Count Cells by Criteria in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate COUNTIF formulas instantly in Excel and Google Sheets. Count cells by text, number, date, or blank conditions. Free formula generator with examples.',
+        title: 'COUNTIF Formula — Count Cells by Criteria in Excel & Sheets | SheetMaster',
+        metaDescription: 'Generate COUNTIF formulas to count cells matching text, numbers, dates, or blanks. Free interactive formula generator. No signup needed.',
         excelFunction: 'COUNTIF',
         category: 'Math',
         description: 'Counts the number of cells within a range that meet the given condition.',
@@ -255,41 +474,121 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'criteria', label: 'Criteria', type: 'text', placeholder: 'e.g., ">100" or "Completed"' },
         ],
         generate: (p) => `=COUNTIF(${p.range || 'range'}, ${p.criteria || 'criteria'})`,
+        relatedTools: ['countifs', 'sumif', 'averageif', 'counta', 'countblank'],
         richContent: `
 <div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
-  <h2 class="text-2xl font-bold mb-4">Mastering COUNTIF: Count Cells That Meet Any Condition</h2>
-  <p class="mb-4">The <strong>COUNTIF</strong> function is essential for data analysis, quality control, and reporting. Need to know how many orders exceed $1,000? How many tasks are marked "Complete"? How many entries fall within a date range? COUNTIF answers these instantly.</p>
+  <h2 class="text-2xl font-bold mb-4">How to Use COUNTIF in Excel and Google Sheets</h2>
+  <p class="mb-4">The <strong>COUNTIF</strong> function counts cells that meet a single condition — like how many orders exceed $1,000, how many tasks are marked "Complete," or how many entries fall within a date range. It is essential for data analysis, quality control, and reporting.</p>
 
-  <h3 class="text-xl font-semibold mb-2">COUNTIF Syntax & Common Patterns</h3>
-  <p class="mb-3">The basic syntax: <code>=COUNTIF(range, criteria)</code></p>
-  <ul class="list-disc pl-5 mb-4 space-y-2">
-    <li><strong>Count exact text:</strong> <code>=COUNTIF(A:A, "Completed")</code></li>
-    <li><strong>Count numbers greater than:</strong> <code>=COUNTIF(B:B, ">1000")</code></li>
-    <li><strong>Count blank cells:</strong> <code>=COUNTIF(A:A, "")</code></li>
-    <li><strong>Count non-blank cells:</strong> <code>=COUNTIF(A:A, "<>")</code></li>
-    <li><strong>Count dates after a specific date:</strong> <code>=COUNTIF(A:A, ">="&DATE(2026,1,1))</code></li>
+  <h3 class="text-xl font-semibold mb-2">COUNTIF Syntax</h3>
+  <p class="mb-4"><code>=COUNTIF(range, criteria)</code></p>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><strong>range</strong> — The range of cells you want to count.</li>
+    <li><strong>criteria</strong> — The condition that determines which cells to count (text, number, expression, or cell reference).</li>
   </ul>
 
-  <h3 class="text-xl font-semibold mb-2">When COUNTIF Meets Wildcards</h3>
-  <p class="mb-4">Wildcards make COUNTIF extremely powerful for partial matching. Use <code>*</code> for any sequence of characters and <code>?</code> for a single character. For example, <code>=COUNTIF(A:A, "*East*")</code> counts all cells containing "East" — including "Northeast" and "Eastern".</p>
+  <h3 class="text-xl font-semibold mb-2">Step-by-Step Example: Count Orders by Status</h3>
+  <p class="mb-3">Suppose you have an order log:</p>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full border-collapse border border-gray-300 text-sm">
+      <thead><tr class="bg-gray-100"><th class="border border-gray-300 px-3 py-2 font-semibold">A (Order ID)</th><th class="border border-gray-300 px-3 py-2 font-semibold">B (Status)</th><th class="border border-gray-300 px-3 py-2 font-semibold">C (Amount)</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-300 px-3 py-1">1001</td><td class="border border-gray-300 px-3 py-1">Completed</td><td class="border border-gray-300 px-3 py-1">1,200</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1">1002</td><td class="border border-gray-300 px-3 py-1">Pending</td><td class="border border-gray-300 px-3 py-1">850</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1">1003</td><td class="border border-gray-300 px-3 py-1">Completed</td><td class="border border-gray-300 px-3 py-1">2,300</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1">1004</td><td class="border border-gray-300 px-3 py-1">Cancelled</td><td class="border border-gray-300 px-3 py-1">0</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1">1005</td><td class="border border-gray-300 px-3 py-1">Completed</td><td class="border border-gray-300 px-3 py-1">950</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1">1006</td><td class="border border-gray-300 px-3 py-1">Pending</td><td class="border border-gray-300 px-3 py-1">1,500</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="mb-2"><strong>Goal:</strong> How many orders are "Completed"?</p>
+  <ol class="list-decimal pl-5 mb-4 space-y-1">
+    <li>Click cell <strong>E2</strong> (or any empty cell).</li>
+    <li>Enter: <code>=COUNTIF(B2:B7, "Completed")</code></li>
+    <li>Press <strong>Enter</strong>. The result is <strong>3</strong> (rows 1001, 1003, 1005).</li>
+  </ol>
+  <p class="mb-4">To count "Pending" orders, change the criteria: <code>=COUNTIF(B2:B7, "Pending")</code> — returns 2. For a dynamic criteria, put "Completed" in cell <strong>F1</strong> and use: <code>=COUNTIF(B2:B7, F1)</code>.</p>
+
+  <h3 class="text-xl font-semibold mb-2">Common COUNTIF Patterns</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><strong>Count exact text:</strong> <code>=COUNTIF(A:A, "Completed")</code></li>
+    <li><strong>Count numbers greater than:</strong> <code>=COUNTIF(B:B, ">1000")</code></li>
+    <li><strong>Count numbers less than or equal:</strong> <code>=COUNTIF(B:B, "<=500")</code></li>
+    <li><strong>Count not equal to:</strong> <code>=COUNTIF(B:B, "<>Cancelled")</code></li>
+    <li><strong>Count blank cells:</strong> <code>=COUNTIF(A:A, "")</code></li>
+    <li><strong>Count non-blank cells:</strong> <code>=COUNTIF(A:A, "<>")</code></li>
+    <li><strong>Count with cell reference:</strong> <code>=COUNTIF(B:B, ">"&E1)</code></li>
+  </ul>
+
+  <h3 class="text-xl font-semibold mb-2">Count Blank and Non-Blank Cells</h3>
+  <p class="mb-2">Two essential patterns for data quality checks:</p>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><strong>Count truly blank cells:</strong> <code>=COUNTIF(A:A, "")</code> — counts cells that are completely empty.</li>
+    <li><strong>Count non-blank cells (cells with any value):</strong> <code>=COUNTIF(A:A, "<>")</code> — counts cells that contain text, numbers, dates, or errors. Note: cells with spaces are not blank and will be counted.</li>
+    <li><strong>Count cells that look blank but contain spaces:</strong> <code>=COUNTIF(A:A, " *")</code> or combine with a helper column using <code>TRIM()</code>.</li>
+  </ul>
+
+  <h3 class="text-xl font-semibold mb-2">Using Wildcards with COUNTIF</h3>
+  <p class="mb-2">Wildcards enable powerful partial matching:</p>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><code>*</code> (asterisk) — matches any sequence of characters. <code>=COUNTIF(A:A, "*East*")</code> counts all cells containing "East" — including "Northeast" and "Eastern".</li>
+    <li><code>?</code> (question mark) — matches any single character. <code>=COUNTIF(A:A, "???-100")</code> matches "ABC-100" but not "AB-100".</li>
+    <li><code>~</code> (tilde) — escape wildcards. <code>=COUNTIF(A:A, "~?")</code> counts cells containing a literal question mark.</li>
+    <li><strong>Count cells starting with:</strong> <code>=COUNTIF(A:A, "East*")</code> counts cells that begin with "East".</li>
+    <li><strong>Count cells ending with:</strong> <code>=COUNTIF(A:A, "*ing")</code> counts cells ending with "ing".</li>
+  </ul>
+
+  <h3 class="text-xl font-semibold mb-2">COUNTIF with Date Criteria</h3>
+  <p class="mb-2">COUNTIF works with dates just like numbers. Use <code>DATE()</code> or a cell reference:</p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=COUNTIF(A:A, ">="&DATE(2026,1,1))</code></pre>
+  <p class="mb-2">This counts all dates on or after January 1, 2026. For a date range, use COUNTIFS:</p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=COUNTIFS(A:A, ">="&E1, A:A, "<="&F1)</code></pre>
+  <p class="mb-2">To count dates from today backwards:</p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=COUNTIF(A:A, ">="&TODAY()-30)</code></pre>
+
+  <h3 class="text-xl font-semibold mb-2">COUNTIF vs COUNTIFS: When to Use Each</h3>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full border-collapse border border-gray-300 text-sm">
+      <thead><tr class="bg-gray-100"><th class="border border-gray-300 px-3 py-2 font-semibold">Feature</th><th class="border border-gray-300 px-3 py-2 font-semibold">COUNTIF</th><th class="border border-gray-300 px-3 py-2 font-semibold">COUNTIFS</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-300 px-3 py-1 font-medium">Conditions</td><td class="border border-gray-300 px-3 py-1">1</td><td class="border border-gray-300 px-3 py-1">Up to 127</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1 font-medium">Argument order</td><td class="border border-gray-300 px-3 py-1">range, criteria</td><td class="border border-gray-300 px-3 py-1">criteria_range1, criteria1, criteria_range2, criteria2, ...</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1 font-medium">OR logic across columns</td><td class="border border-gray-300 px-3 py-1">Add two COUNTIFs: =COUNTIF(...)+COUNTIF(...)</td><td class="border border-gray-300 px-3 py-1">Not natively supported (use COUNTIF + COUNTIF pattern)</td></tr>
+        <tr><td class="border border-gray-300 px-3 py-1 font-medium">Best for</td><td class="border border-gray-300 px-3 py-1">Simple single-condition counts</td><td class="border border-gray-300 px-3 py-1">Multi-condition counts (e.g., status + date range)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="text-xl font-semibold mb-2">Common COUNTIF Edge Cases</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><strong>Data type mismatch:</strong> Numbers stored as text won't match numeric criteria. Use <code>VALUE()</code> or align data types.</li>
+    <li><strong>Leading/trailing spaces:</strong> A cell with "Completed " (trailing space) won't match "Completed". Use <code>TRIM()</code> on your data.</li>
+    <li><strong>Case sensitivity:</strong> COUNTIF is not case-sensitive. "COMPLETED", "Completed", and "completed" all match the same count.</li>
+    <li><strong>Criteria length limit:</strong> COUNTIF criteria strings cannot exceed 255 characters. For longer patterns, use a helper column with <code>SEARCH()</code> or switch to SUMPRODUCT.</li>
+    <li><strong>Counting with OR logic:</strong> COUNTIF handles a single condition. For OR across values (e.g., count "Completed" OR "Pending"), add two COUNTIFs: <code>=COUNTIF(B:B, "Completed") + COUNTIF(B:B, "Pending")</code>.</li>
+  </ul>
 
   <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 mt-6">
-    <p class="text-sm text-yellow-800"><strong>Pro Tip:</strong> For multiple conditions, upgrade to <a href="/formulas/countifs" class="text-blue-600 underline font-semibold">COUNTIFS</a>. The syntax is <code>=COUNTIFS(criteria_range1, criteria1, criteria_range2, criteria2)</code>. It's like COUNTIF on steroids.</p>
+    <p class="text-sm text-yellow-800"><strong>Pro Tip:</strong> For multiple conditions on different columns, upgrade to <a href="/formulas/countifs" class="text-blue-600 underline font-semibold">COUNTIFS</a>. The syntax is <code>=COUNTIFS(criteria_range1, criteria1, criteria_range2, criteria2)</code>. For example, count orders that are "Completed" AND over $1,000: <code>=COUNTIFS(B:B, "Completed", C:C, ">1000")</code>. COUNTIFS puts the sum_range first — opposite of SUMIF.</p>
   </div>
 </div>`,
         howToSteps: [
-            { name: 'Select your range', text: 'Choose the range of cells you want to count from, such as A1:A100.' },
-            { name: 'Define your criteria', text: 'Enter the condition in quotes: "Completed" for exact text, ">100" for numbers, or "="&E1 for cell references.' },
-            { name: 'Understand the result', text: 'COUNTIF returns the count of cells that match your criteria. Use COUNTIFS for multiple conditions.' },
-            { name: 'Copy into your sheet', text: 'Paste the formula into your target cell and adjust ranges to match your actual data.' }
+            { name: 'Set up your data and pick the range', text: 'Identify the column you want to count from, such as B2:B11 for order statuses. Arrange your data in a clean table — one column for the values you want to evaluate, with no blank rows in the middle.' },
+            { name: 'Define your criteria with correct syntax', text: 'Write your condition in double quotes: "Completed" for exact text, ">100" for numbers greater than 100, or "<>" for non-blank cells. For a cell reference, skip the quotes and use the cell directly: F1. For operators with a cell reference, use &amp;: ">"&amp;E1.' },
+            { name: 'Enter the COUNTIF formula', text: 'Combine range and criteria into the formula: =COUNTIF(B2:B11, "Completed"). Place the formula in an empty cell like D2. The result is a number — the count of cells in B2:B11 that exactly match "Completed".' },
+            { name: 'Test with a known subset', text: 'Verify your result by manually counting matching cells in a small range. For example, visually check rows 2-6 to confirm the count is correct before trusting the full range. This catches data type mismatches early.' },
+            { name: 'Expand with dynamic criteria or wildcards', text: 'Replace hardcoded text with a cell reference: =COUNTIF(B2:B11, F1) — typing "Pending" in F1 instantly updates the count. For partial matches, use wildcards: =COUNTIF(A:A, "*East*") counts all cells containing "East" anywhere in the text.' }
         ],
         faq: [
-            { question: 'Can COUNTIF handle multiple criteria?', answer: 'No — COUNTIF handles only one condition at a time. For multiple criteria (e.g., "count rows where A>100 AND B=\\"Yes\\""), use COUNTIFS instead. To count with OR logic, add two COUNTIFs together: =COUNTIF(A:A,"X")+COUNTIF(A:A,"Y").' },
-            { question: 'Why does COUNTIF return 0 when I expect a count?', answer: 'Check that your criteria match the data type (number vs text). Use quotes for text: "Completed" or "=100". For numbers use ">50" or "=100". Dates may need DATE() or a cell reference.' },
-            { question: 'How do I count blank or non-blank cells?', answer: 'Use criteria "" for blanks: =COUNTIF(A:A,""). For non-blanks use "<>": =COUNTIF(A:A,"<>").' },
-            { question: 'What is the difference between COUNTIF and COUNTIFS?', answer: 'COUNTIF has one condition; COUNTIFS supports multiple criteria ranges. Use COUNTIFS when you need to count only when two or more conditions are met.' },
-            { question: 'Can COUNTIF use wildcards?', answer: 'Yes. Use * for any characters and ? for one character. Example: =COUNTIF(A:A,"*apple*") counts cells containing "apple".' },
-            { question: 'How do I count cells with a date in a range?', answer: 'Use criteria with a date: =COUNTIF(A:A,">="&DATE(2025,1,1)) or =COUNTIF(A:A,">"&B1) where B1 holds the date.' },
+            { question: 'Can COUNTIF handle multiple criteria?', answer: 'No — COUNTIF handles only one condition at a time. For multiple criteria (e.g., "count rows where A>100 AND B=\\"Yes\\""), use COUNTIFS instead. To count with OR logic across different values, add two COUNTIFs together: =COUNTIF(A:A,"X")+COUNTIF(A:A,"Y"). For OR within the same column use the same approach: =COUNTIF(B:B,"Completed")+COUNTIF(B:B,"Pending").' },
+            { question: 'Why does COUNTIF return 0 when I expect a count?', answer: 'Check that your criteria match the data type (number vs text). Use quotes for text: "Completed" or "=100". For numbers use ">50" or "=100". Dates may need DATE() or a cell reference. Also watch for extra spaces — "Completed " won\'t match "Completed". Use TRIM() on your data to clean leading/trailing spaces.' },
+            { question: 'How do I count blank or non-blank cells?', answer: 'Use criteria "" for blanks: =COUNTIF(A:A,""). For non-blanks use "<>": =COUNTIF(A:A,"<>"). Note that cells containing spaces or formulas that return "" look blank but are NOT counted by the blank pattern. For truly empty cells only, use =COUNTBLANK(A:A).' },
+            { question: 'What is the difference between COUNTIF and COUNTIFS?', answer: 'COUNTIF has one condition and uses (range, criteria) syntax. COUNTIFS supports multiple conditions (up to 127) using (criteria_range1, criteria1, criteria_range2, criteria2, ...) syntax. Use COUNTIFS when you need to count only when two or more conditions are met across different columns.' },
+            { question: 'Can COUNTIF use wildcards?', answer: 'Yes. Use * for any sequence of characters, ? for a single character, and ~ to escape wildcards. Examples: =COUNTIF(A:A,"*apple*") counts cells containing "apple". =COUNTIF(A:A,"???-100") matches three-character prefixes like "ABC-100". =COUNTIF(A:A,"~*") counts literal asterisks.' },
+            { question: 'How do I count cells with a date in a range?', answer: 'Use criteria with DATE(): =COUNTIF(A:A,">="&DATE(2026,1,1)) counts dates on or after Jan 1, 2026. For relative dates: =COUNTIF(A:A,">="&TODAY()-7) counts entries in the last 7 days. For two-date ranges, use COUNTIFS: =COUNTIFS(A:A,">="&E1,A:A,"<="&F1).' },
+            { question: 'How do I count cells that contain specific text (not exact match)?', answer: 'Wrap the text with wildcards: =COUNTIF(A:A,"*specific text*") counts cells containing "specific text" anywhere. Use a cell reference: =COUNTIF(A:A,"*"&E1&"*") — typing the search term in E1 makes it reusable across multiple formulas.' },
+            { question: 'Why is COUNTIF counting cells that don\'t appear to match?', answer: 'Common hidden causes: (1) Numbers formatted as text that visually look like numbers — use ISNUMBER() to check. (2) Invisible characters from other systems — use TRIM() and CLEAN(). (3) Dates stored as text — use DATEVALUE() to convert. (4) COUNTIF is not case-sensitive, so "Yes" matches "yes" and "YES".' }
         ],
         commonErrors: [
             { title: 'COUNTIF returns 0 or wrong count', causes: ['Criteria not in quotes for text (e.g. "Yes" not Yes).', 'Data type mismatch: numbers stored as text or vice versa.', 'Extra spaces in cells; criteria does not match exactly.'], fixes: ['Wrap text criteria in double quotes: "Completed", ">100".', 'Use TRIM on data or match the stored format.', 'For numbers, use "=100" or ">50" as the criteria string.'] },
@@ -299,8 +598,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 5. CONCATENATE
     {
         slug: 'concatenate',
-        title: 'CONCATENATE Formula — Join Text Strings in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate CONCATENATE formulas instantly in Excel and Google Sheets. Join text strings with separators. Free formula generator with examples.',
+        title: 'How to Use CONCATENATE in Excel (Combine Text + Free Generator)',
+        metaDescription: 'Need to combine text from multiple cells? Use CONCATENATE in Excel & Sheets. Free formula generator with step-by-step examples. Try it now!',
         excelFunction: 'CONCATENATE',
         category: 'Text',
         description: 'Joins several text strings into one text string.',
@@ -325,41 +624,81 @@ export const FORMULAS: FormulaConfig[] = [
         },
         richContent: `
 <div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
-  <h2 class="text-2xl font-bold mb-4">CONCATENATE: Joining Text in Excel & Google Sheets</h2>
-  <p class="mb-4">The <strong>CONCATENATE</strong> function combines text from multiple cells into one. It is indispensable for formatting names, addresses, and any data where you need to merge column values into a readable string.</p>
+  <h2 class="text-2xl font-bold mb-4">How to Use CONCATENATE in Excel — Step by Step</h2>
+  <p class="mb-4">The <strong>CONCATENATE</strong> function combines text from multiple cells into one. It is indispensable for formatting full names, building addresses, generating email addresses, and any scenario where you need to merge column values into a readable string.</p>
+
+  <h3 class="text-xl font-semibold mb-2">Step-by-Step Walkthrough: Combine First & Last Names</h3>
+  <p class="mb-2">Suppose you have first names in column A and last names in column B. You want full names in column C.</p>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full text-sm border-collapse border border-gray-200">
+      <thead><tr class="bg-gray-50"><th class="border border-gray-200 p-2 text-left">A (First Name)</th><th class="border border-gray-200 p-2 text-left">B (Last Name)</th><th class="border border-gray-200 p-2 text-left">C (Formula)</th><th class="border border-gray-200 p-2 text-left">Result</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-200 p-2">John</td><td class="border border-gray-200 p-2">Smith</td><td class="border border-gray-200 p-2"><code>=CONCATENATE(A2, " ", B2)</code></td><td class="border border-gray-200 p-2 font-semibold">John Smith</td></tr>
+        <tr><td class="border border-gray-200 p-2">Jane</td><td class="border border-gray-200 p-2">Doe</td><td class="border border-gray-200 p-2"><code>=CONCATENATE(A3, " ", B3)</code></td><td class="border border-gray-200 p-2 font-semibold">Jane Doe</td></tr>
+        <tr><td class="border border-gray-200 p-2">Bob</td><td class="border border-gray-200 p-2">Johnson</td><td class="border border-gray-200 p-2"><code>=CONCATENATE(A4, ", ", B4)</code></td><td class="border border-gray-200 p-2 font-semibold">Johnson, Bob</td></tr>
+      </tbody>
+    </table>
+  </div>
 
   <h3 class="text-xl font-semibold mb-2">Practical CONCATENATE Examples</h3>
-  <p class="mb-2"><strong>Combine first and last name:</strong></p>
+  <p class="mb-2"><strong>Combine first and last name with space:</strong></p>
   <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=CONCATENATE(A1, " ", B1)</code></pre>
   <p class="mb-2"><strong>Build a full address:</strong></p>
   <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=CONCATENATE(A1, ", ", B1, ", ", C1, " ", D1)</code></pre>
   <p class="mb-2"><strong>Format a number with text:</strong></p>
   <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=CONCATENATE("Total: $", TEXT(A1, "#,##0.00"))</code></pre>
+  <p class="mb-2"><strong>Generate an email address:</strong></p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=CONCATENATE(LOWER(A1), ".", LOWER(B1), "@company.com")</code></pre>
 
-  <h3 class="text-xl font-semibold mb-2">CONCATENATE vs TEXTJOIN vs Ampersand (&)</h3>
-  <p class="mb-4">In modern Excel and Google Sheets, you have three options for joining text:</p>
+  <h3 class="text-xl font-semibold mb-2">Adding Separators and Spaces</h3>
+  <p class="mb-4">To add spaces, commas, or any text between values, include them as separate arguments wrapped in quotes:</p>
   <ul class="list-disc pl-5 mb-4 space-y-1">
-    <li><strong>CONCATENATE</strong> — Explicit arguments, works in all versions. Good for fixed-length joins.</li>
-    <li><strong>TEXTJOIN</strong> — Set a delimiter once and optionally skip empty cells. Ideal for variable-length lists.</li>
-    <li><strong>Ampersand (&)</strong> — Short syntax: <code>=A1&" "&B1</code>. Clean for simple joins but less readable with many values.</li>
+    <li><strong>Space:</strong> <code>=CONCATENATE(A1, " ", B1)</code> → "John Smith"</li>
+    <li><strong>Comma + space:</strong> <code>=CONCATENATE(B1, ", ", A1)</code> → "Smith, John"</li>
+    <li><strong>Dash:</strong> <code>=CONCATENATE(A1, " - ", B1)</code> → "Sales - Report"</li>
+    <li><strong>Line break:</strong> <code>=CONCATENATE(A1, CHAR(10), B1)</code> (turn on Wrap Text)</li>
   </ul>
 
+  <h3 class="text-xl font-semibold mb-2">Handling Dates and Numbers</h3>
+  <p class="mb-4">CONCATENATE converts everything to text. Raw dates become serial numbers (e.g. 45678) and numbers lose formatting. Use <code>TEXT()</code> to control the output:</p>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=CONCATENATE("Order date: ", TEXT(A1, "mm/dd/yyyy"))</code></pre>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=CONCATENATE("Amount: $", TEXT(B1, "#,##0.00"))</code></pre>
+
+  <h3 class="text-xl font-semibold mb-2">CONCATENATE vs TEXTJOIN vs Ampersand (&)</h3>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full text-sm border-collapse border border-gray-200">
+      <thead><tr class="bg-gray-50"><th class="border border-gray-200 p-2 text-left">Feature</th><th class="border border-gray-200 p-2 text-left">CONCATENATE</th><th class="border border-gray-200 p-2 text-left">Ampersand (&amp;)</th><th class="border border-gray-200 p-2 text-left">TEXTJOIN</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-200 p-2">Syntax</td><td class="border border-gray-200 p-2"><code>=CONCATENATE(A1, " ", B1)</code></td><td class="border border-gray-200 p-2"><code>=A1&" "&B1</code></td><td class="border border-gray-200 p-2"><code>=TEXTJOIN(" ", TRUE, A1:A5)</code></td></tr>
+        <tr><td class="border border-gray-200 p-2">Delimiter</td><td class="border border-gray-200 p-2 text-yellow-600">Repeat between each value</td><td class="border border-gray-200 p-2 text-yellow-600">Repeat between each value</td><td class="border border-gray-200 p-2 text-green-600">Set once</td></tr>
+        <tr><td class="border border-gray-200 p-2">Skip empty cells</td><td class="border border-gray-200 p-2 text-red-600">No</td><td class="border border-gray-200 p-2 text-red-600">No</td><td class="border border-gray-200 p-2 text-green-600">Yes (2nd argument)</td></tr>
+        <tr><td class="border border-gray-200 p-2">Range support</td><td class="border border-gray-200 p-2 text-red-600">No, cell-by-cell</td><td class="border border-gray-200 p-2 text-red-600">No, cell-by-cell</td><td class="border border-gray-200 p-2 text-green-600">Yes, A1:A5</td></tr>
+        <tr><td class="border border-gray-200 p-2">Compatibility</td><td class="border border-gray-200 p-2 text-green-600">All versions</td><td class="border border-gray-200 p-2 text-green-600">All versions</td><td class="border border-gray-200 p-2">Excel 2019+ / Sheets</td></tr>
+        <tr><td class="border border-gray-200 p-2">Best for</td><td class="border border-gray-200 p-2">Fixed joins (name, address)</td><td class="border border-gray-200 p-2">Simple 2-3 value joins</td><td class="border border-gray-200 p-2">Lists, variable-length data</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
-    <p class="text-sm text-blue-800"><strong>Did You Know?</strong> CONCATENATE turns everything to text. If you need to preserve number formatting, always wrap the number in <code>TEXT(value, "format")</code> before concatenating.</p>
+    <p class="text-sm text-blue-800"><strong>Pro Tip:</strong> Use TEXTJOIN instead of CONCATENATE when joining a range of cells. TEXTJOIN lets you set a delimiter once and automatically skips blanks — perfect for mailing lists, tags, and report summaries. For simple 2-3 value joins, the ampersand (&amp;) operator is fastest to type: <code>=A1&" "&B1</code>.</p>
   </div>
 </div>`,
         howToSteps: [
-            { name: 'Identify your text values', text: 'Select the cells or text strings you want to join together, such as first name in A1 and last name in B1.' },
-            { name: 'Add separators', text: 'Include separator strings between values: ", " for comma-space, " " for space-only, or " - " for dash. Always wrap separators in double quotes.' },
-            { name: 'Optional: format numbers', text: 'If concatenating numbers or dates, wrap them in TEXT() first: =CONCATENATE(TEXT(A1,"0.00"), " units").' },
-            { name: 'Copy the result', text: 'Paste the generated formula into your spreadsheet. It will join all values together into one text string.' }
+            { name: 'Identify cells to combine', text: 'Select the cells containing the text you want to join, such as first name in A1 and last name in B1. List them in the order you want them to appear.' },
+            { name: 'Add separators between values', text: 'Include separator strings in quotes between each pair of cell references: use ", " for comma-space, " " for space-only, or " - " for dash. Example: =CONCATENATE(A1, " ", B1).' },
+            { name: 'Handle numbers and dates with TEXT()', text: 'Raw numbers lose formatting when concatenated. Wrap them in TEXT(): =CONCATENATE(TEXT(A1,"$#,##0.00"), " due ", TEXT(B1,"mm/dd/yyyy")).' },
+            { name: 'Combine more than 2 values', text: 'Add additional arguments to join multiple cells: =CONCATENATE(A1, " ", B1, ", ", C1, " ", D1). Each pair needs its own separator argument.' },
+            { name: 'Test and adjust the result', text: 'Paste the formula into your spreadsheet and verify the output. Check for missing spaces, unformatted numbers, and unwanted blank cells. Use TRIM() to clean up extra spaces.' },
         ],
         faq: [
-            { question: 'How do I add a space or separator between concatenated values?', answer: 'Include a string argument for the separator, e.g. ", " or " - " between cell references: =CONCATENATE(A1, " - ", B1).' },
-            { question: 'What is the difference between CONCATENATE and TEXTJOIN?', answer: 'CONCATENATE joins arguments in order; TEXTJOIN lets you specify a delimiter once and can ignore empty cells. In Excel 2016+ and Sheets, TEXTJOIN is often easier for lists.' },
-            { question: 'Why does CONCATENATE show a number without formatting?', answer: 'Concatenation turns numbers to plain text. Use TEXT() to format: =CONCATENATE(TEXT(A1,"0.00"), " ", B1).' },
-            { question: 'How do I concatenate a date with text?', answer: 'Wrap the date in TEXT() so it displays as you want: =CONCATENATE(TEXT(A1,"yyyy-mm-dd"), " ", B1).' },
-            { question: 'Can I use CONCATENATE with more than 3 items?', answer: 'Yes. Add more arguments: =CONCATENATE(A1, " ", B1, " ", C1). In Google Sheets and Excel 2016+, TEXTJOIN is simpler for many values.' },
+            { question: 'How do I add a space or separator between concatenated values?', answer: 'Include a string argument for the separator between each pair of cell references. Use ", " for comma-space, " " for space-only, " - " for dash separators. Example: =CONCATENATE(A1, " - ", B1).' },
+            { question: 'CONCATENATE vs TEXTJOIN — what is the difference?', answer: 'CONCATENATE joins arguments one at a time, repeating the delimiter between each. TEXTJOIN lets you set a delimiter once and can skip empty cells (TRUE argument). For a range like A1:A10, TEXTJOIN is far simpler: =TEXTJOIN(", ", TRUE, A1:A10).' },
+            { question: 'Why does CONCATENATE show a number without formatting?', answer: 'Concatenation converts numbers to plain text, losing formatting like decimals and commas. Use TEXT() to preserve formatting: =CONCATENATE(TEXT(A1,"$#,##0.00"), " per unit").' },
+            { question: 'How do I concatenate a date with text?', answer: 'Wrap the date in TEXT() with a format code: =CONCATENATE(TEXT(A1,"yyyy-mm-dd"), " report"). Without TEXT(), dates appear as serial numbers like 45678. Common formats: "mm/dd/yyyy", "dd-mmm-yyyy", "mmmm dd, yyyy".' },
+            { question: 'Can I use CONCATENATE with more than 3 items?', answer: 'Yes. Add as many arguments as needed: =CONCATENATE(A1, " ", B1, ", ", C1, " ", D1). Each value and separator must be its own argument. For long lists, TEXTJOIN is easier.' },
+            { question: 'Can I use line breaks in CONCATENATE?', answer: 'Yes. Use CHAR(10) for a line break in Excel (turn on Wrap Text) or CHAR(13) for carriage return: =CONCATENATE(A1, CHAR(10), B1). In Google Sheets, use CHAR(10) as well.' },
+            { question: 'What is the difference between CONCATENATE and CONCAT?', answer: 'CONCAT is the modern replacement introduced in Excel 2016. It works the same as CONCATENATE but also supports range references like A1:A5. However, CONCAT does not accept a delimiter parameter — use TEXTJOIN if you need delimiters across a range.' },
+            { question: 'Why is my CONCATENATE formula showing #NAME? or not working?', answer: '#NAME? usually means quotes are missing around text strings. Always wrap literal text and separators in double quotes: "Hello", NOT Hello. Also check for extra spaces or commas in the wrong place between arguments.' },
         ],
         commonErrors: [
             { title: 'No space or wrong separator between values', causes: ['Forgetting to add a separator string between references.', 'Using a number instead of quoted text for the separator.'], fixes: ['Add ", " or " - " (or any separator in quotes) between each pair of values.', 'Always put literal text in double quotes.'] },
@@ -369,8 +708,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 6. INDEX/MATCH
     {
         slug: 'index-match',
-        title: 'INDEX MATCH Formula — Flexible Lookups in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate INDEX MATCH formulas for Excel and Google Sheets. Look left, right, or in any direction. Avoid column index errors. Free formula generator.',
+        title: 'How to Use INDEX MATCH in Excel (Better Than VLOOKUP + Free Generator)',
+        metaDescription: 'Stuck with VLOOKUP limitations? Master INDEX MATCH in Excel. Lookup in any direction, add/delete columns safely. Free generator with step-by-step examples.',
         excelFunction: 'INDEX/MATCH',
         category: 'Lookup',
         description: 'A more flexible alternative to VLOOKUP. Returns the value of an element in a table or an array, selected by the row and column number indexes.',
@@ -404,6 +743,27 @@ export const FORMULAS: FormulaConfig[] = [
   <h3 class="text-xl font-semibold mb-2">How INDEX MATCH Works Together</h3>
   <p class="mb-4">INDEX MATCH is actually two functions working in tandem: <strong>MATCH</strong> finds the row number where your lookup value appears, and <strong>INDEX</strong> returns the value from that row in your target column. Together they achieve what VLOOKUP does — but with no column order restrictions.</p>
 
+  <h3 class="text-xl font-semibold mb-2">Step-by-Step: Look Up an Employee's Department (Real Example)</h3>
+  <p class="mb-2">Let's walk through a concrete example. Suppose you have this employee table:</p>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full text-sm border-collapse border border-gray-200">
+      <thead><tr class="bg-gray-50"><th class="border border-gray-200 p-2 text-left">A (Employee ID)</th><th class="border border-gray-200 p-2 text-left">B (Name)</th><th class="border border-gray-200 p-2 text-left">C (Department)</th><th class="border border-gray-200 p-2 text-left">D (Salary)</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-200 p-2">E-101</td><td class="border border-gray-200 p-2">Alice</td><td class="border border-gray-200 p-2">Sales</td><td class="border border-gray-200 p-2">65,000</td></tr>
+        <tr><td class="border border-gray-200 p-2">E-102</td><td class="border border-gray-200 p-2">Bob</td><td class="border border-gray-200 p-2">Marketing</td><td class="border border-gray-200 p-2">72,000</td></tr>
+        <tr><td class="border border-gray-200 p-2">E-103</td><td class="border border-gray-200 p-2">Charlie</td><td class="border border-gray-200 p-2">Engineering</td><td class="border border-gray-200 p-2">95,000</td></tr>
+        <tr><td class="border border-gray-200 p-2">E-104</td><td class="border border-gray-200 p-2">Diana</td><td class="border border-gray-200 p-2">HR</td><td class="border border-gray-200 p-2">58,000</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="mb-2">You want to find Diana's department (column C) by searching for <strong>E-104</strong> in column A. Here's the step-by-step:</p>
+  <ol class="list-decimal pl-5 mb-4 space-y-1">
+    <li><strong>MATCH</strong> looks up <code>E-104</code> in column A:A and returns row position <strong>4</strong> (the 4th row where E-104 sits).</li>
+    <li><strong>INDEX</strong> uses that row 4 and column C:C to return <code>HR</code>.</li>
+    <li>The combined formula: <code class="bg-gray-100 px-1 rounded font-mono text-xs">=INDEX(C:C, MATCH("E-104", A:A, 0))</code></li>
+  </ol>
+  <p class="mb-4">Unlike VLOOKUP, this works because INDEX MATCH doesn't care which side of the lookup column the return column is on. The lookup column is A, the return column is C — and that's perfectly fine.</p>
+
   <h3 class="text-xl font-semibold mb-2">INDEX MATCH vs VLOOKUP vs XLOOKUP</h3>
   <div class="overflow-x-auto mb-4">
     <table class="min-w-full text-sm border-collapse border border-gray-200">
@@ -413,17 +773,26 @@ export const FORMULAS: FormulaConfig[] = [
         <tr><td class="border border-gray-200 p-2">Insert-safe</td><td class="border border-gray-200 p-2 text-green-600">✅ Yes</td><td class="border border-gray-200 p-2 text-red-600">❌ No</td><td class="border border-gray-200 p-2 text-green-600">✅ Yes</td></tr>
         <tr><td class="border border-gray-200 p-2">Handle not found</td><td class="border border-gray-200 p-2 text-yellow-600">⚠️ IFERROR</td><td class="border border-gray-200 p-2 text-yellow-600">⚠️ IFERROR</td><td class="border border-gray-200 p-2 text-green-600">✅ Built-in</td></tr>
         <tr><td class="border border-gray-200 p-2">Backward compatible</td><td class="border border-gray-200 p-2 text-green-600">✅ All versions</td><td class="border border-gray-200 p-2 text-green-600">✅ All versions</td><td class="border border-gray-200 p-2 text-red-600">❌ Excel 2021+</td></tr>
+        <tr><td class="border border-gray-200 p-2">Approximate match</td><td class="border border-gray-200 p-2 text-green-600">✅ Yes (match_type -1/1)</td><td class="border border-gray-200 p-2 text-green-600">✅ Yes (range_lookup TRUE)</td><td class="border border-gray-200 p-2 text-green-600">✅ Yes (match_mode)</td></tr>
       </tbody>
     </table>
   </div>
+
+  <h3 class="text-xl font-semibold mb-2">Edge Cases and Troubleshooting</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-2">
+    <li><strong>#N/A errors:</strong> Most common cause — the lookup value doesn't exist. Check for data type mismatches (text "100" vs number 100), extra spaces (use TRIM), or invisible characters (use CLEAN). Wrap with IFERROR to show a friendly message: <code>=IFERROR(INDEX(C:C, MATCH(A2, A:A, 0)), "Not Found")</code>.</li>
+    <li><strong>Wrong result (not #N/A):</strong> The match_type might be wrong. If your data is unsorted, use 0 for exact match. If you use -1 or 1, the lookup range MUST be sorted ascending or descending respectively.</li>
+    <li><strong>Range size mismatch:</strong> Your INDEX range and MATCH range must be the same height (same number of rows). If A:A has 1,048,576 rows and C1:C100 has only 100, MATCH might return a row beyond the INDEX range.</li>
+    <li><strong>Performance on large data:</strong> INDEX MATCH is faster than VLOOKUP because it only evaluates two columns (lookup and return), while VLOOKUP loads the entire table array. For datasets over 10,000 rows, the speed difference is noticeable.</li>
+  </ul>
 
   <h3 class="text-xl font-semibold mb-2">Advanced: INDEX MATCH with Multiple Criteria</h3>
   <p class="mb-4">You can match on multiple columns by concatenating criteria within the MATCH function using an array formula:</p>
   <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=INDEX(C:C, MATCH(1, (A:A=E2)*(B:B=F2), 0))</code></pre>
   <p class="mb-4">In Excel, press <strong>Ctrl+Shift+Enter</strong> for array formulas. In Google Sheets, wrap with <code>ARRAYFORMULA()</code>.</p>
 
-  <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100 mt-6">
-    <p class="text-sm text-indigo-800"><strong>Best Practice:</strong> INDEX MATCH is the go-to choice for shared workbooks that must work across Excel 2010-2019 and Google Sheets. If you only use Excel 365 or Google Sheets, <a href="/formulas/xlookup" class="text-blue-600 underline font-semibold">XLOOKUP</a> offers cleaner syntax with built-in error handling.</p>
+  <div class="bg-green-50 p-4 rounded-lg border border-green-100 mt-6">
+    <p class="text-sm text-green-800"><strong>Pro Tip:</strong> For a cleaner approach on large datasets, create a helper column (e.g. <code>=A2&amp;"|"&amp;B2</code>) that concatenates your criteria, then use INDEX MATCH against that helper column with a single lookup value. This avoids slow array formulas and works in all Excel versions. If you use Excel 365 or Google Sheets, consider <a href="/formulas/xlookup" class="text-blue-600 underline font-semibold">XLOOKUP</a> or <a href="/formulas/filter" class="text-blue-600 underline font-semibold">FILTER</a> instead — they handle multiple criteria natively.</p>
   </div>
 </div>`,
         faq: [
@@ -431,25 +800,29 @@ export const FORMULAS: FormulaConfig[] = [
             { question: "Why use INDEX MATCH instead of VLOOKUP?", answer: "INDEX MATCH can look left, is not broken when you insert columns, and often performs better on large data. It is more flexible than VLOOKUP." },
             { question: "How do I use INDEX MATCH with multiple criteria?", answer: "Use MATCH with an array formula or helper column that concatenates criteria. In Excel 365 you can use XLOOKUP with multiple conditions more easily." },
             { question: "What is the MATCH type (0, -1, 1)?", answer: "0 = exact match. -1 = find smallest value >= lookup (ascending). 1 = find largest value <= lookup (descending). Use 0 for most lookups." },
-            { question: "Why is INDEX MATCH returning #N/A?", answer: "MATCH returns #N/A when the lookup value is not found. Check for data type mismatch (number vs text), extra spaces, or use IFERROR to handle not found." }
+            { question: "Why is INDEX MATCH returning #N/A?", answer: "MATCH returns #N/A when the lookup value is not found. Check for data type mismatch (number vs text), extra spaces, or use IFERROR to handle not found." },
+            { question: "Can INDEX MATCH handle dates and wildcards?", answer: "Yes. For dates, enter the date directly or use a cell reference: =INDEX(C:C, MATCH(DATE(2025,1,1), A:A, 0)). Wildcards like * and ? work in MATCH only for exact match (0) with text: =INDEX(C:C, MATCH(\"*east*\", A:A, 0)) finds cells containing 'east'." },
+            { question: "Can INDEX MATCH work with cross-sheet references?", answer: "Yes. Reference other sheets directly: =INDEX(Sheet2!C:C, MATCH(A2, Sheet2!A:A, 0)). Both INDEX and MATCH can reference ranges on different sheets or even different workbooks." },
+            { question: "When should I use INDEX MATCH vs XLOOKUP?", answer: "Use INDEX MATCH when compatibility matters — it works in Excel 2010-2019 and all Google Sheets versions. Use XLOOKUP if your audience uses Excel 365 or newer — it has cleaner syntax, built-in error handling, and default exact match." }
         ],
         commonErrors: [
             { title: 'INDEX MATCH returns #N/A or wrong value', causes: ['Lookup range and return range have different heights (rows).', 'MATCH type wrong: use 0 for exact match; -1/1 for sorted lookup.', 'Data type mismatch between lookup value and lookup range.'], fixes: ['Use same-sized single-column ranges for lookup_range and return_range.', 'Use 0 for exact match in most cases.', 'Normalize types with TRIM, VALUE, or TEXT.'] },
         ],
         howToSteps: [
-            { name: 'Choose the return column', text: 'Select the range that holds the values you want returned (your result column), e.g. C:C.' },
-            { name: 'Choose where to search', text: 'Enter the lookup value cell (e.g. A2) and the column where that value appears (e.g. B:B). MATCH finds the row within that column.' },
-            { name: 'Use exact match', text: 'Set Match Type to Exact Match (0) unless your lookup column is sorted and you need approximate match.' },
-            { name: 'Combine INDEX and MATCH', text: 'The generator builds =INDEX(return_range, MATCH(lookup_value, lookup_range, match_type)) so you can look left or right without a column index number.' },
+            { name: 'Pick lookup value', text: 'Select the cell containing the value you want to search for, e.g. A2 with an employee ID. This value must exist somewhere in your lookup column.' },
+            { name: 'Choose lookup column', text: 'Select the column where MATCH should search, e.g. B:B. This is the column that contains your lookup values. MATCH returns the row position of the first match.' },
+            { name: 'Choose return column', text: 'Select the column from which to pull the result, e.g. C:C. This can be to the left or right of the lookup column — INDEX MATCH does not care about column order.' },
+            { name: 'Set match type', text: 'Choose Exact Match (0) for most lookups. Use -1 for ascending sorted data (returns smallest value >= lookup). Use 1 for descending sorted data (returns largest value <= lookup).' },
+            { name: 'Generate and test', text: 'The generator produces =INDEX(C:C, MATCH(A2, B:B, 0)). Paste into your sheet and test with known values. Wrap in IFERROR to handle missing values gracefully.' },
         ],
     },
 
     // 7. XLOOKUP
     {
         slug: 'xlookup',
-        title: 'XLOOKUP Formula — Look Up Values in Any Direction | Excel & Sheets (Free Tool)',
+        title: 'XLOOKUP Formula Generator — Modern Alternative to VLOOKUP | SheetMaster',
         metaDescription:
-            'Generate XLOOKUP formulas instantly in Excel and Google Sheets. Look left or right, avoid #N/A errors. Free formula generator with examples.',
+            'Generate XLOOKUP formulas instantly. Look up values in any direction with error handling. Free interactive tool for Excel and Google Sheets.',
         excelFunction: 'XLOOKUP',
         category: 'Lookup',
         description: 'Searches a range or an array, and then returns the item corresponding to the first match it finds. If no match exists, then XLOOKUP can return the closest (approximate) match.',
@@ -471,34 +844,123 @@ export const FORMULAS: FormulaConfig[] = [
         richContent: `
    <div class="prose prose-slate max-w-none mt-12 border-t pt-8 text-left">
      <h2 class="text-2xl font-bold mb-4">Why XLOOKUP is the Modern Replacement for VLOOKUP</h2>
-     <p class="mb-4">Introduced to solve the limitations of older functions, <strong>XLOOKUP</strong> is more powerful, flexible, and easier to use. It works in any direction (left, right, up, down) and defaults to an exact match.</p>
+     <p class="mb-4">Introduced in 2019 to solve the limitations of older functions, <strong>XLOOKUP</strong> is more powerful, flexible, and easier to use. It works in any direction (left, right, up, down) and defaults to exact match — no more #N/A surprises from unsorted data.</p>
      
      <h3 class="text-xl font-semibold mb-2">Key Advantages of XLOOKUP</h3>
      <ul class="list-disc pl-5 mb-4">
-       <li><strong>No More Column Counting:</strong> You select the lookup array and the return array separately.</li>
-       <li><strong>Horizontal Lookups:</strong> XLOOKUP replaces both VLOOKUP and HLOOKUP.</li>
-       <li><strong>Built-in Error Handling:</strong> You can define what to display (e.g., "Not Found") directly within the formula if a match isn't found.</li>
+       <li><strong>No More Column Counting:</strong> You select the lookup array and the return array separately. Never count columns again.</li>
+       <li><strong>Horizontal and Vertical Lookups:</strong> XLOOKUP replaces both VLOOKUP and HLOOKUP with one unified function.</li>
+       <li><strong>Built-in Error Handling:</strong> Pass a custom message (e.g., "Not Found") as the fourth argument instead of wrapping everything in IFERROR.</li>
+       <li><strong>Reverse Search:</strong> Use search_mode = -1 to find the last match instead of the first.</li>
      </ul>
      
-     <h3 class="text-xl font-semibold mb-2">Formula Syntax Example</h3>
-     <p class="mb-4"><code class="bg-gray-100 p-1 rounded font-mono text-sm">=XLOOKUP(search_value, lookup_array, return_array, [if_not_found])</code></p>
+     <h3 class="text-xl font-semibold mb-2">Step-by-Step: Look Up an Employee's Department</h3>
+     <p class="mb-2">Let's walk through a real example. Suppose you have employee IDs in column A and department names in column C. You want to find which department employee <strong>E-104</strong> belongs to.</p>
+     <ol class="list-decimal pl-5 mb-4 space-y-1">
+       <li><strong>Pick the lookup value</strong> — the employee ID you're searching for: <code class="bg-gray-100 px-1 rounded font-mono text-xs">E-104</code> (or a cell reference like <code class="bg-gray-100 px-1 rounded font-mono text-xs">A2</code>)</li>
+       <li><strong>Set the lookup array</strong> — the column containing all employee IDs: <code class="bg-gray-100 px-1 rounded font-mono text-xs">A:A</code></li>
+       <li><strong>Set the return array</strong> — the column with department names: <code class="bg-gray-100 px-1 rounded font-mono text-xs">C:C</code></li>
+       <li><strong>Add a fallback (optional)</strong> — return "Not Found" if the ID doesn't exist</li>
+     </ol>
+     <p class="mb-4">The complete formula: <code class="bg-gray-100 p-1 rounded font-mono text-sm">=XLOOKUP("E-104", A:A, C:C, "Not Found")</code></p>
+     <p class="mb-6">Unlike VLOOKUP, XLOOKUP works even if the department column is to the <em>left</em> of the employee ID column — no column reordering needed.</p>
+
+     <h3 class="text-xl font-semibold mb-2">XLOOKUP vs VLOOKUP vs INDEX MATCH — Which Should You Use?</h3>
+     <div class="overflow-x-auto mb-6">
+       <table class="min-w-full border-collapse border border-gray-300 text-sm">
+         <thead>
+           <tr class="bg-gray-100">
+             <th class="border border-gray-300 px-3 py-2 font-semibold text-left">Feature</th>
+             <th class="border border-gray-300 px-3 py-2 font-semibold text-left">XLOOKUP</th>
+             <th class="border border-gray-300 px-3 py-2 font-semibold text-left">VLOOKUP</th>
+             <th class="border border-gray-300 px-3 py-2 font-semibold text-left">INDEX MATCH</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td class="border border-gray-300 px-3 py-2">Lookup direction</td>
+             <td class="border border-gray-300 px-3 py-2">Any (left, right, above, below)</td>
+             <td class="border border-gray-300 px-3 py-2">Right only</td>
+             <td class="border border-gray-300 px-3 py-2">Any</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 px-3 py-2">Exact match default</td>
+             <td class="border border-gray-300 px-3 py-2">✅ Yes</td>
+             <td class="border border-gray-300 px-3 py-2">❌ No (FALSE required)</td>
+             <td class="border border-gray-300 px-3 py-2">✅ Yes (with 0)</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 px-3 py-2">Built-in error handling</td>
+             <td class="border border-gray-300 px-3 py-2">✅ Yes (4th argument)</td>
+             <td class="border border-gray-300 px-3 py-2">❌ Needs IFERROR wrapper</td>
+             <td class="border border-gray-300 px-3 py-2">❌ Needs IFERROR wrapper</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 px-3 py-2">Reverse search (last match)</td>
+             <td class="border border-gray-300 px-3 py-2">✅ Yes (search_mode=-1)</td>
+             <td class="border border-gray-300 px-3 py-2">❌ No</td>
+             <td class="border border-gray-300 px-3 py-2">❌ Manual workaround</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 px-3 py-2">Return multiple values</td>
+             <td class="border border-gray-300 px-3 py-2">✅ Yes (with array formula)</td>
+             <td class="border border-gray-300 px-3 py-2">❌ No</td>
+             <td class="border border-gray-300 px-3 py-2">⚠️ Complex array formula</td>
+           </tr>
+           <tr>
+             <td class="border border-gray-300 px-3 py-2">Works in older Excel</td>
+             <td class="border border-gray-300 px-3 py-2">❌ Excel 365 only</td>
+             <td class="border border-gray-300 px-3 py-2">✅ All versions</td>
+             <td class="border border-gray-300 px-3 py-2">✅ All versions</td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+
+     <h3 class="text-xl font-semibold mb-2">Handling Errors with XLOOKUP (if_not_found)</h3>
+     <p class="mb-2">The <code class="bg-gray-100 px-1 rounded font-mono text-xs">if_not_found</code> parameter is XLOOKUP's built-in safety net. Instead of getting an ugly #N/A error, you control what appears:</p>
+     <ul class="list-disc pl-5 mb-4">
+       <li><strong>Show custom text:</strong> <code class="bg-gray-100 px-1 rounded font-mono text-xs">=XLOOKUP(A2, B:B, C:C, "Not in database")</code></li>
+       <li><strong>Return a blank cell:</strong> <code class="bg-gray-100 px-1 rounded font-mono text-xs">=XLOOKUP(A2, B:B, C:C, "")</code> — cleaner than <code class="bg-gray-100 px-1 rounded font-mono text-xs">IFERROR(XLOOKUP(...), "")</code></li>
+       <li><strong>Chain with other formulas:</strong> <code class="bg-gray-100 px-1 rounded font-mono text-xs">=XLOOKUP(A2, B:B, C:C, "Check ID " & A2 & " — not found")</code></li>
+     </ul>
+     <p class="mb-6">This single feature eliminates the need for IFERROR wrappers in most lookup scenarios.</p>
+
+     <h3 class="text-xl font-semibold mb-2">XLOOKUP with Multiple Criteria</h3>
+     <p class="mb-2">Need to match on more than one condition? Use the <code class="bg-gray-100 px-1 rounded font-mono text-xs">&amp;</code> operator to build a composite key:</p>
+     <div class="bg-gray-50 border-l-4 border-indigo-500 p-3 mb-4 font-mono text-sm">
+       =XLOOKUP(A2 &amp; B2, A:A &amp; B:B, C:C)
+     </div>
+     <p class="mb-2">In this formula:</p>
+     <ul class="list-disc pl-5 mb-4">
+       <li><code class="bg-gray-100 px-1 rounded font-mono text-xs">A2 &amp; B2</code> concatenates the two lookup values (e.g., "SalesEast")</li>
+       <li><code class="bg-gray-100 px-1 rounded font-mono text-xs">A:A &amp; B:B</code> builds the same composite key for every row in the lookup table</li>
+       <li>XLOOKUP finds the row where both conditions match</li>
+     </ul>
+     <p class="mb-6"><strong>Note:</strong> In older Excel versions you may need to press <kbd class="bg-gray-200 px-1 rounded">Ctrl</kbd>+<kbd class="bg-gray-200 px-1 rounded">Shift</kbd>+<kbd class="bg-gray-200 px-1 rounded">Enter</kbd> for array formulas. Excel 365 and Google Sheets handle them natively.</p>
+
+     <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded-r">
+       <p class="text-sm text-yellow-900"><strong>⭐ Pro Tip:</strong> When working with large datasets (10,000+ rows), XLOOKUP is faster than INDEX MATCH because it's single-function and optimized by Excel's calculation engine. For multi-condition lookups, consider using <strong>XLOOKUP with &amp;</strong> concatenation — it's much simpler than the equivalent INDEX MATCH array formula. For even more complex criteria, <a href="/formulas/filter" class="text-blue-600 underline font-semibold">FILTER</a> is the better choice.</p>
+     </div>
+
+     <h3 class="text-xl font-semibold mb-2">Formula Syntax Reference</h3>
+     <p class="mb-4"><code class="bg-gray-100 p-1 rounded font-mono text-sm">=XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])</code></p>
    </div>
    `,
-        faq: [
-            { question: "What does XLOOKUP do?", answer: "XLOOKUP looks up a value in a lookup array and returns the corresponding value from a return array. It can look left or right and supports an optional if-not-found value." },
-            { question: "Is XLOOKUP available in Google Sheets?", answer: "Yes. XLOOKUP is available in Excel 365 and Google Sheets. It replaces VLOOKUP and HLOOKUP with a single, more flexible function." },
-            { question: "Why use XLOOKUP instead of VLOOKUP?", answer: "XLOOKUP can look left, does not need a column index number, supports built-in if-not-found, and defaults to exact match. It is the modern replacement for VLOOKUP." },
-            { question: "How do I handle #N/A in XLOOKUP?", answer: "Use the fourth argument (if_not_found) to return a value when no match is found, e.g. =XLOOKUP(A2,B:B,C:C,\"Not Found\")." },
-            { question: "Can XLOOKUP search from bottom?", answer: "Yes. Use the optional search_mode argument. -1 searches last-to-first. 1 (default) searches first-to-last." }
+        [
+            { question: 'What is the difference between XLOOKUP and VLOOKUP?', answer: 'XLOOKUP is the modern replacement: it searches in any direction (left, right, up, down), defaults to exact match, has built-in error handling with the if_not_found argument, and doesn\'t break when columns are inserted/deleted.' },
+            { question: 'How do I handle #N/A errors with XLOOKUP?', answer: 'XLOOKUP has a built-in if_not_found argument: =XLOOKUP(lookup_value, lookup_array, return_array, "Not Found"). This eliminates the need for wrapping in IFERROR().' },
+            { question: 'Can XLOOKUP return multiple values (array result)?', answer: 'Yes. If your return_array spans multiple columns, XLOOKUP returns an array. For example, =XLOOKUP(G2,A:A,C:E) returns values from columns C, D, and E for the matching row in column A.' }
         ],
         commonErrors: [
             { title: 'XLOOKUP returns #N/A', causes: ['Lookup value not in lookup_array.', 'Lookup and return arrays different lengths.', 'Data type or format mismatch.'], fixes: ['Use fourth argument (if_not_found) to return a default.', 'Ensure lookup_array and return_array have the same number of rows.', 'Use TRIM, VALUE, or TEXT to align formats.'] },
         ],
         howToSteps: [
-            { name: 'Pick lookup and return columns', text: 'Enter the cell with the value to find, the column (or row) to search, and the column (or row) that holds the answer. Unlike VLOOKUP, these can be separate ranges.' },
-            { name: 'Add if-not-found (optional)', text: 'Use the optional fourth argument to show text like "Not Found" instead of #N/A when there is no match.' },
-            { name: 'Keep ranges aligned', text: 'lookup_array and return_array must have the same number of rows (or columns for horizontal lookup).' },
-            { name: 'Paste into Excel or Sheets', text: 'Copy the generated formula into Microsoft Excel 365 or Google Sheets—both support XLOOKUP.' },
+            { name: 'Choose lookup and return ranges', text: 'Enter the cell containing the value you want to find (lookup_value), the column or row to search (lookup_array), and the column or row that holds the result (return_array). Unlike VLOOKUP, these ranges can be in any position — the return array does not need to be to the right of the lookup array.' },
+            { name: 'Set a fallback value (optional)', text: 'Use the fourth argument (if_not_found) to display custom text like "Not Found" or a blank "" when no match exists. This eliminates the need for IFERROR wrappers and keeps your spreadsheet clean.' },
+            { name: 'Configure match mode for approximate matches', text: 'By default XLOOKUP finds an exact match (match_mode=0). Set match_mode=1 for next larger item, -1 for next smaller, or 2 for wildcard matching. For example, use 2 with "Acme*" to match all entries starting with "Acme".' },
+            { name: 'Set search direction', text: 'Use the search_mode argument to control the search order. search_mode=1 (default) searches first-to-last. search_mode=-1 searches last-to-first — useful for finding the most recent transaction or last occurrence in a dataset.' },
+            { name: 'Copy into Excel 365 or Google Sheets', text: 'Paste the generated formula into a cell. Excel 365 and Google Sheets both support XLOOKUP with identical syntax. If the formula returns multiple results (spill range), ensure adjacent cells are empty to avoid #SPILL errors.' },
         ],
         formulaLogicBreakdown: [
             { argument: 'lookup_value', explanation: 'What you are looking for.', example: 'e.g., A2' },
@@ -508,7 +970,7 @@ export const FORMULAS: FormulaConfig[] = [
             { argument: 'match_mode', explanation: 'Optional. 0 for exact match (default), -1 for exact or next smaller, 1 for exact or next larger.', example: 'e.g., 0' },
             { argument: 'search_mode', explanation: 'Optional. 1 to search first-to-last (default), -1 to search last-to-first.', example: 'e.g., 1' },
         ],
-        relatedTools: ['vlookup', 'index-match', 'iferror'],
+        relatedTools: ['vlookup', 'index-match', 'iferror', 'sumif', 'countif'],
     },
 
     // 8. TRIM
@@ -851,8 +1313,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 21. Extract Email
     {
         slug: 'extract-email',
-        title: 'Extract Email from Text in Excel & Sheets — Free REGEXEXTRACT Formula Generator',
-        metaDescription: 'Instantly generate the Excel formula to extract email addresses from any text. REGEXEXTRACT for Excel and Google Sheets. Free tool with examples — no signup.',
+        title: 'Extract Email from Text in Excel — Free Formula Generator | SheetMaster',
+        metaDescription: 'Extract email addresses from any text string using REGEX in Excel. Free formula generator for data cleaning and lead extraction.',
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts an email address from a text string.',
@@ -860,6 +1322,7 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'target_cell', label: 'Target Cell', type: 'text', placeholder: 'e.g., A2' },
         ],
         generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")`,
+        relatedTools: ['extract-domain', 'regex-extract-generator', 'find', 'left', 'mid'],
         richContent: `
        <h2 class="text-2xl font-bold mb-4">How to Extract Email from Text in Google Sheets</h2>
        <p class="mb-4">Cleaning messy data is one of the most time-consuming tasks in spreadsheet management. If you have a column of raw text, such as CRM exports or scraped web data, our <strong>Deterministic Email Extractor</strong> generates the exact REGEXEXTRACT formula you need to automate this process.</p>
@@ -890,9 +1353,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 22. Extract Domain
     {
         slug: 'extract-domain',
-        title: 'Extract Domain from URL in Excel & Sheets — Free REGEXEXTRACT Formula Generator',
+        title: 'Extract Domain from URL in Excel — Free Formula Generator | SheetMaster',
         metaDescription:
-            'Instantly extract domain names from URLs in Excel and Google Sheets. Free REGEXEXTRACT formula generator for SEO, backlink analysis, and CRM cleanup. No signup.',
+            'Pull the domain name from any URL or email address in Excel. Free interactive formula generator. Works in both Excel and Google Sheets.',
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts the domain part from a URL.',
@@ -929,15 +1392,15 @@ export const FORMULAS: FormulaConfig[] = [
                 fixes: ['Ensure the cell has a full URL with a host.', 'Test the pattern in one cell before filling down.', 'For email-based domains use the extract-email tool instead.'],
             },
         ],
-        relatedTools: ['extract-email', 'trim', 'substitute', 'concatenate'],
+        relatedTools: ['left', 'find', 'len', 'trim', 'iferror'],
     },
 
     // 23. Get First Word
     {
         slug: 'get-first-word',
-        title: 'Get First Word from Cell in Excel & Sheets — Free Formula Generator (Copy-Paste)',
+        title: 'Extract First Word from Text in Excel — LEFT & FIND Formula | SheetMaster',
         metaDescription:
-            'Instantly generate the Excel formula to extract the first word from any cell. LEFT+FIND, TEXTBEFORE, and PROPER methods for Excel & Google Sheets. Free, no signup.',
+            'Get the first word from any text string using LEFT and FIND. Handles edge cases like single-word cells. Free formula generator.',
         excelFunction: 'LEFT & FIND',
         category: 'Text',
         description: 'Returns the first word in a text string.',
@@ -987,9 +1450,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 24. Remove First 3 Characters
     {
         slug: 'remove-first-3-chars',
-        title: 'Remove First N Characters in Excel — Free Formula Generator (Instant Copy)',
-        metaDescription:
-            'Instantly generate the Excel formula to remove the first 3 (or any N) characters from any cell. Copy-paste RIGHT+LEN, MID, or LEFT formulas for Excel & Google Sheets. Free, no signup.',
+        title: 'Remove First 3 Characters in Excel — Free Formula Generator | SheetMaster',
+        metaDescription: 'Instantly generate the Excel formula to remove the first 3 characters from any text. Free, no signup, works in Google Sheets too. Try now.',
         excelFunction: 'RIGHT & LEN',
         category: 'Text',
         description: 'Removes the specified number of characters from the beginning of a text string.',
@@ -999,57 +1461,115 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=RIGHT(${p.target_cell || 'A2'}, LEN(${p.target_cell || 'A2'}) - ${p.num_chars || '3'})`,
         richContent: `
-  <h3>Remove the First N Characters in Excel or Google Sheets</h3>
-  <p>Common when cleaning CSV prefixes, IDs, or fixed-width junk at the start of a cell. Use <code>RIGHT</code> with <code>LEN</code> so the number of characters to drop is explicit.</p>
-  <h4>Why LEN minus N?</h4>
-  <p><code>RIGHT(text, LEN(text)-N)</code> keeps everything after the first N characters. Change N to match &quot;remove first 3 characters&quot; or any count.</p>
+  <h3>How to Remove First 3 Characters in Excel: Step-by-Step Guide</h3>
+  <p>Stripping unwanted characters from the start of a cell is one of the most common data cleaning tasks in Excel. Whether you are dealing with product codes (e.g. "SKU-12345"), phone numbers with country codes, or imported CSV data with prefix junk, Excel offers <strong>three reliable methods</strong> to remove the first N characters.</p>
+
+  <h4>Method 1: RIGHT + LEN (Most Popular)</h4>
+  <p>The most intuitive and widely-used approach:</p>
+  <ol>
+    <li><strong>Identify your target cell</strong> — e.g. A2 contains "SKU-12345".</li>
+    <li><strong>Apply the formula:</strong> <code>=RIGHT(A2, LEN(A2) - 3)</code> removes the first 3 characters.</li>
+    <li><strong>Drag down</strong> to apply to all cells in your column.</li>
+  </ol>
+  <p><strong>Why it works:</strong> <code>LEN(A2)</code> counts the total length. Subtracting N gives <code>RIGHT</code> the exact number of trailing characters to keep. Change "3" to any number of characters you need to strip.</p>
+  <div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-4 rounded">
+    <p class="text-sm text-blue-900"><strong>Pro Tip:</strong> For truly dynamic stripping, put N in a separate cell (e.g. D1) and use <code>=RIGHT(A2, LEN(A2) - D1)</code>. Update D1 once and all formulas recalculate automatically.</p>
+  </div>
+
+  <h4>Method 2: MID (More Forgiving)</h4>
+  <p>If you find <code>RIGHT + LEN</code> confusing, <code>MID</code> offers a more natural "start at character X" syntax:</p>
+  <ul>
+    <li><code>=MID(A2, 4, LEN(A2))</code> — starts at the 4th character, keeping everything after it.</li>
+    <li>Replace the "4" with <code>N+1</code> (where N is the number of characters to remove). For N=3, start at position 4.</li>
+  </ul>
+
+  <h4>Method 3: REPLACE (One-Step)</h4>
+  <p>For removing a <strong>known prefix string</strong> (not a fixed character count), use <code>REPLACE</code>:</p>
+  <ul>
+    <li><code>=REPLACE(A2, 1, 3, "")</code> — replaces the first 3 characters with an empty string.</li>
+    <li>This is simpler than <code>RIGHT+LEN</code> when you always remove the same fixed count.</li>
+  </ul>
+
+  <h4>Method Comparison Table</h4>
+  <div class="overflow-x-auto my-6">
+    <table class="min-w-full border-collapse border border-gray-300 text-sm">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Method</th>
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Formula (remove first 3)</th>
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Best For</th>
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Excel & Sheets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">RIGHT + LEN</td>
+          <td class="border border-gray-300 px-4 py-2"><code>=RIGHT(A2,LEN(A2)-3)</code></td>
+          <td class="border border-gray-300 px-4 py-2">Variable-length text, most common</td>
+          <td class="border border-gray-300 px-4 py-2 text-center">✅ Both</td>
+        </tr>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">MID</td>
+          <td class="border border-gray-300 px-4 py-2"><code>=MID(A2,4,LEN(A2))</code></td>
+          <td class="border border-gray-300 px-4 py-2">Users who prefer "start position" logic</td>
+          <td class="border border-gray-300 px-4 py-2 text-center">✅ Both</td>
+        </tr>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">REPLACE</td>
+          <td class="border border-gray-300 px-4 py-2"><code>=REPLACE(A2,1,3,"")</code></td>
+          <td class="border border-gray-300 px-4 py-2">Fixed character count, simplest syntax</td>
+          <td class="border border-gray-300 px-4 py-2 text-center">✅ Both</td>
+        </tr>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">LEFT + LEN (last N)</td>
+          <td class="border border-gray-300 px-4 py-2"><code>=LEFT(A2,LEN(A2)-3)</code></td>
+          <td class="border border-gray-300 px-4 py-2">Removing from the <em>end</em> instead</td>
+          <td class="border border-gray-300 px-4 py-2 text-center">✅ Both</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <h4>Real-World Use Cases</h4>
   <ul>
-    <li><strong>Cleaning product codes</strong>: Remove prefix "SKU-" from "SKU-12345" → "12345".</li>
-    <li><strong>Phone numbers</strong>: Strip country code "+1" from "+15551234567" → "5551234567".</li>
+    <li><strong>Cleaning product codes</strong>: Remove prefix "SKU-" from "SKU-12345" → <code>=RIGHT(A2,LEN(A2)-4)</code>.</li>
+    <li><strong>Phone numbers</strong>: Strip country code "+1" from "+15551234567" → <code>=RIGHT(A2,LEN(A2)-2)</code>.</li>
     <li><strong>CSV imports</strong>: Remove quote character or "#" prefix from imported data.</li>
     <li><strong>Serial numbers</strong>: Drop fixed-length batch prefix from part numbers.</li>
+    <li><strong>Date formatting cleanup</strong>: Strip leading zeros or prefixes from imported date strings.</li>
   </ul>
 
-  <h4>Alternative: Using MID Instead</h4>
-  <p>You can also use <code>=MID(A2, N+1, LEN(A2))</code>. The logic is the same but some users find MID more intuitive since the second parameter is the starting position. For N=3: <code>=MID(A2, 4, LEN(A2))</code>.</p>
+  <h4>Variable N — One Formula for Any Strip Length</h4>
+  <p>Instead of hard-coding the number, store it in a cell reference:</p>
+  <pre class="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm"><code>=RIGHT(A2, LEN(A2) - D1)</code></pre>
+  <p>Where D1 contains the number of characters to remove (e.g. 3, 5, 7). Update D1 once and every formula using it recalculates. This is especially powerful when processing datasets with varying prefix lengths.</p>
 
-  <h4>Variable N</h4>
-  <p>Put N in a cell (e.g. D1) and reference it: <code>=RIGHT(A2,LEN(A2)-D1)</code> so one formula works for different strip lengths.</p>
+  <h4>Edge Cases & How to Handle Them</h4>
+  <ul>
+    <li><strong>N is larger than text length:</strong> <code>RIGHT</code> returns empty. Wrap with <code>=IF(LEN(A2)<=3, A2, RIGHT(A2,LEN(A2)-3))</code> to return the original value unchanged.</li>
+    <li><strong>Cell contains a number (not text):</strong> <code>LEN</code> still works, but if you get <code>#VALUE!</code>, wrap with <code>=RIGHT(TEXT(A2,"@"), LEN(TEXT(A2,"@"))-3)</code>.</li>
+    <li><strong>Whitespace differences:</strong> Use <code>TRIM</code> before stripping: <code>=RIGHT(TRIM(A2), LEN(TRIM(A2))-3)</code> to avoid off-by-one errors from trailing spaces.</li>
+    <li><strong>Empty cells:</strong> <code>RIGHT</code> returns empty. Use <code>=IF(A2="", "", RIGHT(A2,LEN(A2)-3))</code> to keep your output clean.</li>
+  </ul>
 `,
         howToSteps: [
-            { name: 'Identify the target cell', text: 'Select the cell containing the text string, such as A2.' },
-            { name: 'Use RIGHT + LEN formula', text: 'Enter =RIGHT(A2, LEN(A2)-3) to remove the first 3 characters from the left of the text.' },
-            { name: 'Alternative: Use MID', text: 'Enter =MID(A2, 4, LEN(A2)) to start from the 4th character and keep everything after it.' },
-            { name: 'Drag down to apply', text: 'Copy the formula down to apply it to all cells in your column.' }
+            { name: 'Identify your target cell', text: 'Select the cell containing your data (e.g. A2 has "SKU-12345"). This cell holds the text you want to trim.' },
+            { name: 'Enter RIGHT + LEN formula', text: 'Type =RIGHT(A2, LEN(A2)-3) into a new cell. This counts total characters in A2, subtracts 3, and returns everything after the first 3 characters.' },
+            { name: 'Adjust N for your use case', text: 'Replace "3" with any number. For 2 characters use -2, for 5 characters use -5. For dynamic stripping, reference a cell: =RIGHT(A2, LEN(A2)-D1).' },
+            { name: 'Copy formula down the column', text: 'Double-click the fill handle (small green square at bottom-right of the cell) to auto-apply the formula to all rows. Excel copies it down until the adjacent column is empty.' },
+            { name: 'Handle edge cases', text: 'If a cell is shorter than N characters, wrap with IF: =IF(LEN(A2)<=3, A2, RIGHT(A2,LEN(A2)-3)). This returns the original value instead of an empty result when the text is too short.' }
         ],
         faq: [
-            {
-                question: 'How do I remove the first 3 characters in Excel?',
-                answer: '=RIGHT(A2,LEN(A2)-3) removes exactly three characters from the left of the text in A2. You can change 3 to any number of characters you want to remove.',
-            },
-            {
-                question: 'How do I remove the first 2 characters in Excel?',
-                answer: 'Use =RIGHT(A2,LEN(A2)-2) to remove the first 2 characters. This is commonly used to strip country codes from phone numbers or remove prefix characters.',
-            },
-            {
-                question: 'How do I remove last N characters instead?',
-                answer: 'Use LEFT with LEN: =LEFT(A2,LEN(A2)-N). For example, =LEFT(A2,LEN(A2)-3) removes the last 3 characters from a text string.',
-            },
-            {
-                question: 'What if the cell has fewer than 3 characters?',
-                answer: 'If the text is shorter than the number of characters you want to remove, RIGHT returns an empty string. Use =IF(LEN(A2)<=3, A2, RIGHT(A2,LEN(A2)-3)) to handle this edge case.',
-            },
-            {
-                question: 'Can I remove the first N characters in Google Sheets?',
-                answer: 'Yes, the same formulas work in Google Sheets. You can also use =MID(A2,4,999) to skip the first 3 characters, or =REGEXREPLACE(A2,"^. {3}","") for a regex approach.',
-            },
-            {
-                question: 'How do I remove a prefix like "SKU-" from product codes?',
-                answer: 'Use =RIGHT(A2,LEN(A2)-4) to remove the 4-character prefix "SKU-". Or more flexibly: =REGEXREPLACE(A2,"^[A-Z]+-","",1) for any alphabetic prefix followed by a dash.',
-            },
-        ],
+            { question: 'How do I remove the first 3 characters in Excel?', answer: '=RIGHT(A2,LEN(A2)-3) removes exactly three characters from the left of the text in A2. You can change 3 to any number of characters you want to remove.' },
+            { question: 'How do I remove the first 2 characters in Excel?', answer: 'Use =RIGHT(A2,LEN(A2)-2) to remove the first 2 characters. This is commonly used to strip country codes from phone numbers or remove prefix characters.' },
+            { question: 'How do I remove last N characters instead?', answer: 'Use LEFT with LEN: =LEFT(A2,LEN(A2)-N). For example, =LEFT(A2,LEN(A2)-3) removes the last 3 characters from a text string.' },
+            { question: 'What if the cell has fewer than 3 characters?', answer: 'If the text is shorter than the number of characters you want to remove, RIGHT returns an empty string. Use =IF(LEN(A2)<=3, A2, RIGHT(A2,LEN(A2)-3)) to handle this edge case.' },
+            { question: 'Can I remove the first N characters in Google Sheets?', answer: 'Yes, the same formulas work in Google Sheets. You can also use =MID(A2,4,999) to skip the first 3 characters, or =REGEXREPLACE(A2,"^. {3}","") for a regex approach.' },
+            { question: 'What is the fastest way to remove the first 3 characters from a column of data?', answer: 'Use the formula =RIGHT(A2,LEN(A2)-3) and drag it down the column. For bulk operations on thousands of rows, this is the most efficient method. Alternatively, use Power Query for non-destructive editing.' },
+            { question: 'How do I remove the first 3 characters from a cell if it has fewer than 3 characters?', answer: 'Use a protective formula: =IF(LEN(A2)<=3, A2, RIGHT(A2,LEN(A2)-3)). This returns the original value if the text is 3 characters or shorter, preventing errors.' },
+            { question: 'Can I remove the first N characters dynamically (not just 3)?', answer: 'Yes. Replace the hardcoded 3 with a cell reference: =RIGHT(A2,LEN(A2)-B1) where B1 contains the number of characters to remove. This makes the formula reusable for any N value.' }
+        
+        
         commonErrors: [
             {
                 title: '#VALUE! or wrong length after RIGHT/LEN',
@@ -1057,14 +1577,14 @@ export const FORMULAS: FormulaConfig[] = [
                 fixes: ['Wrap source in TEXT if needed: TEXT(A2,"@").', 'Use MAX(0,LEN(A2)-N) inside RIGHT if N can exceed length in edge cases.'],
             },
         ],
-        relatedTools: ['right', 'len', 'left', 'substitute', 'mid'],
+        relatedTools: ['right', 'mid', 'left', 'len', 'find', 'substitute', 'regex-extract-generator'],
     },
 
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'SUMIFS Formula Generator — Sum with Multiple Criteria in Excel & Sheets (Free)',
-        metaDescription: 'Generate SUMIFS formulas instantly for Excel and Google Sheets. Sum by multiple criteria, date ranges, and conditions. Free tool with examples — no signup.',
+        title: 'SUMIFS Formula Generator — Sum with Multiple Conditions | SheetMaster',
+        metaDescription: 'Generate SUMIFS formulas instantly for Excel and Google Sheets. Add multiple conditions and get a ready-to-use formula. Free, no signup.',
         excelFunction: 'SUMIFS',
         category: 'Math',
         description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
@@ -1077,18 +1597,24 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=SUMIFS(${p.sum_range || 'sum_range'}, ${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`,
         howToSteps: [
-            { name: 'Place sum_range FIRST', text: 'Unlike SUMIF, SUMIFS requires the sum_range as the first argument, followed by criteria pairs.' },
-            { name: 'Add criteria pairs', text: 'Each pair consists of a criteria_range and a criteria. Example: A1:A100 is the range, "Sales" is the condition for that range.' },
-            { name: 'Keep ranges equal-sized', text: 'All criteria ranges must have the same number of rows as the sum_range. Mismatched sizes cause wrong results.' },
-            { name: 'Copy and verify', text: 'Paste the formula and check the result against a manual calculation to confirm all criteria are applied correctly.' }
+            { name: 'Identify your sum_range first', text: 'Unlike SUMIF, SUMIFS places the sum_range (cells to add) FIRST. Example: C:C is your sum_range (sales amounts).' },
+            { name: 'Add your first criteria pair', text: 'Type criteria_range1 and criteria1: =SUMIFS(C:C, A:A, "East"). This sums column C for all rows where column A is "East".' },
+            { name: 'Add more criteria pairs for AND logic', text: 'Append additional pairs: =SUMIFS(C:C, A:A, "East", B:B, ">500"). Only rows matching ALL conditions are summed.' },
+            { name: 'Keep all ranges equal-sized', text: 'Every range (sum_range and all criteria_ranges) must have the same number of rows. A1:A100, B1:B100, C1:C100 — all 100 rows.' },
+            { name: 'Verify against a manual check', text: 'Filter your data manually for one combination and compare to the formula result. This catches syntax errors early.' }
         ],
-        faq: [
-            { question: 'How to do a SUMIFS with multiple criteria?', answer: 'Use =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2, ...). The sum_range comes first, then each pair of (range, condition). Example: =SUMIFS(C:C, A:A, "North", B:B, ">100") sums column C where A is "North" AND B > 100.' },
-            { question: 'What is the correct SUMIFS syntax order (sum_range criteria_range1 criteria1)?', answer: 'The syntax is exactly: =SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2]...). The sum_range MUST come first, followed by pairs of criteria ranges and their specific conditions.' },
-            { question: 'Why does SUMIFS return 0?', answer: 'This usually happens if criteria_range and sum_range are different sizes, or text criteria are missing quotes (like ">100"). Ensure all ranges have the exact same number of rows.' },
-            { question: 'How do I use SUMIFS with dates?', answer: 'To sum between two dates, use two criteria on the same date column: criteria_range1 with ">="&start_date, and criteria_range2 with "<="&end_date.' },
-            { question: 'Can SUMIFS use multiple criteria on the same column?', answer: 'Yes, use SUMIFS with separate criteria pairs on the same range: =SUMIFS(C:C, A:A, ">100", A:A, "<500") sums C where A is between 100 and 500. Or add multiple SUMIFS for OR logic.' },
-            { question: 'Can SUMIFS use wildcards?', answer: 'Yes. Use * for any characters and ? for one character: =SUMIFS(C:C, A:A, "*North*", B:B, ">100").' },
+        [
+            { question: 'How to use SUMIFS with multiple criteria in Excel?', answer: 'Syntax: =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2, ...). Example: =SUMIFS(C:C, A:A, "North", B:B, ">100") sums column C where column A is "North" AND column B > 100.' },
+            { question: 'Why does SUMIFS return 0?', answer: 'Three main causes: (1) sum_range and criteria_ranges have different sizes. (2) Text criteria missing quotes — use "North" not North. (3) Argument order wrong — sum_range must be FIRST, not last like SUMIF.' },
+            { question: 'SUMIFS syntax: does sum_range come first or last?', answer: 'FIRST. Unlike SUMIF (range, criteria, sum_range), SUMIFS places sum_range first: =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2). This is the most common mistake for new users.' },
+            { question: 'How do I use SUMIFS with dates between two dates?', answer: 'Use two conditions on the same date column: =SUMIFS(C:C, A:A, ">="&DATE(2026,1,1), A:A, "<="&DATE(2026,3,31)). For cell references: =SUMIFS(C:C, A:A, ">="&D1, A:A, "<="&E1).' },
+            { question: 'Can SUMIFS use wildcards?', answer: 'Yes. * matches any sequence, ? matches single character: =SUMIFS(C:C, A:A, "*North*", B:B, ">100"). This sums values where column A contains "North" anywhere.' },
+            { question: 'How to use SUMIFS with OR logic?', answer: 'SUMIFS is AND-only. For OR, add multiple SUMIFS: =SUMIFS(C:C, A:A, "East", B:B, ">500") + SUMIFS(C:C, A:A, "West", B:B, ">500"). For complex logic, consider SUMPRODUCT.' },
+            { question: 'Can SUMIFS sum across multiple columns?', answer: 'Each SUMIFS handles one sum_range. To sum multiple columns, add separate SUMIFS: =SUMIFS(C:C, ...) + SUMIFS(D:D, ...). Or use SUMPRODUCT for non-contiguous ranges.' },
+            { question: 'SUMIFS with blank / non-blank criteria?', answer: 'Use "" for blank: =SUMIFS(C:C, A:A, "<>", B:B, "") sums C where A is not blank AND B is blank. This is useful for identifying incomplete records.' },
+            { question: 'How do I sum values across multiple sheets using SUMIFS?', answer: 'Use 3D references: =SUMIFS(Sheet1:Sheet3!D:D,Sheet1:Sheet3!A:A,"North",Sheet1:Sheet3!B:B,">100"). This sums column D across sheets 1-3 where column A equals \'North\' and column B is greater than 100.' },
+            { question: 'Can SUMIFS use OR logic to sum values matching either of two conditions?', answer: 'SUMIFS uses AND logic only. For OR, add two SUMIFS: =SUMIFS(C:C,A:A,"East",B:B,">500") + SUMIFS(C:C,A:A,"West",B:B,">500"). This sums column C where region is East OR West AND amount > 500.' },
+            { question: 'Why does my SUMIFS return #VALUE! error?', answer: 'Common causes: (1) Criteria ranges have different sizes than the sum range. (2) Text criteria not enclosed in quotes. (3) Using operators incorrectly — for numbers use >500, for text use "East". Ensure all ranges are the same size.' }
         ],
         commonErrors: [
             { title: 'SUMIFS returns 0 or wrong total', causes: ['Sum range and criteria ranges have different heights or columns.', 'Criteria in wrong order (text without quotes, date not as DATE() or cell ref).', 'Using SUMIF-style argument order (sum range must come first in SUMIFS).'], fixes: ['Use same-sized ranges: e.g. A1:A100, B1:B100, C1:C100.', 'Put text in quotes; use ">="&A1 for dates where A1 is a date.', 'Syntax: =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2).'] },
@@ -1096,35 +1622,80 @@ export const FORMULAS: FormulaConfig[] = [
         richContent: `
 <div class="prose max-w-none mt-8 text-left">
   <h2 class="text-2xl font-bold mb-4">Master SUMIFS: Sum with Multiple Conditions</h2>
-  <p class="mb-4">The <strong>SUMIFS function</strong> is an enhanced version of SUMIF that allows you to apply multiple criteria. It's essential for financial analysis, sales commission reports, and complex data aggregation.</p>
-  
+  <p class="mb-4">The <strong>SUMIFS function</strong> is an enhanced version of SUMIF that allows you to apply multiple criteria. It is essential for financial analysis, sales commission reports, and complex data aggregation.</p>
+
+  <h3 class="text-xl font-semibold mb-2 mt-8">Step-by-Step: Using SUMIFS for the First Time</h3>
+  <p>Imagine a sales table:</p>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><strong>Column A</strong>: Region (East, West, North)</li>
+    <li><strong>Column B</strong>: Product Category (Electronics, Furniture, Clothing)</li>
+    <li><strong>Column C</strong>: Sales Amount</li>
+  </ul>
+  <p><strong>Goal:</strong> Sum all sales in the "East" region for "Electronics" products.</p>
+  <div class="bg-gray-100 p-4 rounded-lg mb-6">
+    <code class="text-sm">=SUMIFS(C:C, A:A, "East", B:B, "Electronics")</code>
+  </div>
+  <p><strong>How it works:</strong> SUMIFS scans column A for "East" AND column B for "Electronics". When a row matches BOTH conditions, it adds column C to the total.</p>
+
   <h3 class="text-xl font-semibold mb-2 mt-8">SUMIF vs SUMIFS: Which should I use?</h3>
   <p class="mb-4">Many users struggle to choose between SUMIF and SUMIFS. Our recommendation is simple: <strong>Learn and always use SUMIFS</strong>. Why? SUMIFS can do everything SUMIF can (even just one condition), but its formula structure is entirely different and often easier to read because the result column comes first.</p>
-  
-  <table class="min-w-full border-collapse border border-gray-300 my-4 text-sm bg-white">
-    <tr class="bg-gray-100"><th class="border border-gray-300 p-2 text-left">Feature</th><th class="border border-gray-300 p-2 text-left">SUMIF</th><th class="border border-gray-300 p-2 text-left">SUMIFS (Winner 🏆)</th></tr>
-    <tr><td class="border border-gray-300 p-2 font-medium">Conditions Support</td><td class="border border-gray-300 p-2 text-gray-600">Max 1 condition</td><td class="border border-gray-300 p-2 font-bold text-green-600">Up to 127 conditions</td></tr>
-    <tr><td class="border border-gray-300 p-2 font-medium">Syntax Argument Order</td><td class="border border-gray-300 p-2 text-gray-600">Range, Criteria, <em class="text-gray-400">Sum_Range</em></td><td class="border border-gray-300 p-2 font-bold text-blue-600"><em class="text-blue-400">Sum_Range</em>, Criteria_Range1, Criteria1...</td></tr>
-  </table>
+
+  <div class="overflow-x-auto my-6">
+    <table class="min-w-full border-collapse border border-gray-300 text-sm">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Feature</th>
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold">SUMIF</th>
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold">SUMIFS (Winner 🏆)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">Conditions</td>
+          <td class="border border-gray-300 px-4 py-2">1 max</td>
+          <td class="border border-gray-300 px-4 py-2 font-bold text-green-600">Up to 127</td>
+        </tr>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">Argument order</td>
+          <td class="border border-gray-300 px-4 py-2 font-mono">range, criteria, sum_range</td>
+          <td class="border border-gray-300 px-4 py-2 font-mono font-bold text-blue-600">sum_range, range1, cr1, range2, cr2</td>
+        </tr>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">Same-column multi criteria</td>
+          <td class="border border-gray-300 px-4 py-2">Not supported</td>
+          <td class="border border-gray-300 px-4 py-2">Supported (e.g. date ranges)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <h3 class="text-xl font-semibold mb-2 mt-8">Real-World Examples</h3>
   <ul class="list-disc pl-5 mb-4 space-y-2">
     <li><strong>HR & Payroll</strong>: Sum total hours worked by a specific employee (Condition 1) between January 1 and January 31 (Conditions 2 & 3).</li>
-    <li><strong>E-commerce</strong>: Sum total revenue for "Electronics" (Condition 1) where order status is "Delivered" (Condition 2) and discount was "&gt;0" (Condition 3).</li>
+    <li><strong>E-commerce</strong>: Sum total revenue for "Electronics" (Condition 1) where order status is "Delivered" (Condition 2) and discount was ">0" (Condition 3).</li>
     <li><strong>Finance</strong>: Sum all invoices over $5,000 in Q1 2026 that are still "Unpaid".</li>
-    <li><strong>Marketing</strong>: Sum total ad spend for campaign "Summer Sale" where ROI &gt; 200%.</li>
+    <li><strong>Marketing</strong>: Sum total ad spend for campaign "Summer Sale" where ROI > 200%.</li>
+    <li><strong>Inventory</strong>: Sum stock quantities for "Electronics" items where reorder flag is "Yes".</li>
   </ul>
 
   <h3 class="text-xl font-semibold mb-2 mt-8">SUMIFS with Date Ranges</h3>
   <p class="mb-4">Sum values between two dates by using two conditions on the same date column:</p>
   <pre class="bg-gray-100 p-3 rounded text-sm mb-4">=SUMIFS(C:C, A:A, "&gt;="&DATE(2026,1,1), A:A, "&lt;="&DATE(2026,3,31))</pre>
-  <p class="mb-4">This sums column C for all rows where column A dates fall within Q1 2026.</p>
+  <p class="mb-4">For dynamic date ranges from cell references:</p>
+  <pre class="bg-gray-100 p-3 rounded text-sm mb-4">=SUMIFS(C:C, A:A, "&gt;="&D1, A:A, "&lt;="&E1)</pre>
+  <p class="mb-4">This sums column C for all rows where column A dates fall within the range. Using cell references makes the formula reusable — just update the dates in D1 and E1.</p>
+
+  <h3 class="text-xl font-semibold mb-2 mt-8">Advanced: Same-Column Multi-Criteria</h3>
+  <p class="mb-4">To sum values that fall within a numeric range, apply two criteria to the same column:</p>
+  <pre class="bg-gray-100 p-3 rounded text-sm mb-4">=SUMIFS(C:C, A:A, "&gt;100", A:A, "&lt;500")</pre>
+  <p class="mb-4">This sums column C where column A is between 100 and 500 (exclusive). The same pattern works for dates, percentages, or any numeric criteria.</p>
 
   <h3 class="text-xl font-semibold mb-2 mt-8">Common Mistakes and How to Fix Them</h3>
   <ul class="list-disc pl-5 mb-4 space-y-2">
-    <li><strong>Wrong argument order</strong>: SUMIFS syntax is <code>=SUMIFS(sum_range, criteria_range1, criteria1)</code>. The sum range comes FIRST—unlike SUMIF where it comes last.</li>
-    <li><strong>Criteria not quoted</strong>: Text criteria need quotes: <code>"=Sales"</code>. For cell references: <code>"&gt;"&A1</code>.</li>
-    <li><strong>Mismatched range sizes</strong>: All ranges must have the same number of rows or SUMIFS returns wrong results or errors.</li>
+    <li><strong>Wrong argument order:</strong> SUMIFS syntax is <code>=SUMIFS(sum_range, criteria_range1, criteria1)</code>. The sum range comes FIRST — unlike SUMIF where it comes last. This is the #1 mistake.</li>
+    <li><strong>Criteria not quoted:</strong> Text criteria need quotes: <code>"=Sales"</code>. For cell references: <code>"&gt;"&A1</code>.</li>
+    <li><strong>Mismatched range sizes:</strong> All ranges must have the same number of rows. A1:A100 + B1:B99 = wrong results.</li>
+    <li><strong>SUMIFS returns 0:</strong> Filter your data manually to verify rows matching all criteria exist. Check for hidden spaces with TRIM().</li>
   </ul>
 
   <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
@@ -1137,14 +1708,14 @@ export const FORMULAS: FormulaConfig[] = [
             { argument: 'criteria1', explanation: 'The condition that must be met in criteria_range1. Text and operators go in quotes.', example: 'e.g., ">100" or "Sales"' },
             { argument: 'criteria_range2...', explanation: 'Additional pairs of ranges and criteria. You can add up to 127 pairs.', example: 'e.g., B:B, "Completed"' },
         ],
-        relatedTools: ['sumif', 'countifs', 'averageif'],
+        relatedTools: ['sumif', 'countifs', 'countif', 'averageif', 'ifs', 'sum'],
     },
 
     // 26. COUNTIFS - Multiple Criteria Count
     {
         slug: 'countifs',
-        title: 'COUNTIFS Formula — Count with Multiple Criteria in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate COUNTIFS formulas instantly for Excel and Google Sheets. Count with multiple conditions, date ranges, and complex criteria. Free formula generator — no signup.',
+        title: 'COUNTIFS Formula Generator — Multiple Criteria in Excel & Sheets | SheetMaster',
+        metaDescription: 'Build COUNTIFS formulas in seconds. Select your criteria, get a working formula instantly. Free tool for Excel and Google Sheets. No signup needed.',
         excelFunction: 'COUNTIFS',
         category: 'Math',
         description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
@@ -1156,51 +1727,114 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=COUNTIFS(${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`,
         howToSteps: [
-            { name: 'Set your first criteria pair', text: 'Choose the first range and condition. For example, A1:A100 is the range, "Completed" is the first condition.' },
-            { name: 'Add more criteria pairs', text: 'Add additional range/condition pairs for more specific filters. All conditions must be TRUE for a row to be counted.' },
-            { name: 'Keep ranges the same size', text: 'Every criteria range must have the same number of rows. Mismatched ranges give wrong counts.' },
-            { name: 'Copy and test', text: 'Paste into your spreadsheet. Test with a few rows to verify the count is correct before using it in reports.' }
+            { name: 'Identify your data columns', text: 'Select the columns you want to filter. For example, column A has regions, column B has sales amounts. Each column becomes a criteria_range.' },
+            { name: 'Enter COUNTIFS with first criteria pair', text: 'Type =COUNTIFS(A:A, "East") to set your first condition. This counts all rows where column A is "East".' },
+            { name: 'Add more criteria pairs for AND logic', text: 'Add additional pairs separated by commas: =COUNTIFS(A:A, "East", B:B, ">500"). Both conditions must be true for the same row to be counted.' },
+            { name: 'Keep all ranges equal-sized', text: 'Every criteria_range must have the same number of rows. A1:A100 and B1:B100 work. A1:A100 and B2:B101 give wrong results.' },
+            { name: 'Test your count with a manual check', text: 'Filter your data manually to verify the first few rows. Once confirmed, the formula is ready for reports and dashboards.' }
         ],
-        faq: [
-            { question: 'COUNTIFS with multiple criteria — how does it work?', answer: 'COUNTIFS counts rows only when ALL conditions are true (AND logic). Syntax: =COUNTIFS(range1, criteria1, range2, criteria2). Example: =COUNTIFS(A:A, ">100", B:B, "Yes") counts rows where A>100 AND B="Yes".' },
-            { question: 'Why does COUNTIFS return 0?', answer: 'All conditions must be met in the same row. Check that criteria ranges are the same size and that criteria match data types (text in quotes, numbers with ">50" etc).' },
-            { question: 'COUNTIFS ranges must be same size — what happens if they\'re not?', answer: 'If ranges have different sizes, COUNTIFS may return 0 or wrong results. Always use the same number of rows for every criteria_range. Example: use A1:A100 with B1:B100, not A1:A100 with B2:B101.' },
-            { question: 'Can COUNTIFS count with OR logic?', answer: 'COUNTIFS is AND logic only. For OR, add multiple COUNTIFS: =COUNTIFS(A:A,"X")+COUNTIFS(A:A,"Y"), or use SUMPRODUCT with (condition1)+(condition2).' },
-            { question: 'How do I count rows where one column is blank and another is not?', answer: 'Use criteria "" for blank and "<>" for non-blank: =COUNTIFS(A:A,"", B:B,"<>").' },
-            { question: 'What is the difference between COUNTIF and COUNTIFS?', answer: 'COUNTIF has one condition; COUNTIFS has multiple criteria_range/criteria pairs. Use COUNTIFS when you need two or more conditions at once.' },
+        [
+            { question: 'How to use COUNTIFS with multiple criteria?', answer: 'Syntax: =COUNTIFS(criteria_range1, criteria1, criteria_range2, criteria2, ...). Example: =COUNTIFS(A:A, "East", B:B, ">500", C:C, "<>") counts rows where region is East, amount > 500, and category is not blank.' },
+            { question: 'Why does my COUNTIFS return 0?', answer: 'Three most common causes: (1) Criteria ranges differ in size — all ranges must have the same row count. (2) Text values missing quotes — use "Completed" not Completed. (3) No rows match ALL conditions — test with fewer criteria to isolate.' },
+            { question: 'How do I use COUNTIFS with date ranges in Excel?', answer: 'Use two conditions on the same date column: =COUNTIFS(A:A, ">="&DATE(2026,1,1), A:A, "<="&DATE(2026,3,31)). For single cell dates, reference them: =COUNTIFS(A:A, ">="&D1, A:A, "<="&E1).' },
+            { question: 'Can COUNTIFS use OR logic instead of AND?', answer: 'COUNTIFS is AND-only. For OR logic, add multiple COUNTIFS together: =COUNTIFS(A:A, "X", B:B, "Y") + COUNTIFS(A:A, "Z", B:B, "Y"). Or use SUMPRODUCT for complex logic.' },
+            { question: 'How do I count blank or non-blank cells with COUNTIFS?', answer: 'Use "" for blank and "<>" for non-blank: =COUNTIFS(A:A, "", B:B, "<>") counts rows where A is blank AND B is not blank. This is useful for data quality checks.' },
+            { question: 'COUNTIFS with wildcards — how does it work?', answer: 'Use * for any sequence of characters and ? for a single character: =COUNTIFS(A:A, "*North*", B:B, "???-???"). This counts rows where A contains "North" and B has a pattern like "ABC-12".' },
+            { question: 'What if my criteria range and criteria are in another sheet?', answer: 'Reference another sheet normally: =COUNTIFS(Sheet2!A:A, "East", Sheet2!B:B, ">100"). The sheet name with space must be in quotes: =COUNTIFS(\' },
+            { question: 'COUNTIFS vs COUNTIF — what is the difference?', answer: 'COUNTIF handles exactly ONE condition. COUNTIFS handles 1+ conditions (up to 127 pairs). Always prefer COUNTIFS even for single conditions — if you later add a second condition, the syntax stays consistent.' },
+            { question: 'How do I count rows where a date falls between two dates using COUNTIFS?', answer: 'Use two conditions on the same date column: =COUNTIFS(A:A,">="&DATE(2026,1,1),A:A,"<="&DATE(2026,3,31)). This counts all rows where column A has a date between Jan 1 and Mar 31, 2026.' },
+            { question: 'Can COUNTIFS handle wildcards for partial text matches?', answer: 'Yes. Use * for any characters and ? for a single character: =COUNTIFS(A:A,"*North*") counts cells containing \'North\' anywhere in the text. Combine with other criteria: =COUNTIFS(A:A,"*North*",B:B,">100").' },
+            { question: 'What is the maximum number of criteria pairs COUNTIFS supports?', answer: 'COUNTIFS supports up to 127 criteria pairs in Excel 2007+. Each pair consists of a range and a criteria. For example: =COUNTIFS(A:A,"X",B:B,">5",C:C,"<>Y",D:D,"<100").' }
         ],
         richContent: `
 <div class="prose max-w-none mt-8 text-left">
   <h2 class="text-2xl font-bold mb-4">Master COUNTIFS: Count with Multiple Conditions</h2>
   <p class="mb-4">The <strong>COUNTIFS function</strong> counts rows that meet multiple criteria across different columns. It is the multi-condition version of COUNTIF and one of the most versatile functions for data analysis in Excel and Google Sheets.</p>
 
+  <h3 class="text-xl font-semibold mb-2 mt-8">Step-by-Step: Using COUNTIFS for the First Time</h3>
+  <p>Let us walk through a concrete example. Imagine you have a sales table:</p>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><strong>Column A</strong>: Region (East, West, North)</li>
+    <li><strong>Column B</strong>: Sales Amount (e.g. 250, 750, 1200)</li>
+    <li><strong>Column C</strong>: Status (Completed, Pending)</li>
+  </ul>
+  <p><strong>Goal:</strong> Count how many "Completed" orders in the "East" region exceeded $500.</p>
+  <div class="bg-gray-100 p-4 rounded-lg mb-6">
+    <code class="text-sm">=COUNTIFS(A:A, "East", B:B, ">500", C:C, "Completed")</code>
+  </div>
+  <p>Each pair (range, criteria) adds one filter. Only rows matching ALL three conditions are counted.</p>
+
   <h3 class="text-xl font-semibold mb-2 mt-8">COUNTIF vs COUNTIFS: What is the difference?</h3>
   <p class="mb-4">COUNTIF handles <strong>one condition</strong> only. COUNTIFS handles <strong>two or more conditions</strong> simultaneously. Every condition is connected by AND logic—all conditions must be true for a row to be counted.</p>
 
-  <table class="min-w-full border-collapse border border-gray-300 my-4 text-sm bg-white">
-    <tr class="bg-gray-100"><th class="border border-gray-300 p-2 text-left">Feature</th><th class="border border-gray-300 p-2 text-left">COUNTIF</th><th class="border border-gray-300 p-2 text-left">COUNTIFS</th></tr>
-    <tr><td class="border border-gray-300 p-2 font-medium">Conditions</td><td class="border border-gray-300 p-2 text-gray-600">Single condition</td><td class="border border-gray-300 p-2 font-bold text-green-600">Multiple conditions (AND)</td></tr>
-    <tr><td class="border border-gray-300 p-2 font-medium">Syntax</td><td class="border border-gray-300 p-2 text-gray-600">=COUNTIF(range, criteria)</td><td class="border border-gray-300 p-2 font-bold text-blue-600">=COUNTIFS(range1, criteria1, range2, criteria2)</td></tr>
-    <tr><td class="border border-gray-300 p-2 font-medium">OR Logic</td><td class="border border-gray-300 p-2 text-gray-600">Not supported natively</td><td class="border border-gray-300 p-2 text-gray-600">Requires multiple formulas</td></tr>
-  </table>
+  <div class="overflow-x-auto my-6">
+    <table class="min-w-full border-collapse border border-gray-300 text-sm">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Feature</th>
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold">COUNTIF</th>
+          <th class="border border-gray-300 px-4 py-2 text-left font-semibold">COUNTIFS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">Conditions</td>
+          <td class="border border-gray-300 px-4 py-2">Single condition</td>
+          <td class="border border-gray-300 px-4 py-2 font-bold text-green-600">Multiple (AND)</td>
+        </tr>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">Syntax</td>
+          <td class="border border-gray-300 px-4 py-2 font-mono">=COUNTIF(range, criteria)</td>
+          <td class="border border-gray-300 px-4 py-2 font-mono">=COUNTIFS(range1, cr1, range2, cr2)</td>
+        </tr>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">Max criteria pairs</td>
+          <td class="border border-gray-300 px-4 py-2">1</td>
+          <td class="border border-gray-300 px-4 py-2">127</td>
+        </tr>
+        <tr class="even:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2 font-medium">OR logic</td>
+          <td class="border border-gray-300 px-4 py-2">Not supported</td>
+          <td class="border border-gray-300 px-4 py-2">Requires multiple formulas</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <h3 class="text-xl font-semibold mb-2 mt-8">Real-World Examples</h3>
+  <h3 class="text-xl font-semibold mb-2 mt-8">Real-World Use Cases</h3>
   <ul class="list-disc pl-5 mb-4 space-y-2">
     <li><strong>Sales Reporting</strong>: Count orders where region = "East" AND amount > $500.</li>
     <li><strong>HR Analytics</strong>: Count employees in department "Engineering" with tenure > 3 years.</li>
     <li><strong>Inventory</strong>: Count products in category "Electronics" where stock < 10 (needs restocking).</li>
-    <li><strong>Date Range</strong>: Count transactions between Jan 1 and Mar 31, 2026.</li>
+    <li><strong>Education</strong>: Count students who scored above 80 in Math AND above 70 in Science.</li>
+    <li><strong>Customer Support</strong>: Count tickets tagged "Urgent" that are still "Open" and overdue by 3+ days.</li>
   </ul>
 
   <h3 class="text-xl font-semibold mb-2 mt-8">Working with Date Ranges</h3>
   <p class="mb-4">To count rows where a date falls within a specific range, use two conditions on the same date column:</p>
-  <pre class="bg-gray-100 p-3 rounded text-sm mb-4">=COUNTIFS(A:A, ">="&DATE(2026,1,1), A:A, "<="&DATE(2026,3,31))</pre>
+  <pre class="bg-gray-100 p-3 rounded text-sm mb-4">=COUNTIFS(A:A, "&gt;="&DATE(2026,1,1), A:A, "&lt;="&DATE(2026,3,31))</pre>
+  <p class="mb-4">For dynamic dates stored in cells, reference them directly:</p>
+  <pre class="bg-gray-100 p-3 rounded text-sm mb-4">=COUNTIFS(A:A, "&gt;="&D1, A:A, "&lt;="&E1)</pre>
+
+  <h3 class="text-xl font-semibold mb-2 mt-8">Advanced: COUNTIFS with OR Logic</h3>
+  <p class="mb-4">COUNTIFS uses AND logic by default. To implement OR, <strong>add multiple COUNTIFS together</strong>:</p>
+  <pre class="bg-gray-100 p-3 rounded text-sm mb-4">=COUNTIFS(A:A, "East", B:B, ">500") + COUNTIFS(A:A, "West", B:B, ">500")</pre>
+  <p class="mb-4">This counts rows where (Region = East AND Sales > 500) OR (Region = West AND Sales > 500).</p>
+
+  <h3 class="text-xl font-semibold mb-2 mt-8">Common Errors & Troubleshooting</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-2">
+    <li><strong>COUNTIFS returns 0:</strong> Likely causes: range sizes mismatch, text criteria not in quotes, or no data matches all conditions simultaneously.</li>
+    <li><strong>#VALUE! error:</strong> Usually means criteria ranges have different dimensions (e.g. A1:A100 paired with B1:B99). Ensure every range has the same row count.</li>
+    <li><strong>Counting blank cells:</strong> Use =COUNTIFS(A:A, "") for truly empty cells. Use =COUNTIFS(A:A, "") + COUNTIFS(A:A, "*
+") to include blank-looking cells with only spaces.</li>
+    <li><strong>Cell contains numbers as text:</strong> If your criteria range stores numbers as text, use TEXT function: =COUNTIFS(A:A, TEXT(500, "0")).</li>
+  </ul>
 
   <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
-    <p class="text-sm text-blue-800 italic"><strong>Important:</strong> All criteria ranges must be the same size. If range1 is A1:A100, range2 must also be 100 rows. Mismatched sizes cause incorrect counts.</p>
+    <p class="text-sm text-blue-800 italic"><strong>Important:</strong> All criteria ranges must be the same size. If range1 is A1:A100, range2 must also be 100 rows. Mismatched sizes cause incorrect counts or <code>#VALUE!</code> errors.</p>
   </div>
 </div>`,
-        relatedTools: ['countif', 'sumifs', 'averageif', 'sumproduct'],
+        relatedTools: ['countif', 'sumifs', 'sumif', 'averageif', 'ifs', 'iferror'],
         commonErrors: [
             { title: 'COUNTIFS returns 0 or unexpected count', causes: ['Criteria ranges have different lengths.', 'Text criteria not in quotes; number criteria wrong format.'], fixes: ['Use identical range sizes: A1:A100, B1:B100.', 'Use "Completed", ">100", "="&A1 for text, number, and cell reference.'] },
         ],
@@ -1266,8 +1900,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 28. IFERROR - Error Handling
     {
         slug: 'iferror',
-        title: 'IFERROR Formula — Handle Errors in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate IFERROR formulas instantly in Excel and Google Sheets. Hide #N/A, #DIV/0!, #VALUE! errors gracefully. Free formula generator with examples.',
+        title: 'How to Use IFERROR in Excel (Catch Formula Errors + Free Generator)',
+        metaDescription: 'Clean up #N/A, #DIV/0, and #VALUE! errors in Excel. Master IFERROR with VLOOKUP, XLOOKUP & division. Free generator with real-world examples.',
         excelFunction: 'IFERROR',
         category: 'Logic',
         description: 'Returns a value you specify if a formula evaluates to an error; otherwise returns the result of the formula.',
@@ -1276,36 +1910,88 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'value_if_error', label: 'Value if Error', type: 'text', placeholder: 'e.g., 0 or "N/A"' },
         ],
         generate: (p) => `=IFERROR(${p.value || 'value'}, ${p.value_if_error || '""'})`,
+        relatedTools: ['if', 'ifs', 'xlookup', 'vlookup', 'index-match'],
         howToSteps: [
-            { name: 'Identify the formula to protect', text: 'Enter the formula or cell reference that might produce an error, such as A1/B1 or VLOOKUP(...).' },
-            { name: 'Choose your fallback value', text: 'Decide what to show when there is an error: 0 for calculations, "N/A" for lookups, or "" to leave the cell blank.' },
-            { name: 'Understand scope', text: 'IFERROR catches ALL error types (#N/A, #DIV/0!, #VALUE!, etc.). Use IFNA instead if you only want to catch #N/A errors.' },
-            { name: 'Copy and test', text: 'Wrap your formula with IFERROR and test with data that would normally cause an error to verify the fallback displays correctly.' }
+            { name: 'Enter formula to protect', text: 'Type or paste the formula that might produce an error, e.g. A1/B1 for division, or VLOOKUP(A2, B:C, 2, FALSE) for lookups. Be sure the formula works correctly first before wrapping it.' },
+            { name: 'Choose fallback value', text: 'Decide what to show on error: 0 for calculations (keeps totals accurate), "Not Found" for lookups, or "" to leave the cell blank for clean reports.' },
+            { name: 'Wrap with IFERROR', text: 'Place your formula as the first argument and your fallback as the second: =IFERROR(A1/B1, 0). IFERROR checks the first argument and if it returns any error, shows the second argument instead.' },
+            { name: 'Test with error case', text: 'Test the formula with data that would normally cause an error (e.g., divide by zero, look up a missing value). Verify the fallback displays as expected.' },
+            { name: 'Apply to entire range', text: 'Drag or copy the IFERROR formula down your entire data column. Every cell is now protected — no more ugly error messages in your spreadsheet.' }
         ],
         faq: [
-            { question: 'What errors does IFERROR catch?', answer: 'IFERROR catches #N/A, #VALUE!, #REF!, #DIV/0!, #NAME?, #NUM!, and #NULL!. It returns your fallback value for any of these.' },
-            { question: 'Should I use IFERROR around VLOOKUP?', answer: 'Yes. When the lookup value is not found, VLOOKUP returns #N/A. Wrapping in IFERROR lets you show "Not Found" or 0 instead: =IFERROR(VLOOKUP(...), "Not Found").' },
-            { question: 'What is the difference between IFERROR and IFNA?', answer: 'IFERROR catches all errors; IFNA catches only #N/A. Use IFNA when you want other errors (e.g. #VALUE!) to still show, so you can debug them.' },
+            { question: 'What errors does IFERROR catch?', answer: 'IFERROR catches #N/A, #VALUE!, #REF!, #DIV/0!, #NAME?, #NUM!, and #NULL!. It returns your fallback value for any of these errors.' },
+            { question: 'Should I use IFERROR around VLOOKUP?', answer: 'Yes. When the lookup value is not found, VLOOKUP returns #N/A. Wrapping in IFERROR lets you show "Not Found" or 0 instead: =IFERROR(VLOOKUP(A2, B:C, 2, FALSE), "Not Found").' },
+            { question: 'What is the difference between IFERROR and IFNA?', answer: 'IFERROR catches all errors; IFNA catches only #N/A. Use IFNA when you want other errors (e.g. #VALUE!) to still show so you can debug them.' },
             { question: 'Can IFERROR hide formula errors in Google Sheets?', answer: 'Yes. IFERROR works the same in Excel and Google Sheets. Use it to avoid #DIV/0! from division or #N/A from lookups.' },
-            { question: 'Why is my IFERROR returning the fallback when the result looks correct?', answer: 'The first argument might be returning an error you do not see (e.g. in a hidden column). Check the inner formula alone; ensure the fallback is only what you want for real errors.' },
+            { question: 'Why is my IFERROR returning the fallback when the result looks correct?', answer: 'The first argument might be returning an error you do not see (e.g. in a hidden column or due to a nested formula). Check the inner formula alone in a cell to see its real result.' },
+            { question: 'Can I use IFERROR with INDEX MATCH?', answer: 'Yes. Wrap the entire INDEX MATCH: =IFERROR(INDEX(C:C, MATCH(A2, B:B, 0)), "Missing"). If MATCH fails to find the lookup value, IFERROR returns "Missing" instead of #N/A.' },
+            { question: 'Does IFERROR work with array formulas?', answer: 'Yes, IFERROR wraps array formulas the same way. In older Excel, press Ctrl+Shift+Enter for array formulas inside IFERROR. In Excel 365 and Google Sheets, dynamic arrays work natively.' },
+            { question: 'How do I use IFERROR to handle blank cells in calculations?', answer: 'If your formula references blank cells that cause errors, IFERROR catches them: =IFERROR(A1/B1, 0). For more targeted handling, check with ISBLANK first: =IF(ISBLANK(B1), 0, A1/B1). This way, you distinguish between intentional blanks and actual errors.' }
         ],
         commonErrors: [
             { title: 'IFERROR hides errors I want to see', causes: ['Using IFERROR around a formula that can return #VALUE! or #REF! you need to fix.', 'Nested formulas: inner error is caught so outer logic never runs.'], fixes: ['Use IFNA instead to catch only #N/A, or fix the inner formula first.', 'Test the inner formula without IFERROR to debug, then wrap once correct.'] },
         ],
         richContent: `
 <div class="prose max-w-none mt-8">
-  <h2>IFERROR: The Essential Error Handler</h2>
-  <p><strong>IFERROR</strong> is one of the most important functions for creating robust spreadsheets. It catches errors like #DIV/0!, #N/A, #VALUE!, and #REF! and replaces them with a clean value.</p>
-  
-  <h3>Common Use Cases</h3>
+  <h2>How to Use IFERROR in Excel and Google Sheets</h2>
+  <p><strong>IFERROR</strong> is one of the most important functions for creating robust spreadsheets. It catches errors like #DIV/0!, #N/A, #VALUE!, and #REF! and replaces them with a clean value — keeping your reports professional and your calculations running smoothly.</p>
+
+  <h3>IFERROR Syntax</h3>
+  <p>The syntax is simple: <code>=IFERROR(value, value_if_error)</code></p>
   <ul>
-    <li><strong>VLOOKUP with IFERROR:</strong> <code>=IFERROR(VLOOKUP(A1, B:C, 2, FALSE), "Not Found")</code></li>
-    <li><strong>Division protection:</strong> <code>=IFERROR(A1/B1, 0)</code></li>
-    <li><strong>Clean reports:</strong> Replace ugly error messages with blank cells or custom text</li>
+    <li><strong>value</strong>: The formula, cell reference, or expression you want to evaluate.</li>
+    <li><strong>value_if_error</strong>: What to return if the first argument produces any error.</li>
   </ul>
-  
-  <div class="bg-green-50 p-4 rounded-lg border border-green-100 mt-4">
-    <p class="text-sm text-green-800"><strong>Pro Tip:</strong> Wrap any lookup or division formula in IFERROR to create professional, error-free reports.</p>
+
+  <h3>Step-by-Step: Protect a Division Formula</h3>
+  <p>Imagine you have a sales commission table:</p>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full text-sm border-collapse border border-gray-200">
+      <thead><tr class="bg-gray-50"><th class="border border-gray-200 p-2 text-left">A (Salesperson)</th><th class="border border-gray-200 p-2 text-left">B (Sales Amount)</th><th class="border border-gray-200 p-2 text-left">C (Commission Rate)</th><th class="border border-gray-200 p-2 text-left">D (Commission)</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-200 p-2">Alice</td><td class="border border-gray-200 p-2">10,000</td><td class="border border-gray-200 p-2">5%</td><td class="border border-gray-200 p-2">500</td></tr>
+        <tr><td class="border border-gray-200 p-2">Bob</td><td class="border border-gray-200 p-2">0</td><td class="border border-gray-200 p-2">5%</td><td class="border border-gray-200 p-2">0</td></tr>
+        <tr><td class="border border-gray-200 p-2">Charlie</td><td class="border border-gray-200 p-2">8,000</td><td class="border border-gray-200 p-2"><em>blank</em></td><td class="border border-gray-200 p-2 text-red-600">#DIV/0!</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="mb-2">Without IFERROR, Bob and Charlie's rows show ugly errors. Here's how to fix it:</p>
+  <ol class="list-decimal pl-5 mb-4 space-y-1">
+    <li><strong>Write your original formula:</strong> <code>=B2*C2</code> — this calculates commission by multiplying the sales amount by the rate.</li>
+    <li><strong>Wrap with IFERROR:</strong> <code>=IFERROR(B2*C2, 0)</code> — if the multiplication fails (e.g., C2 is blank), show 0 instead of #DIV/0!.</li>
+    <li><strong>Copy down the column:</strong> Drag the formula to all rows. Every row now shows either a valid commission or 0 — no errors visible.</li>
+  </ol>
+  <p class="mb-4">The result: clean, professional-looking data with no explanation needed.</p>
+
+  <h3>IFERROR with VLOOKUP and XLOOKUP</h3>
+  <p>One of the most common uses of IFERROR is to handle lookup failures gracefully:</p>
+  <ul class="list-disc pl-5 mb-4 space-y-2">
+    <li><strong>VLOOKUP + IFERROR:</strong> <code>=IFERROR(VLOOKUP(A2, B:C, 2, FALSE), "Not Found")</code> — shows "Not Found" instead of #N/A when an employee ID has no match.</li>
+    <li><strong>XLOOKUP alternative:</strong> XLOOKUP has a built-in <code>if_not_found</code> argument: <code>=XLOOKUP(A2, B:B, C:C, "Not Found")</code>. This is cleaner than wrapping in IFERROR.</li>
+    <li><strong>INDEX MATCH + IFERROR:</strong> <code>=IFERROR(INDEX(C:C, MATCH(A2, B:B, 0)), "Missing")</code> — same protection for the INDEX MATCH combination.</li>
+  </ul>
+
+  <h3>IFERROR vs IFNA — When to Use Which</h3>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full text-sm border-collapse border border-gray-200">
+      <thead><tr class="bg-gray-50"><th class="border border-gray-200 p-2 text-left">Function</th><th class="border border-gray-200 p-2 text-left">Catches</th><th class="border border-gray-200 p-2 text-left">Best For</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-200 p-2">IFERROR</td><td class="border border-gray-200 p-2">All errors (#N/A, #DIV/0!, #VALUE!, #REF!, #NAME?, #NUM!, #NULL!)</td><td class="border border-gray-200 p-2">Final polish of production reports</td></tr>
+        <tr><td class="border border-gray-200 p-2">IFNA</td><td class="border border-gray-200 p-2">Only #N/A</td><td class="border border-gray-200 p-2">Lookup formulas where other errors should still surface</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common Pitfalls and Edge Cases</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-2">
+    <li><strong>Masking bugs:</strong> IFERROR hides ALL errors. If your VLOOKUP is returning #REF! because a column was deleted, IFERROR silently covers it up. Always debug the inner formula first before wrapping with IFERROR.</li>
+    <li><strong>Blank fallback:</strong> Use <code>""</code> (empty string) to leave the cell blank on error: <code>=IFERROR(A1/B1, "")</code>. This looks clean in reports but remember the cell is not truly empty — it contains a formula returning "".</li>
+    <li><strong>Nested IFERROR:</strong> You can nest IFERROR calls to try multiple strategies: <code>=IFERROR(VLOOKUP(A2, Sheet1!A:B, 2, 0), IFERROR(VLOOKUP(A2, Sheet2!A:B, 2, 0), "Not in any sheet"))</code> — tries Sheet1 first, then Sheet2, then gives up.</li>
+    <li><strong>Performance:</strong> IFERROR evaluates the first argument completely. If the inner formula is slow (e.g., an array lookup over 100k rows), IFERROR doesn't speed it up — it just cleans the result.</li>
+  </ul>
+
+  <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 mt-6">
+    <p class="text-sm text-yellow-800"><strong>Pro Tip:</strong> Use IFERROR as a <strong>final polish</strong> — never as a development crutch. Build and debug your inner formula first without IFERROR, then wrap it only after it works correctly. This way you catch real bugs during development instead of hiding them. For lookups that might fail, consider XLOOKUP's built-in <code>if_not_found</code> parameter — it's more explicit and doesn't mask other error types.</p>
   </div>
 </div>`
     },
@@ -1313,9 +1999,9 @@ export const FORMULAS: FormulaConfig[] = [
     // 29. IFS - Multiple Conditions
     {
         slug: 'ifs',
-        title: 'IFS Formula — Multiple Conditions in Excel & Google Sheets (Free Tool)',
+        title: 'How to Use IFS in Excel (Multiple IF Conditions + Free Generator)',
         metaDescription:
-            'Generate IFS formulas instantly in Excel and Google Sheets. Evaluate multiple conditions without nested IFs. Free formula generator with examples.',
+            'Struggling with nested IFs? Use IFS to evaluate multiple conditions in Excel & Sheets. Free IFS formula generator with real-world examples. Try it now!',
         excelFunction: 'IFS',
         category: 'Logic',
         description: 'Checks multiple conditions and returns a value corresponding to the first TRUE condition. Cleaner than nested IFs.',
@@ -1329,32 +2015,99 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) =>
             `=IFS(${p.condition1 || 'condition1'}, ${p.value1 || 'value1'}, ${p.condition2 || 'condition2'}, ${p.value2 || 'value2'}, ${p.condition3 || 'condition3'}, ${p.value3 || 'value3'})`,
+        relatedTools: ['if', 'iferror', 'and', 'or', 'sumifs', 'countifs'],
         richContent: `
 <div class="prose max-w-none mt-8">
-  <h2>IFS vs Nested IF</h2>
-  <p><strong>IFS</strong> evaluates conditions in order and returns the value for the first TRUE test—ideal for <strong>letter grades</strong>, <strong>tiered discounts</strong>, and commission bands without stacking IF(IF(IF(...))).</p>
-  <h3>Minimum viable pattern</h3>
+  <h2>How to Use IFS in Excel — Step by Step</h2>
+  <p>The <strong>IFS</strong> function checks multiple conditions in order and returns the value for the first TRUE test. It is ideal for <strong>letter grades</strong>, <strong>tiered discounts</strong>, and commission bands — without stacking IF(IF(IF(...))).</p>
+
+  <h3>Real-World Example: Student Letter Grades</h3>
+  <p>Imagine you have student scores in column A and want to assign letter grades in column B:</p>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full text-sm border-collapse border border-gray-200">
+      <thead><tr class="bg-gray-50"><th class="border border-gray-200 p-2 text-left">A (Score)</th><th class="border border-gray-200 p-2 text-left">B (Formula)</th><th class="border border-gray-200 p-2 text-left">Result</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-200 p-2">95</td><td class="border border-gray-200 p-2"><code>=IFS(A2>=90,"A",A2>=80,"B",A2>=70,"C",A2>=60,"D",TRUE,"F")</code></td><td class="border border-gray-200 p-2 font-semibold text-green-700">A</td></tr>
+        <tr><td class="border border-gray-200 p-2">82</td><td class="border border-gray-200 p-2"><em>(same formula)</em></td><td class="border border-gray-200 p-2 font-semibold text-green-700">B</td></tr>
+        <tr><td class="border border-gray-200 p-2">67</td><td class="border border-gray-200 p-2"><em>(same formula)</em></td><td class="border border-gray-200 p-2 font-semibold text-green-700">D</td></tr>
+        <tr><td class="border border-gray-200 p-2">41</td><td class="border border-gray-200 p-2"><em>(same formula)</em></td><td class="border border-gray-200 p-2 font-semibold text-green-700">F</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The formula checks from highest threshold to lowest. If no condition matches, the <code>TRUE</code> fallback returns &quot;F&quot;.</p>
+
+  <h3>IFS vs Nested IF — Comparison</h3>
+  <div class="overflow-x-auto mb-4">
+    <table class="min-w-full text-sm border-collapse border border-gray-200">
+      <thead><tr class="bg-gray-50"><th class="border border-gray-200 p-2 text-left">Feature</th><th class="border border-gray-200 p-2 text-left">IFS</th><th class="border border-gray-200 p-2 text-left">Nested IF</th></tr></thead>
+      <tbody>
+        <tr><td class="border border-gray-200 p-2">Syntax</td><td class="border border-gray-200 p-2"><code>=IFS(test1, val1, test2, val2)</code></td><td class="border border-gray-200 p-2"><code>=IF(test1, val1, IF(test2, val2, ...))</code></td></tr>
+        <tr><td class="border border-gray-200 p-2">Readability</td><td class="border border-gray-200 p-2 text-green-600">Flat, easy to scan</td><td class="border border-gray-200 p-2 text-red-600">Deeply nested, hard to read</td></tr>
+        <tr><td class="border border-gray-200 p-2">Limit</td><td class="border border-gray-200 p-2">127 conditions (Excel 2019+)</td><td class="border border-gray-200 p-2">7 levels deep (Excel 2003) or 64 (Excel 2007+)</td></tr>
+        <tr><td class="border border-gray-200 p-2">Default value</td><td class="border border-gray-200 p-2 text-yellow-600">Must add TRUE fallback manually</td><td class="border border-gray-200 p-2 text-green-600">Last FALSE value works as default</td></tr>
+        <tr><td class="border border-gray-200 p-2">Compatibility</td><td class="border border-gray-200 p-2">Excel 2019+ / Microsoft 365 / Sheets</td><td class="border border-gray-200 p-2 text-green-600">All versions</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Common Mistakes with IFS</h3>
+  <ul class="list-disc pl-5 mb-4 space-y-1">
+    <li><strong>No TRUE fallback</strong> — If no condition matches, IFS returns #N/A. Always add <code>TRUE, "Default"</code> as the last pair.</li>
+    <li><strong>Wrong condition order</strong> — IFS stops at the first TRUE. Place the most specific (highest threshold) conditions first.</li>
+    <li><strong>Text vs number mismatch</strong> — Comparing text &quot;90&quot; to the number 90 fails. Use <code>VALUE()</code> to convert text scores.</li>
+    <li><strong>Empty cells treated as 0</strong> — A blank cell evaluates as 0 in comparisons. Use <code>ISBLANK()</code> as an early condition if needed.</li>
+  </ul>
+
+  <h3>Minimum Viable Pattern</h3>
   <p>Always end with a catch-all: use <code>TRUE</code> as the last condition to assign a default (e.g. &quot;F&quot; or &quot;Other&quot;).</p>
-  <h3>Google Sheets & Excel</h3>
+  <pre class="bg-gray-50 p-3 rounded-lg text-sm mb-4"><code>=IFS(A1>=90,&quot;A&quot;, A1>=80,&quot;B&quot;, A1>=70,&quot;C&quot;, TRUE,&quot;F&quot;)</code></pre>
+
+  <h3>Google Sheets & Excel Compatibility</h3>
   <p>IFS works in Excel 2019+ / Microsoft 365 and Google Sheets. For older Excel, use nested IF or lookup tables.</p>
+
+  <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
+    <p class="text-sm text-blue-800"><strong>Pro Tip:</strong> For tiered pricing or commission rates, combine IFS with LOOKUP tables. Store your thresholds in a separate range and reference them with named ranges — your formulas stay clean and your business logic lives in one place.</p>
+  </div>
 </div>`,
         howToSteps: [
-            { name: 'List thresholds', text: 'Order conditions from highest priority downward (e.g. score >=90 before >=80).' },
-            { name: 'Pair each test with a result', text: 'Each condition must be followed by its return value—IFS requires an even number of arguments after the first.' },
-            { name: 'Add TRUE fallback', text: 'Use TRUE as the final condition to handle every remaining case.' },
+            { name: 'Identify conditions in priority order', text: 'List your conditions from highest priority to lowest. For grades, start with A1>=90, then A1>=80, then A1>=70, etc. Excel checks top-down and stops at the first TRUE.' },
+            { name: 'Write each logical test', text: 'Enter each condition as a comparison: A1>=90, B2="Paid", or C5<TODAY(). Use cell references like A1, not raw values, so the formula updates automatically.' },
+            { name: 'Pair each condition with a result', text: 'Each condition must be followed by its return value — IFS requires an even number of arguments. Results can be text ("Approved"), numbers (100), or cell references (D1).' },
+            { name: 'Add TRUE fallback', text: 'Use TRUE as the final condition to handle every remaining case. Without it, unmatched conditions return #N/A. Example: =IFS(A1>=90,"A",TRUE,"F").' },
+            { name: 'Test with sample data', text: 'Enter a few test values in column A and verify each returns the expected result. Check edge cases: the lowest score, blank cells, and text entries.' },
         ],
         faq: [
             {
                 question: 'Can IFS replace nested IF for letter grades?',
-                answer: 'Yes. Example: =IFS(A1>=90,"A",A1>=80,"B",A1>=70,"C",TRUE,"F"). Easier to read than multiple nested IFs.',
+                answer: 'Yes. Example: =IFS(A1>=90,"A",A1>=80,"B",A1>=70,"C",TRUE,"F"). Easier to read than multiple nested IFs. The TRUE fallback ensures every score gets a grade.',
             },
             {
                 question: 'Why does IFS return #N/A?',
-                answer: 'No condition matched and there is no final TRUE fallback. Add TRUE, "Default" as the last pair.',
+                answer: 'No condition matched and there is no final TRUE fallback. Add TRUE, "Default" as the last pair. This is the most common IFS mistake — always plan for unmatched values.',
             },
             {
-                question: 'IFS vs SWITCH?',
-                answer: 'IFS tests ranges and inequalities; SWITCH matches exact values. Use IFS for grade bands and tier thresholds.',
+                question: 'IFS vs SWITCH — which should I use?',
+                answer: 'IFS tests ranges and inequalities (e.g. A1>=90); SWITCH matches exact values (e.g. A1="Red"). Use IFS for grade bands, tier thresholds, and date ranges. Use SWITCH for exact category mapping.',
+            },
+            {
+                question: 'Can I use IFS with dates?',
+                answer: 'Yes. Example: =IFS(A1>TODAY(),"Future",A1=TODAY(),"Today",A1<TODAY(),"Past"). Dates are serial numbers in Excel, so comparisons work the same as numbers.',
+            },
+            {
+                question: 'What Excel versions support IFS?',
+                answer: 'IFS is available in Excel 2019, Excel 2021, Microsoft 365 (Office 365), and Google Sheets. It is not available in Excel 2016 or earlier — use nested IF instead.',
+            },
+            {
+                question: 'How many conditions can IFS handle?',
+                answer: 'Excel 2019+ supports up to 127 condition/value pairs. Google Sheets has a practical limit of about 50 pairs. For complex logic, consider using a lookup table instead.',
+            },
+            {
+                question: 'Why is my IFS formula returning wrong results?',
+                answer: 'Most likely your conditions are in the wrong order. IFS returns the value for the first TRUE condition, so place the most specific condition first. Also check for text-vs-number mismatches: "90" (text) is not >= 90 (number). Use VALUE() to convert.',
+            },
+            {
+                question: 'Can I use AND/OR inside IFS conditions?',
+                answer: 'Yes. Wrap multiple criteria in AND or OR: =IFS(AND(A1>=90,B1="Pass"),"Honors",A1>=70,"Pass",TRUE,"Fail"). This lets you build complex multi-column logic within a single IFS condition.',
             },
         ],
         commonErrors: [
@@ -1447,8 +2200,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 33. FIND - Find Text Position
     {
         slug: 'find',
-        title: 'FIND Formula — Case-Sensitive Text Search in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate FIND formulas instantly in Excel and Google Sheets. Find the position of a substring with case-sensitive search. Free formula generator with examples.',
+        title: 'FIND Formula in Excel — Locate Text Position (Case-Sensitive) | SheetMaster',
+        metaDescription: 'Find the position of text within a string using Excel FIND function. Case-sensitive search. Free formula generator for Excel and Google Sheets.',
         excelFunction: 'FIND',
         category: 'Text',
         description: 'Returns the starting position of one text string within another (case-sensitive).',
@@ -1457,6 +2210,7 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'within_text', label: 'Within Text', type: 'text', placeholder: 'e.g., A1' },
         ],
         generate: (p) => `=FIND(${p.find_text || 'find_text'}, ${p.within_text || 'within_text'})`,
+        relatedTools: ['search', 'left', 'mid', 'right', 'len', 'substitute'],
         faq: [
             { question: 'Is FIND case-sensitive?', answer: 'Yes, FIND is case-sensitive. "Apple" and "apple" are different. For case-insensitive search, use SEARCH instead.' },
             { question: 'What does FIND return if the text is not found?', answer: 'FIND returns a #VALUE! error if the search text is not found. Use IFERROR to handle this: =IFERROR(FIND("x", A1), 0).' },
@@ -1493,8 +2247,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 35. TEXT - Format Numbers as Text
     {
         slug: 'text',
-        title: 'TEXT Formula — Format Numbers, Dates & Currency in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate TEXT formulas instantly in Excel and Google Sheets. Format numbers, dates, currency, and percentages. Free formula generator with examples — no signup.',
+        title: 'TEXT Formula — Format Numbers as Text in Excel & Sheets | SheetMaster',
+        metaDescription: 'Convert numbers to formatted text, currency, or dates using TEXT. Free formula generator for Excel and Google Sheets.',
         excelFunction: 'TEXT',
         category: 'Text',
         description: 'Converts a value to text in a specific number format.',
@@ -1520,6 +2274,7 @@ export const FORMULAS: FormulaConfig[] = [
             },
         ],
         generate: (p) => `=TEXT(${p.value || 'value'}, ${p.format || '"#,##0"'})`,
+        relatedTools: ['left', 'right', 'mid', 'concatenate', 'proper'],
         faq: [
             { question: 'What is the most useful TEXT format code?', answer: '"$#,##0.00" for currency, "YYYY-MM-DD" for dates, "0.0%" for percentages, and "00000" for leading zeros (like ZIP codes).' },
             { question: 'Why is my formatted number not calculating in formulas?', answer: 'TEXT converts numbers to text, which other formulas may not recognize as numeric. Use the original cell for calculations and TEXT only for display/output.' },
@@ -1560,8 +2315,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 37. ROUNDUP - Round Up
     {
         slug: 'roundup',
-        title: 'ROUNDUP Formula — Always Round Up in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate ROUNDUP formulas instantly in Excel and Google Sheets. Always round away from zero for pricing, quantities, and estimates. Free tool with examples.',
+        title: 'ROUNDUP Formula in Excel — Round Numbers Up Instantly | SheetMaster',
+        metaDescription: 'Generate ROUNDUP formulas to always round numbers up, away from zero. Free tool for Excel and Google Sheets. Instant formula builder.',
         excelFunction: 'ROUNDUP',
         category: 'Math',
         description: 'Rounds a number up, away from zero.',
@@ -1570,6 +2325,7 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 0' },
         ],
         generate: (p) => `=ROUNDUP(${p.number || 'number'}, ${p.num_digits || '0'})`,
+        relatedTools: ['round', 'rounddown', 'abs', 'floor', 'ceil'],
         faq: [
             { question: 'When should I use ROUNDUP instead of ROUND?', answer: 'Use ROUNDUP when you need to ensure a value never falls below a threshold, such as calculating required materials, shipping charges, or pricing markups.' },
             { question: 'Does ROUNDUP ever round down?', answer: 'No. ROUNDUP always rounds away from zero. Even 1.001 rounded to 0 decimals becomes 2. Use ROUNDDOWN for forced rounding toward zero.' },
@@ -1670,8 +2426,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 42. AVERAGE - Average Value
     {
         slug: 'average',
-        title: 'AVERAGE Formula — Calculate Mean in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate AVERAGE formulas instantly in Excel and Google Sheets. Calculate mean of numeric ranges, handle blanks and zeros. Free formula generator with examples.',
+        title: 'AVERAGE Formula — Calculate Mean in Excel & Sheets | SheetMaster',
+        metaDescription: 'Generate AVERAGE formulas for arithmetic mean, weighted averages, and conditional averages with AVERAGEIF. Free tool.',
         excelFunction: 'AVERAGE',
         category: 'Math',
         description: 'Returns the average (arithmetic mean) of the arguments.',
@@ -1681,6 +2437,7 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
         generate: (p) => `=AVERAGE(${p.range || 'range'})`,
+        relatedTools: ['averageif', 'sum', 'countif', 'median', 'mode'],
         faq: [
             { question: 'What is the difference between AVERAGE and MEDIAN?', answer: 'AVERAGE calculates the arithmetic mean (sum divided by count). MEDIAN returns the middle value. MEDIAN is better for data with outliers.' },
             { question: 'How does AVERAGE handle blank cells and zeros?', answer: 'AVERAGE ignores blank cells but counts zeros. This means a cell with 0 lowers the average. Use AVERAGEA to count text as 0.' },
@@ -1694,8 +2451,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 43. SUM - Sum Values
     {
         slug: 'sum',
-        title: 'SUM Formula — Add Numbers in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate SUM formulas instantly in Excel and Google Sheets. Add ranges, conditional sums with SUMIF/SUMIFS. Free formula generator with examples.',
+        title: 'SUM Formula — Add Numbers in Excel & Google Sheets | SheetMaster',
+        metaDescription: 'Generate SUM formulas instantly. Add ranges, conditional sums with SUMIF/SUMIFS. Free formula generator with examples. No signup.',
         excelFunction: 'SUM',
         category: 'Math',
         description: 'Adds all the numbers in a range of cells.',
@@ -1705,6 +2462,7 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
         generate: (p) => `=SUM(${p.range || 'range'})`,
+        relatedTools: ['sumif', 'sumifs', 'average', 'countif', 'subtotal'],
         faq: [
             { question: 'What is the difference between SUM and SUMIF?', answer: 'SUM adds all numbers in a range. SUMIF adds only the cells that meet a specific condition, like summing values greater than 100.' },
             { question: 'How do I sum across multiple sheets?', answer: 'Use a 3D reference: =SUM(Sheet1:Sheet3!A1). This adds cell A1 from Sheet1, Sheet2, and Sheet3.' },
@@ -1742,13 +2500,14 @@ export const FORMULAS: FormulaConfig[] = [
     // 45. MONTH - Extract Month
     {
         slug: 'month',
-        title: 'MONTH Formula — Extract Month Number from Date in Excel & Sheets (Free Tool)',
-        metaDescription: 'Extract the month number (1-12) from any date in Excel or Google Sheets. Free MONTH formula generator with examples for reporting, dashboards, and date grouping.',
+        title: 'MONTH Formula — Extract Month Number from Date in Excel | SheetMaster',
+        metaDescription: 'Extract month number (1-12) from any date in Excel or Google Sheets. Free MONTH formula generator with examples for reporting and dashboards.',
         excelFunction: 'MONTH',
         category: 'Date',
         description: 'Returns the month of a date, a number from 1 (January) to 12 (December).',
         inputs: [{ id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=MONTH(${p.date || 'date'})`,
+        relatedTools: ['day', 'year', 'edate', 'eomonth', 'text'],
         faq: [
             { question: 'Why does MONTH return a number instead of the month name?', answer: 'MONTH always returns a number (1-12). To show the month name, use TEXT: =TEXT(A1, "MMMM") for full name or "MMM" for abbreviated name.' },
             { question: 'What does MONTH return for a blank cell?', answer: 'MONTH returns 1 for a blank cell because Excel treats empty cells as date serial number 0, which corresponds to January 0, 1900 — month 1.' },
@@ -1762,13 +2521,14 @@ export const FORMULAS: FormulaConfig[] = [
     // 46. DAY - Extract Day
     {
         slug: 'day',
-        title: 'DAY Formula Generator (2026) — Extract Day from Date | Free Excel & Sheets',
-        metaDescription: 'Extract the day of the month from a date in Excel and Google Sheets. Use DAY with MONTH, YEAR, DATE, and EOMONTH for date-based reporting.',
+        title: 'DAY Formula — Extract Day from Date in Excel & Sheets | SheetMaster',
+        metaDescription: 'Extract the day of month (1-31) from any date. Free DAY formula generator with examples for date reporting and calculations.',
         excelFunction: 'DAY',
         category: 'Date',
         description: 'Returns the day of a date, a number from 1 to 31.',
         inputs: [{ id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=DAY(${p.date || 'date'})`,
+        relatedTools: ['month', 'year', 'edate', 'eomonth', 'networkdays'],
         faq: [
             { question: 'Does DAY return the day of the week or the day of the month?', answer: 'DAY returns the day of the month (1-31). For the day of the week (1=Sunday to 7=Saturday), use WEEKDAY instead.' },
             { question: 'Can DAY extract the day from a text string?', answer: 'If the text is a recognizable date format in Excel, yes. Otherwise, use DATEVALUE to convert the text to a date first.' },
@@ -1782,8 +2542,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 47. EDATE - Add Months to Date
     {
         slug: 'edate',
-        title: 'EDATE Formula — Add/Subtract Months in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate EDATE formulas instantly for Excel and Google Sheets. Add or subtract months from dates for subscription tracking, billing cycles, and due dates. Free tool.',
+        title: 'EDATE Formula — Add or Subtract Months from Dates | SheetMaster',
+        metaDescription: 'Generate EDATE formulas to add or subtract months from dates. Perfect for subscription tracking, billing cycles, and due dates. Free tool.',
         excelFunction: 'EDATE',
         category: 'Date',
         description: 'Returns a date that is a specified number of months before or after a given date.',
@@ -1792,6 +2552,7 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'months', label: 'Months to Add', type: 'number', placeholder: 'e.g., 3 or -6' },
         ],
         generate: (p) => `=EDATE(${p.start_date || 'start_date'}, ${p.months || '1'})`,
+        relatedTools: ['eomonth', 'datedif', 'networkdays', 'today', 'month'],
         faq: [
             { question: 'What does EDATE do?', answer: 'EDATE returns a date that is a specified number of months before or after a given date. For example, EDATE("2026-01-15", 3) returns April 15, 2026.' },
             { question: 'Can EDATE handle negative months?', answer: 'Yes. Use a negative number for the months argument to go back in time. For example, EDATE(A1, -6) gives the date 6 months before A1.' },
@@ -1805,8 +2566,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 48. EOMONTH - End of Month
     {
         slug: 'eomonth',
-        title: 'EOMONTH Formula — Get Month End Date in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate EOMONTH formulas instantly in Excel and Google Sheets. Get the last day of any month for financial reports, billing cycles, and due dates. Free tool.',
+        title: 'EOMONTH Formula — Last Day of Month in Excel & Sheets | SheetMaster',
+        metaDescription: 'Get the last day of any month using EOMONTH. Perfect for financial reporting, invoice dates, and subscription billing. Free tool.',
         excelFunction: 'EOMONTH',
         category: 'Date',
         description: 'Returns the last day of the month a specified number of months before or after a date.',
@@ -1815,6 +2576,7 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'months', label: 'Month Offset', type: 'number', placeholder: 'e.g., 0 for current month' },
         ],
         generate: (p) => `=EOMONTH(${p.start_date || 'start_date'}, ${p.months || '0'})`,
+        relatedTools: ['edate', 'datedif', 'day', 'month', 'networkdays'],
         faq: [
             { question: 'What is EOMONTH used for?', answer: 'EOMONTH returns the last day of the month, given a starting date and month offset. It is commonly used for financial reporting, invoice due dates, and subscription billing cycles.' },
             { question: 'What does months = 0 do?', answer: 'EOMONTH(A1, 0) returns the last day of the month for the date in A1. For example, EOMONTH("2026-05-14", 0) returns May 31, 2026.' },

@@ -6,11 +6,11 @@ import SolutionCard from '../components/SolutionCard';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
-  description: 'Generate Excel and Google Sheets formulas instantly. Master VLOOKUP, IF, SUMIF, INDEX MATCH, and 50+ formulas. Plus data cleaning, loan calculators, and HR tools.',
+  title: 'SheetMaster — Free Excel & Google Sheets Formula Generator (50+ Formulas)',
+  description: 'Generate Excel and Google Sheets formulas instantly. No signup, no AI errors. Master VLOOKUP, IF, SUMIF, XLOOKUP and 50+ formulas. Plus data cleaning tools and templates.',
   openGraph: {
-    title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
-    description: 'Generate Excel and Google Sheets formulas instantly. Plus SEO tools, inventory management, loan calculators, and grading tools.',
+    title: 'SheetMaster — Free Excel & Google Sheets Formula Generator (50+ Formulas)',
+    description: 'Generate Excel and Google Sheets formulas instantly. No signup, no AI errors. Master VLOOKUP, IF, SUMIF, XLOOKUP and 50+ formulas. Plus data cleaning tools and templates.',
     url: 'https://www.getsheetmaster.com',
     type: 'website',
     siteName: 'SheetMaster',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SheetMaster - Free Excel & Google Sheets Formula Generators',
+    title: 'SheetMaster — Free Excel & Google Sheets Formula Generator (50+ Formulas)',
     description: 'Generate Excel and Google Sheets formulas instantly. Data cleaning, loan calculators, and more.',
     images: ['/og-image.png'],
   },
@@ -102,6 +102,36 @@ export default function Home() {
         <FormulaGrid formulas={formulaCards} />
       </div>
 
+
+      {/* Most Popular Formulas — High-CTR pages */}
+      <div className="mb-12 border-t pt-8 border-gray-100">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Most Popular Formulas</h2>
+        <p className="text-sm text-gray-500 mb-5">Generate working formulas in seconds — no signup needed</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {[
+            { slug: 'remove-first-3-chars', label: 'Remove First 3 Chars', icon: '✂️' },
+            { slug: 'countifs', label: 'COUNTIFS', icon: '🔢' },
+            { slug: 'sumifs', label: 'SUMIFS', icon: '➕' },
+            { slug: 'xlookup', label: 'XLOOKUP', icon: '🔍' },
+            { slug: 'if', label: 'IF', icon: '🔀' },
+            { slug: 'vlookup', label: 'VLOOKUP', icon: '📊' },
+            { slug: 'countif', label: 'COUNTIF', icon: '📋' },
+            { slug: 'edate', label: 'EDATE', icon: '📅' },
+            { slug: 'extract-domain', label: 'Extract Domain', icon: '🌐' },
+            { slug: 'extract-email', label: 'Extract Email', icon: '📧' },
+          ].map((item) => (
+            <Link
+              key={item.slug}
+              href={`/formulas/${item.slug}`}
+              className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium text-gray-700 hover:border-green-300 hover:bg-green-50 hover:text-green-700 hover:shadow-sm transition-all"
+            >
+              <span>{item.icon}</span>
+              <span className="truncate">{item.label}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       {/* Scenarios Navigation (Intent-based) */}
       <div className="mb-12 border-t pt-8 border-gray-100">
         <h2 className="text-xl font-bold text-gray-900 mb-5 text-center">Not Sure Where to Start? Choose Your Scenario:</h2>
@@ -118,6 +148,40 @@ export default function Home() {
           <Link href="/use-cases/marketing" className="inline-flex items-center rounded-full bg-purple-50 text-purple-700 px-5 py-2.5 text-sm font-medium hover:bg-purple-100 hover:shadow-sm transition-all border border-purple-100">
             📈 Marketers & SEO
           </Link>
+        </div>
+      </div>
+
+
+      {/* Trending Tools */}
+      <div className="mb-12 border-t pt-8 border-gray-100">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">🛠️ Trending Tools</h2>
+            <p className="text-sm text-gray-500 mt-1">Interactive calculators and templates</p>
+          </div>
+          <Link href="/tools" className="text-sm text-green-600 hover:text-green-700 font-medium">
+            View all tools →
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { slug: 'gpa-calculator-excel', title: 'GPA Calculator', desc: 'Weighted & unweighted GPA', icon: '🎓' },
+            { slug: 'excel-gradebook-template', title: 'Gradebook Template', desc: 'Import, export & auto-calculate', icon: '📝' },
+            { slug: 'regex-extract-generator', title: 'Regex Extractor', desc: 'Extract patterns with regex', icon: '🔧' },
+            { slug: 'sumifs-across-sheets', title: 'SUMIFS Across Sheets', desc: 'Multi-sheet summation', icon: '📑' },
+          ].map((tool) => (
+            <Link
+              key={tool.slug}
+              href={`/tools/${tool.slug}`}
+              className="flex items-start gap-3 rounded-xl border border-gray-200 bg-white p-4 hover:border-green-300 hover:shadow-sm transition-all"
+            >
+              <span className="text-2xl">{tool.icon}</span>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{tool.title}</p>
+                <p className="text-xs text-gray-500 mt-0.5">{tool.desc}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
 

@@ -1,10 +1,10 @@
-import type { Metadata, Viewport } from "next";
+﻿import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Link from "next/link";
 import FeedbackWidget from "@/components/FeedbackWidget";
-import GARouteTracker from "@/components/GARouteTracker";
+import EnhancedGARouteTracker from "@/components/EnhancedGARouteTracker";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 
@@ -23,7 +23,7 @@ const organizationSchema = {
   "sameAs": [],
 };
 
-/* Inter: SIL OFL 1.1 免费可商用 */
+/* Inter: SIL OFL 1.1 鍏嶈垂鍙晢鐢?*/
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const viewport: Viewport = {
@@ -34,10 +34,10 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.getsheetmaster.com"),
   title: {
-    default: "SheetMaster - Free Excel & Google Sheets Formula Generators",
+    default: 'SheetMaster 鈥?Free Excel & Google Sheets Formula Generator (50+ Formulas)',
     template: "%s",
   },
-  description: "Free tools to generate Excel and Google Sheets formulas instantly. No AI, no signup. Master VLOOKUP, IF, SUMIF, and 50+ formulas.",
+  description: 'Free tools to generate Excel and Google Sheets formulas instantly. No AI, no signup. Master VLOOKUP, IF, SUMIF, XLOOKUP, and 50+ formulas.',
   authors: [{ name: "SheetMaster" }],
   creator: "SheetMaster",
   openGraph: {
@@ -112,7 +112,7 @@ export default function RootLayout({
                 About
               </Link>
               <Link href="/vault" className="text-sm font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition-colors flex items-center gap-1">
-                ☁️ My Vault
+                鈽侊笍 My Vault
               </Link>
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-center text-gray-500 text-sm">
-                © {new Date().getFullYear()} SheetMaster. All rights reserved.
+                漏 {new Date().getFullYear()} SheetMaster. All rights reserved.
               </p>
               <div className="flex items-center gap-6">
                 <Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
@@ -184,9 +184,12 @@ export default function RootLayout({
           }}
         />
         <FeedbackWidget />
-        <GARouteTracker />
+        <EnhancedGARouteTracker />
         <Analytics />
       </body>
     </html>
   );
 }
+
+
+

@@ -108,8 +108,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 1. VLOOKUP
     {
         slug: 'vlookup',
-        title: 'Free VLOOKUP Generator - Excel & Google Sheets | No Signup',
-        metaDescription: 'Generate VLOOKUP formulas instantly for Excel and Google Sheets. Free tool with examples, error fixes (#N/A solutions), and step-by-step guide. No signup required.',
+        title: 'How to Use VLOOKUP in Excel (Step-by-Step + Free Generator)',
+        metaDescription: 'Learn how to use VLOOKUP in Excel and Google Sheets with step-by-step examples, concrete tables, and expert tips. Fix #N/A errors, compare XLOOKUP vs INDEX MATCH, and generate formulas free.',
         excelFunction: 'VLOOKUP',
         category: 'Lookup',
         description: 'Looks for a value in the leftmost column of a table, and then returns a value in the same row from a column you specify.',
@@ -231,8 +231,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 3. SUMIF
     {
         slug: 'sumif',
-        title: 'SUMIF Generator - Sum with Conditions | Excel & Sheets',
-        metaDescription: 'Generate SUMIF formulas to sum cells based on criteria. Free tool for Excel and Google Sheets with multiple condition examples. No signup required.',
+        title: 'How to Use SUMIF in Excel (Sum with One Condition + Free Generator)',
+        metaDescription: 'Learn how to use SUMIF in Excel and Google Sheets. Sum cells by one condition using text, numbers, dates, or wildcards. Free formula generator included.',
         excelFunction: 'SUMIF',
         category: 'Math',
         description: 'Adds the cells specified by a given condition or criteria.',
@@ -262,8 +262,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 4. COUNTIF
     {
         slug: 'countif',
-        title: 'COUNTIF Generator - Count Cells by Criteria | Excel & Sheets',
-        metaDescription: 'Build COUNTIF formulas to count cells that meet a criterion (text, number, date). Free tool for Excel and Google Sheets. No signup.',
+        title: 'How to Use COUNTIF in Excel (Count with One Condition + Free Generator)',
+        metaDescription: 'Learn how to use COUNTIF in Excel and Google Sheets. Count cells by one condition using text, numbers, dates, blanks, or wildcards. Free formula generator included.',
         excelFunction: 'COUNTIF',
         category: 'Math',
         description: 'Counts the number of cells within a range that meet the given condition.',
@@ -287,8 +287,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 5. CONCATENATE
     {
         slug: 'concatenate',
-        title: 'CONCATENATE Generator - Join Text with Separator | Excel & Sheets',
-        metaDescription: 'Join text strings with a separator (comma, space, dash). Free CONCATENATE and TEXTJOIN-style builder for Excel and Google Sheets. No signup.',
+        title: 'How to Use CONCATENATE in Excel (Combine Text + Free Generator)',
+        metaDescription: 'Need to combine text from multiple cells? Use CONCATENATE in Excel & Sheets. Free formula generator with step-by-step examples. Try it now!',
         excelFunction: 'CONCATENATE',
         category: 'Text',
         description: 'Joins several text strings into one text string.',
@@ -326,8 +326,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 6. INDEX/MATCH
     {
         slug: 'index-match',
-        title: 'INDEX MATCH Generator - More Powerful Than VLOOKUP',
-        metaDescription: 'Generate INDEX MATCH formulas for Excel and Google Sheets. Look left, avoid column index errors. Free tool, no signup.',
+        title: 'How to Use INDEX MATCH in Excel (Better Than VLOOKUP + Free Generator)',
+        metaDescription: 'Stuck with VLOOKUP limitations? Master INDEX MATCH in Excel. Lookup in any direction, add/delete columns safely. Free generator with step-by-step examples.',
         excelFunction: 'INDEX/MATCH',
         category: 'Lookup',
         description: 'A more flexible alternative to VLOOKUP. Returns the value of an element in a table or an array, selected by the row and column number indexes.',
@@ -668,8 +668,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 24. Remove First 3 Characters
     {
         slug: 'remove-first-3-chars',
-        title: 'Remove First N Characters',
-        metaDescription: 'Remove first N characters in Excel and Google Sheets. Free RIGHT and LEN tool. No signup required. Clean text data instantly.',
+        title: 'How to Remove First 3 Characters in Excel (Step-by-Step + Free Generator)',
+        metaDescription: 'Learn 3 easy ways to remove the first 3 (or any N) characters in Excel using RIGHT+LEN, MID, and LEFT formulas. Free formula generator with examples — no signup needed.',
         excelFunction: 'RIGHT & LEN',
         category: 'Text',
         description: 'Removes the specified number of characters from the beginning of a text string.',
@@ -683,8 +683,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'SUMIFS Formula Generator & Syntax | Excel & Google Sheets',
-        metaDescription: 'Correct order: sum_range, criteria_range1, criteria1, then more pairs. Interactive SUMIFS builder, examples, SUMIF vs SUMIFS. Free, no signup.',
+        title: 'How to Use SUMIFS in Excel (Sum with Multiple Criteria + Free Tool)',
+        metaDescription: 'Learn how to use SUMIFS in Excel and Google Sheets to sum with multiple criteria. Step-by-step guide with real examples, date ranges, and troubleshooting — free formula generator included.',
         excelFunction: 'SUMIFS',
         category: 'Math',
         description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
@@ -735,8 +735,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 26. COUNTIFS - Multiple Criteria Count
     {
         slug: 'countifs',
-        title: 'COUNTIFS Generator - Count with Multiple Criteria | Excel & Sheets',
-        metaDescription: 'Count cells that meet two or more conditions. Free COUNTIFS builder for Excel and Google Sheets. No signup.',
+        title: 'How to Use COUNTIFS in Excel (Count with Multiple Criteria + Free Tool)',
+        metaDescription: 'Learn how to use COUNTIFS in Excel and Google Sheets to count with multiple criteria. Step-by-step guide with real examples, date ranges, and OR logic — free formula generator included.',
         excelFunction: 'COUNTIFS',
         category: 'Math',
         description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
@@ -782,8 +782,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 28. IFERROR - Error Handling
     {
         slug: 'iferror',
-        title: 'IFERROR Generator - Hide Errors, Show Fallback | Excel & Sheets',
-        metaDescription: 'Wrap formulas in IFERROR to show a fallback value instead of #N/A, #DIV/0!, #VALUE!. Free tool for Excel and Google Sheets. No signup.',
+        title: 'How to Use IFERROR in Excel (Catch Formula Errors + Free Generator)',
+        metaDescription: 'Clean up #N/A, #DIV/0, and #VALUE! errors in Excel. Master IFERROR with VLOOKUP, XLOOKUP & division. Free generator with real-world examples.',
         excelFunction: 'IFERROR',
         category: 'Logic',
         description: 'Returns a value you specify if a formula evaluates to an error; otherwise returns the result of the formula.',
@@ -823,8 +823,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 29. IFS - Multiple Conditions
     {
         slug: 'ifs',
-        title: 'IFS Function Generator | Multiple Conditions (Excel & Sheets)',
-        metaDescription: 'Create IFS for multiple conditions—cleaner than nested IF. Great for letter grades and tiered logic. Free for Excel and Google Sheets, no signup.',
+        title: 'How to Use IFS in Excel (Multiple IF Conditions + Free Generator)',
+        metaDescription: 'Struggling with nested IFs? Use IFS to evaluate multiple conditions in Excel & Sheets. Free IFS formula generator with real-world examples. Try it now!',
         excelFunction: 'IFS',
         category: 'Logic',
         description: 'Checks multiple conditions and returns a value corresponding to the first TRUE condition. Cleaner than nested IFs.',

@@ -217,9 +217,10 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
             {relatedToShow.length > 0 && (
                 <div className="pt-8 border-t border-gray-100">
                     <h2 className="text-lg font-semibold text-gray-900 mb-3">Related Formulas</h2>
+                    <p className="text-sm text-gray-500 mb-3">Explore related formula generators to solve similar problems</p>
                     <div className="flex flex-wrap gap-2">
                         {relatedToShow.map((f) => (
-                            <Link key={f.slug} href={`/formulas/${f.slug}`} className="inline-flex items-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition-colors">
+                            <Link key={f.slug} href={`/formulas/${f.slug}`} className="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-green-50 hover:border-green-300 hover:text-green-700 transition-all">
                                 {f.excelFunction}
                             </Link>
                         ))}
@@ -241,6 +242,18 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
                         <div>
                             <p className="text-sm font-semibold text-gray-900">Remove Duplicates</p>
                             <p className="text-xs text-gray-500">Clean duplicate values from your data</p>
+                        </div>
+                    </Link>
+                    <Link href="/tools/gpa-calculator-excel" className="flex items-center rounded-lg border border-gray-200 bg-white p-4 hover:border-green-300 hover:shadow-sm transition-all">
+                        <div>
+                            <p className="text-sm font-semibold text-gray-900">GPA Calculator</p>
+                            <p className="text-xs text-gray-500">Weighted & unweighted grade point average</p>
+                        </div>
+                    </Link>
+                    <Link href="/tools/sumifs-across-sheets" className="flex items-center rounded-lg border border-gray-200 bg-white p-4 hover:border-green-300 hover:shadow-sm transition-all">
+                        <div>
+                            <p className="text-sm font-semibold text-gray-900">SUMIFS Across Sheets</p>
+                            <p className="text-xs text-gray-500">Sum across multiple Excel sheets</p>
                         </div>
                     </Link>
                 </div>

@@ -1603,7 +1603,7 @@ export const FORMULAS: FormulaConfig[] = [
             { name: 'Keep all ranges equal-sized', text: 'Every range (sum_range and all criteria_ranges) must have the same number of rows. A1:A100, B1:B100, C1:C100 — all 100 rows.' },
             { name: 'Verify against a manual check', text: 'Filter your data manually for one combination and compare to the formula result. This catches syntax errors early.' }
         ],
-        [
+        faq: [
             { question: 'How to use SUMIFS with multiple criteria in Excel?', answer: 'Syntax: =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2, ...). Example: =SUMIFS(C:C, A:A, "North", B:B, ">100") sums column C where column A is "North" AND column B > 100.' },
             { question: 'Why does SUMIFS return 0?', answer: 'Three main causes: (1) sum_range and criteria_ranges have different sizes. (2) Text criteria missing quotes — use "North" not North. (3) Argument order wrong — sum_range must be FIRST, not last like SUMIF.' },
             { question: 'SUMIFS syntax: does sum_range come first or last?', answer: 'FIRST. Unlike SUMIF (range, criteria, sum_range), SUMIFS places sum_range first: =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2). This is the most common mistake for new users.' },
@@ -1733,7 +1733,7 @@ export const FORMULAS: FormulaConfig[] = [
             { name: 'Keep all ranges equal-sized', text: 'Every criteria_range must have the same number of rows. A1:A100 and B1:B100 work. A1:A100 and B2:B101 give wrong results.' },
             { name: 'Test your count with a manual check', text: 'Filter your data manually to verify the first few rows. Once confirmed, the formula is ready for reports and dashboards.' }
         ],
-        [
+        faq: [
             { question: 'How to use COUNTIFS with multiple criteria?', answer: 'Syntax: =COUNTIFS(criteria_range1, criteria1, criteria_range2, criteria2, ...). Example: =COUNTIFS(A:A, "East", B:B, ">500", C:C, "<>") counts rows where region is East, amount > 500, and category is not blank.' },
             { question: 'Why does my COUNTIFS return 0?', answer: 'Three most common causes: (1) Criteria ranges differ in size — all ranges must have the same row count. (2) Text values missing quotes — use "Completed" not Completed. (3) No rows match ALL conditions — test with fewer criteria to isolate.' },
             { question: 'How do I use COUNTIFS with date ranges in Excel?', answer: 'Use two conditions on the same date column: =COUNTIFS(A:A, ">="&DATE(2026,1,1), A:A, "<="&DATE(2026,3,31)). For single cell dates, reference them: =COUNTIFS(A:A, ">="&D1, A:A, "<="&E1).' },

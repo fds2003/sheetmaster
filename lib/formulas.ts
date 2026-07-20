@@ -947,7 +947,7 @@ export const FORMULAS: FormulaConfig[] = [
      <p class="mb-4"><code class="bg-gray-100 p-1 rounded font-mono text-sm">=XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])</code></p>
    </div>
    `,
-        [
+        faq: [
             { question: 'What is the difference between XLOOKUP and VLOOKUP?', answer: 'XLOOKUP is the modern replacement: it searches in any direction (left, right, up, down), defaults to exact match, has built-in error handling with the if_not_found argument, and doesn\'t break when columns are inserted/deleted.' },
             { question: 'How do I handle #N/A errors with XLOOKUP?', answer: 'XLOOKUP has a built-in if_not_found argument: =XLOOKUP(lookup_value, lookup_array, return_array, "Not Found"). This eliminates the need for wrapping in IFERROR().' },
             { question: 'Can XLOOKUP return multiple values (array result)?', answer: 'Yes. If your return_array spans multiple columns, XLOOKUP returns an array. For example, =XLOOKUP(G2,A:A,C:E) returns values from columns C, D, and E for the matching row in column A.' }

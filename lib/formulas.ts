@@ -1582,8 +1582,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'SUMIFS Formula Generator — Sum with Multiple Conditions | SheetMaster',
-        metaDescription: 'Generate SUMIFS formulas instantly for Excel and Google Sheets. Add multiple conditions and get a ready-to-use formula. Free, no signup.',
+        title: 'SUMIFS Function in Excel: Sum if Multiple Criteria (Easy Guide)',
+        metaDescription: 'Learn how to use SUMIFS in Excel to sum values with multiple criteria. Clear examples, common mistakes, and a free formula generator. Works in Google Sheets.',
         excelFunction: 'SUMIFS',
         category: 'Math',
         description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
@@ -1613,7 +1613,8 @@ export const FORMULAS: FormulaConfig[] = [
             { question: 'SUMIFS with blank / non-blank criteria?', answer: 'Use "" for blank: =SUMIFS(C:C, A:A, "<>", B:B, "") sums C where A is not blank AND B is blank. This is useful for identifying incomplete records.' },
             { question: 'How do I sum values across multiple sheets using SUMIFS?', answer: 'Use 3D references: =SUMIFS(Sheet1:Sheet3!D:D,Sheet1:Sheet3!A:A,"North",Sheet1:Sheet3!B:B,">100"). This sums column D across sheets 1-3 where column A equals \'North\' and column B is greater than 100.' },
             { question: 'Can SUMIFS use OR logic to sum values matching either of two conditions?', answer: 'SUMIFS uses AND logic only. For OR, add two SUMIFS: =SUMIFS(C:C,A:A,"East",B:B,">500") + SUMIFS(C:C,A:A,"West",B:B,">500"). This sums column C where region is East OR West AND amount > 500.' },
-            { question: 'Why does my SUMIFS return #VALUE! error?', answer: 'Common causes: (1) Criteria ranges have different sizes than the sum range. (2) Text criteria not enclosed in quotes. (3) Using operators incorrectly — for numbers use >500, for text use "East". Ensure all ranges are the same size.' }
+            { question: 'Why does my SUMIFS return #VALUE! error?', answer: 'Common causes: (1) Criteria ranges have different sizes than the sum range. (2) Text criteria not enclosed in quotes. (3) Using operators incorrectly — for numbers use >500, for text use "East". Ensure all ranges are the same size.' },
+            { question: 'SUMIFS Excel formula — complete syntax breakdown', answer: 'Syntax: =SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], …). The sum_range goes FIRST — this is the key difference from SUMIF. Example: =SUMIFS(C:C, A:A, "East", B:B, ">500") sums column C for rows where column A equals "East" AND column B is greater than 500.' }
         ],
         commonErrors: [
             { title: 'SUMIFS returns 0 or wrong total', causes: ['Sum range and criteria ranges have different heights or columns.', 'Criteria in wrong order (text without quotes, date not as DATE() or cell ref).', 'Using SUMIF-style argument order (sum range must come first in SUMIFS).'], fixes: ['Use same-sized ranges: e.g. A1:A100, B1:B100, C1:C100.', 'Put text in quotes; use ">="&A1 for dates where A1 is a date.', 'Syntax: =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2).'] },
@@ -1713,8 +1714,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 26. COUNTIFS - Multiple Criteria Count
     {
         slug: 'countifs',
-        title: 'COUNTIFS Formula Generator — Multiple Criteria in Excel & Sheets | SheetMaster',
-        metaDescription: 'Build COUNTIFS formulas in seconds. Select your criteria, get a working formula instantly. Free tool for Excel and Google Sheets. No signup needed.',
+        title: 'COUNTIFS Formula in Excel: Count with Multiple Criteria | SheetMaster',
+        metaDescription: 'Learn how to use COUNTIFS in Excel with multiple criteria. Step-by-step guide, real examples, and a free interactive formula generator. Works in Google Sheets too.',
         excelFunction: 'COUNTIFS',
         category: 'Math',
         description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
@@ -1743,7 +1744,8 @@ export const FORMULAS: FormulaConfig[] = [
             { question: 'COUNTIFS vs COUNTIF — what is the difference?', answer: 'COUNTIF handles exactly ONE condition. COUNTIFS handles 1+ conditions (up to 127 pairs). Always prefer COUNTIFS even for single conditions — if you later add a second condition, the syntax stays consistent.' },
             { question: 'How do I count rows where a date falls between two dates using COUNTIFS?', answer: 'Use two conditions on the same date column: =COUNTIFS(A:A,">="&DATE(2026,1,1),A:A,"<="&DATE(2026,3,31)). This counts all rows where column A has a date between Jan 1 and Mar 31, 2026.' },
             { question: 'Can COUNTIFS handle wildcards for partial text matches?', answer: 'Yes. Use * for any characters and ? for a single character: =COUNTIFS(A:A,"*North*") counts cells containing \'North\' anywhere in the text. Combine with other criteria: =COUNTIFS(A:A,"*North*",B:B,">100").' },
-            { question: 'What is the maximum number of criteria pairs COUNTIFS supports?', answer: 'COUNTIFS supports up to 127 criteria pairs in Excel 2007+. Each pair consists of a range and a criteria. For example: =COUNTIFS(A:A,"X",B:B,">5",C:C,"<>Y",D:D,"<100").' }
+            { question: 'What is the maximum number of criteria pairs COUNTIFS supports?', answer: 'COUNTIFS supports up to 127 criteria pairs in Excel 2007+. Each pair consists of a range and a criteria. For example: =COUNTIFS(A:A,"X",B:B,">5",C:C,"<>Y",D:D,"<100").' },
+            { question: 'COUNTIFS Excel tutorial — how does it work step by step?', answer: 'Step 1: Decide which columns contain your conditions. Step 2: Type =COUNTIFS( then select the first range (e.g., A:A). Step 3: Add the first criteria in quotes if text (e.g., "East") or with an operator if numeric (e.g., ">500"). Step 4: Repeat for each additional condition. Step 5: Close the parenthesis. Example: =COUNTIFS(A:A,"East",B:B,">500").' },
         ],
         richContent: `
 <div class="prose max-w-none mt-8 text-left">

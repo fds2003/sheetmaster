@@ -96,14 +96,14 @@ export default async function SolutionPage({ params }: PageProps) {
                 }}
             />
 
-            <div className="py-8">
+            <div className="py-4 md:py-8">
                 <Breadcrumbs items={breadcrumbs} />
 
-                <header className="text-center mb-10">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <header className="text-center mb-6 md:mb-10">
+                    <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
                         {solution.title.split('|')[0].trim()}
                     </h1>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
                         {solution.description}
                     </p>
                 </header>

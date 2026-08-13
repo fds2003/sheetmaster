@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { FORMULAS } from '../lib/formulas';
 import { Copy, Check, Share2, Link2, Mail, FileDown, Send } from 'lucide-react';
+import { trackFormulaCopied, trackFormulaGenerated } from './EnhancedGARouteTracker';
 
 interface FormulaBuilderProps {
     formulaSlug: string;
@@ -10,7 +11,26 @@ interface FormulaBuilderProps {
 
 export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
     const formula = FORMULAS.find((f) => f.slug === formulaSlug);
-    const [values, setValues] = useState<Record<string, string>>({});
+    const [values, setValues] = useState<Record<string, string>>(() => {
+        if (!formula) return {};
+        const initialValues: Record<string, string> = {};
+        formula.inputs.forEach((input) => {
+            if (input.placeholder) {
+                let val = input.placeholder.replace(/^e\.g\.,\s*/i, '');
+                // Extract first quoted string if available to keep quotes in formulas
+                const quoteMatch = val.match(/"([^"]+)"/);
+                if (quoteMatch) {
+                    val = quoteMatch[0];
+                } else if (val.includes(' or ')) {
+                    val = val.split(' or ')[0].trim();
+                }
+                initialValues[input.id] = val;
+            } else {
+                initialValues[input.id] = '';
+            }
+        });
+        return initialValues;
+    });
     const [copied, setCopied] = useState(false);
     const [showEmailModal, setShowEmailModal] = useState(false);
     const [email, setEmail] = useState('');
@@ -24,6 +44,7 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
 
     const handleInputChange = (id: string, value: string) => {
         setValues((prev) => ({ ...prev, [id]: value }));
+        trackFormulaGenerated(formula.excelFunction);
     };
 
     const generatedFormula = formula.generate(values);
@@ -32,6 +53,7 @@ export default function FormulaBuilder({ formulaSlug }: FormulaBuilderProps) {
         navigator.clipboard.writeText(generatedFormula);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+        trackFormulaCopied(formula.excelFunction, 'button_click');
     };
 
     const pageUrl = `https://www.getsheetmaster.com/formulas/${formulaSlug}`;

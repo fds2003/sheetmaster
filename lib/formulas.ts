@@ -1450,8 +1450,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 24. Remove First 3 Characters
     {
         slug: 'remove-first-3-chars',
-        title: 'Remove First 3 Characters in Excel — Free Formula Generator | SheetMaster',
-        metaDescription: 'Instantly generate the Excel formula to remove the first 3 characters from any text. Free, no signup, works in Google Sheets too. Try now. Free interactive formula tool.',
+        title: 'How to Remove First 3 Characters in Excel + Free Template & Generator',
+        metaDescription: 'Need to remove the first 3 characters in Excel? Learn 3 simple formulas (RIGHT+LEN, MID, REPLACE) with step-by-step examples. Try our free formula generator inside!',
         excelFunction: 'RIGHT & LEN',
         category: 'Text',
         description: 'Removes the specified number of characters from the beginning of a text string.',
@@ -1714,8 +1714,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 26. COUNTIFS - Multiple Criteria Count
     {
         slug: 'countifs',
-        title: 'COUNTIFS Formula in Excel: Count with Multiple Criteria | SheetMaster',
-        metaDescription: 'Learn how to use COUNTIFS in Excel with multiple criteria. Step-by-step guide, real examples, and a free interactive formula generator. Works in Google Sheets too.',
+        title: 'How to Use COUNTIFS in Excel (Multiple Criteria) + Free Template',
+        metaDescription: 'Counting cells with multiple criteria? Master the COUNTIFS formula in Excel. Detailed guide, date & wildcard examples, plus a free interactive formula builder!',
         excelFunction: 'COUNTIFS',
         category: 'Math',
         description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
@@ -1844,8 +1844,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 27. AVERAGEIF - Conditional Average
     {
         slug: 'averageif',
-        title: 'AVERAGEIF Formula — Conditional Average in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate AVERAGEIF formulas instantly in Excel and Google Sheets. Calculate conditional averages by text, number, or date. Free formula generator with examples.',
+        title: 'How to Use AVERAGEIF in Excel: Conditional Average Guide (+ Free Tool)',
+        metaDescription: 'Want to calculate conditional averages? Learn how to use the AVERAGEIF formula in Excel with text, numbers, and dates. Includes free formula generator & examples.',
         excelFunction: 'AVERAGEIF',
         category: 'Math',
         description: 'Returns the average of all cells in a range that meet a given criteria.',

@@ -140,7 +140,7 @@ export default function FormulaPage({ params }: { params: { slug: string } }) {
     const canonicalFormulaUrl = `https://www.getsheetmaster.com/formulas/${formula.slug}`;
 
     return (
-        <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="max-w-4xl mx-auto py-6 md:py-12 px-4 sm:px-6 lg:px-8 space-y-6 md:space-y-8">
             <JsonLd formula={formula} pageUrl={canonicalFormulaUrl} />
             <BreadcrumbJsonLd items={breadcrumbItems} />
             <Breadcrumbs items={breadcrumbItems} />

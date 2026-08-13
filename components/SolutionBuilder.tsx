@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Copy, Check, Lightbulb } from 'lucide-react';
 import { SOLUTIONS, SolutionScenario } from '../lib/solutions';
+import { trackFormulaCopied, trackFormulaGenerated } from './EnhancedGARouteTracker';
 
 interface SolutionBuilderProps {
     solutionSlug: string;
@@ -12,9 +13,19 @@ export default function SolutionBuilder({ solutionSlug }: SolutionBuilderProps) 
     const solution = SOLUTIONS.find(s => s.slug === solutionSlug);
     
     const [activeToolId, setActiveToolId] = useState(solution?.tools[0]?.id || '');
-    const [values, setValues] = useState<Record<string, string>>({});
+    const [values, setValues] = useState<Record<string, string>>(() => {
+        if (solution && solution.scenarios && solution.scenarios.length > 0) {
+            return solution.scenarios[0].defaultValues;
+        }
+        return {};
+    });
     const [copied, setCopied] = useState(false);
-    const [activeScenario, setActiveScenario] = useState<string | null>(null);
+    const [activeScenario, setActiveScenario] = useState<string | null>(() => {
+        if (solution && solution.scenarios && solution.scenarios.length > 0) {
+            return solution.scenarios[0].id;
+        }
+        return null;
+    });
 
     if (!solution) {
         return <div className="text-center text-gray-500">Solution not found</div>;
@@ -25,11 +36,13 @@ export default function SolutionBuilder({ solutionSlug }: SolutionBuilderProps) 
     const handleInputChange = (id: string, value: string) => {
         setValues((prev) => ({ ...prev, [id]: value }));
         setActiveScenario(null);
+        trackFormulaGenerated(activeTool.name);
     };
 
     const handleScenarioSelect = (scenario: SolutionScenario) => {
         setValues(scenario.defaultValues);
         setActiveScenario(scenario.id);
+        trackFormulaGenerated(activeTool.name);
     };
 
     const generatedFormula = activeTool.generate(values);
@@ -38,6 +51,7 @@ export default function SolutionBuilder({ solutionSlug }: SolutionBuilderProps) 
         navigator.clipboard.writeText(generatedFormula);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+        trackFormulaCopied(activeTool.name, 'button_click');
     };
 
     return (

@@ -59,7 +59,7 @@ export async function POST(request: Request) {
         const indexNowPayload = {
             host: 'www.getsheetmaster.com',
             key: apiKey,
-            keyLocation: 'https://www.getsheetmaster.com',
+            keyLocation: `https://www.getsheetmaster.com/${apiKey}.txt`,
             urlList: urls,
         };
 

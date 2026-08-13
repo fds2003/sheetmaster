@@ -49,7 +49,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'vlookup',
         title: 'VLOOKUP Formula — Vertical Lookup in Excel & Sheets | SheetMaster',
-        metaDescription: 'Generate VLOOKUP formulas to search values vertically in tables. Fix #N/A errors, compare with XLOOKUP. Free formula generator.',
+        metaDescription: 'Generate VLOOKUP formulas to search values vertically in tables. Fix #N/A errors, compare with XLOOKUP. Free formula generator. Free Excel and Sheets builder.',
         excelFunction: 'VLOOKUP',
         category: 'Lookup',
         description: 'Looks for a value in the leftmost column of a table, and then returns a value in the same row from a column you specify.',
@@ -233,7 +233,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'if',
         title: 'IF Formula in Excel — Conditional Logic Made Easy | SheetMaster',
-        metaDescription: 'Build IF formulas for conditional logic in Excel and Google Sheets. Nested IFs, IFS, and IFERROR. Free interactive formula generator.',
+        metaDescription: 'Build IF formulas for conditional logic in Excel and Google Sheets. Nested IFs, IFS, and IFERROR. Free interactive formula generator. Free Excel and Sheets builder.',
         excelFunction: 'IF',
         category: 'Logic',
         description: 'Checks whether a condition is met, and returns one value if true and another value if false.',
@@ -465,7 +465,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'countif',
         title: 'COUNTIF Formula — Count Cells by Criteria in Excel & Sheets | SheetMaster',
-        metaDescription: 'Generate COUNTIF formulas to count cells matching text, numbers, dates, or blanks. Free interactive formula generator. No signup needed.',
+        metaDescription: 'Generate COUNTIF formulas to count cells matching text, numbers, dates, or blanks. Free interactive formula generator. No signup needed. Free Excel and Sheets builder.',
         excelFunction: 'COUNTIF',
         category: 'Math',
         description: 'Counts the number of cells within a range that meet the given condition.',
@@ -599,7 +599,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'concatenate',
         title: 'How to Use CONCATENATE in Excel (Combine Text + Free Generator)',
-        metaDescription: 'Need to combine text from multiple cells? Use CONCATENATE in Excel & Sheets. Free formula generator with step-by-step examples. Try it now!',
+        metaDescription: 'Need to combine text from multiple cells? Use CONCATENATE in Excel & Sheets. Free formula generator with step-by-step examples. Try it now!. Free Excel and Sheets builder.',
         excelFunction: 'CONCATENATE',
         category: 'Text',
         description: 'Joins several text strings into one text string.',
@@ -1268,7 +1268,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'and',
         title: 'AND Formula — Logical AND in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate AND formulas instantly in Excel and Google Sheets. Check if all conditions are true. Free formula generator with examples.',
+        metaDescription: 'Generate AND formulas instantly in Excel and Google Sheets. Check if all conditions are true. Free formula generator with examples. Free Excel and Sheets builder.',
         excelFunction: 'AND',
         category: 'Logic',
         description: 'Returns TRUE if all its arguments are TRUE; returns FALSE if one or more argument is FALSE.',
@@ -1291,7 +1291,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'or',
         title: 'OR Formula — Logical OR in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate OR formulas instantly in Excel and Google Sheets. Check if any condition is true. Free formula generator with examples.',
+        metaDescription: 'Generate OR formulas instantly in Excel and Google Sheets. Check if any condition is true. Free formula generator with examples. Free Excel and Sheets builder.',
         excelFunction: 'OR',
         category: 'Logic',
         description: 'Returns TRUE if any argument is TRUE; returns FALSE if all arguments are FALSE.',
@@ -1314,7 +1314,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'extract-email',
         title: 'Extract Email from Text in Excel — Free Formula Generator | SheetMaster',
-        metaDescription: 'Extract email addresses from any text string using REGEX in Excel. Free formula generator for data cleaning and lead extraction.',
+        metaDescription: 'Extract email addresses from any text string using REGEX in Excel. Free formula generator for data cleaning and lead extraction. Free Excel and Sheets builder.',
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts an email address from a text string.',
@@ -1355,7 +1355,7 @@ export const FORMULAS: FormulaConfig[] = [
         slug: 'extract-domain',
         title: 'Extract Domain from URL in Excel — Free Formula Generator | SheetMaster',
         metaDescription:
-            'Pull the domain name from any URL or email address in Excel. Free interactive formula generator. Works in both Excel and Google Sheets.',
+            'Pull the domain name from any URL or email address in Excel. Free interactive formula generator. Works in both Excel and Google Sheets. Free Excel and Sheets builder.',
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts the domain part from a URL.',
@@ -1400,7 +1400,7 @@ export const FORMULAS: FormulaConfig[] = [
         slug: 'get-first-word',
         title: 'Extract First Word from Text in Excel — LEFT & FIND Formula | SheetMaster',
         metaDescription:
-            'Get the first word from any text string using LEFT and FIND. Handles edge cases like single-word cells. Free formula generator.',
+            'Get the first word from any text string using LEFT and FIND. Handles edge cases like single-word cells. Free formula generator. Free Excel and Sheets builder.',
         excelFunction: 'LEFT & FIND',
         category: 'Text',
         description: 'Returns the first word in a text string.',
@@ -1451,7 +1451,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'remove-first-3-chars',
         title: 'Remove First 3 Characters in Excel — Free Formula Generator | SheetMaster',
-        metaDescription: 'Instantly generate the Excel formula to remove the first 3 characters from any text. Free, no signup, works in Google Sheets too. Try now.',
+        metaDescription: 'Instantly generate the Excel formula to remove the first 3 characters from any text. Free, no signup, works in Google Sheets too. Try now. Free interactive formula tool.',
         excelFunction: 'RIGHT & LEN',
         category: 'Text',
         description: 'Removes the specified number of characters from the beginning of a text string.',
@@ -2124,7 +2124,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'substitute',
         title: 'SUBSTITUTE Formula — Find & Replace Text in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate SUBSTITUTE formulas instantly in Excel and Google Sheets. Find and replace text in strings. Free formula generator with examples.',
+        metaDescription: 'Generate SUBSTITUTE formulas instantly in Excel and Google Sheets. Find and replace text in strings. Free formula generator with examples. Free Excel and Sheets builder.',
         excelFunction: 'SUBSTITUTE',
         category: 'Text',
         description: 'Substitutes new text for old text in a text string. Great for data cleaning.',
@@ -2177,7 +2177,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'len',
         title: 'Free LEN Formula Generator & Character Counter — Excel & Sheets',
-        metaDescription: 'Count characters in cells using Excel & Google Sheets LEN formulas. Free generator with clear syntax examples and quick guide.',
+        metaDescription: 'Count characters in cells using Excel & Google Sheets LEN formulas. Free generator with clear syntax examples and quick guide. Free Excel and Sheets builder.',
         excelFunction: 'LEN',
         category: 'Text',
         description: 'Returns the number of characters in a text string.',
@@ -2248,7 +2248,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'text',
         title: 'TEXT Formula — Format Numbers as Text in Excel & Sheets | SheetMaster',
-        metaDescription: 'Convert numbers to formatted text, currency, or dates using TEXT. Free formula generator for Excel and Google Sheets.',
+        metaDescription: 'Convert numbers to formatted text, currency, or dates using TEXT. Free formula generator for Excel and Google Sheets. Free Excel and Sheets builder.',
         excelFunction: 'TEXT',
         category: 'Text',
         description: 'Converts a value to text in a specific number format.',
@@ -2316,7 +2316,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'roundup',
         title: 'ROUNDUP Formula in Excel — Round Numbers Up Instantly | SheetMaster',
-        metaDescription: 'Generate ROUNDUP formulas to always round numbers up, away from zero. Free tool for Excel and Google Sheets. Instant formula builder.',
+        metaDescription: 'Generate ROUNDUP formulas to always round numbers up, away from zero. Free tool for Excel and Google Sheets. Instant formula builder. Free Excel and Sheets builder.',
         excelFunction: 'ROUNDUP',
         category: 'Math',
         description: 'Rounds a number up, away from zero.',
@@ -2427,7 +2427,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'average',
         title: 'AVERAGE Formula — Calculate Mean in Excel & Sheets | SheetMaster',
-        metaDescription: 'Generate AVERAGE formulas for arithmetic mean, weighted averages, and conditional averages with AVERAGEIF. Free tool.',
+        metaDescription: 'Generate AVERAGE formulas for arithmetic mean, weighted averages, and conditional averages with AVERAGEIF. Free tool. Free Excel and Sheets builder.',
         excelFunction: 'AVERAGE',
         category: 'Math',
         description: 'Returns the average (arithmetic mean) of the arguments.',
@@ -2452,7 +2452,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'sum',
         title: 'SUM Formula — Add Numbers in Excel & Google Sheets | SheetMaster',
-        metaDescription: 'Generate SUM formulas instantly. Add ranges, conditional sums with SUMIF/SUMIFS. Free formula generator with examples. No signup.',
+        metaDescription: 'Generate SUM formulas instantly. Add ranges, conditional sums with SUMIF/SUMIFS. Free formula generator with examples. No signup. Free Excel and Sheets builder.',
         excelFunction: 'SUM',
         category: 'Math',
         description: 'Adds all the numbers in a range of cells.',
@@ -2522,7 +2522,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'day',
         title: 'DAY Formula — Extract Day from Date in Excel & Sheets | SheetMaster',
-        metaDescription: 'Extract the day of month (1-31) from any date. Free DAY formula generator with examples for date reporting and calculations.',
+        metaDescription: 'Extract the day of month (1-31) from any date. Free DAY formula generator with examples for date reporting and calculations. Free Excel and Sheets builder.',
         excelFunction: 'DAY',
         category: 'Date',
         description: 'Returns the day of a date, a number from 1 to 31.',
@@ -2543,7 +2543,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'edate',
         title: 'EDATE Formula — Add or Subtract Months from Dates | SheetMaster',
-        metaDescription: 'Generate EDATE formulas to add or subtract months from dates. Perfect for subscription tracking, billing cycles, and due dates. Free tool.',
+        metaDescription: 'Generate EDATE formulas to add or subtract months from dates. Perfect for subscription tracking, billing cycles, and due dates. Free tool. Free Excel and Sheets builder.',
         excelFunction: 'EDATE',
         category: 'Date',
         description: 'Returns a date that is a specified number of months before or after a given date.',
@@ -2567,7 +2567,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'eomonth',
         title: 'EOMONTH Formula — Last Day of Month in Excel & Sheets | SheetMaster',
-        metaDescription: 'Get the last day of any month using EOMONTH. Perfect for financial reporting, invoice dates, and subscription billing. Free tool.',
+        metaDescription: 'Get the last day of any month using EOMONTH. Perfect for financial reporting, invoice dates, and subscription billing. Free tool. Free Excel and Sheets builder.',
         excelFunction: 'EOMONTH',
         category: 'Date',
         description: 'Returns the last day of the month a specified number of months before or after a date.',

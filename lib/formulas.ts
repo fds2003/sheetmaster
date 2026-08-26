@@ -48,8 +48,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 1. VLOOKUP
     {
         slug: 'vlookup',
-        title: 'VLOOKUP Formula — Vertical Lookup in Excel & Sheets | SheetMaster',
-        metaDescription: 'Generate VLOOKUP formulas to search values vertically in tables. Fix #N/A errors, compare with XLOOKUP. Free formula generator. Free Excel and Sheets builder.',
+        title: "VLOOKUP in Excel: Step-by-Step Formula & Generator",
+        metaDescription: "Generate VLOOKUP formulas to search table columns vertically. Fix #N/A errors and find exact matches with our free interactive formula builder.",
         excelFunction: 'VLOOKUP',
         category: 'Lookup',
         description: 'Looks for a value in the leftmost column of a table, and then returns a value in the same row from a column you specify.',
@@ -197,12 +197,23 @@ export const FORMULAS: FormulaConfig[] = [
    </div>
    `,
         howToSteps: [
-            { name: "Put the lookup value in a cell", text: "Enter the value you want to search for in a specific cell (e.g., type Employee ID 103 into cell G2). This cell reference becomes your lookup_value argument." },
-            { name: "Select the full table with absolute references", text: "Highlight the entire data range where column A holds the lookup values and another column has the data you want. Lock the range with $ signs (e.g., $A$2:$D$10) so it does not shift when you copy the formula down." },
-            { name: "Count columns to find the return index", text: "Count from the first column of your selected range. If your range is $A$2:$D$10 and the result is in column D (Department), col_index_num is 4. Column A is 1, B is 2, C is 3, D is 4." },
-            { name: "Set range_lookup to FALSE for exact match", text: "Always use FALSE (or 0) for exact matches on IDs, names, or product codes. Using TRUE on unsorted data returns the nearest match, not the exact value you need." },
-            { name: "Test and copy the formula down", text: "Press Enter to verify the result for the first row. If correct, drag the fill handle (bottom-right corner of the cell) down to apply the VLOOKUP to all rows. Check a few results to confirm accuracy." }
-        ],
+        {
+                name: "Specify Lookup Value",
+                text: "Select the cell containing the key or ID you want to look up."
+        },
+        {
+                name: "Define Table Range",
+                text: "Highlight the data table starting with the column containing the lookup value."
+        },
+        {
+                name: "Enter Column Index",
+                text: "Count and enter the column number from left to return data from."
+        },
+        {
+                name: "Set Match Type to Exact (FALSE)",
+                text: "Enter FALSE or 0 for an exact match, then press Enter."
+        }
+],
         faq: [
             { question: "Why is VLOOKUP returning #N/A?", answer: "This usually means the lookup value does not exist in the first column of your table array, or there is a mismatch in data types (e.g., number vs text stored as number). Check for hidden spaces, leading zeros, or use TRIM and VALUE to normalize data." },
             { question: "Can VLOOKUP look to the left?", answer: "No, VLOOKUP can only look to the right. Use XLOOKUP or INDEX/MATCH to look to the left or in any column." },
@@ -232,8 +243,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 2. IF
     {
         slug: 'if',
-        title: 'IF Formula in Excel — Conditional Logic Made Easy | SheetMaster',
-        metaDescription: 'Build IF formulas for conditional logic in Excel and Google Sheets. Nested IFs, IFS, and IFERROR. Free interactive formula generator. Free Excel and Sheets builder.',
+        title: "IF Function in Excel: Conditional Logic Formula Builder",
+        metaDescription: "Build IF formulas for conditional logic in Excel & Google Sheets. Handle nested IFs, true/false tests, and custom outputs with our free generator.",
         excelFunction: 'IF',
         category: 'Logic',
         description: 'Checks whether a condition is met, and returns one value if true and another value if false.',
@@ -306,12 +317,19 @@ export const FORMULAS: FormulaConfig[] = [
   <p>Building complex logical statements manually can be prone to syntax errors, especially with parentheses. Our generator handles the formatting for you, ensuring your formula works perfectly the first time you paste it into your sheet. Save time and reduce frustration by letting our expert-crafted tools handle the heavy lifting of data analysis.</p>
 </div>`,
         howToSteps: [
-            { name: "Define your condition", text: "Decide what you want to test. For example, is cell A1 greater than 10? Use comparison operators like >, <, =, >=, <=, or <>." },
-            { name: "Set the result if true", text: "Enter the value to display when the condition is met. Text must be in double quotes (e.g., \"Pass\"). You can also use a formula, cell reference, or number." },
-            { name: "Set the result if false", text: "Enter the value for when the condition is NOT met (e.g., \"Fail\" or 0). This argument is optional — leave blank to return FALSE." },
-            { name: "Test with sample data", text: "Copy your formula into a spreadsheet and test with known inputs. Verify the true and false results appear as expected before scaling up." },
-            { name: "Extend with nested IF or IFS", text: "For multiple conditions, nest additional IF statements or switch to the IFS function (Excel 2016+ / Google Sheets). Each added condition branches into more granular outcomes." }
-        ],
+        {
+                name: "Set Logical Test",
+                text: "Define the condition to test (e.g., A2 >= 60 or B2 = 'Yes')."
+        },
+        {
+                name: "Specify Value if True",
+                text: "Enter what Excel should return when the condition is met."
+        },
+        {
+                name: "Specify Value if False",
+                text: "Enter what Excel should return when the condition fails."
+        }
+],
         faq: [
             { question: "How to create an IF statement in Excel?", answer: "Start with =IF(logical_test, value_if_true, value_if_false). Example: =IF(A1>60, \"Pass\", \"Fail\"). The logical_test is your condition — if it's true, Excel shows value_if_true; otherwise value_if_false. Use our generator above to build one in seconds." },
             { question: "Can I use multiple IF statements?", answer: "Yes, you can nest IF statements inside each other to test multiple conditions, or use the IFS function for cleaner syntax." },
@@ -337,8 +355,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 3. SUMIF
     {
         slug: 'sumif',
-        title: 'How to Use SUMIF in Excel (Sum with One Condition + Free Generator)',
-        metaDescription: 'Learn how to use SUMIF in Excel and Google Sheets. Sum cells by one condition using text, numbers, dates, or wildcards. Free formula generator included.',
+        title: "SUMIF in Excel: Sum with One Condition (Free Guide)",
+        metaDescription: "Calculate conditional sums in Excel using SUMIF. Add numbers based on text, dates, or numbers with our free interactive formula builder.",
         excelFunction: 'SUMIF',
         category: 'Math',
         description: 'Adds the cells specified by a given condition or criteria.',
@@ -440,12 +458,19 @@ export const FORMULAS: FormulaConfig[] = [
   </div>
 </div>`,
         howToSteps: [
-            { name: 'Set up your data table', text: 'Arrange your data with criteria in one column and values to sum in another. For example, put region names in A2:A11 and sales amounts in B2:B11. This clean layout makes SUMIF easy to write and audit.' },
-            { name: 'Pick the criteria range', text: 'Select the range that contains the condition you want to check, such as A2:A11 for region names. This is your first argument. Use absolute references ($A$2:$A$11) if copying the formula to other cells.' },
-            { name: 'Define your criteria with proper syntax', text: 'Enter the condition in quotes: "North" for exact text match, ">500" for numbers greater than 500, or "="&E1 to reference cell E1. For partial text, use wildcards: "*East*" matches cells containing "East" anywhere.' },
-            { name: 'Add the sum range (optional)', text: 'If your sum values are in a different column, add the sum_range as the third argument: B2:B11. Ensure sum_range is the same size as the criteria range. If omitted, SUMIF sums the criteria range itself (e.g., =SUMIF(B2:B11, ">500").' },
-            { name: 'Test with known values', text: 'Paste the formula into your target cell (e.g., D2) and verify with a known subset. For example, manually sum B2:B11 for "North" rows and confirm the result matches. Drag or copy to adjacent cells if using mixed criteria.' }
-        ],
+        {
+                name: "Select Criteria Range",
+                text: "Choose the range of cells evaluated against your criteria."
+        },
+        {
+                name: "Define Criteria",
+                text: "Enter the condition (e.g., '>100', 'Apple', or cell reference B2)."
+        },
+        {
+                name: "Select Sum Range",
+                text: "Select the range of numeric cells to sum up, then press Enter."
+        }
+],
         faq: [
             { question: "What is the difference between SUMIF and SUMIFS?", answer: "SUMIF handles a single condition. SUMIFS handles multiple conditions (up to 127) and puts the sum_range first. Use SUMIF for simple one-criteria sums. Use SUMIFS when you need to sum by multiple criteria like region AND product AND date range." },
             { question: "Can SUMIF use wildcards?", answer: "Yes. Use * (asterisk) for any sequence of characters and ? (question mark) for a single character. Example: =SUMIF(A:A,\"*apple*\",B:B) sums column B where column A contains \"apple\" anywhere. Use ~ to escape wildcards: =SUMIF(A:A,\"~*\",B:B) sums rows with a literal asterisk." },
@@ -464,8 +489,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 4. COUNTIF
     {
         slug: 'countif',
-        title: 'COUNTIF Formula — Count Cells by Criteria in Excel & Sheets | SheetMaster',
-        metaDescription: 'Generate COUNTIF formulas to count cells matching text, numbers, dates, or blanks. Free interactive formula generator. No signup needed. Free Excel and Sheets builder.',
+        title: "COUNTIF in Excel: Count Cells by Criteria (Easy Guide)",
+        metaDescription: "Count cells that match specific criteria in Excel & Sheets. Count text, numbers, dates, or blanks with our free interactive formula generator.",
         excelFunction: 'COUNTIF',
         category: 'Math',
         description: 'Counts the number of cells within a range that meet the given condition.',
@@ -574,12 +599,19 @@ export const FORMULAS: FormulaConfig[] = [
   </div>
 </div>`,
         howToSteps: [
-            { name: 'Set up your data and pick the range', text: 'Identify the column you want to count from, such as B2:B11 for order statuses. Arrange your data in a clean table — one column for the values you want to evaluate, with no blank rows in the middle.' },
-            { name: 'Define your criteria with correct syntax', text: 'Write your condition in double quotes: "Completed" for exact text, ">100" for numbers greater than 100, or "<>" for non-blank cells. For a cell reference, skip the quotes and use the cell directly: F1. For operators with a cell reference, use &amp;: ">"&amp;E1.' },
-            { name: 'Enter the COUNTIF formula', text: 'Combine range and criteria into the formula: =COUNTIF(B2:B11, "Completed"). Place the formula in an empty cell like D2. The result is a number — the count of cells in B2:B11 that exactly match "Completed".' },
-            { name: 'Test with a known subset', text: 'Verify your result by manually counting matching cells in a small range. For example, visually check rows 2-6 to confirm the count is correct before trusting the full range. This catches data type mismatches early.' },
-            { name: 'Expand with dynamic criteria or wildcards', text: 'Replace hardcoded text with a cell reference: =COUNTIF(B2:B11, F1) — typing "Pending" in F1 instantly updates the count. For partial matches, use wildcards: =COUNTIF(A:A, "*East*") counts all cells containing "East" anywhere in the text.' }
-        ],
+        {
+                name: "Select Range",
+                text: "Highlight the cells you want to evaluate and count."
+        },
+        {
+                name: "Define Criteria",
+                text: "Enter your condition (e.g., 'Completed', '>50', or '<>0')."
+        },
+        {
+                name: "Generate & Apply",
+                text: "Copy the =COUNTIF(range, criteria) formula into your sheet."
+        }
+],
         faq: [
             { question: 'Can COUNTIF handle multiple criteria?', answer: 'No — COUNTIF handles only one condition at a time. For multiple criteria (e.g., "count rows where A>100 AND B=\\"Yes\\""), use COUNTIFS instead. To count with OR logic across different values, add two COUNTIFs together: =COUNTIF(A:A,"X")+COUNTIF(A:A,"Y"). For OR within the same column use the same approach: =COUNTIF(B:B,"Completed")+COUNTIF(B:B,"Pending").' },
             { question: 'Why does COUNTIF return 0 when I expect a count?', answer: 'Check that your criteria match the data type (number vs text). Use quotes for text: "Completed" or "=100". For numbers use ">50" or "=100". Dates may need DATE() or a cell reference. Also watch for extra spaces — "Completed " won\'t match "Completed". Use TRIM() on your data to clean leading/trailing spaces.' },
@@ -598,8 +630,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 5. CONCATENATE
     {
         slug: 'concatenate',
-        title: 'How to Use CONCATENATE in Excel (Combine Text + Free Generator)',
-        metaDescription: 'Need to combine text from multiple cells? Use CONCATENATE in Excel & Sheets. Free formula generator with step-by-step examples. Try it now!. Free Excel and Sheets builder.',
+        title: "CONCATENATE in Excel: Combine Text Cells & Strings",
+        metaDescription: "Merge text from multiple cells in Excel using CONCATENATE or the & operator. Add spaces, commas, and formatting with our free formula generator.",
         excelFunction: 'CONCATENATE',
         category: 'Text',
         description: 'Joins several text strings into one text string.',
@@ -684,12 +716,19 @@ export const FORMULAS: FormulaConfig[] = [
   </div>
 </div>`,
         howToSteps: [
-            { name: 'Identify cells to combine', text: 'Select the cells containing the text you want to join, such as first name in A1 and last name in B1. List them in the order you want them to appear.' },
-            { name: 'Add separators between values', text: 'Include separator strings in quotes between each pair of cell references: use ", " for comma-space, " " for space-only, or " - " for dash. Example: =CONCATENATE(A1, " ", B1).' },
-            { name: 'Handle numbers and dates with TEXT()', text: 'Raw numbers lose formatting when concatenated. Wrap them in TEXT(): =CONCATENATE(TEXT(A1,"$#,##0.00"), " due ", TEXT(B1,"mm/dd/yyyy")).' },
-            { name: 'Combine more than 2 values', text: 'Add additional arguments to join multiple cells: =CONCATENATE(A1, " ", B1, ", ", C1, " ", D1). Each pair needs its own separator argument.' },
-            { name: 'Test and adjust the result', text: 'Paste the formula into your spreadsheet and verify the output. Check for missing spaces, unformatted numbers, and unwanted blank cells. Use TRIM() to clean up extra spaces.' },
-        ],
+        {
+                name: "Select First Text Cell",
+                text: "Click the first cell you want to combine."
+        },
+        {
+                name: "Insert Delimiter/Space",
+                text: "Add separator characters enclosed in quotation marks like \" \" or \", \"."
+        },
+        {
+                name: "Add Remaining Cells",
+                text: "Include subsequent cells and press Enter to merge."
+        }
+],
         faq: [
             { question: 'How do I add a space or separator between concatenated values?', answer: 'Include a string argument for the separator between each pair of cell references. Use ", " for comma-space, " " for space-only, " - " for dash separators. Example: =CONCATENATE(A1, " - ", B1).' },
             { question: 'CONCATENATE vs TEXTJOIN — what is the difference?', answer: 'CONCATENATE joins arguments one at a time, repeating the delimiter between each. TEXTJOIN lets you set a delimiter once and can skip empty cells (TRUE argument). For a range like A1:A10, TEXTJOIN is far simpler: =TEXTJOIN(", ", TRUE, A1:A10).' },
@@ -708,8 +747,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 6. INDEX/MATCH
     {
         slug: 'index-match',
-        title: 'How to Use INDEX MATCH in Excel (Better Than VLOOKUP + Free Generator)',
-        metaDescription: 'Stuck with VLOOKUP limitations? Master INDEX MATCH in Excel. Lookup in any direction, add/delete columns safely. Free generator with step-by-step examples.',
+        title: "INDEX MATCH in Excel: Flexible 2-Way Lookup Guide",
+        metaDescription: "Master INDEX MATCH in Excel for flexible left-lookups and 2-way table queries. Faster and more robust than VLOOKUP with our free generator.",
         excelFunction: 'INDEX/MATCH',
         category: 'Lookup',
         description: 'A more flexible alternative to VLOOKUP. Returns the value of an element in a table or an array, selected by the row and column number indexes.',
@@ -809,20 +848,26 @@ export const FORMULAS: FormulaConfig[] = [
             { title: 'INDEX MATCH returns #N/A or wrong value', causes: ['Lookup range and return range have different heights (rows).', 'MATCH type wrong: use 0 for exact match; -1/1 for sorted lookup.', 'Data type mismatch between lookup value and lookup range.'], fixes: ['Use same-sized single-column ranges for lookup_range and return_range.', 'Use 0 for exact match in most cases.', 'Normalize types with TRIM, VALUE, or TEXT.'] },
         ],
         howToSteps: [
-            { name: 'Pick lookup value', text: 'Select the cell containing the value you want to search for, e.g. A2 with an employee ID. This value must exist somewhere in your lookup column.' },
-            { name: 'Choose lookup column', text: 'Select the column where MATCH should search, e.g. B:B. This is the column that contains your lookup values. MATCH returns the row position of the first match.' },
-            { name: 'Choose return column', text: 'Select the column from which to pull the result, e.g. C:C. This can be to the left or right of the lookup column — INDEX MATCH does not care about column order.' },
-            { name: 'Set match type', text: 'Choose Exact Match (0) for most lookups. Use -1 for ascending sorted data (returns smallest value >= lookup). Use 1 for descending sorted data (returns largest value <= lookup).' },
-            { name: 'Generate and test', text: 'The generator produces =INDEX(C:C, MATCH(A2, B:B, 0)). Paste into your sheet and test with known values. Wrap in IFERROR to handle missing values gracefully.' },
-        ],
+        {
+                name: "Select Return Array (INDEX)",
+                text: "Choose the column containing the data you want to retrieve."
+        },
+        {
+                name: "Configure MATCH Function",
+                text: "Specify the lookup value and the lookup column array."
+        },
+        {
+                name: "Set Exact Match (0)",
+                text: "Use 0 as the third argument in MATCH for an exact match."
+        }
+],
     },
 
     // 7. XLOOKUP
     {
         slug: 'xlookup',
-        title: 'XLOOKUP Formula Generator — Modern Alternative to VLOOKUP | SheetMaster',
-        metaDescription:
-            'Generate XLOOKUP formulas instantly. Look up values in any direction with error handling. Free interactive tool for Excel and Google Sheets.',
+        title: "XLOOKUP in Excel: Modern Lookup Formula Generator",
+        metaDescription: "Generate XLOOKUP formulas instantly for Excel & Google Sheets. Look up left, right, top, or bottom with built-in #N/A error handling.",
         excelFunction: 'XLOOKUP',
         category: 'Lookup',
         description: 'Searches a range or an array, and then returns the item corresponding to the first match it finds. If no match exists, then XLOOKUP can return the closest (approximate) match.',
@@ -956,12 +1001,23 @@ export const FORMULAS: FormulaConfig[] = [
             { title: 'XLOOKUP returns #N/A', causes: ['Lookup value not in lookup_array.', 'Lookup and return arrays different lengths.', 'Data type or format mismatch.'], fixes: ['Use fourth argument (if_not_found) to return a default.', 'Ensure lookup_array and return_array have the same number of rows.', 'Use TRIM, VALUE, or TEXT to align formats.'] },
         ],
         howToSteps: [
-            { name: 'Choose lookup and return ranges', text: 'Enter the cell containing the value you want to find (lookup_value), the column or row to search (lookup_array), and the column or row that holds the result (return_array). Unlike VLOOKUP, these ranges can be in any position — the return array does not need to be to the right of the lookup array.' },
-            { name: 'Set a fallback value (optional)', text: 'Use the fourth argument (if_not_found) to display custom text like "Not Found" or a blank "" when no match exists. This eliminates the need for IFERROR wrappers and keeps your spreadsheet clean.' },
-            { name: 'Configure match mode for approximate matches', text: 'By default XLOOKUP finds an exact match (match_mode=0). Set match_mode=1 for next larger item, -1 for next smaller, or 2 for wildcard matching. For example, use 2 with "Acme*" to match all entries starting with "Acme".' },
-            { name: 'Set search direction', text: 'Use the search_mode argument to control the search order. search_mode=1 (default) searches first-to-last. search_mode=-1 searches last-to-first — useful for finding the most recent transaction or last occurrence in a dataset.' },
-            { name: 'Copy into Excel 365 or Google Sheets', text: 'Paste the generated formula into a cell. Excel 365 and Google Sheets both support XLOOKUP with identical syntax. If the formula returns multiple results (spill range), ensure adjacent cells are empty to avoid #SPILL errors.' },
-        ],
+        {
+                name: "Enter Lookup Value",
+                text: "Select the cell value you want to search for."
+        },
+        {
+                name: "Select Lookup Array",
+                text: "Choose the column or row to search within."
+        },
+        {
+                name: "Select Return Array",
+                text: "Choose the column or row to return values from."
+        },
+        {
+                name: "Optional If Not Found",
+                text: "Provide fallback text (e.g., 'Not Found') if no match exists."
+        }
+],
         formulaLogicBreakdown: [
             { argument: 'lookup_value', explanation: 'What you are looking for.', example: 'e.g., A2' },
             { argument: 'lookup_array', explanation: 'The single column or row where the lookup_value should be found.', example: 'e.g., B:B' },
@@ -976,13 +1032,48 @@ export const FORMULAS: FormulaConfig[] = [
     // 8. TRIM
     {
         slug: 'trim',
-        title: 'TRIM Formula — Remove Extra Spaces in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate TRIM formulas instantly in Excel and Google Sheets. Remove extra spaces from text for data cleaning. Free formula generator with examples.',
+        title: "TRIM in Excel: Remove Extra & Leading Spaces",
+        metaDescription: "Remove leading, trailing, and double spaces in Excel with the TRIM formula. Clean imported spreadsheets instantly with our free builder.",
         excelFunction: 'TRIM',
         category: 'Text',
         description: 'Removes all spaces from text except for single spaces between words.',
         inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=TRIM(${p.text || 'text'})`,
+        howToSteps: [
+        {
+                name: "Select Target Cell",
+                text: "Click the empty cell where you want the cleaned text to appear."
+        },
+        {
+                name: "Enter TRIM Formula",
+                text: "Type =TRIM(A2) replacing A2 with your target text cell."
+        },
+        {
+                name: "Apply to Range",
+                text: "Press Enter and drag the fill handle down to clean all rows."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Use the TRIM Function in Excel</h2>
+      <p>The <strong>TRIM</strong> function removes extra spaces from text, leaving only single spaces between words and eliminating leading/trailing spaces.</p>
+      <h3>Syntax & Arguments</h3>
+      <p><code>=TRIM(text)</code></p>
+      <ul>
+        <li><strong>text</strong> (Required): The text or cell reference you want to remove extra spaces from.</li>
+      </ul>
+      <h3>Example: Cleaning Messy Text</h3>
+      <table class="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden text-sm">
+        <thead class="bg-gray-50">
+          <tr><th class="px-4 py-2 text-left">Original Text (A2)</th><th class="px-4 py-2 text-left">Formula</th><th class="px-4 py-2 text-left">Result</th></tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr><td class="px-4 py-2 font-mono">"  John   Doe  "</td><td class="px-4 py-2 font-mono">=TRIM(A2)</td><td class="px-4 py-2 font-mono">"John Doe"</td></tr>
+          <tr><td class="px-4 py-2 font-mono">" SKU-1294  "</td><td class="px-4 py-2 font-mono">=TRIM(A3)</td><td class="px-4 py-2 font-mono">"SKU-1294"</td></tr>
+        </tbody>
+      </table>
+      <h3>Pro Tip: Non-Breaking Spaces (&nbsp;)</h3>
+      <p>If TRIM does not remove spaces copied from websites, they are likely non-breaking spaces (ASCII 160). Use <code>=TRIM(CLEAN(SUBSTITUTE(A2, CHAR(160), " ")))</code> to remove them.</p>
+    </div>`,
         faq: [
             { question: 'Does TRIM remove line breaks?', answer: 'No, TRIM only removes extra spaces between words and leading/trailing spaces. Use CLEAN to remove non-printing characters and line breaks.' },
             { question: 'What is the difference between TRIM and CLEAN?', answer: 'TRIM removes extra spaces. CLEAN removes non-printable characters (line breaks, tabs, etc.). Use both: =TRIM(CLEAN(A1)) for thorough cleaning.' },
@@ -996,13 +1087,41 @@ export const FORMULAS: FormulaConfig[] = [
     // 9. UPPER
     {
         slug: 'upper',
-        title: 'UPPER Formula — Convert Text to Uppercase in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate UPPER formulas instantly in Excel and Google Sheets. Convert text to uppercase for data formatting. Free formula generator with examples.',
+        title: "UPPER in Excel: Convert Text to Uppercase Letters",
+        metaDescription: "Convert lowercase text to ALL CAPS in Excel with the UPPER formula. Standardize codes, IDs, and names instantly with our free formula generator.",
         excelFunction: 'UPPER',
         category: 'Text',
         description: 'Converts text to uppercase.',
         inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=UPPER(${p.text || 'text'})`,
+        howToSteps: [
+        {
+                name: "Select Result Cell",
+                text: "Click the cell where you want capitalized text to output."
+        },
+        {
+                name: "Enter UPPER Formula",
+                text: "Type =UPPER(A2) where A2 is your input text cell."
+        },
+        {
+                name: "Copy Down",
+                text: "Press Enter and double-click the fill handle to apply to the entire column."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Convert Text to Uppercase in Excel</h2>
+      <p>The <strong>UPPER</strong> function converts all characters in a text string to capital letters. Numbers and punctuation marks remain unaffected.</p>
+      <h3>Syntax & Arguments</h3>
+      <p><code>=UPPER(text)</code></p>
+      <ul>
+        <li><strong>text</strong> (Required): The text string or cell reference to capitalize.</li>
+      </ul>
+      <h3>Common Use Cases</h3>
+      <ul>
+        <li>Standardizing state/country abbreviations (e.g., "ny" → "NY")</li>
+        <li>Formatting SKU numbers, coupon codes, and serial numbers</li>
+      </ul>
+    </div>`,
         faq: [
             { question: 'Does UPPER work with accented characters?', answer: 'Yes, UPPER converts accented characters like é to É and ñ to Ñ. It handles all Unicode letters properly.' },
             { question: 'What is the difference between UPPER, LOWER, and PROPER?', answer: 'UPPER makes all letters uppercase. LOWER makes all letters lowercase. PROPER capitalizes the first letter of each word.' },
@@ -1016,13 +1135,35 @@ export const FORMULAS: FormulaConfig[] = [
     // 10. LOWER
     {
         slug: 'lower',
-        title: 'LOWER Formula — Convert Text to Lowercase in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate LOWER formulas instantly in Excel and Google Sheets. Convert text to lowercase for data standardization. Free formula generator with examples.',
+        title: "LOWER in Excel: Convert Text to Lowercase Letters",
+        metaDescription: "Convert uppercase text to lowercase in Excel using the LOWER formula. Clean emails, usernames, and URLs instantly with our free builder.",
         excelFunction: 'LOWER',
         category: 'Text',
         description: 'Converts all uppercase letters in a text string to lowercase.',
         inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=LOWER(${p.text || 'text'})`,
+        howToSteps: [
+        {
+                name: "Select Target Cell",
+                text: "Click the empty cell where you want lowercase text."
+        },
+        {
+                name: "Enter LOWER Formula",
+                text: "Type =LOWER(A2) where A2 contains your uppercase text."
+        },
+        {
+                name: "Fill Column",
+                text: "Press Enter and copy the formula down your sheet."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Convert Text to Lowercase in Excel</h2>
+      <p>The <strong>LOWER</strong> function changes all uppercase characters in a text string to lowercase letters.</p>
+      <h3>Syntax</h3>
+      <p><code>=LOWER(text)</code></p>
+      <h3>Example: Email Normalization</h3>
+      <p>Email addresses are case-insensitive. Standardizing them with <code>=LOWER(TRIM(A2))</code> prevents duplicate records during VLOOKUP or database imports.</p>
+    </div>`,
         faq: [
             { question: 'Does LOWER affect numbers?', answer: 'No, LOWER only affects letter characters. Numbers and special characters remain unchanged.' },
             { question: 'LOWER vs UPPER vs PROPER — when to use each?', answer: 'Use LOWER to standardize text to lowercase, UPPER for all caps headings, and PROPER for names and titles.' },
@@ -1036,13 +1177,41 @@ export const FORMULAS: FormulaConfig[] = [
     // 11. PROPER
     {
         slug: 'proper',
-        title: 'PROPER Formula — Capitalize Each Word in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate PROPER formulas instantly in Excel and Google Sheets. Capitalize the first letter of each word. Free formula generator with examples.',
+        title: "PROPER in Excel: Capitalize First Letter of Each Word",
+        metaDescription: "Capitalize the first letter of each word in Excel with the PROPER function. Fix messy names, titles, and addresses with our free formula generator.",
         excelFunction: 'PROPER',
         category: 'Text',
         description: 'Capitalizes the first letter in each word of a text value.',
         inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=PROPER(${p.text || 'text'})`,
+        howToSteps: [
+        {
+                name: "Select Output Cell",
+                text: "Choose the cell where formatted Title Case text will appear."
+        },
+        {
+                name: "Enter PROPER Formula",
+                text: "Type =PROPER(A2) referencing your target text cell."
+        },
+        {
+                name: "Apply to Dataset",
+                text: "Press Enter and drag down to format all customer names."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Capitalize the First Letter of Each Word in Excel</h2>
+      <p>The <strong>PROPER</strong> function converts text to title case: capitalizing the first letter of every word and converting all other letters to lowercase.</p>
+      <h3>Syntax</h3>
+      <p><code>=PROPER(text)</code></p>
+      <h3>Example</h3>
+      <table class="min-w-full divide-y divide-gray-200 border text-sm">
+        <thead class="bg-gray-50"><tr><th class="p-2 text-left">Input</th><th class="p-2 text-left">Formula</th><th class="p-2 text-left">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="p-2 font-mono">"jane doe"</td><td class="p-2 font-mono">=PROPER(A2)</td><td class="p-2 font-mono">"Jane Doe"</td></tr>
+          <tr><td class="p-2 font-mono">"NEW YORK CITY"</td><td class="p-2 font-mono">=PROPER(A3)</td><td class="p-2 font-mono">"New York City"</td></tr>
+        </tbody>
+      </table>
+    </div>`,
         faq: [
             { question: 'How does PROPER handle apostrophes like O\'Brien?', answer: 'PROPER capitalizes the letter after the apostrophe, so O\'brien becomes O\'Brien. This is actually correct for most Irish and Scottish surnames.' },
             { question: 'Does PROPER handle mixed case?', answer: 'Yes, PROPER ignores the original case and capitalizes the first letter of each word, making all other letters lowercase.' },
@@ -1056,8 +1225,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 12. LEFT
     {
         slug: 'left',
-        title: 'LEFT Formula — Extract First Characters from Text in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate LEFT formulas instantly in Excel and Google Sheets. Extract the first N characters from text strings. Free formula generator with examples.',
+        title: "LEFT Function in Excel: Extract Characters from Start",
+        metaDescription: "Extract a specific number of characters from the beginning of text in Excel. Generate LEFT formulas for prefixes, codes, and IDs with our free tool.",
         excelFunction: 'LEFT',
         category: 'Text',
         description: 'Returns the first character or characters in a text string, based on the number of characters you specify.',
@@ -1066,6 +1235,38 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'num_chars', label: 'Number of Characters', type: 'number', placeholder: 'e.g., 5' },
         ],
         generate: (p) => `=LEFT(${p.text || 'text'}, ${p.num_chars || '1'})`,
+        howToSteps: [
+        {
+                name: "Select Target Cell",
+                text: "Click where you want the extracted prefix to appear."
+        },
+        {
+                name: "Enter LEFT Formula",
+                text: "Type =LEFT(text, num_chars) e.g., =LEFT(A2, 3)."
+        },
+        {
+                name: "Execute & Copy",
+                text: "Press Enter and double-click to fill down the column."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Extract Characters from the Left in Excel</h2>
+      <p>The <strong>LEFT</strong> function returns the specified number of characters starting from the very first character on the left side of a text string.</p>
+      <h3>Syntax & Arguments</h3>
+      <p><code>=LEFT(text, [num_chars])</code></p>
+      <ul>
+        <li><strong>text</strong> (Required): The text string containing the characters you want to extract.</li>
+        <li><strong>num_chars</strong> (Optional): The number of characters to extract (default is 1).</li>
+      </ul>
+      <h3>Examples</h3>
+      <table class="min-w-full divide-y divide-gray-200 border text-sm">
+        <thead class="bg-gray-50"><tr><th class="p-2 text-left">Text (A2)</th><th class="p-2 text-left">Formula</th><th class="p-2 text-left">Extracted Result</th></tr></thead>
+        <tbody>
+          <tr><td class="p-2 font-mono">"US-98234"</td><td class="p-2 font-mono">=LEFT(A2, 2)</td><td class="p-2 font-mono">"US"</td></tr>
+          <tr><td class="p-2 font-mono">"2026-Q3"</td><td class="p-2 font-mono">=LEFT(A3, 4)</td><td class="p-2 font-mono">"2026"</td></tr>
+        </tbody>
+      </table>
+    </div>`,
         faq: [
             { question: 'What does LEFT return if num_chars is omitted?', answer: 'LEFT returns just the first character by default. So LEFT(A1) is the same as LEFT(A1, 1).' },
             { question: 'What happens if num_chars is more than the text length?', answer: 'LEFT returns the entire text string. For example, LEFT("Hello", 10) returns "Hello" without any errors.' },
@@ -1079,8 +1280,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 13. RIGHT
     {
         slug: 'right',
-        title: 'RIGHT Formula — Extract Last Characters from Text in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate RIGHT formulas instantly in Excel and Google Sheets. Extract the last N characters from text strings. Free formula generator with examples.',
+        title: "RIGHT Function in Excel: Extract Characters from End",
+        metaDescription: "Extract characters from the end of a text string in Excel using the RIGHT formula. Pull suffixes, file extensions, and digits with our free builder.",
         excelFunction: 'RIGHT',
         category: 'Text',
         description: 'Returns the last character or characters in a text string, based on the number of characters you specify.',
@@ -1089,6 +1290,28 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'num_chars', label: 'Number of Characters', type: 'number', placeholder: 'e.g., 5' },
         ],
         generate: (p) => `=RIGHT(${p.text || 'text'}, ${p.num_chars || '1'})`,
+        howToSteps: [
+        {
+                name: "Select Output Cell",
+                text: "Click the cell for the extracted suffix or trailing digits."
+        },
+        {
+                name: "Enter RIGHT Formula",
+                text: "Type =RIGHT(text, num_chars) e.g., =RIGHT(A2, 4)."
+        },
+        {
+                name: "Press Enter",
+                text: "Hit Enter and copy the formula down your sheet."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Extract Characters from the Right in Excel</h2>
+      <p>The <strong>RIGHT</strong> function returns a specified number of characters from the end (right side) of a text string.</p>
+      <h3>Syntax</h3>
+      <p><code>=RIGHT(text, [num_chars])</code></p>
+      <h3>Example: Extracting Last 4 Digits</h3>
+      <p>To extract the last 4 digits of a credit card or phone number in cell A2: <code>=RIGHT(A2, 4)</code></p>
+    </div>`,
         faq: [
             { question: 'How do I use RIGHT to extract text after a specific character?', answer: 'Combine RIGHT with FIND: =RIGHT(A1, LEN(A1) - FIND("@", A1)) extracts everything after the @ symbol in an email.' },
             { question: 'What happens if num_chars is negative?', answer: 'RIGHT returns a #VALUE! error if num_chars is negative. Always use a positive number.' },
@@ -1102,8 +1325,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 14. DATEDIF
     {
         slug: 'datedif',
-        title: 'DATEDIF Formula — Calculate Date Differences in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate DATEDIF formulas instantly in Excel and Google Sheets. Calculate differences in days, months, or years. Free formula generator with examples.',
+        title: "DATEDIF in Excel: Calculate Difference Between Dates",
+        metaDescription: "Calculate the exact number of days, months, or years between two dates in Excel. Generate DATEDIF formulas for age and tenure with our free tool.",
         excelFunction: 'DATEDIF',
         category: 'Date',
         description: 'Calculates the number of days, months, or years between two dates.',
@@ -1123,11 +1346,33 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=DATEDIF(${p.start_date || 'start_date'}, ${p.end_date || 'end_date'}, ${p.unit || '"Y"'})`,
         howToSteps: [
-            { name: 'Select your start and end dates', text: 'Enter the cells containing your start date and end date, such as A1 and B1.' },
-            { name: 'Choose your unit', text: 'Pick Y for complete years, M for complete months, or D for days between the two dates.' },
-            { name: 'Understand hidden behavior', text: 'DATEDIF is a hidden function in Excel — type it manually as it won\'t appear in autocomplete. It works normally once entered.' },
-            { name: 'Handle reversed dates', text: 'If the start date is later than the end date, DATEDIF returns #NUM!. Use =IF(A1>B1, -DATEDIF(B1,A1,"Y"), DATEDIF(A1,B1,"Y")) for signed results.' }
-        ],
+        {
+                name: "Specify Start Date",
+                text: "Enter the earlier date cell reference (e.g., A2)."
+        },
+        {
+                name: "Specify End Date",
+                text: "Enter the later date cell reference or TODAY() (e.g., B2)."
+        },
+        {
+                name: "Select Unit Code",
+                text: "Use \"Y\" for years, \"M\" for months, or \"D\" for days."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Calculate Date Differences with DATEDIF</h2>
+      <p>The <strong>DATEDIF</strong> function computes the difference between two dates in days, completed months, or completed years.</p>
+      <h3>Syntax & Unit Codes</h3>
+      <p><code>=DATEDIF(start_date, end_date, unit)</code></p>
+      <ul>
+        <li><code>"Y"</code>: Number of complete years</li>
+        <li><code>"M"</code>: Number of complete months</li>
+        <li><code>"D"</code>: Number of days</li>
+        <li><code>"YM"</code>: Months ignoring years (useful for "X years and Y months")</li>
+      </ul>
+      <h3>Example: Age Calculation</h3>
+      <p><code>=DATEDIF(B2, TODAY(), "Y") & " Years, " & DATEDIF(B2, TODAY(), "YM") & " Months"</code></p>
+    </div>`,
         faq: [
             {
                 question: 'Why is DATEDIF not showing up in my Excel?',
@@ -1154,13 +1399,35 @@ export const FORMULAS: FormulaConfig[] = [
     // 15. NOW
     {
         slug: 'now',
-        title: 'NOW Formula — Current Date & Time in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate NOW formulas instantly in Excel and Google Sheets. Get the current date and time for countdowns and aging reports. Free formula generator.',
+        title: "NOW Function in Excel: Current Date & Timestamp",
+        metaDescription: "Insert auto-updating current date and time in Excel using the NOW function. Build timestamps and elapsed time trackers with our free generator.",
         excelFunction: 'NOW',
         category: 'Date',
         description: 'Returns the serial number of the current date and time.',
         inputs: [],
         generate: () => `=NOW()`,
+        howToSteps: [
+        {
+                name: "Select Output Cell",
+                text: "Click the cell where you want the live timestamp."
+        },
+        {
+                name: "Enter NOW Formula",
+                text: "Type =NOW() without any arguments inside parentheses."
+        },
+        {
+                name: "Format Cell",
+                text: "Press Enter and set Cell Format to Date & Time (Ctrl+1)."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Use NOW in Excel (Current Date & Time)</h2>
+      <p>The <strong>NOW</strong> function returns the current computer date and time, updating automatically whenever the sheet recalculates.</p>
+      <h3>Syntax</h3>
+      <p><code>=NOW()</code></p>
+      <h3>Static Timestamp Shortcut</h3>
+      <p>If you need a <em>permanent</em> timestamp that never changes, use keyboard shortcut <code>Ctrl + Shift + ;</code> (Time) or <code>Ctrl + ;</code> (Date) instead of the volatile formula.</p>
+    </div>`,
         faq: [
             { question: 'Why does NOW update every time I open the spreadsheet?', answer: 'NOW is a volatile function — it recalculates whenever the worksheet recalculates. The result changes to the current date and time each time.' },
             { question: 'How do I freeze the value from NOW?', answer: 'Copy the cell and paste as values (Ctrl+Shift+V) to convert the formula to a static date/time. Alternatively, use Ctrl+; for the date and Ctrl+Shift+; for the time.' },
@@ -1174,13 +1441,38 @@ export const FORMULAS: FormulaConfig[] = [
     // 16. TODAY
     {
         slug: 'today',
-        title: 'TODAY Formula — Current Date in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate TODAY formulas instantly in Excel and Google Sheets. Get the current date for countdowns, aging reports, and expiration tracking. Free formula generator.',
+        title: "TODAY in Excel: Insert Live Current Date Formula",
+        metaDescription: "Get the current date automatically in Excel with the TODAY formula. Calculate days remaining, deadlines, and age with our free formula generator.",
         excelFunction: 'TODAY',
         category: 'Date',
         description: 'Returns the serial number of the current date.',
         inputs: [],
         generate: () => `=TODAY()`,
+        howToSteps: [
+        {
+                name: "Click Target Cell",
+                text: "Select the cell where you want today's date."
+        },
+        {
+                name: "Type =TODAY()",
+                text: "Enter =TODAY() and press Enter."
+        },
+        {
+                name: "Use in Date Math",
+                text: "Combine with other dates (e.g., =A2-TODAY() for countdown days)."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Insert Today's Date in Excel</h2>
+      <p>The <strong>TODAY</strong> function returns today's date, refreshing automatically on sheet open or calculation.</p>
+      <h3>Syntax</h3>
+      <p><code>=TODAY()</code></p>
+      <h3>Common Calculations</h3>
+      <ul>
+        <li><strong>Days Until Deadline:</strong> <code>=Due_Date - TODAY()</code></li>
+        <li><strong>Age in Years:</strong> <code>=INT((TODAY() - Birth_Date) / 365.25)</code></li>
+      </ul>
+    </div>`,
         faq: [
             { question: 'What is the difference between TODAY and NOW?', answer: 'TODAY returns just the current date (no time component). NOW returns both the current date and time. TODAY is a volatile function like NOW.' },
             { question: 'How do I calculate the number of days until a future date?', answer: 'Use a difference formula: =A1 - TODAY() where A1 contains the future date. The result is the number of days remaining.' },
@@ -1194,8 +1486,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 17. NETWORKDAYS
     {
         slug: 'networkdays',
-        title: 'NETWORKDAYS Formula — Count Working Days in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate NETWORKDAYS formulas instantly in Excel and Google Sheets. Count business days between dates, exclude weekends and holidays. Free formula generator.',
+        title: "NETWORKDAYS in Excel: Calculate Work Days & Holidays",
+        metaDescription: "Calculate the exact number of working days between two dates in Excel. Exclude weekends and custom holidays with our free formula builder.",
         excelFunction: 'NETWORKDAYS',
         category: 'Date',
         description: 'Returns the number of whole working days between start_date and end_date.',
@@ -1209,6 +1501,28 @@ export const FORMULAS: FormulaConfig[] = [
             if (p.holidays) args.push(p.holidays);
             return `=NETWORKDAYS(${args.join(', ')})`;
         },
+        howToSteps: [
+        {
+                name: "Specify Start Date",
+                text: "Select the project start date cell (e.g., A2)."
+        },
+        {
+                name: "Specify End Date",
+                text: "Select the project end date cell (e.g., B2)."
+        },
+        {
+                name: "Optional Holidays Range",
+                text: "Provide a range containing holiday dates (e.g., H2:H10)."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Calculate Working Days with NETWORKDAYS</h2>
+      <p>The <strong>NETWORKDAYS</strong> function calculates full working days between two dates, automatically excluding Saturdays, Sundays, and optional holidays.</p>
+      <h3>Syntax</h3>
+      <p><code>=NETWORKDAYS(start_date, end_date, [holidays])</code></p>
+      <h3>Example</h3>
+      <p><code>=NETWORKDAYS(A2, B2, $H$2:$H$10)</code> returns net working business days for accurate payroll and SLA tracking.</p>
+    </div>`,
         faq: [
             {
                 question: 'Does NETWORKDAYS include weekends?',
@@ -1224,8 +1538,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 18. PMT
     {
         slug: 'pmt',
-        title: 'PMT Formula — Calculate Loan Payments in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate PMT formulas instantly in Excel and Google Sheets. Calculate monthly loan payments. Free formula generator with examples for mortgages and auto loans.',
+        title: "PMT Function in Excel: Loan & Mortgage Payment Calculator",
+        metaDescription: "Calculate monthly loan payments in Excel using the PMT formula. Compute mortgage, auto, and interest payments with our free interactive generator.",
         excelFunction: 'PMT',
         category: 'Math', // Changed from Financial to Math as per type definition, or need to add Financial type
         description: 'Calculates the payment for a loan based on constant payments and a constant interest rate.',
@@ -1236,11 +1550,32 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=PMT(${p.rate || 'rate'}, ${p.nper || 'nper'}, ${p.pv || 'pv'})`,
         howToSteps: [
-            { name: 'Convert annual rate to periodic rate', text: 'Divide the annual interest rate by 12 for monthly payments. Example: 5%/12 for a 5% annual rate with monthly payments.' },
-            { name: 'Set the number of payments', text: 'Multiply the loan term in years by 12 for monthly payments. Example: 30 years × 12 = 360 payments.' },
-            { name: 'Enter the loan amount', text: 'Input the present value (loan principal). For a $200,000 loan, enter 200000.' },
-            { name: 'Interpret the result', text: 'PMT returns a negative value because it represents a payment (cash outflow). Use =-PMT(...) to display a positive number.' }
-        ],
+        {
+                name: "Enter Monthly Rate",
+                text: "Provide annual interest rate divided by 12 (e.g., 6%/12)."
+        },
+        {
+                name: "Enter Total Periods",
+                text: "Provide total months (e.g., 30 years * 12 = 360)."
+        },
+        {
+                name: "Enter Loan Amount (PV)",
+                text: "Enter loan principal (use negative e.g., -250000 for positive output)."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Calculate Loan Payments with PMT in Excel</h2>
+      <p>The <strong>PMT</strong> function calculates the payment for a loan based on constant payments and a constant interest rate.</p>
+      <h3>Syntax & Arguments</h3>
+      <p><code>=PMT(rate, nper, pv, [fv], [type])</code></p>
+      <ul>
+        <li><strong>rate</strong>: Interest rate per period (Annual Rate / 12 for monthly payments)</li>
+        <li><strong>nper</strong>: Total number of payment periods (Years * 12)</li>
+        <li><strong>pv</strong>: Present value or principal loan amount</li>
+      </ul>
+      <h3>Example Formula</h3>
+      <p><code>=PMT(5%/12, 360, -300000)</code> calculates the monthly payment on a $300,000 30-year fixed mortgage at 5% interest ($1,610.46/mo).</p>
+    </div>`,
         faq: [
             {
                 question: 'What does PMT calculate?',
@@ -1267,8 +1602,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 19. AND
     {
         slug: 'and',
-        title: 'AND Formula — Logical AND in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate AND formulas instantly in Excel and Google Sheets. Check if all conditions are true. Free formula generator with examples. Free Excel and Sheets builder.',
+        title: "AND Function in Excel: Test Multiple Conditions Together",
+        metaDescription: "Check if all conditions are true in Excel using the AND formula. Combine with IF to build powerful multi-condition validation logic easily.",
         excelFunction: 'AND',
         category: 'Logic',
         description: 'Returns TRUE if all its arguments are TRUE; returns FALSE if one or more argument is FALSE.',
@@ -1277,6 +1612,28 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'logical2', label: 'Condition 2', type: 'text', placeholder: 'e.g., B1<10' },
         ],
         generate: (p) => `=AND(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`,
+        howToSteps: [
+        {
+                name: "Enter First Condition",
+                text: "Specify your first logical test (e.g., A2 > 50)."
+        },
+        {
+                name: "Add Second Condition",
+                text: "Add more comma-separated conditions (e.g., B2 = 'Approved')."
+        },
+        {
+                name: "Nest inside IF",
+                text: "Wrap with IF for custom responses: =IF(AND(A2>50, B2='Approved'), 'Pass', 'Fail')."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Use the AND Function in Excel</h2>
+      <p>The <strong>AND</strong> function returns TRUE if all its arguments evaluate to TRUE; it returns FALSE if one or more arguments evaluate to FALSE.</p>
+      <h3>Syntax</h3>
+      <p><code>=AND(logical1, [logical2], ...)</code></p>
+      <h3>Combining with IF</h3>
+      <p><code>=IF(AND(Score>=70, Attendance>=80%), "Eligible", "Ineligible")</code></p>
+    </div>`,
         faq: [
             { question: 'How many conditions can AND check?', answer: 'AND can check up to 255 conditions in Excel (Excel 2007+). Google Sheets also supports multiple conditions.' },
             { question: 'Does AND evaluate all conditions or stop early?', answer: 'Excel AND evaluates all arguments regardless. Google Sheets uses short-circuit evaluation, stopping at the first FALSE.' },
@@ -1290,8 +1647,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 20. OR
     {
         slug: 'or',
-        title: 'OR Formula — Logical OR in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate OR formulas instantly in Excel and Google Sheets. Check if any condition is true. Free formula generator with examples. Free Excel and Sheets builder.',
+        title: "OR Function in Excel: Test If Any Condition Is True",
+        metaDescription: "Test if at least one condition is true in Excel with the OR formula. Combine with IF for flexible multi-criteria filtering with our free generator.",
         excelFunction: 'OR',
         category: 'Logic',
         description: 'Returns TRUE if any argument is TRUE; returns FALSE if all arguments are FALSE.',
@@ -1300,6 +1657,28 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'logical2', label: 'Condition 2', type: 'text', placeholder: 'e.g., B1<10' },
         ],
         generate: (p) => `=OR(${p.logical1 || 'logical1'}, ${p.logical2 || 'logical2'})`,
+        howToSteps: [
+        {
+                name: "Specify First Test",
+                text: "Enter your first logical test (e.g., A2 = 'VIP')."
+        },
+        {
+                name: "Specify Alternative Tests",
+                text: "Enter additional conditions separated by commas (e.g., B2 > 1000)."
+        },
+        {
+                name: "Evaluate & Wrap",
+                text: "Wrap inside IF: =IF(OR(A2='VIP', B2>1000), 'Discount', 'Regular')."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Use the OR Function in Excel</h2>
+      <p>The <strong>OR</strong> function returns TRUE if any argument is TRUE, and returns FALSE only when all arguments are FALSE.</p>
+      <h3>Syntax</h3>
+      <p><code>=OR(logical1, [logical2], ...)</code></p>
+      <h3>Example: Weekend Checker</h3>
+      <p><code>=IF(OR(WEEKDAY(A2)=1, WEEKDAY(A2)=7), "Weekend", "Workday")</code></p>
+    </div>`,
         faq: [
             { question: 'Can OR be used in conditional formatting?', answer: 'Yes. Use =OR(A1="Overdue", B1>30) in a conditional formatting rule to highlight cells matching any condition.' },
             { question: 'What is the difference between OR and AND?', answer: 'OR returns TRUE if ANY condition is true. AND returns TRUE only if ALL conditions are true. Use OR for flexible criteria and AND for strict criteria.' },
@@ -1313,8 +1692,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 21. Extract Email
     {
         slug: 'extract-email',
-        title: 'Extract Email from Text in Excel — Free Formula Generator | SheetMaster',
-        metaDescription: 'Extract email addresses from any text string using REGEX in Excel. Free formula generator for data cleaning and lead extraction. Free Excel and Sheets builder.',
+        title: "Extract Email from Text in Excel: Formula & Generator",
+        metaDescription: "Extract email addresses from messy text and strings in Excel & Google Sheets. Copy-paste ready formulas and interactive generator with no signup.",
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts an email address from a text string.',
@@ -1338,11 +1717,19 @@ export const FORMULAS: FormulaConfig[] = [
        </div>
      `,
         howToSteps: [
-            { name: 'Put messy text in a cell', text: 'Paste CRM exports, notes, or scraped text into a cell (e.g. A2).' },
-            { name: 'Use REGEXEXTRACT', text: 'The formula uses REGEXEXTRACT with an email pattern to return the first matching address.' },
-            { name: 'Fill or reference the cell', text: 'Point the generator at your cell reference so the formula reads from the correct row.' },
-            { name: 'Copy into Google Sheets', text: 'REGEXEXTRACT is native in Google Sheets; Excel 365 can use REGEXEXTRACT where available or alternative text parsing.' },
-        ],
+        {
+                name: "Paste Source Text",
+                text: "Identify the column containing raw text or bios with emails."
+        },
+        {
+                name: "Generate Formula",
+                text: "Use REGEXEXTRACT or TEXTBEFORE/TEXTAFTER based on your Excel version."
+        },
+        {
+                name: "Extract & Validate",
+                text: "Apply formula to extract clean, lowercase email addresses."
+        }
+],
         faq: [
             { question: 'Does Excel support REGEXEXTRACT?', answer: 'Google Sheets uses REGEXEXTRACT natively. Microsoft Excel 365 has added REGEXEXTRACT in newer builds; otherwise use TEXTSPLIT, MID/FIND patterns, or Power Query for extraction.' },
             { question: 'Why is my extracted email incomplete?', answer: 'The pattern returns one match. For multiple emails in one cell, use repeated formulas, SPLIT/TEXTJOIN workflows, or Apps Script.' },
@@ -1353,9 +1740,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 22. Extract Domain
     {
         slug: 'extract-domain',
-        title: 'Extract Domain from URL in Excel — Free Formula Generator | SheetMaster',
-        metaDescription:
-            'Pull the domain name from any URL or email address in Excel. Free interactive formula generator. Works in both Excel and Google Sheets. Free Excel and Sheets builder.',
+        title: "Extract Domain from URL & Email in Excel (Formulas)",
+        metaDescription: "Extract website domain names from URLs or email addresses in Excel & Google Sheets. Free formula generator with step-by-step examples.",
         excelFunction: 'REGEXEXTRACT',
         category: 'Text',
         description: 'Extracts the domain part from a URL.',
@@ -1363,6 +1749,20 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'target_cell', label: 'URL Cell', type: 'text', placeholder: 'e.g., A2' },
         ],
         generate: (p) => `=REGEXEXTRACT(${p.target_cell || 'A2'}, "^(?:https?:\\/\\/)?(?:www\\.)?([^\\/]+)")`,
+        howToSteps: [
+        {
+                name: "Select URL/Email Cell",
+                text: "Click the cell containing the web link or email address."
+        },
+        {
+                name: "Enter Extraction Formula",
+                text: "For email: =MID(A2, FIND(\"@\", A2)+1, LEN(A2))."
+        },
+        {
+                name: "Copy Down",
+                text: "Press Enter and double-click the fill handle down your table."
+        }
+],
         richContent: `
   <h3>How to Extract Domain from URL</h3>
   <p>For SEO specialists and marketers, extracting the root domain (e.g., "google.com") from a full URL (e.g., "[https://www.google.com/search?q=](https://www.google.com/search?q=)...") is a daily task.</p>
@@ -1398,9 +1798,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 23. Get First Word
     {
         slug: 'get-first-word',
-        title: 'Extract First Word from Text in Excel — LEFT & FIND Formula | SheetMaster',
-        metaDescription:
-            'Get the first word from any text string using LEFT and FIND. Handles edge cases like single-word cells. Free formula generator. Free Excel and Sheets builder.',
+        title: "Extract First Word from Text in Excel (LEFT & FIND)",
+        metaDescription: "Extract the first word or first name from text strings in Excel using LEFT and FIND. Clean customer names instantly with our free builder.",
         excelFunction: 'LEFT & FIND',
         category: 'Text',
         description: 'Returns the first word in a text string.',
@@ -1408,6 +1807,20 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'target_cell', label: 'Target Cell', type: 'text', placeholder: 'e.g., A2' },
         ],
         generate: (p) => `=LEFT(${p.target_cell || 'A2'}, FIND(" ", ${p.target_cell || 'A2'}) - 1)`,
+        howToSteps: [
+        {
+                name: "Identify Name Cell",
+                text: "Select the cell containing full names or multi-word strings."
+        },
+        {
+                name: "Apply LEFT & FIND Formula",
+                text: "Use =LEFT(A2, FIND(\" \", A2&\" \") - 1) to handle single & multi-word cells."
+        },
+        {
+                name: "Apply to Dataset",
+                text: "Press Enter and drag down to parse all first words."
+        }
+],
         richContent: `
   <h3>How to Get the First Word from a String</h3>
   <p>Extracting the first word is often used to get a person's <strong>First Name</strong> from a full name column.</p>
@@ -1450,8 +1863,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 24. Remove First 3 Characters
     {
         slug: 'remove-first-3-chars',
-        title: 'How to Remove First 3 Characters in Excel + Free Template & Generator',
-        metaDescription: 'Need to remove the first 3 characters in Excel? Learn 3 simple formulas (RIGHT+LEN, MID, REPLACE) with step-by-step examples. Try our free formula generator inside!',
+        title: "Remove First 3 Characters in Excel (Formulas & Tool)",
+        metaDescription: "Remove the first 3 characters in Excel instantly using RIGHT+LEN, MID, or REPLACE. Copy working formulas or use our interactive generator.",
         excelFunction: 'RIGHT & LEN',
         category: 'Text',
         description: 'Removes the specified number of characters from the beginning of a text string.',
@@ -1553,12 +1966,19 @@ export const FORMULAS: FormulaConfig[] = [
   </ul>
 `,
         howToSteps: [
-            { name: 'Identify your target cell', text: 'Select the cell containing your data (e.g. A2 has "SKU-12345"). This cell holds the text you want to trim.' },
-            { name: 'Enter RIGHT + LEN formula', text: 'Type =RIGHT(A2, LEN(A2)-3) into a new cell. This counts total characters in A2, subtracts 3, and returns everything after the first 3 characters.' },
-            { name: 'Adjust N for your use case', text: 'Replace "3" with any number. For 2 characters use -2, for 5 characters use -5. For dynamic stripping, reference a cell: =RIGHT(A2, LEN(A2)-D1).' },
-            { name: 'Copy formula down the column', text: 'Double-click the fill handle (small green square at bottom-right of the cell) to auto-apply the formula to all rows. Excel copies it down until the adjacent column is empty.' },
-            { name: 'Handle edge cases', text: 'If a cell is shorter than N characters, wrap with IF: =IF(LEN(A2)<=3, A2, RIGHT(A2,LEN(A2)-3)). This returns the original value instead of an empty result when the text is too short.' }
-        ],
+        {
+                name: "Select Target Cell",
+                text: "Click the cell where you want the trimmed text string."
+        },
+        {
+                name: "Enter RIGHT+LEN Formula",
+                text: "Type =RIGHT(A2, LEN(A2)-3) replacing 3 with your character count."
+        },
+        {
+                name: "Fill Column",
+                text: "Press Enter and double-click to apply down your entire column."
+        }
+],
         faq: [
             { question: 'How do I remove the first 3 characters in Excel?', answer: '=RIGHT(A2,LEN(A2)-3) removes exactly three characters from the left of the text in A2. You can change 3 to any number of characters you want to remove.' },
             { question: 'How do I remove the first 2 characters in Excel?', answer: 'Use =RIGHT(A2,LEN(A2)-2) to remove the first 2 characters. This is commonly used to strip country codes from phone numbers or remove prefix characters.' },
@@ -1582,8 +2002,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 25. SUMIFS - Multiple Criteria Sum
     {
         slug: 'sumifs',
-        title: 'SUMIFS Function in Excel: Sum if Multiple Criteria (Easy Guide)',
-        metaDescription: 'Learn how to use SUMIFS in Excel to sum values with multiple criteria. Clear examples, common mistakes, and a free formula generator. Works in Google Sheets.',
+        title: "SUMIFS in Excel: Sum with Multiple Criteria (Easy Guide)",
+        metaDescription: "Learn how to use SUMIFS in Excel to sum values matching multiple criteria. Step-by-step examples with dates, numbers, and free formula generator.",
         excelFunction: 'SUMIFS',
         category: 'Math',
         description: 'Adds all cells that meet multiple criteria. More powerful than SUMIF for complex conditions.',
@@ -1596,12 +2016,19 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=SUMIFS(${p.sum_range || 'sum_range'}, ${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`,
         howToSteps: [
-            { name: 'Identify your sum_range first', text: 'Unlike SUMIF, SUMIFS places the sum_range (cells to add) FIRST. Example: C:C is your sum_range (sales amounts).' },
-            { name: 'Add your first criteria pair', text: 'Type criteria_range1 and criteria1: =SUMIFS(C:C, A:A, "East"). This sums column C for all rows where column A is "East".' },
-            { name: 'Add more criteria pairs for AND logic', text: 'Append additional pairs: =SUMIFS(C:C, A:A, "East", B:B, ">500"). Only rows matching ALL conditions are summed.' },
-            { name: 'Keep all ranges equal-sized', text: 'Every range (sum_range and all criteria_ranges) must have the same number of rows. A1:A100, B1:B100, C1:C100 — all 100 rows.' },
-            { name: 'Verify against a manual check', text: 'Filter your data manually for one combination and compare to the formula result. This catches syntax errors early.' }
-        ],
+        {
+                name: "Select Sum Range First",
+                text: "Highlight the column of numbers you want to sum (e.g., C2:C100)."
+        },
+        {
+                name: "Add First Criteria Range & Condition",
+                text: "Select criteria column 1 and value (e.g., A2:A100, \"North\")."
+        },
+        {
+                name: "Add Second Criteria Range & Condition",
+                text: "Select criteria column 2 and value (e.g., B2:B100, \">1000\")."
+        }
+],
         faq: [
             { question: 'How to use SUMIFS with multiple criteria in Excel?', answer: 'Syntax: =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2, ...). Example: =SUMIFS(C:C, A:A, "North", B:B, ">100") sums column C where column A is "North" AND column B > 100.' },
             { question: 'Why does SUMIFS return 0?', answer: 'Three main causes: (1) sum_range and criteria_ranges have different sizes. (2) Text criteria missing quotes — use "North" not North. (3) Argument order wrong — sum_range must be FIRST, not last like SUMIF.' },
@@ -1714,8 +2141,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 26. COUNTIFS - Multiple Criteria Count
     {
         slug: 'countifs',
-        title: 'How to Use COUNTIFS in Excel (Multiple Criteria) + Free Template',
-        metaDescription: 'Counting cells with multiple criteria? Master the COUNTIFS formula in Excel. Detailed guide, date & wildcard examples, plus a free interactive formula builder!',
+        title: "COUNTIFS in Excel: Multiple Criteria Guide & Builder",
+        metaDescription: "Master COUNTIFS in Excel with multiple criteria, dates, and wildcards. Build working formulas step-by-step with our free interactive generator.",
         excelFunction: 'COUNTIFS',
         category: 'Math',
         description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
@@ -1727,12 +2154,19 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=COUNTIFS(${p.criteria_range1 || 'criteria_range1'}, ${p.criteria1 || 'criteria1'}, ${p.criteria_range2 || 'criteria_range2'}, ${p.criteria2 || 'criteria2'})`,
         howToSteps: [
-            { name: 'Identify your data columns', text: 'Select the columns you want to filter. For example, column A has regions, column B has sales amounts. Each column becomes a criteria_range.' },
-            { name: 'Enter COUNTIFS with first criteria pair', text: 'Type =COUNTIFS(A:A, "East") to set your first condition. This counts all rows where column A is "East".' },
-            { name: 'Add more criteria pairs for AND logic', text: 'Add additional pairs separated by commas: =COUNTIFS(A:A, "East", B:B, ">500"). Both conditions must be true for the same row to be counted.' },
-            { name: 'Keep all ranges equal-sized', text: 'Every criteria_range must have the same number of rows. A1:A100 and B1:B100 work. A1:A100 and B2:B101 give wrong results.' },
-            { name: 'Test your count with a manual check', text: 'Filter your data manually to verify the first few rows. Once confirmed, the formula is ready for reports and dashboards.' }
-        ],
+        {
+                name: "Select Criteria Range 1",
+                text: "Highlight first range to evaluate (e.g., A2:A100)."
+        },
+        {
+                name: "Define Criteria 1",
+                text: "Set first condition (e.g., \"Completed\")."
+        },
+        {
+                name: "Add Criteria Range 2 & Criteria 2",
+                text: "Add more range/criteria pairs as needed, then press Enter."
+        }
+],
         faq: [
             { question: 'How to use COUNTIFS with multiple criteria?', answer: 'Syntax: =COUNTIFS(criteria_range1, criteria1, criteria_range2, criteria2, ...). Example: =COUNTIFS(A:A, "East", B:B, ">500", C:C, "<>") counts rows where region is East, amount > 500, and category is not blank.' },
             { question: 'Why does my COUNTIFS return 0?', answer: 'Three most common causes: (1) Criteria ranges differ in size — all ranges must have the same row count. (2) Text values missing quotes — use "Completed" not Completed. (3) No rows match ALL conditions — test with fewer criteria to isolate.' },
@@ -1844,16 +2278,25 @@ export const FORMULAS: FormulaConfig[] = [
     // 27. AVERAGEIF - Conditional Average
     {
         slug: 'averageif',
-        title: 'How to Use AVERAGEIF in Excel: Conditional Average Guide (+ Free Tool)',
-        metaDescription: 'Want to calculate conditional averages? Learn how to use the AVERAGEIF formula in Excel with text, numbers, and dates. Includes free formula generator & examples.',
+        title: "AVERAGEIF in Excel: Conditional Average Guide & Tool",
+        metaDescription: "Calculate conditional averages in Excel based on text, numbers, or dates. Generate working AVERAGEIF formulas with our free interactive builder.",
         excelFunction: 'AVERAGEIF',
         category: 'Math',
         description: 'Returns the average of all cells in a range that meet a given criteria.',
         howToSteps: [
-            { name: 'Select check range', text: 'Enter the column or range of cells you want to evaluate (e.g. A1:A100).' },
-            { name: 'Define condition', text: 'Enter the criteria to filter by, such as ">0" or "Sales".' },
-            { name: 'Specify average range (optional)', text: 'If the cells to average are different from the criteria range, select the average range (e.g. B1:B100).' }
-        ],
+        {
+                name: "Select Criteria Range",
+                text: "Highlight the cells evaluated against your condition (e.g., A2:A50)."
+        },
+        {
+                name: "Define Criteria",
+                text: "Set condition (e.g., \"Marketing\" or \">0\")."
+        },
+        {
+                name: "Select Average Range",
+                text: "Highlight numbers to average (e.g., B2:B50), then press Enter."
+        }
+],
         inputs: [
             { id: 'range', label: 'Range to Check', type: 'range', placeholder: 'e.g., A1:A100' },
             { id: 'criteria', label: 'Criteria', type: 'text', placeholder: 'e.g., ">0" or "Sales"' },
@@ -1901,8 +2344,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 28. IFERROR - Error Handling
     {
         slug: 'iferror',
-        title: 'How to Use IFERROR in Excel (Catch Formula Errors + Free Generator)',
-        metaDescription: 'Clean up #N/A, #DIV/0, and #VALUE! errors in Excel. Master IFERROR with VLOOKUP, XLOOKUP & division. Free generator with real-world examples.',
+        title: "IFERROR in Excel: Catch & Replace #N/A, #VALUE Errors",
+        metaDescription: "Replace ugly #N/A, #VALUE!, and #DIV/0! errors with clean text or 0 in Excel. Master IFERROR with VLOOKUP using our free interactive builder.",
         excelFunction: 'IFERROR',
         category: 'Logic',
         description: 'Returns a value you specify if a formula evaluates to an error; otherwise returns the result of the formula.',
@@ -1913,12 +2356,19 @@ export const FORMULAS: FormulaConfig[] = [
         generate: (p) => `=IFERROR(${p.value || 'value'}, ${p.value_if_error || '""'})`,
         relatedTools: ['if', 'ifs', 'xlookup', 'vlookup', 'index-match'],
         howToSteps: [
-            { name: 'Enter formula to protect', text: 'Type or paste the formula that might produce an error, e.g. A1/B1 for division, or VLOOKUP(A2, B:C, 2, FALSE) for lookups. Be sure the formula works correctly first before wrapping it.' },
-            { name: 'Choose fallback value', text: 'Decide what to show on error: 0 for calculations (keeps totals accurate), "Not Found" for lookups, or "" to leave the cell blank for clean reports.' },
-            { name: 'Wrap with IFERROR', text: 'Place your formula as the first argument and your fallback as the second: =IFERROR(A1/B1, 0). IFERROR checks the first argument and if it returns any error, shows the second argument instead.' },
-            { name: 'Test with error case', text: 'Test the formula with data that would normally cause an error (e.g., divide by zero, look up a missing value). Verify the fallback displays as expected.' },
-            { name: 'Apply to entire range', text: 'Drag or copy the IFERROR formula down your entire data column. Every cell is now protected — no more ugly error messages in your spreadsheet.' }
-        ],
+        {
+                name: "Enter Primary Formula",
+                text: "Write your lookup or math formula (e.g., VLOOKUP(A2, D:E, 2, FALSE))."
+        },
+        {
+                name: "Wrap with IFERROR",
+                text: "Prepend =IFERROR( and add comma at the end."
+        },
+        {
+                name: "Specify Fallback Value",
+                text: "Add fallback (e.g., \"Not Found\" or 0), close parenthesis, and hit Enter."
+        }
+],
         faq: [
             { question: 'What errors does IFERROR catch?', answer: 'IFERROR catches #N/A, #VALUE!, #REF!, #DIV/0!, #NAME?, #NUM!, and #NULL!. It returns your fallback value for any of these errors.' },
             { question: 'Should I use IFERROR around VLOOKUP?', answer: 'Yes. When the lookup value is not found, VLOOKUP returns #N/A. Wrapping in IFERROR lets you show "Not Found" or 0 instead: =IFERROR(VLOOKUP(A2, B:C, 2, FALSE), "Not Found").' },
@@ -2000,9 +2450,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 29. IFS - Multiple Conditions
     {
         slug: 'ifs',
-        title: 'How to Use IFS in Excel (Multiple IF Conditions + Free Generator)',
-        metaDescription:
-            'Struggling with nested IFs? Use IFS to evaluate multiple conditions in Excel & Sheets. Free IFS formula generator with real-world examples. Try it now!',
+        title: "IFS in Excel: Multiple Conditions Without Nested IF",
+        metaDescription: "Evaluate multiple conditions in Excel without messy nested IF formulas. Generate clean, readable IFS formulas with our free interactive tool.",
         excelFunction: 'IFS',
         category: 'Logic',
         description: 'Checks multiple conditions and returns a value corresponding to the first TRUE condition. Cleaner than nested IFs.',
@@ -2071,12 +2520,19 @@ export const FORMULAS: FormulaConfig[] = [
   </div>
 </div>`,
         howToSteps: [
-            { name: 'Identify conditions in priority order', text: 'List your conditions from highest priority to lowest. For grades, start with A1>=90, then A1>=80, then A1>=70, etc. Excel checks top-down and stops at the first TRUE.' },
-            { name: 'Write each logical test', text: 'Enter each condition as a comparison: A1>=90, B2="Paid", or C5<TODAY(). Use cell references like A1, not raw values, so the formula updates automatically.' },
-            { name: 'Pair each condition with a result', text: 'Each condition must be followed by its return value — IFS requires an even number of arguments. Results can be text ("Approved"), numbers (100), or cell references (D1).' },
-            { name: 'Add TRUE fallback', text: 'Use TRUE as the final condition to handle every remaining case. Without it, unmatched conditions return #N/A. Example: =IFS(A1>=90,"A",TRUE,"F").' },
-            { name: 'Test with sample data', text: 'Enter a few test values in column A and verify each returns the expected result. Check edge cases: the lowest score, blank cells, and text entries.' },
-        ],
+        {
+                name: "Define Condition 1 & Value 1",
+                text: "Type first test and output (e.g., A2>=90, \"A\")."
+        },
+        {
+                name: "Define Condition 2 & Value 2",
+                text: "Add second test and output (e.g., A2>=80, \"B\")."
+        },
+        {
+                name: "Add Default Fallback (TRUE)",
+                text: "Use TRUE, \"F\" as the final pair to catch all other values."
+        }
+],
         faq: [
             {
                 question: 'Can IFS replace nested IF for letter grades?',
@@ -2123,22 +2579,39 @@ export const FORMULAS: FormulaConfig[] = [
     // 30. SUBSTITUTE - Text Replacement
     {
         slug: 'substitute',
-        title: 'SUBSTITUTE Formula — Find & Replace Text in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate SUBSTITUTE formulas instantly in Excel and Google Sheets. Find and replace text in strings. Free formula generator with examples. Free Excel and Sheets builder.',
+        title: "SUBSTITUTE in Excel: Replace Specific Text in Strings",
+        metaDescription: "Replace specific characters, words, or symbols in Excel text using SUBSTITUTE. Clean dates, dashes, and phone numbers with our free generator.",
         excelFunction: 'SUBSTITUTE',
         category: 'Text',
         description: 'Substitutes new text for old text in a text string. Great for data cleaning.',
         howToSteps: [
-            { name: 'Select source text', text: 'Choose the cell containing the text you want to modify (e.g. A1).' },
-            { name: 'Enter old text', text: 'Specify the exact text or character you want to replace, enclosed in quotes.' },
-            { name: 'Enter new text', text: 'Specify the text you want to replace it with, enclosed in quotes.' }
-        ],
+        {
+                name: "Select Text Cell",
+                text: "Click the cell containing text to modify (e.g., A2)."
+        },
+        {
+                name: "Specify Old Text",
+                text: "Enter the character or word to find in quotes (e.g., \"-\")."
+        },
+        {
+                name: "Specify New Text",
+                text: "Enter replacement text in quotes (e.g., \"/\" or \"\" to delete)."
+        }
+],
         inputs: [
             { id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' },
             { id: 'old_text', label: 'Old Text', type: 'text', placeholder: 'e.g., "-"' },
             { id: 'new_text', label: 'New Text', type: 'text', placeholder: 'e.g., "/"' },
         ],
         generate: (p) => `=SUBSTITUTE(${p.text || 'text'}, ${p.old_text || '"old"'}, ${p.new_text || '"new"'})`,
+        richContent: `<div class="space-y-6">
+      <h2>How to Use SUBSTITUTE in Excel</h2>
+      <p>The <strong>SUBSTITUTE</strong> function replaces existing text with new text in a text string. It is case-sensitive.</p>
+      <h3>Syntax</h3>
+      <p><code>=SUBSTITUTE(text, old_text, new_text, [instance_num])</code></p>
+      <h3>Example: Cleaning Phone Numbers</h3>
+      <p>To strip dashes from a phone number: <code>=SUBSTITUTE(A2, "-", "")</code></p>
+    </div>`,
         faq: [
             { question: 'Is SUBSTITUTE case-sensitive?', answer: 'Yes, SUBSTITUTE is case-sensitive. "apple" will not match "Apple". For case-insensitive replacement, use REPLACE with UPPER/LOWER.' },
             { question: 'Can I replace only the first occurrence?', answer: 'Yes, add a fourth argument (instance_num) to specify which occurrence. Omit it to replace all occurrences.' },
@@ -2152,8 +2625,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 31. MID - Extract Middle Text
     {
         slug: 'mid',
-        title: 'MID Formula — Extract Text from Middle of String in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate MID formulas instantly in Excel and Google Sheets. Extract specific characters from anywhere in a text string. Free formula generator with examples.',
+        title: "MID Function in Excel: Extract Text from Middle of Strings",
+        metaDescription: "Extract characters from the middle of any text string in Excel using the MID formula. Set start position and length with our free generator.",
         excelFunction: 'MID',
         category: 'Text',
         description: 'Returns a specific number of characters from a text string, starting at the position you specify.',
@@ -2163,6 +2636,28 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'num_chars', label: 'Number of Characters', type: 'number', placeholder: 'e.g., 5' },
         ],
         generate: (p) => `=MID(${p.text || 'text'}, ${p.start_num || '1'}, ${p.num_chars || '1'})`,
+        howToSteps: [
+        {
+                name: "Select Text Cell",
+                text: "Select cell containing your text string (e.g., A2)."
+        },
+        {
+                name: "Specify Start Position",
+                text: "Enter character position to start extracting from (1-based index)."
+        },
+        {
+                name: "Specify Character Count",
+                text: "Enter number of characters to extract and press Enter."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Use the MID Function in Excel</h2>
+      <p>The <strong>MID</strong> function returns a specific number of characters from a text string, starting at the position you specify.</p>
+      <h3>Syntax</h3>
+      <p><code>=MID(text, start_num, num_chars)</code></p>
+      <h3>Example</h3>
+      <p>To extract the 4-digit year from ID code "PROJ-2026-US": <code>=MID(A2, 6, 4)</code> returns <strong>"2026"</strong>.</p>
+    </div>`,
         faq: [
             { question: 'What happens if start_num is negative or zero?', answer: 'MID returns a #VALUE! error if start_num is less than 1. Always start from position 1 or higher.' },
             { question: 'What if start_num is beyond the text length?', answer: 'MID returns an empty string ("") if start_num exceeds the total length of the text.' },
@@ -2176,17 +2671,35 @@ export const FORMULAS: FormulaConfig[] = [
     // 32. LEN - Text Length
     {
         slug: 'len',
-        title: 'Free LEN Formula Generator & Character Counter — Excel & Sheets',
-        metaDescription: 'Count characters in cells using Excel & Google Sheets LEN formulas. Free generator with clear syntax examples and quick guide. Free Excel and Sheets builder.',
+        title: "LEN in Excel: Count Total Characters in a Cell",
+        metaDescription: "Count the exact number of characters (including spaces & punctuation) in Excel with the LEN formula. Validate data length with our free builder.",
         excelFunction: 'LEN',
         category: 'Text',
         description: 'Returns the number of characters in a text string.',
         howToSteps: [
-            { name: 'Select target cell', text: 'Choose the cell containing the text or number you want to count (e.g. A1).' },
-            { name: 'Clean text (optional)', text: 'If there are leading or trailing spaces, wrap the cell in TRIM to avoid counting them (e.g. =LEN(TRIM(A1))).' }
-        ],
+        {
+                name: "Select Output Cell",
+                text: "Click the empty cell where character count will appear."
+        },
+        {
+                name: "Enter LEN Formula",
+                text: "Type =LEN(A2) where A2 is the text cell."
+        },
+        {
+                name: "Press Enter",
+                text: "Hit Enter to view total character count."
+        }
+],
         inputs: [{ id: 'text', label: 'Text', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=LEN(${p.text || 'text'})`,
+        richContent: `<div class="space-y-6">
+      <h2>How to Count Characters in Excel with LEN</h2>
+      <p>The <strong>LEN</strong> function returns the number of characters in a text string, counting letters, numbers, spaces, and punctuation.</p>
+      <h3>Syntax</h3>
+      <p><code>=LEN(text)</code></p>
+      <h3>Combine with Other Formulas</h3>
+      <p>LEN is frequently combined with <code>RIGHT</code> and <code>FIND</code> for dynamic text trimming and character extraction.</p>
+    </div>`,
         faq: [
             { question: 'Does LEN count spaces?', answer: 'Yes, LEN counts every character including spaces, punctuation, and invisible characters. "Hello World" returns 11, not 10.' },
             { question: 'What does LEN return for an empty cell?', answer: 'LEN returns 0 for a completely empty cell. If the cell contains a formula that returns "", the length is also 0.' },
@@ -2200,8 +2713,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 33. FIND - Find Text Position
     {
         slug: 'find',
-        title: 'FIND Formula in Excel — Locate Text Position (Case-Sensitive) | SheetMaster',
-        metaDescription: 'Find the position of text within a string using Excel FIND function. Case-sensitive search. Free formula generator for Excel and Google Sheets.',
+        title: "FIND in Excel: Locate Text Position (Case-Sensitive)",
+        metaDescription: "Find the exact character position of a substring in Excel with FIND. Case-sensitive text position locator with our free interactive formula builder.",
         excelFunction: 'FIND',
         category: 'Text',
         description: 'Returns the starting position of one text string within another (case-sensitive).',
@@ -2211,6 +2724,31 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=FIND(${p.find_text || 'find_text'}, ${p.within_text || 'within_text'})`,
         relatedTools: ['search', 'left', 'mid', 'right', 'len', 'substitute'],
+        howToSteps: [
+        {
+                name: "Specify Search Substring",
+                text: "Enter the character to find in quotes (e.g., \"@\" or \"-\")."
+        },
+        {
+                name: "Specify Target Text Cell",
+                text: "Enter the cell reference to search within (e.g., A2)."
+        },
+        {
+                name: "Optional Start Number",
+                text: "Set starting character index (defaults to 1)."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Find Character Position with FIND in Excel</h2>
+      <p>The <strong>FIND</strong> function locates one text string inside another and returns its starting character number. It is <strong>case-sensitive</strong>.</p>
+      <h3>Syntax</h3>
+      <p><code>=FIND(find_text, within_text, [start_num])</code></p>
+      <h3>FIND vs SEARCH</h3>
+      <ul>
+        <li><strong>FIND:</strong> Case-sensitive, does NOT support wildcards.</li>
+        <li><strong>SEARCH:</strong> Case-insensitive, supports <code>?</code> and <code>*</code> wildcards.</li>
+      </ul>
+    </div>`,
         faq: [
             { question: 'Is FIND case-sensitive?', answer: 'Yes, FIND is case-sensitive. "Apple" and "apple" are different. For case-insensitive search, use SEARCH instead.' },
             { question: 'What does FIND return if the text is not found?', answer: 'FIND returns a #VALUE! error if the search text is not found. Use IFERROR to handle this: =IFERROR(FIND("x", A1), 0).' },
@@ -2224,8 +2762,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 34. SEARCH - Search Text Position
     {
         slug: 'search',
-        title: 'SEARCH Formula — Case-Insensitive Text Search in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate SEARCH formulas instantly for Excel and Google Sheets. Find text positions with wildcards (*, ?). Free formula generator with examples — no signup.',
+        title: "SEARCH in Excel: Find Text Position (Case-Insensitive)",
+        metaDescription: "Find text position in Excel without worrying about uppercase or lowercase. Generate SEARCH formulas with wildcards using our free generator.",
         excelFunction: 'SEARCH',
         category: 'Text',
         description: 'Returns the position of a text string within another (case-insensitive). Supports wildcards.',
@@ -2234,6 +2772,26 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'within_text', label: 'Within Text', type: 'text', placeholder: 'e.g., A1' },
         ],
         generate: (p) => `=SEARCH(${p.find_text || 'find_text'}, ${p.within_text || 'within_text'})`,
+        howToSteps: [
+        {
+                name: "Enter Find Text",
+                text: "Provide the substring to locate (e.g., \"total\" or \"#\")."
+        },
+        {
+                name: "Select Target Cell",
+                text: "Select cell reference to search within (e.g., A2)."
+        },
+        {
+                name: "Combine with MID/LEFT",
+                text: "Use position output inside MID or LEFT for dynamic slicing."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Use SEARCH in Excel</h2>
+      <p>The <strong>SEARCH</strong> function finds the position of a substring inside a text string. Unlike FIND, SEARCH is <strong>case-insensitive</strong> and allows wildcards.</p>
+      <h3>Syntax</h3>
+      <p><code>=SEARCH(find_text, within_text, [start_num])</code></p>
+    </div>`,
         faq: [
             { question: 'What wildcards does SEARCH support?', answer: 'SEARCH supports * (any characters), ? (single character), and ~ (escape character). For example, SEARCH("A*", A1) finds any text starting with A.' },
             { question: 'What is the difference between SEARCH and FIND?', answer: 'SEARCH is case-insensitive and supports wildcards. FIND is case-sensitive and does not support wildcards. SEARCH("apple") matches "Apple", "APPLE", "apple". FIND does not.' },
@@ -2247,16 +2805,25 @@ export const FORMULAS: FormulaConfig[] = [
     // 35. TEXT - Format Numbers as Text
     {
         slug: 'text',
-        title: 'TEXT Formula — Format Numbers as Text in Excel & Sheets | SheetMaster',
-        metaDescription: 'Convert numbers to formatted text, currency, or dates using TEXT. Free formula generator for Excel and Google Sheets. Free Excel and Sheets builder.',
+        title: "TEXT in Excel: Format Numbers, Dates & Currency",
+        metaDescription: "Format dates, currency, percentages, and leading zeros in Excel with the TEXT formula. Build custom format codes with our free formula generator.",
         excelFunction: 'TEXT',
         category: 'Text',
         description: 'Converts a value to text in a specific number format.',
         howToSteps: [
-            { name: 'Select value', text: 'Enter the cell containing the number or date you want to format (e.g. A1).' },
-            { name: 'Choose format code', text: 'Select or write a custom format code (like "$#,##0.00" for money or "YYYY-MM-DD" for date).' },
-            { name: 'Copy formatted output', text: 'Note that the result is text, so it cannot be used in numerical calculations directly.' }
-        ],
+        {
+                name: "Select Number/Date Cell",
+                text: "Choose the cell containing numeric data (e.g., A2)."
+        },
+        {
+                name: "Specify Format Pattern",
+                text: "Enter format string in quotes (e.g., \"yyyy-mm-dd\", \"$#,##0.00\")."
+        },
+        {
+                name: "Combine with Strings",
+                text: "Concatenate: =\"Total: \" & TEXT(A2, \"$#,##0.00\")."
+        }
+],
         inputs: [
             { id: 'value', label: 'Value', type: 'text', placeholder: 'e.g., A1' },
             {
@@ -2275,6 +2842,19 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=TEXT(${p.value || 'value'}, ${p.format || '"#,##0"'})`,
         relatedTools: ['left', 'right', 'mid', 'concatenate', 'proper'],
+        richContent: `<div class="space-y-6">
+      <h2>How to Format Numbers and Dates with TEXT in Excel</h2>
+      <p>The <strong>TEXT</strong> function converts a number into formatted text using custom format codes.</p>
+      <h3>Common Format Codes</h3>
+      <table class="min-w-full divide-y divide-gray-200 border text-sm">
+        <thead class="bg-gray-50"><tr><th class="p-2 text-left">Goal</th><th class="p-2 text-left">Formula</th><th class="p-2 text-left">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="p-2">Date Format</td><td class="p-2 font-mono">=TEXT(TODAY(), "yyyy-mm-dd")</td><td class="p-2 font-mono">2026-08-26</td></tr>
+          <tr><td class="p-2">Currency</td><td class="p-2 font-mono">=TEXT(1234.5, "$#,##0.00")</td><td class="p-2 font-mono">$1,234.50</td></tr>
+          <tr><td class="p-2">Leading Zeros</td><td class="p-2 font-mono">=TEXT(42, "00000")</td><td class="p-2 font-mono">00042</td></tr>
+        </tbody>
+      </table>
+    </div>`,
         faq: [
             { question: 'What is the most useful TEXT format code?', answer: '"$#,##0.00" for currency, "YYYY-MM-DD" for dates, "0.0%" for percentages, and "00000" for leading zeros (like ZIP codes).' },
             { question: 'Why is my formatted number not calculating in formulas?', answer: 'TEXT converts numbers to text, which other formulas may not recognize as numeric. Use the original cell for calculations and TEXT only for display/output.' },
@@ -2288,20 +2868,36 @@ export const FORMULAS: FormulaConfig[] = [
     // 36. ROUND - Round Numbers
     {
         slug: 'round',
-        title: 'ROUND Formula — Round Numbers in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate ROUND formulas instantly in Excel and Google Sheets. Round to specific decimal places, to nearest 10/100, or to integers. Free formula generator.',
+        title: "ROUND in Excel: Round Numbers to Specified Decimals",
+        metaDescription: "Round numbers to specified decimal places or nearest integer in Excel with the ROUND formula. Clean financial calculations with our free builder.",
         excelFunction: 'ROUND',
         category: 'Math',
         description: 'Rounds a number to a specified number of digits.',
         howToSteps: [
-            { name: 'Select number', text: 'Choose the cell containing the decimal value you want to round (e.g. A1).' },
-            { name: 'Set decimal places', text: 'Enter the number of digits to round to. 0 rounds to the nearest whole integer.' }
-        ],
+        {
+                name: "Select Number Cell",
+                text: "Click the cell with decimals to round (e.g., A2)."
+        },
+        {
+                name: "Set Decimal Places",
+                text: "Enter 2 for cents, 0 for nearest whole number, or -1 for nearest 10."
+        },
+        {
+                name: "Press Enter",
+                text: "Execute formula and copy down."
+        }
+],
         inputs: [
             { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 2' },
         ],
         generate: (p) => `=ROUND(${p.number || 'number'}, ${p.num_digits || '0'})`,
+        richContent: `<div class="space-y-6">
+      <h2>How to Round Numbers in Excel with ROUND</h2>
+      <p>The <strong>ROUND</strong> function rounds a number to a specified number of decimal digits according to standard mathematical rules (0.5 rounds up).</p>
+      <h3>Syntax</h3>
+      <p><code>=ROUND(number, num_digits)</code></p>
+    </div>`,
         faq: [
             { question: 'What is the difference between ROUND, ROUNDUP, and ROUNDDOWN?', answer: 'ROUND rounds to the nearest value (away from zero at .5). ROUNDUP always rounds up (away from zero). ROUNDDOWN always rounds down (toward zero).' },
             { question: 'Can I round to the left of the decimal point?', answer: 'Yes. Use negative num_digits: -1 rounds to tens, -2 to hundreds, -3 to thousands. Example: =ROUND(1234, -2) returns 1200.' },
@@ -2315,8 +2911,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 37. ROUNDUP - Round Up
     {
         slug: 'roundup',
-        title: 'ROUNDUP Formula in Excel — Round Numbers Up Instantly | SheetMaster',
-        metaDescription: 'Generate ROUNDUP formulas to always round numbers up, away from zero. Free tool for Excel and Google Sheets. Instant formula builder. Free Excel and Sheets builder.',
+        title: "ROUNDUP in Excel: Always Round Numbers Up (Ceiling)",
+        metaDescription: "Always round numbers up away from zero in Excel using the ROUNDUP formula. Calculate packaging, inventory, and rates with our free tool.",
         excelFunction: 'ROUNDUP',
         category: 'Math',
         description: 'Rounds a number up, away from zero.',
@@ -2326,6 +2922,28 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=ROUNDUP(${p.number || 'number'}, ${p.num_digits || '0'})`,
         relatedTools: ['round', 'rounddown', 'abs', 'floor', 'ceil'],
+        howToSteps: [
+        {
+                name: "Select Value Cell",
+                text: "Select the decimal number cell (e.g., A2)."
+        },
+        {
+                name: "Set Num Digits",
+                text: "Enter decimal precision (0 for whole units, 2 for cents)."
+        },
+        {
+                name: "Apply to Calculations",
+                text: "Press Enter to guarantee upward rounding."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Round Up in Excel with ROUNDUP</h2>
+      <p>The <strong>ROUNDUP</strong> function behaves like ROUND, except that it always rounds a number up away from zero.</p>
+      <h3>Syntax</h3>
+      <p><code>=ROUNDUP(number, num_digits)</code></p>
+      <h3>Example: Minimum Packaging Units</h3>
+      <p>If you need 10.2 boxes, <code>=ROUNDUP(10.2, 0)</code> ensures you order <strong>11</strong> boxes.</p>
+    </div>`,
         faq: [
             { question: 'When should I use ROUNDUP instead of ROUND?', answer: 'Use ROUNDUP when you need to ensure a value never falls below a threshold, such as calculating required materials, shipping charges, or pricing markups.' },
             { question: 'Does ROUNDUP ever round down?', answer: 'No. ROUNDUP always rounds away from zero. Even 1.001 rounded to 0 decimals becomes 2. Use ROUNDDOWN for forced rounding toward zero.' },
@@ -2339,20 +2957,36 @@ export const FORMULAS: FormulaConfig[] = [
     // 38. ROUNDDOWN - Round Down
     {
         slug: 'rounddown',
-        title: 'ROUNDDOWN Formula — Always Round Down in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate ROUNDDOWN formulas instantly in Excel and Google Sheets. Always round toward zero for conservative estimates and truncation. Free tool with examples.',
+        title: "ROUNDDOWN in Excel: Always Round Numbers Down (Floor)",
+        metaDescription: "Round numbers down toward zero in Excel with the ROUNDDOWN formula. Truncate decimals for milestone and age tracking with our free generator.",
         excelFunction: 'ROUNDDOWN',
         category: 'Math',
         description: 'Rounds a number down, toward zero.',
         howToSteps: [
-            { name: 'Select number', text: 'Choose the cell containing the decimal value you want to truncate (e.g. A1).' },
-            { name: 'Set decimal places', text: 'Enter how many digits to keep. 0 rounds down to the nearest whole integer towards zero.' }
-        ],
+        {
+                name: "Select Number Cell",
+                text: "Click the cell containing the decimal value."
+        },
+        {
+                name: "Specify Decimal Precision",
+                text: "Enter 0 for integers or 2 for hundredths."
+        },
+        {
+                name: "Press Enter",
+                text: "Apply formula to truncate without upward rounding."
+        }
+],
         inputs: [
             { id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' },
             { id: 'num_digits', label: 'Decimal Places', type: 'number', placeholder: 'e.g., 0' },
         ],
         generate: (p) => `=ROUNDDOWN(${p.number || 'number'}, ${p.num_digits || '0'})`,
+        richContent: `<div class="space-y-6">
+      <h2>How to Round Down in Excel with ROUNDDOWN</h2>
+      <p>The <strong>ROUNDDOWN</strong> function behaves like ROUND, except that it always rounds numbers down toward zero.</p>
+      <h3>Syntax</h3>
+      <p><code>=ROUNDDOWN(number, num_digits)</code></p>
+    </div>`,
         faq: [
             { question: 'When should I use ROUNDDOWN?', answer: 'Use ROUNDDOWN when you need to truncate values without rounding up, such as calculating whole units, integer payouts, or conservative estimates.' },
             { question: 'Does ROUNDDOWN just drop extra digits?', answer: 'Yes. ROUNDDOWN truncates toward zero — it simply discards digits beyond the specified decimal places without any rounding.' },
@@ -2366,13 +3000,35 @@ export const FORMULAS: FormulaConfig[] = [
     // 39. ABS - Absolute Value
     {
         slug: 'abs',
-        title: 'ABS Formula — Absolute Value in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate ABS formulas instantly in Excel and Google Sheets. Get absolute values, calculate differences and variances. Free formula generator with examples.',
+        title: "ABS in Excel: Calculate Absolute Value (Formula Guide)",
+        metaDescription: "Convert negative numbers to positive values in Excel using the ABS formula. Calculate variances and differences easily with our free tool.",
         excelFunction: 'ABS',
         category: 'Math',
         description: 'Returns the absolute value of a number (removes the negative sign).',
         inputs: [{ id: 'number', label: 'Number', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=ABS(${p.number || 'number'})`,
+        howToSteps: [
+        {
+                name: "Select Input Cell",
+                text: "Click the cell containing a positive or negative number."
+        },
+        {
+                name: "Enter ABS Formula",
+                text: "Type =ABS(A2) or =ABS(Actual - Budget)."
+        },
+        {
+                name: "View Absolute Result",
+                text: "Press Enter to return the unsigned magnitude."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Calculate Absolute Value in Excel with ABS</h2>
+      <p>The <strong>ABS</strong> function returns the absolute value of a number (the number without its positive or negative sign).</p>
+      <h3>Syntax</h3>
+      <p><code>=ABS(number)</code></p>
+      <h3>Example: Variance Calculation</h3>
+      <p><code>=ABS(Budget - Actual)</code> returns the difference distance regardless of which is larger.</p>
+    </div>`,
         faq: [
             { question: 'What does ABS do?', answer: 'ABS returns the absolute value of a number, removing any negative sign. ABS(-5) returns 5, ABS(5) returns 5, and ABS(0) returns 0.' },
             { question: 'Does ABS work with negative numbers?', answer: 'Yes. ABS converts negative numbers to positive by removing the minus sign. This is useful for calculating differences regardless of direction.' },
@@ -2386,13 +3042,33 @@ export const FORMULAS: FormulaConfig[] = [
     // 40. MAX - Maximum Value
     {
         slug: 'max',
-        title: 'MAX Formula — Find Largest Value in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate MAX formulas instantly in Excel and Google Sheets. Find the largest value in a range. Free formula generator with examples for reporting and analysis.',
+        title: "MAX in Excel: Find Highest Number in a Data Range",
+        metaDescription: "Find the maximum or highest value in a range in Excel with the MAX formula. Identify top sales, scores, and peak values with our free builder.",
         excelFunction: 'MAX',
         category: 'Math',
         description: 'Returns the largest value in a set of values.',
         inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
         generate: (p) => `=MAX(${p.range || 'range'})`,
+        howToSteps: [
+        {
+                name: "Select Output Cell",
+                text: "Click where you want the maximum value displayed."
+        },
+        {
+                name: "Enter Range in MAX",
+                text: "Type =MAX(B2:B100) highlighting your numeric data."
+        },
+        {
+                name: "Press Enter",
+                text: "Hit Enter to view the highest number in the dataset."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Find Maximum Values with MAX in Excel</h2>
+      <p>The <strong>MAX</strong> function returns the largest numeric value in a set of values, ignoring text and logical values.</p>
+      <h3>Syntax</h3>
+      <p><code>=MAX(number1, [number2], ...)</code></p>
+    </div>`,
         faq: [
             { question: 'What is the difference between MAX and MAXA?', answer: 'MAX ignores text and logical values. MAXA evaluates TRUE as 1, FALSE as 0, and includes text values.' },
             { question: 'How do I find the MAX while ignoring errors?', answer: 'Use IFERROR inside an array: =MAX(IFERROR(A1:A10, "")) entered with Ctrl+Shift+Enter, or =AGGREGATE(4, 6, A1:A10) in Excel 2010+.' },
@@ -2406,13 +3082,33 @@ export const FORMULAS: FormulaConfig[] = [
     // 41. MIN - Minimum Value
     {
         slug: 'min',
-        title: 'MIN Formula — Find Smallest Value in Excel & Google Sheets (Free Tool)',
-        metaDescription: 'Generate MIN formulas instantly in Excel and Google Sheets. Find the smallest value in a range. Free formula generator with examples for reporting and analysis.',
+        title: "MIN in Excel: Find Lowest Number in a Data Range",
+        metaDescription: "Find the smallest or lowest number in an Excel range with the MIN formula. Track lowest costs, fastest times, and minimum scores with our free tool.",
         excelFunction: 'MIN',
         category: 'Math',
         description: 'Returns the smallest value in a set of values.',
         inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
         generate: (p) => `=MIN(${p.range || 'range'})`,
+        howToSteps: [
+        {
+                name: "Select Result Cell",
+                text: "Click the empty cell for the minimum value."
+        },
+        {
+                name: "Enter MIN Formula",
+                text: "Type =MIN(B2:B100) selecting your range."
+        },
+        {
+                name: "Press Enter",
+                text: "View the smallest numeric value in the range."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Find Minimum Values with MIN in Excel</h2>
+      <p>The <strong>MIN</strong> function returns the smallest number in a set of provided values.</p>
+      <h3>Syntax</h3>
+      <p><code>=MIN(number1, [number2], ...)</code></p>
+    </div>`,
         faq: [
             { question: 'What is the difference between MIN and MINA?', answer: 'MIN ignores text and logical values. MINA evaluates TRUE as 1 and FALSE as 0, which may give unexpected results.' },
             { question: 'How do I find the smallest value excluding zeros?', answer: 'Use an array formula: =MIN(IF(A1:A100>0, A1:A100)), or MINIFS in Excel 2019+ if you have a criteria range.' },
@@ -2426,18 +3122,34 @@ export const FORMULAS: FormulaConfig[] = [
     // 42. AVERAGE - Average Value
     {
         slug: 'average',
-        title: 'AVERAGE Formula — Calculate Mean in Excel & Sheets | SheetMaster',
-        metaDescription: 'Generate AVERAGE formulas for arithmetic mean, weighted averages, and conditional averages with AVERAGEIF. Free tool. Free Excel and Sheets builder.',
+        title: "AVERAGE in Excel: Calculate Mean of Numbers in Range",
+        metaDescription: "Calculate the arithmetic mean of numbers in Excel with the AVERAGE formula. Compute average sales, grades, and prices with our free builder.",
         excelFunction: 'AVERAGE',
         category: 'Math',
         description: 'Returns the average (arithmetic mean) of the arguments.',
         howToSteps: [
-            { name: 'Highlight range', text: 'Select the range of numeric cells you want to average (e.g. A1:A100).' },
-            { name: 'Handle blank cells', text: 'Average automatically ignores blank cells, but counts zeros. Ensure empty values are truly empty, not 0.' }
-        ],
+        {
+                name: "Select Output Cell",
+                text: "Click where you want the average result."
+        },
+        {
+                name: "Enter Range into AVERAGE",
+                text: "Type =AVERAGE(A2:A50) highlighting your numbers."
+        },
+        {
+                name: "Press Enter",
+                text: "Hit Enter to calculate the exact mathematical average."
+        }
+],
         inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
         generate: (p) => `=AVERAGE(${p.range || 'range'})`,
         relatedTools: ['averageif', 'sum', 'countif', 'median', 'mode'],
+        richContent: `<div class="space-y-6">
+      <h2>How to Calculate Averages in Excel</h2>
+      <p>The <strong>AVERAGE</strong> function computes the arithmetic mean of the arguments provided.</p>
+      <h3>Syntax</h3>
+      <p><code>=AVERAGE(number1, [number2], ...)</code></p>
+    </div>`,
         faq: [
             { question: 'What is the difference between AVERAGE and MEDIAN?', answer: 'AVERAGE calculates the arithmetic mean (sum divided by count). MEDIAN returns the middle value. MEDIAN is better for data with outliers.' },
             { question: 'How does AVERAGE handle blank cells and zeros?', answer: 'AVERAGE ignores blank cells but counts zeros. This means a cell with 0 lowers the average. Use AVERAGEA to count text as 0.' },
@@ -2451,18 +3163,35 @@ export const FORMULAS: FormulaConfig[] = [
     // 43. SUM - Sum Values
     {
         slug: 'sum',
-        title: 'SUM Formula — Add Numbers in Excel & Google Sheets | SheetMaster',
-        metaDescription: 'Generate SUM formulas instantly. Add ranges, conditional sums with SUMIF/SUMIFS. Free formula generator with examples. No signup. Free Excel and Sheets builder.',
+        title: "SUM in Excel: Add Numbers and Cell Ranges Fast",
+        metaDescription: "Add numbers and total columns in Excel with the SUM formula. Shortcut keys, multi-range addition, and free formula generator with no signup.",
         excelFunction: 'SUM',
         category: 'Math',
         description: 'Adds all the numbers in a range of cells.',
         howToSteps: [
-            { name: 'Select sum range', text: 'Highlight the range of cells you want to add up (e.g. A1:A100).' },
-            { name: 'Confirm number formatting', text: 'Make sure cells are formatted as numbers and not text, otherwise SUM will return 0.' }
-        ],
+        {
+                name: "Select Total Cell",
+                text: "Click below or next to the numbers you want to total."
+        },
+        {
+                name: "Use AutoSum Shortcut",
+                text: "Press Alt + = (or type =SUM(A2:A50))."
+        },
+        {
+                name: "Press Enter",
+                text: "Hit Enter to get the total sum instantly."
+        }
+],
         inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
         generate: (p) => `=SUM(${p.range || 'range'})`,
         relatedTools: ['sumif', 'sumifs', 'average', 'countif', 'subtotal'],
+        richContent: `<div class="space-y-6">
+      <h2>How to Use the SUM Function in Excel</h2>
+      <p>The <strong>SUM</strong> function adds values together: individual cells, continuous ranges, or a mix of both.</p>
+      <h3>Syntax & Keyboard Shortcut</h3>
+      <p><code>=SUM(number1, [number2], ...)</code></p>
+      <p><strong>Pro Shortcut:</strong> Highlight a cell and press <code>Alt + =</code> to AutoSum adjacent cells automatically.</p>
+    </div>`,
         faq: [
             { question: 'What is the difference between SUM and SUMIF?', answer: 'SUM adds all numbers in a range. SUMIF adds only the cells that meet a specific condition, like summing values greater than 100.' },
             { question: 'How do I sum across multiple sheets?', answer: 'Use a 3D reference: =SUM(Sheet1:Sheet3!A1). This adds cell A1 from Sheet1, Sheet2, and Sheet3.' },
@@ -2476,17 +3205,33 @@ export const FORMULAS: FormulaConfig[] = [
     // 44. YEAR - Extract Year
     {
         slug: 'year',
-        title: 'YEAR Formula — Extract Year from Date in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate YEAR formulas instantly in Excel and Google Sheets. Extract the year from any date for reporting and analysis. Free formula generator with examples.',
+        title: "YEAR in Excel: Extract 4-Digit Year from Any Date",
+        metaDescription: "Extract the 4-digit year (e.g. 2026) from any date cell in Excel using the YEAR formula. Group by year and filter data with our free tool.",
         excelFunction: 'YEAR',
         category: 'Date',
         description: 'Returns the year of a date, an integer in the range 1900-9999.',
         howToSteps: [
-            { name: 'Select date cell', text: 'Choose the cell containing a valid Excel date or date serial number (e.g. A1).' },
-            { name: 'Format cell as General', text: 'Make sure the output cell is formatted as "General" or "Number" to display the 4-digit year correctly.' }
-        ],
+        {
+                name: "Select Output Cell",
+                text: "Click the cell where the year integer should appear."
+        },
+        {
+                name: "Enter YEAR Formula",
+                text: "Type =YEAR(A2) referencing your date cell."
+        },
+        {
+                name: "Press Enter",
+                text: "Hit Enter to extract the 4-digit year number."
+        }
+],
         inputs: [{ id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=YEAR(${p.date || 'date'})`,
+        richContent: `<div class="space-y-6">
+      <h2>How to Extract the Year from a Date in Excel</h2>
+      <p>The <strong>YEAR</strong> function returns the year corresponding to a date as a four-digit integer (ranging from 1900 to 9999).</p>
+      <h3>Syntax</h3>
+      <p><code>=YEAR(serial_number)</code></p>
+    </div>`,
         faq: [
             { question: 'Why is YEAR returning a strange 4-digit number?', answer: 'Excel stores dates as serial numbers. YEAR correctly converts them. If YEAR returns something like 1905, the cell likely contains a serial number instead of a formatted date.' },
             { question: 'Can YEAR extract the year from a text date?', answer: 'Only if the text is recognized as a valid date format by Excel. For text dates, use DATEVALUE() first: =YEAR(DATEVALUE(A1)).' },
@@ -2500,14 +3245,36 @@ export const FORMULAS: FormulaConfig[] = [
     // 45. MONTH - Extract Month
     {
         slug: 'month',
-        title: 'MONTH Formula — Extract Month Number from Date in Excel | SheetMaster',
-        metaDescription: 'Extract month number (1-12) from any date in Excel or Google Sheets. Free MONTH formula generator with examples for reporting and dashboards.',
+        title: "MONTH in Excel: Extract Month Number (1-12) from Date",
+        metaDescription: "Extract month numbers (1 to 12) from dates in Excel with the MONTH formula. Group reports by month and build quarterly summaries easily.",
         excelFunction: 'MONTH',
         category: 'Date',
         description: 'Returns the month of a date, a number from 1 (January) to 12 (December).',
         inputs: [{ id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=MONTH(${p.date || 'date'})`,
         relatedTools: ['day', 'year', 'edate', 'eomonth', 'text'],
+        howToSteps: [
+        {
+                name: "Select Result Cell",
+                text: "Choose the cell where the month number will appear."
+        },
+        {
+                name: "Enter MONTH Formula",
+                text: "Type =MONTH(A2) referencing your date cell."
+        },
+        {
+                name: "Press Enter",
+                text: "Returns 1 for January through 12 for December."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Extract the Month from a Date in Excel</h2>
+      <p>The <strong>MONTH</strong> function extracts the month of a date represented by a number from 1 (January) to 12 (December).</p>
+      <h3>Syntax</h3>
+      <p><code>=MONTH(serial_number)</code></p>
+      <h3>To Get Month Name instead of Number</h3>
+      <p>Use <code>=TEXT(A2, "mmmm")</code> for full month name (e.g., "August") or <code>=TEXT(A2, "mmm")</code> for short abbreviation (e.g., "Aug").</p>
+    </div>`,
         faq: [
             { question: 'Why does MONTH return a number instead of the month name?', answer: 'MONTH always returns a number (1-12). To show the month name, use TEXT: =TEXT(A1, "MMMM") for full name or "MMM" for abbreviated name.' },
             { question: 'What does MONTH return for a blank cell?', answer: 'MONTH returns 1 for a blank cell because Excel treats empty cells as date serial number 0, which corresponds to January 0, 1900 — month 1.' },
@@ -2521,14 +3288,34 @@ export const FORMULAS: FormulaConfig[] = [
     // 46. DAY - Extract Day
     {
         slug: 'day',
-        title: 'DAY Formula — Extract Day from Date in Excel & Sheets | SheetMaster',
-        metaDescription: 'Extract the day of month (1-31) from any date. Free DAY formula generator with examples for date reporting and calculations. Free Excel and Sheets builder.',
+        title: "DAY in Excel: Extract Day of the Month (1-31) from Date",
+        metaDescription: "Extract the day of the month (1 to 31) from any date in Excel using the DAY formula. Perfect for invoice dates and cohort tracking with our free tool.",
         excelFunction: 'DAY',
         category: 'Date',
         description: 'Returns the day of a date, a number from 1 to 31.',
         inputs: [{ id: 'date', label: 'Date', type: 'text', placeholder: 'e.g., A1' }],
         generate: (p) => `=DAY(${p.date || 'date'})`,
         relatedTools: ['month', 'year', 'edate', 'eomonth', 'networkdays'],
+        howToSteps: [
+        {
+                name: "Select Target Cell",
+                text: "Click the empty cell for the day number."
+        },
+        {
+                name: "Enter DAY Formula",
+                text: "Type =DAY(A2) where A2 is your date cell."
+        },
+        {
+                name: "Press Enter",
+                text: "Returns an integer between 1 and 31."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Extract Day of the Month in Excel</h2>
+      <p>The <strong>DAY</strong> function returns the day of the month as an integer from 1 to 31 based on a valid date value.</p>
+      <h3>Syntax</h3>
+      <p><code>=DAY(serial_number)</code></p>
+    </div>`,
         faq: [
             { question: 'Does DAY return the day of the week or the day of the month?', answer: 'DAY returns the day of the month (1-31). For the day of the week (1=Sunday to 7=Saturday), use WEEKDAY instead.' },
             { question: 'Can DAY extract the day from a text string?', answer: 'If the text is a recognizable date format in Excel, yes. Otherwise, use DATEVALUE to convert the text to a date first.' },
@@ -2542,8 +3329,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 47. EDATE - Add Months to Date
     {
         slug: 'edate',
-        title: 'EDATE Formula — Add or Subtract Months from Dates | SheetMaster',
-        metaDescription: 'Generate EDATE formulas to add or subtract months from dates. Perfect for subscription tracking, billing cycles, and due dates. Free tool. Free Excel and Sheets builder.',
+        title: "EDATE in Excel: Add or Subtract Months from Dates",
+        metaDescription: "Calculate exact expiration and renewal dates by adding or subtracting months in Excel using EDATE. Free interactive formula generator.",
         excelFunction: 'EDATE',
         category: 'Date',
         description: 'Returns a date that is a specified number of months before or after a given date.',
@@ -2553,6 +3340,32 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=EDATE(${p.start_date || 'start_date'}, ${p.months || '1'})`,
         relatedTools: ['eomonth', 'datedif', 'networkdays', 'today', 'month'],
+        howToSteps: [
+        {
+                name: "Select Start Date",
+                text: "Select the cell with the initial date (e.g., A2)."
+        },
+        {
+                name: "Specify Number of Months",
+                text: "Enter positive months to add (e.g., 3) or negative to subtract (e.g., -6)."
+        },
+        {
+                name: "Format Result as Date",
+                text: "Press Enter and apply Date format (Ctrl+Shift+#)."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Add or Subtract Months with EDATE in Excel</h2>
+      <p>The <strong>EDATE</strong> function returns the date that is the indicated number of months before or after a specified start date.</p>
+      <h3>Syntax</h3>
+      <p><code>=EDATE(start_date, months)</code></p>
+      <h3>Examples</h3>
+      <ul>
+        <li><strong>Add 6 Months:</strong> <code>=EDATE(A2, 6)</code></li>
+        <li><strong>Subtract 1 Year:</strong> <code>=EDATE(A2, -12)</code></li>
+      </ul>
+      <p><em>Note:</em> EDATE preserves the exact day of the month. If the resulting month has fewer days (e.g. Feb 30), Excel automatically adjusts to the last day of the month (Feb 28/29).</p>
+    </div>`,
         faq: [
             { question: 'What does EDATE do?', answer: 'EDATE returns a date that is a specified number of months before or after a given date. For example, EDATE("2026-01-15", 3) returns April 15, 2026.' },
             { question: 'Can EDATE handle negative months?', answer: 'Yes. Use a negative number for the months argument to go back in time. For example, EDATE(A1, -6) gives the date 6 months before A1.' },
@@ -2566,8 +3379,8 @@ export const FORMULAS: FormulaConfig[] = [
     // 48. EOMONTH - End of Month
     {
         slug: 'eomonth',
-        title: 'EOMONTH Formula — Last Day of Month in Excel & Sheets | SheetMaster',
-        metaDescription: 'Get the last day of any month using EOMONTH. Perfect for financial reporting, invoice dates, and subscription billing. Free tool. Free Excel and Sheets builder.',
+        title: "EOMONTH in Excel: Find Last Day of the Month Fast",
+        metaDescription: "Calculate the exact last day of the month in Excel using the EOMONTH formula. Standardize billing cycles and financial closes with our free tool.",
         excelFunction: 'EOMONTH',
         category: 'Date',
         description: 'Returns the last day of the month a specified number of months before or after a date.',
@@ -2577,6 +3390,31 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         generate: (p) => `=EOMONTH(${p.start_date || 'start_date'}, ${p.months || '0'})`,
         relatedTools: ['edate', 'datedif', 'day', 'month', 'networkdays'],
+        howToSteps: [
+        {
+                name: "Select Start Date",
+                text: "Click the cell with your reference date (e.g., A2)."
+        },
+        {
+                name: "Specify Months Offset",
+                text: "Enter 0 for end of current month, 1 for next month, -1 for previous month."
+        },
+        {
+                name: "Press Enter",
+                text: "Returns the serial number of the final day of the target month."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Find Month-End Dates with EOMONTH in Excel</h2>
+      <p>The <strong>EOMONTH</strong> function returns the last day of the month that is the indicated number of months before or after a start date.</p>
+      <h3>Syntax</h3>
+      <p><code>=EOMONTH(start_date, months)</code></p>
+      <h3>Common Applications</h3>
+      <ul>
+        <li><strong>Last Day of Current Month:</strong> <code>=EOMONTH(TODAY(), 0)</code></li>
+        <li><strong>First Day of Next Month:</strong> <code>=EOMONTH(TODAY(), 0) + 1</code></li>
+      </ul>
+    </div>`,
         faq: [
             { question: 'What is EOMONTH used for?', answer: 'EOMONTH returns the last day of the month, given a starting date and month offset. It is commonly used for financial reporting, invoice due dates, and subscription billing cycles.' },
             { question: 'What does months = 0 do?', answer: 'EOMONTH(A1, 0) returns the last day of the month for the date in A1. For example, EOMONTH("2026-05-14", 0) returns May 31, 2026.' },
@@ -2590,13 +3428,38 @@ export const FORMULAS: FormulaConfig[] = [
     // 49. COUNTA - Count Non-Empty Cells
     {
         slug: 'counta',
-        title: 'COUNTA Formula — Count Non-Empty Cells in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate COUNTA formulas instantly in Excel and Google Sheets. Count all non-empty cells including text, numbers, and errors. Free formula generator with examples.',
+        title: "COUNTA in Excel: Count Non-Empty Cells in a Range",
+        metaDescription: "Count all cells containing text, numbers, dates, or formulas in Excel with COUNTA. Exclude truly empty cells with our free interactive generator.",
         excelFunction: 'COUNTA',
         category: 'Math',
         description: 'Counts number of cells that are not empty in a range.',
         inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
         generate: (p) => `=COUNTA(${p.range || 'range'})`,
+        howToSteps: [
+        {
+                name: "Select Output Cell",
+                text: "Click where you want the total filled count."
+        },
+        {
+                name: "Enter COUNTA Range",
+                text: "Type =COUNTA(A2:A100) highlighting the dataset."
+        },
+        {
+                name: "Press Enter",
+                text: "Counts all non-blank cells in the selected range."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Count Non-Empty Cells with COUNTA in Excel</h2>
+      <p>The <strong>COUNTA</strong> function counts the number of cells in a range that are not empty (including text, numbers, dates, booleans, and errors).</p>
+      <h3>Syntax</h3>
+      <p><code>=COUNTA(value1, [value2], ...)</code></p>
+      <h3>COUNT vs COUNTA</h3>
+      <ul>
+        <li><strong>COUNT:</strong> Counts cells with <em>numbers only</em>.</li>
+        <li><strong>COUNTA:</strong> Counts cells containing <em>any type of data</em>.</li>
+      </ul>
+    </div>`,
         faq: [
             { question: 'What is the difference between COUNTA and COUNT?', answer: 'COUNTA counts all non-empty cells including text, numbers, errors, and logical values. COUNT only counts cells containing numeric values.' },
             { question: 'Does COUNTA count cells with formulas?', answer: 'Yes, COUNTA counts a cell if its formula returns any value — even an empty string "". COUNTA only excludes truly blank cells.' },
@@ -2610,13 +3473,35 @@ export const FORMULAS: FormulaConfig[] = [
     // 50. COUNTBLANK - Count Empty Cells
     {
         slug: 'countblank',
-        title: 'COUNTBLANK Formula — Count Empty Cells in Excel & Sheets (Free Tool)',
-        metaDescription: 'Generate COUNTBLANK formulas instantly in Excel and Google Sheets. Count empty and blank cells in any range. Free formula generator with examples.',
+        title: "COUNTBLANK in Excel: Count Missing & Empty Cells Fast",
+        metaDescription: "Count empty or missing cells in a dataset in Excel using the COUNTBLANK formula. Audit spreadsheet completeness instantly with our free builder.",
         excelFunction: 'COUNTBLANK',
         category: 'Math',
         description: 'Counts the number of empty cells in a specified range.',
         inputs: [{ id: 'range', label: 'Range', type: 'range', placeholder: 'e.g., A1:A100' }],
         generate: (p) => `=COUNTBLANK(${p.range || 'range'})`,
+        howToSteps: [
+        {
+                name: "Select Target Cell",
+                text: "Click where you want the missing cell count."
+        },
+        {
+                name: "Enter COUNTBLANK Range",
+                text: "Type =COUNTBLANK(A2:A100) covering your dataset."
+        },
+        {
+                name: "Press Enter",
+                text: "Returns total number of empty and blank cells."
+        }
+],
+        richContent: `<div class="space-y-6">
+      <h2>How to Count Blank Cells in Excel with COUNTBLANK</h2>
+      <p>The <strong>COUNTBLANK</strong> function counts the number of empty cells in a specified range of cells.</p>
+      <h3>Syntax</h3>
+      <p><code>=COUNTBLANK(range)</code></p>
+      <h3>Data Auditing Example</h3>
+      <p>To check if any of 50 student submissions are missing in B2:B51: <code>=IF(COUNTBLANK(B2:B51)>0, "Missing Data!", "All Complete")</code></p>
+    </div>`,
         faq: [
             { question: 'What is the difference between COUNTBLANK and COUNTIF(range, "")?', answer: 'COUNTBLANK counts both truly empty cells and cells with empty strings (""). COUNTIF(range, "") only counts cells that visually appear blank.' },
             { question: 'Does COUNTBLANK count cells with spaces?', answer: 'No, a cell with a space (" ") is not blank. COUNTBLANK will not count it. Use TRIM to clean cells before counting if stray spaces are an issue.' },

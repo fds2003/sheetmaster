@@ -91,6 +91,18 @@ export default function RootLayout({
           data-key="3o5w9cs2gv8DjY2Et/UkCw"
           async
         />
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "ycc1p10y63");
+            `,
+          }}
+        />
       </head>
       <body className={`${inter.variable} ${inter.className} bg-white`}>
         <nav className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-16">

@@ -17,11 +17,11 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const url = `https://www.getsheetmaster.com/use-cases/${uc.slug}`;
   return {
     title: `${uc.title} - Excel & Google Sheets Automation | SheetMaster`,
-    description: `Free spreadsheet tools and formulas specifically designed ${uc.title.toLowerCase()}. ${uc.description}`,
+    description: uc.description,
     alternates: { canonical: url },
     openGraph: {
       title: `${uc.title} | SheetMaster`,
-      description: `Free spreadsheet tools for ${uc.title.toLowerCase()}. ${uc.description}`,
+      description: uc.description,
       url,
       type: 'website',
       siteName: 'SheetMaster',
@@ -29,7 +29,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     twitter: {
       card: 'summary_large_image',
       title: `${uc.title} | SheetMaster`,
-      description: `Free spreadsheet tools for ${uc.title.toLowerCase()}. ${uc.description}`,
+      description: uc.description,
     },
   };
 }

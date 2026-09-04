@@ -113,8 +113,8 @@ export const SOLUTIONS: SolutionConfig[] = [
     // 2. Loan Payment Calculator (RETAINED)
     {
         slug: 'loan-calculator',
-        title: 'Loan Payment Calculator | Mortgage, Auto & Personal',
-        metaDescription: 'Calculate your monthly payment for mortgages, car loans, and personal loans. See exactly what you\'ll pay with different rates and terms.',
+        title: 'Loan Payment Calculator | Mortgage, Auto & Personal Loans (Free Tool)',
+        metaDescription: 'Calculate your monthly payment for mortgages, auto loans, and personal loans in Excel. See principal and interest breakdowns with our free PMT formula tool.',
         icon: 'Banknote',
         description: 'Figure out monthly payments for any loan type',
         tools: [

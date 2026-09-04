@@ -688,7 +688,7 @@ Minutes: =MOD(A2,60)</code></pre>
   {
     slug: 'vlookup-vs-xlookup-2026',
     title: 'VLOOKUP vs XLOOKUP: Which Should You Use in 2026?',
-    description: 'Compare VLOOKUP and XLOOKUP: syntax, use cases, and when to use each in Excel and Google Sheets.',
+    description: 'Compare VLOOKUP vs XLOOKUP in Excel & Google Sheets. Learn key syntax differences, speed benchmarks, left-lookup advantages, and when to upgrade to XLOOKUP.',
     date: '2026-01-15',
     toolCta: {
       href: '/formulas/xlookup',
@@ -700,7 +700,7 @@ Minutes: =MOD(A2,60)</code></pre>
   {
     slug: '5-excel-formulas-clean-data',
     title: '5 Excel Formulas That Clean Messy Data 10x Faster',
-    description: 'Use TRIM, PROPER, SUBSTITUTE, and more to clean text and data in Excel and Google Sheets.',
+    description: 'Discover 5 essential Excel formulas to clean messy data fast. Master TRIM, PROPER, SUBSTITUTE, CLEAN, and TEXT functions with copy-paste examples and free tools.',
     date: '2026-01-12',
     toolCta: {
       href: '/solutions/data-cleaning',
@@ -711,7 +711,7 @@ Minutes: =MOD(A2,60)</code></pre>
   {
     slug: 'index-match-complete-guide',
     title: 'INDEX MATCH Complete Guide: Why It\'s More Powerful Than VLOOKUP',
-    description: 'Learn INDEX MATCH for Excel and Google Sheets: look left, avoid column index errors, and build flexible lookups.',
+    description: 'Master INDEX MATCH in Excel and Google Sheets: look up left, prevent column insertion errors, and build dynamic two-way lookups with step-by-step formula guides.',
     date: '2026-01-10',
     toolCta: {
       href: '/formulas/index-match',
@@ -722,7 +722,7 @@ Minutes: =MOD(A2,60)</code></pre>
   {
     slug: 'excel-formulas-ecommerce-inventory',
     title: 'Excel Formulas for E-commerce Inventory Management',
-    description: 'SKU lookup, reorder alerts, and inventory formulas for Excel and Google Sheets.',
+    description: 'Essential Excel formulas for e-commerce inventory management: automate low stock reorder alerts, match SKUs to prices, and calculate profit margins with free tools.',
     date: '2026-01-08',
     toolCta: {
       href: '/solutions/inventory-manager',

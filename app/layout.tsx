@@ -134,10 +134,25 @@ export default function RootLayout({
         </main>
         <footer className="bg-gray-50 border-t border-gray-200 py-8 mt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-center text-gray-500 text-sm">
-                漏 {new Date().getFullYear()} SheetMaster. All rights reserved.
-              </p>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                <p className="text-gray-500 text-sm">
+                  © {new Date().getFullYear()} SheetMaster. All rights reserved.
+                </p>
+                <a
+                  href="https://productwatch.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center hover:opacity-90 transition-opacity"
+                >
+                  <img
+                    src="https://productwatch.io/backend/api/v1/badge/featured?productId=acb182f6-5121-4244-95bf-431f57cf5ec7&darkMode=false"
+                    alt="SheetMaster"
+                    style={{ maxWidth: "250px" }}
+                    className="h-9 w-auto"
+                  />
+                </a>
+              </div>
               <div className="flex items-center gap-6">
                 <Link href="/privacy" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
                   Privacy Policy

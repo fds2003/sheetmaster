@@ -29,7 +29,7 @@ const nextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com",
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https://*.vercel.app https://og.getsheetmaster.com",
+              "img-src 'self' data: blob: https://*.vercel.app https://og.getsheetmaster.com https://productwatch.io",
               "font-src 'self' data:",
               "frame-src https://js.stripe.com",
               "connect-src 'self' https://*.supabase.co",

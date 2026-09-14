@@ -71,7 +71,7 @@ function solutionPages(): GeoPage[] {
     }));
 }
 
-function useCasePages(): GeoPage[] {
+function getUseCasePages(): GeoPage[] {
     return USE_CASES.map((u) => ({
         path: `use-cases/${u.slug}`,
         section: 'use-cases' as const,
@@ -87,7 +87,7 @@ export const GEO_PAGES: GeoPage[] = [
     ...TOOL_PAGES,
     ...STATIC_PAGES,
     ...blogPages(),
-    ...useCasePages(),
+    ...getUseCasePages(),
 ];
 
 /* ------------------------------------------------------------------ */

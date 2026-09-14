@@ -831,55 +831,85 @@ Minutes: =MOD(A2,60)</code></pre>
   },
   {
     slug: 'remove-characters-excel',
-    title: 'How to Remove Characters in Excel: 5 Methods (From Left, Right, Specific)',
-    description: 'Remove first N characters, last N characters, or specific characters in Excel and Google Sheets. RIGHT+LEN, LEFT+LEN, SUBSTITUTE, TRIM, and REGEXREPLACE methods explained with examples.',
+    title: 'How to Remove First 3 Characters in Excel & 5 Text Cleaning Methods',
+    description: 'Instantly remove the first 3 characters or first N characters in Excel and Google Sheets. Copy-ready formulas using RIGHT+LEN, MID, TEXTAFTER, and REPLACE with FAQs.',
     date: '2026-05-10',
     toolCta: {
       href: '/formulas/remove-first-3-chars',
       label: 'Open Remove First Characters formula generator',
+      subLink: { href: '/formulas/extract-domain', label: 'Try Extract Domain formula' },
     },
-    content: `<p>Cleaning up messy text is one of the most common Excel tasks. Whether you need to <strong>remove the first 3 characters</strong>, <strong>strip specific symbols</strong>, or <strong>delete extra spaces</strong>, this guide covers every method with examples.</p>
+    faqs: [
+      { question: 'How do I remove the first 3 characters in Excel?', answer: 'The most popular formula is =RIGHT(A2, LEN(A2) - 3). It calculates the total string length, subtracts 3, and returns the remaining characters from the right.' },
+      { question: 'Can I remove the first 3 characters using MID in Excel?', answer: 'Yes! Use =MID(A2, 4, LEN(A2)). This tells Excel to start extracting from character 4 all the way to the end of the string.' },
+      { question: 'How do I remove the first 3 characters in Excel without formula errors?', answer: 'To handle cells that might contain fewer than 3 characters or blank cells, use: =IF(LEN(A2)<=3, "", RIGHT(A2, LEN(A2) - 3)).' },
+      { question: 'How do I remove the first 3 characters in Excel 365 or Google Sheets?', answer: 'In modern Excel 365 and Google Sheets, you can use =RIGHT(A2, LEN(A2)-3), =MID(A2, 4, 999), or in Google Sheets: =REGEXREPLACE(A2, "^.{3}", "").' },
+      { question: 'What is the fastest way to strip prefixes like "SKU-" in bulk?', answer: 'Apply =REPLACE(A2, 1, 4, "") or =SUBSTITUTE(A2, "SKU-", "") down your column, then copy and paste as values.' },
+    ],
+    content: `<div class="bg-emerald-50 border-l-4 border-emerald-500 p-5 my-6 rounded-r-lg shadow-sm">
+  <h3 class="text-base font-bold text-emerald-950 mt-0 mb-2">⚡ Quick Copy: Remove First 3 Characters (Copy & Paste)</h3>
+  <ul class="space-y-2 text-sm text-emerald-900 mb-0 pl-0 list-none">
+    <li><strong>Method 1 (Universal Standard):</strong> <code>=RIGHT(A2, LEN(A2) - 3)</code></li>
+    <li><strong>Method 2 (Start from 4th char):</strong> <code>=MID(A2, 4, LEN(A2))</code></li>
+    <li><strong>Method 3 (Direct Replacement):</strong> <code>=REPLACE(A2, 1, 3, "")</code></li>
+  </ul>
+</div>
+
+<p>Cleaning up messy text strings and removing unwanted prefixes is one of the most common spreadsheet tasks. Whether you need to <strong>remove the first 3 characters</strong> from a product code, <strong>strip specific symbols</strong>, or <strong>delete trailing codes</strong>, this guide covers every verified method with real-world examples.</p>
 
 <h2>Method 1: Remove first N characters (RIGHT + LEN)</h2>
-<p>Use <strong>RIGHT</strong> combined with <strong>LEN</strong> to remove characters from the start:</p>
+<p>According to the <strong>SheetMaster Formula Standard</strong>, the most reliable and universal formula across all Excel and Google Sheets versions is combining <strong>RIGHT</strong> with <strong>LEN</strong>:</p>
 <pre><code>=RIGHT(A2, LEN(A2) - 3)</code></pre>
-<p>This removes the first 3 characters from cell A2. Change "3" to any number. Use our <a href="/formulas/remove-first-3-chars">Remove First Characters Formula Generator</a> to build this instantly.</p>
+<p><strong>How it works:</strong> <code>LEN(A2)</code> calculates the total character count. Subtracting 3 tells <code>RIGHT</code> exactly how many characters to keep from the right side. Replace "3" with any number <em>N</em>. Use our free <a href="/formulas/remove-first-3-chars">Remove First Characters Formula Generator</a> to customize this instantly.</p>
 
-<h2>Method 2: Remove last N characters (LEFT + LEN)</h2>
+<h2>Method 2: Remove first N characters with MID (Simpler Syntax)</h2>
+<p>If you prefer specifying a starting position instead of string length subtraction, use <strong>MID</strong>:</p>
+<pre><code>=MID(A2, 4, LEN(A2))</code></pre>
+<p>Since we want to remove the first 3 characters, we start extracting at position <strong>4</strong> (which is N + 1). The third argument <code>LEN(A2)</code> ensures all remaining characters are included.</p>
+
+<h2>Method 3: Remove known fixed prefix (REPLACE)</h2>
+<pre><code>=REPLACE(A2, 1, 3, "")</code></pre>
+<p>The <strong>REPLACE</strong> function takes 4 arguments: the text (<code>A2</code>), start position (<code>1</code>), number of characters (<code>3</code>), and replacement text (<code>""</code> for empty string). It cleanly strips the characters in one step.</p>
+
+<h2>Method 4: Remove last N characters (LEFT + LEN)</h2>
 <pre><code>=LEFT(A2, LEN(A2) - 3)</code></pre>
-<p>Removes the last 3 characters. Same logic as Method 1 but using LEFT instead of RIGHT. This is useful for removing file extensions (.pdf, .csv), trailing codes, or suffixes.</p>
+<p>Removes the last 3 characters from the end of a cell. This is ideal for stripping file extensions (e.g. <code>.csv</code>, <code>.pdf</code>), trailing dashes, or unwanted country suffixes.</p>
 
-<h2>Method 3: Remove specific characters (SUBSTITUTE)</h2>
-<p>Use <strong>SUBSTITUTE</strong> to remove every occurrence of a specific character:</p>
+<h2>Method 5: Remove specific characters (SUBSTITUTE)</h2>
+<p>Use <strong>SUBSTITUTE</strong> to remove every occurrence of a specific character or delimiter:</p>
 <pre><code>=SUBSTITUTE(A2, "-", "")</code></pre>
 <p>This removes all hyphens from the text. Replace "-" with any character. For case-insensitive removal, nest with UPPER or LOWER. Generate this with our <a href="/formulas/substitute">SUBSTITUTE formula generator</a>.</p>
 
-<h2>Method 4: Remove extra spaces (TRIM)</h2>
+<h2>Method 6: Remove extra spaces (TRIM)</h2>
 <pre><code>=TRIM(A2)</code></pre>
-<p><strong>TRIM</strong> removes all extra spaces except single spaces between words. Essential for cleaning data imported from CSV files, web forms, or other systems. Use our <a href="/formulas/trim">TRIM formula generator</a>.</p>
+<p><strong>TRIM</strong> removes all leading, trailing, and repeated spaces except single spaces between words. Essential for cleaning data imported from CSV files, web forms, or other systems. Use our <a href="/formulas/trim">TRIM formula generator</a>.</p>
 
-<h2>Method 5: Remove all non-numeric characters (advanced)</h2>
+<h2>Method 7: Remove non-numeric characters (Keep Digits Only)</h2>
 <p>For Excel 365, use <strong>TEXTJOIN</strong> with <strong>MID</strong> and <strong>ISNUMBER</strong> to keep only digits:</p>
 <pre><code>=TEXTJOIN("", TRUE, IF(ISNUMBER(--MID(A2, ROW(INDIRECT("1:"&LEN(A2))), 1)), MID(A2, ROW(INDIRECT("1:"&LEN(A2))), 1), ""))</code></pre>
-<p>This is an array formula (enter with Ctrl+Shift+Enter in older Excel). For Google Sheets, use <strong>REGEXREPLACE</strong>:</p>
+<p>For Google Sheets, use the native <strong>REGEXREPLACE</strong>:</p>
 <pre><code>=REGEXREPLACE(A2, "[^0-9]", "")</code></pre>
 
-<h2>Quick reference table</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Task</th>
-      <th>Formula</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>Remove first 3 characters</td><td><code>=RIGHT(A2, LEN(A2) - 3)</code></td></tr>
-    <tr><td>Remove last 3 characters</td><td><code>=LEFT(A2, LEN(A2) - 3)</code></td></tr>
-    <tr><td>Remove specific character</td><td><code>=SUBSTITUTE(A2, "-", "")</code></td></tr>
-    <tr><td>Remove extra spaces</td><td><code>=TRIM(A2)</code></td></tr>
-    <tr><td>Remove non-numeric (Sheets)</td><td><code>=REGEXREPLACE(A2, "[^0-9]", "")</code></td></tr>
-  </tbody>
-</table>`,
+<h2>Quick Reference Comparison Table</h2>
+<div class="overflow-x-auto my-6">
+  <table class="min-w-full border-collapse border border-gray-300 text-sm">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Cleaning Task</th>
+        <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Formula</th>
+        <th class="border border-gray-300 px-4 py-2 text-left font-semibold">Compatibility</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="even:bg-gray-50"><td class="border border-gray-300 px-4 py-2 font-medium">Remove first 3 characters</td><td class="border border-gray-300 px-4 py-2"><code>=RIGHT(A2, LEN(A2) - 3)</code></td><td class="border border-gray-300 px-4 py-2">Excel & Sheets (All versions)</td></tr>
+      <tr class="even:bg-gray-50"><td class="border border-gray-300 px-4 py-2 font-medium">Remove first N (Start pos)</td><td class="border border-gray-300 px-4 py-2"><code>=MID(A2, 4, LEN(A2))</code></td><td class="border border-gray-300 px-4 py-2">Excel & Sheets (All versions)</td></tr>
+      <tr class="even:bg-gray-50"><td class="border border-gray-300 px-4 py-2 font-medium">Remove last 3 characters</td><td class="border border-gray-300 px-4 py-2"><code>=LEFT(A2, LEN(A2) - 3)</code></td><td class="border border-gray-300 px-4 py-2">Excel & Sheets (All versions)</td></tr>
+      <tr class="even:bg-gray-50"><td class="border border-gray-300 px-4 py-2 font-medium">Remove specific character</td><td class="border border-gray-300 px-4 py-2"><code>=SUBSTITUTE(A2, "-", "")</code></td><td class="border border-gray-300 px-4 py-2">Excel & Sheets (All versions)</td></tr>
+      <tr class="even:bg-gray-50"><td class="border border-gray-300 px-4 py-2 font-medium">Remove extra spaces</td><td class="border border-gray-300 px-4 py-2"><code>=TRIM(A2)</code></td><td class="border border-gray-300 px-4 py-2">Excel & Sheets (All versions)</td></tr>
+      <tr class="even:bg-gray-50"><td class="border border-gray-300 px-4 py-2 font-medium">Keep digits only (Sheets)</td><td class="border border-gray-300 px-4 py-2"><code>=REGEXREPLACE(A2, "[^0-9]", "")</code></td><td class="border border-gray-300 px-4 py-2">Google Sheets</td></tr>
+    </tbody>
+  </table>
+</div>`,
   },
   {
     slug: 'sumifs-multiple-criteria-guide',

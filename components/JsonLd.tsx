@@ -48,8 +48,23 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl, dateModified }) => {
         "featureList": formula.inputs.map(input => input.label).join(", "),
         "author": {
             "@type": "Organization",
+            "@id": "https://www.getsheetmaster.com/#organization",
             "name": "SheetMaster",
             "url": "https://www.getsheetmaster.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.getsheetmaster.com/logo.png"
+            }
+        },
+        "publisher": {
+            "@type": "Organization",
+            "@id": "https://www.getsheetmaster.com/#organization",
+            "name": "SheetMaster",
+            "url": "https://www.getsheetmaster.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.getsheetmaster.com/logo.png"
+            }
         },
         "inLanguage": "en-US",
     };
@@ -71,8 +86,19 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl, dateModified }) => {
             "inLanguage": "en-US",
             "author": {
                 "@type": "Organization",
+                "@id": "https://www.getsheetmaster.com/#organization",
                 "name": "SheetMaster",
                 "url": "https://www.getsheetmaster.com",
+            },
+            "publisher": {
+                "@type": "Organization",
+                "@id": "https://www.getsheetmaster.com/#organization",
+                "name": "SheetMaster",
+                "url": "https://www.getsheetmaster.com",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.getsheetmaster.com/logo.png"
+                }
             },
             "step": formula.howToSteps.map((step, index) => ({
                 "@type": "HowToStep",

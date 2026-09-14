@@ -1864,7 +1864,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'remove-first-3-chars',
         title: "Remove First 3 Characters in Excel (Formulas & Tool)",
-        metaDescription: "Remove the first 3 characters in Excel instantly using RIGHT+LEN, MID, or REPLACE. Copy working formulas or use our interactive generator.",
+        metaDescription: "Use =REPLACE(A2,1,3,\"\") to remove the first 3 characters in Excel. Also get =MID(A2,4,LEN(A2)) and a free interactive generator — no signup.",
         excelFunction: 'RIGHT & LEN',
         category: 'Text',
         description: 'Removes the specified number of characters from the beginning of a text string.',
@@ -2338,7 +2338,8 @@ export const FORMULAS: FormulaConfig[] = [
         ],
         commonErrors: [
             { title: 'AVERAGEIF returns 0', causes: ['No cells match the criteria, so the average of no cells is 0.', 'Data type mismatch between criteria and actual data.', 'Blank or incorrectly formatted criteria_range or average_range.'], fixes: ['Verify the criteria matches at least one cell in the range.', 'Use TRIM() to remove hidden spaces and TEXT()/VALUE() to align types.', 'Ensure average_range and range are the same size.'] }
-        ]
+        ],
+        relatedTools: ['sumifs', 'countifs', 'average', 'if', 'ifs', 'sumif'],
     },
 
     // 28. IFERROR - Error Handling
@@ -2354,7 +2355,7 @@ export const FORMULAS: FormulaConfig[] = [
             { id: 'value_if_error', label: 'Value if Error', type: 'text', placeholder: 'e.g., 0 or "N/A"' },
         ],
         generate: (p) => `=IFERROR(${p.value || 'value'}, ${p.value_if_error || '""'})`,
-        relatedTools: ['if', 'ifs', 'xlookup', 'vlookup', 'index-match'],
+        relatedTools: ['sumifs', 'countifs', 'average', 'if', 'ifs', 'sumif'],
         howToSteps: [
         {
                 name: "Enter Primary Formula",

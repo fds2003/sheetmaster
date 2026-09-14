@@ -19,6 +19,7 @@ export async function generateMetadata({
     return { title: 'Post Not Found | SheetMaster' };
   }
   const url = `https://www.getsheetmaster.com/blog/${post.slug}`;
+  const ogImageUrl = `/api/og?title=${encodeURIComponent(post.title)}&description=${encodeURIComponent(post.description)}`;
   return {
     title: post.title,
     description: post.description,
@@ -29,11 +30,21 @@ export async function generateMetadata({
       url,
       type: 'article',
       siteName: 'SheetMaster',
+      publishedTime: post.date,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
+      images: [ogImageUrl],
     },
   };
 }
@@ -66,6 +77,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     "headline": post.title,
     "description": post.description,
     "datePublished": post.date,
+    "dateModified": post.date,
+    "image": `https://www.getsheetmaster.com/api/og?title=${encodeURIComponent(post.title)}&description=${encodeURIComponent(post.description)}`,
     "author": {
       "@type": "Organization",
       "name": "SheetMaster",

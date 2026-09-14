@@ -7,13 +7,19 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: [
                     'OAI-SearchBot',
+                    'ChatGPT-User',
                     'Claude-SearchBot',
+                    'Claude-User',
                     'PerplexityBot',
+                    'Perplexity-User',
                     'Googlebot',
+                    'GoogleOther',
                     'Bingbot',
                     'Applebot',
+                    'Meta-ExternalAgent',
+                    'Amazonbot',
                 ],
-                allow: '/',
+                allow: ['/api/formulas/', '/'],
                 disallow: ['/admin/', '/api/', '/auth/'],
             },
             // 2. ❌ 阻止：仅用于大模型预训练的爬虫（不产生引用）
@@ -31,7 +37,7 @@ export default function robots(): MetadataRoute.Robots {
             // 3. 默认通用规则
             {
                 userAgent: '*',
-                allow: '/',
+                allow: ['/api/formulas/', '/'],
                 disallow: ['/admin/', '/api/', '/auth/'],
             },
         ],

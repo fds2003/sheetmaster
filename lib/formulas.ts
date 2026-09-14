@@ -597,6 +597,10 @@ export const FORMULAS: FormulaConfig[] = [
   <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 mt-6">
     <p class="text-sm text-yellow-800"><strong>Pro Tip:</strong> For multiple conditions on different columns, upgrade to <a href="/formulas/countifs" class="text-blue-600 underline font-semibold">COUNTIFS</a>. The syntax is <code>=COUNTIFS(criteria_range1, criteria1, criteria_range2, criteria2)</code>. For example, count orders that are "Completed" AND over $1,000: <code>=COUNTIFS(B:B, "Completed", C:C, ">1000")</code>. COUNTIFS puts the sum_range first — opposite of SUMIF.</p>
   </div>
+
+  <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
+    <p class="text-sm text-gray-700"><strong>Want the full side-by-side?</strong> Syntax table, OR-logic workarounds, and when to use each: <a href="/compare/countif-vs-countifs" class="text-blue-600 underline font-semibold">COUNTIF vs COUNTIFS</a>.</p>
+  </div>
 </div>`,
         howToSteps: [
         {
@@ -2142,7 +2146,7 @@ export const FORMULAS: FormulaConfig[] = [
     {
         slug: 'countifs',
         title: "COUNTIFS in Excel: Multiple Criteria Guide & Builder",
-        metaDescription: "Master COUNTIFS in Excel with multiple criteria, dates, and wildcards. Build working formulas step-by-step with our free interactive generator.",
+        metaDescription: "COUNTIFS syntax: =COUNTIFS(A:A,\"East\",B:B,\">500\") counts rows meeting multiple criteria. Copy-paste working formulas with dates, wildcards, and OR logic.",
         excelFunction: 'COUNTIFS',
         category: 'Math',
         description: 'Counts cells that meet multiple criteria. Essential for data analysis with complex conditions.',
@@ -2267,6 +2271,10 @@ export const FORMULAS: FormulaConfig[] = [
 
   <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-6">
     <p class="text-sm text-blue-800 italic"><strong>Important:</strong> All criteria ranges must be the same size. If range1 is A1:A100, range2 must also be 100 rows. Mismatched sizes cause incorrect counts or <code>#VALUE!</code> errors.</p>
+  </div>
+
+  <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-6">
+    <p class="text-sm text-gray-700"><strong>Still deciding between COUNTIF and COUNTIFS?</strong> See the full side-by-side comparison — syntax table, OR-logic workarounds, and when to use each: <a href="/compare/countif-vs-countifs" class="text-blue-600 underline font-semibold">COUNTIF vs COUNTIFS</a>.</p>
   </div>
 </div>`,
         relatedTools: ['countif', 'sumifs', 'sumif', 'averageif', 'ifs', 'iferror'],

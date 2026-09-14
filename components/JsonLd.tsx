@@ -54,7 +54,11 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl, dateModified }) => {
             "logo": {
                 "@type": "ImageObject",
                 "url": "https://www.getsheetmaster.com/logo.png"
-            }
+            },
+            "sameAs": [
+                "https://productwatch.io/products/sheetmaster",
+                "https://twitter.com/getsheetmaster"
+            ]
         },
         "publisher": {
             "@type": "Organization",
@@ -64,7 +68,11 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl, dateModified }) => {
             "logo": {
                 "@type": "ImageObject",
                 "url": "https://www.getsheetmaster.com/logo.png"
-            }
+            },
+            "sameAs": [
+                "https://productwatch.io/products/sheetmaster",
+                "https://twitter.com/getsheetmaster"
+            ]
         },
         "inLanguage": "en-US",
     };

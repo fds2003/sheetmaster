@@ -41,6 +41,7 @@ export const TOOL_PAGES: GeoPage[] = [
 
 export const STATIC_PAGES: GeoPage[] = [
     { path: 'compare/vlookup-vs-xlookup', section: 'tools', title: 'VLOOKUP vs XLOOKUP', description: 'Detailed comparison: syntax, performance, reverse lookup, and migration guide.' },
+    { path: 'compare/countif-vs-countifs', section: 'tools', title: 'COUNTIF vs COUNTIFS', description: 'COUNTIF counts with 1 condition; COUNTIFS handles 2+ with AND logic. Syntax table, OR-logic workarounds, and when to use each.' },
 ];
 
 function formulaPages(): GeoPage[] {
@@ -149,6 +150,12 @@ export function generateLlmsTxt(): string {
     lines.push('## Practical Problem-Solving Guides');
     pick(BLOG_POSTS, () => true, MAX_BLOG_IN_LLMS).forEach((p) => {
         lines.push(`- [${p.title}](${BASE_URL}/blog/${p.slug}): ${p.description}`);
+    });
+    lines.push('');
+
+    lines.push('## Comparisons');
+    STATIC_PAGES.forEach((c) => {
+        lines.push(`- [${c.title}](${BASE_URL}/${c.path}): ${c.description}`);
     });
     lines.push('');
 

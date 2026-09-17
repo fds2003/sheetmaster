@@ -75,11 +75,14 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl, dateModified }) => {
             ]
         },
         "inLanguage": "en-US",
+        "isAccessibleForFree": true,
+        "applicationSuite": "SheetMaster",
     };
     if (pageUrl) {
         softwareAppSchema.url = pageUrl;
     }
     if (dateModified) {
+        softwareAppSchema.datePublished = dateModified;
         softwareAppSchema.dateModified = dateModified;
     }
     schemas.push(softwareAppSchema);
@@ -92,6 +95,15 @@ const JsonLd: React.FC<JsonLdProps> = ({ formula, pageUrl, dateModified }) => {
             "name": `How to use the ${formula.excelFunction} function in Excel or Google Sheets`,
             "description": plainTextForSchema(formula.metaDescription || formula.description),
             "inLanguage": "en-US",
+            "estimatedCost": {
+                "@type": "MonetaryAmount",
+                "currency": "USD",
+                "value": "0"
+            },
+            "supply": [
+                { "@type": "HowToSupply", "name": "A computer with Excel or Google Sheets installed" },
+                { "@type": "HowToSupply", "name": "Your spreadsheet data ready to clean" }
+            ],
             "author": {
                 "@type": "Organization",
                 "@id": "https://www.getsheetmaster.com/#organization",

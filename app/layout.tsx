@@ -86,6 +86,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="yandex-verification" content="34a543b735906706" />
         <script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="3o5w9cs2gv8DjY2Et/UkCw"
